@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: <lic
+# key: <lic
+# binding: direct-keybinding
+# --
+<li class="$1">$0</li>

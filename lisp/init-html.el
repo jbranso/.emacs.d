@@ -1,13 +1,20 @@
-(require-package 'tidy)
-(add-hook 'html-mode-hook (lambda () (tidy-build-menu html-mode-map)))
+(require 'web-mode)
 
-(require-package 'tagedit)
-(after-load 'sgml-mode
-  (tagedit-add-paredit-like-keybindings)
-  (add-hook 'sgml-mode-hook (lambda () (tagedit-mode 1))))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.php?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml?\\'" . web-mode))
 
-(add-auto-mode 'html-mode "\\.(jsp|tmpl)\\'")
+(setq web-mode-engines-alist
+      '(("php"    . "\\.phtml\\'")
+        ("php"  . "\\.php\\.")
+        ("django"  . "\\.djhtml\\.")))
 
-;; Note: ERB is configured in init-ruby-mode
+(add-hook 'web-mode-hook (lambda ()
+                           (flyspell-prog-mode)
+                           (yas-minor-mode)
+                           (push '("function" . ?𝆑) prettify-symbols-alist)
+                           (push '(">=" . ?≥) prettify-symbols-alist)
+                           (push '("<=" . ?≤) prettify-symbols-alist)
+                           (auto-fill-mode)))
 
 (provide 'init-html)

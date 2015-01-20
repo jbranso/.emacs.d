@@ -23,14 +23,14 @@
 ;;----------------------------------------------------------------------------
 (setq indicate-empty-lines t)
 
-
 ;;----------------------------------------------------------------------------
 ;; Window size and features
 ;;----------------------------------------------------------------------------
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
-(when (fboundp 'set-scroll-bar-mode)
-  (set-scroll-bar-mode nil))
+
+;; put numbers on the side of the screen.
+(global-linum-mode 1)
 
 (let ((no-border '(internal-border-width . 0)))
   (add-to-list 'default-frame-alist no-border)

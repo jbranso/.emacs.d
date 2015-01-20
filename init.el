@@ -32,6 +32,7 @@
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
 
+(require-package 'yasnippet)
 (require-package 'wgrep)
 (require-package 'project-local-variables)
 (require-package 'diminish)
@@ -40,7 +41,7 @@
 
 (require 'init-frame-hooks)
 (require 'init-xterm)
-(require 'init-themes)
+;;(require 'init-themes)
 (require 'init-osx-keys)
 (require 'init-gui-frames)
 (require 'init-proxies)
@@ -61,6 +62,7 @@
 (require 'init-mmm)
 
 (require 'init-editing-utils)
+(require 'init-evil)
 
 (require 'init-vc)
 (require 'init-darcs)
