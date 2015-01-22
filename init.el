@@ -32,7 +32,6 @@
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
 
-(require-package 'yasnippet)
 (require-package 'wgrep)
 (require-package 'project-local-variables)
 (require-package 'diminish)
@@ -59,10 +58,10 @@
 (require 'init-windows)
 (require 'init-sessions)
 (require 'init-fonts)
-(require 'init-mmm)
 
 (require 'init-editing-utils)
 (require 'init-evil)
+(require 'init-yasnippet)
 
 (require 'init-vc)
 (require 'init-darcs)
@@ -74,17 +73,18 @@
 (require 'init-textile)
 (require 'init-markdown)
 (require 'init-csv)
+
 (require 'init-erlang)
 (require 'init-javascript)
 (require 'init-php)
 (require 'init-org)
+(require 'init-text)
 (require 'init-nxml)
 (require 'init-html)
 (require 'init-css)
 (require 'init-haml)
 (require 'init-python-mode)
 (require 'init-haskell)
-(require 'init-ruby-mode)
 (require 'init-rails)
 (require 'init-sql)
 

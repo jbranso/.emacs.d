@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: <imgc
+# key: <imgc
+# binding: direct-keybinding
+# --
+<img class="$1" src="$2" alt="$3">$0</img>

@@ -1,6 +1,9 @@
 (require 'evil)
-
 (evil-mode 1)
+(require 'evil-surround)
+(global-evil-surround-mode 1)
+;;I don't know why this is not working.
+;;(add-hook 'evil-mode-hook 'turn-on-surround-mode)
 
 ;; macros
 (fset 'viper-space "\C-z \C-z")
@@ -87,13 +90,16 @@
 (define-key evil-normal-state-map "j" 'evil-join)
 (define-key evil-normal-state-map (kbd "C-h") 'evil-open-below)
 (define-key evil-normal-state-map (kbd "C-t") 'evil-open-above)
-(define-key evil-normal-state-map (kbd "C-c h") 'help)
-(define-key evil-normal-state-map (kbd "C-c d") 'dired-jump)
-(define-key evil-normal-state-map (kbd "C-c g") 'magit-status)
-(define-key evil-normal-state-map (kbd "C-c b") 'eval-buffer)
-(define-key evil-normal-state-map (kbd "C-c l") 'eval-last-sexp)
+(define-key evil-normal-state-map (kbd ";") 'comment-dwim)
 (define-key evil-normal-state-map (kbd "C-c r") 'evil-record-macro)
-(define-key evil-normal-state-map (kbd "C-c b") 'eval-buffer)
+;; (define-key evil-normal-state-map (kbd "C-c h") 'help)
+;; (define-key evil-normal-state-map (kbd "C-c d") 'dired-jump)
+;; (define-key evil-normal-state-map (kbd "C-c g") 'magit-status)
+;; (define-key evil-normal-state-map (kbd "C-c b") 'eval-buffer)
+;; (define-key evil-normal-state-map (kbd "C-c l") 'eval-last-sexp)
+;; (define-key evil-normal-state-map (kbd "C-c b") 'eval-buffer)
+;; (define-key evil-normal-state-map (kbd "C-c e") 'helm-M-x)
+;; (define-key evil-normal-state-map (kbd "C-c m") 'helm-mini)
 (define-key evil-normal-state-map (kbd "M") (kbd "ESC"))
 
 ;; I would like to use these, but they do not work well with golden-ratio-mode
@@ -109,6 +115,11 @@
 (define-key evil-normal-state-map "/" 'helm-swoop)
 (define-key evil-normal-state-map "'" 'evil-goto-mark)
 (define-key evil-normal-state-map "Q" 'query-replace)
+(define-key evil-normal-state-map
+  (kbd "q") '(lambda ()
+               (interactive)
+               (save-buffer)
+               (let (kill-buffer-query-functions) (kill-buffer))))
 (define-key evil-normal-state-map (kbd "<backspace>") 'ace-jump-char-mode)
 (define-key evil-normal-state-map (kbd "l") 'recenter-top-bottom)
 ;;there is no need to set return to newline-and-indent, because electric-indent-mode is now on by default.
@@ -119,14 +130,9 @@
 (define-key evil-normal-state-map (kbd "A") 'evil-insert-line)
 (define-key evil-normal-state-map (kbd "u") 'evil-end-of-line)
 (define-key evil-normal-state-map (kbd "U") 'evil-append-line)
-(define-key evil-normal-state-map (kbd "C-c m") 'helm-mini)
 (define-key evil-normal-state-map (kbd "C-d") 'delete-char)
 (define-key evil-normal-state-map (kbd "<") 'beginning-of-buffer)
 (define-key evil-normal-state-map (kbd ">") 'end-of-buffer)
-(define-key evil-normal-state-map
-  (kbd "q") '(lambda ()
-               (interactive)
-               (let (kill-buffer-query-functions) (kill-buffer))))
 (define-key evil-normal-state-map (kbd "l") 'recenter-top-bottom)
 ;;there is no need to set return to newline-and-indent, because electric-indent-mode is now on by default.
 (define-key evil-normal-state-map (kbd "<return>") 'newline)
@@ -134,10 +140,6 @@
 (define-key evil-normal-state-map (kbd "C-a") 'mark-whole-buffer)
 (define-key evil-insert-state-map (kbd "C-i") 'info-display-manual)
 (define-key evil-normal-state-map (kbd "C-d") 'delete-char)
-(define-key evil-normal-state-map (kbd "C-c e") 'helm-M-x)
-(define-key evil-normal-state-map (kbd "q") '(lambda ()
-                                               (interactive)
-                                               (let (kill-buffer-query-functions) (kill-buffer))))
 
 ;; this should prevent making the escape key moving the cursor backwards but...
 ;; (define-key viper-insert-global-user-map

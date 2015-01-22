@@ -76,26 +76,46 @@
 (after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
+;; make org mode start up with auto fill mode
+(add-hook 'org-mode-hook '(lambda ()
+                            (auto-fill-mode)
+                            (visual-line-mode)
+                            ;;refill mode is pretty amazing. If you are getting tired of pressing M-q all
+                            ;;the time to fill paragraphs then turn on refill-mode.
+                            ;; Be warned though, auto-fill-mode, refill-mode, and probably visual line mode,
+                            ;; assume that the user follows the U.S. convention of using two spaces between
+                            ;; sentences. If you do not follow this convention, or you add this to your init
+                            ;; file...
+                            ;; (sentence-end-double-space nil)
+                            ;; bad things will happen. You have been warned.
+                            ;;https://www.gnu.org/software/emacs/manual/html_node/emacs/Auto-Fill.html
+                            ;;https://www.gnu.org/software/emacs/manual/html_node/emacs/Sentences.html
+                            (refill-mode)
+                            (push '(">=" . ?≥) prettify-symbols-alist)
+                            (push '("<=" . ?≤) prettify-symbols-alist)
+                            (push '("\\geq" . ?≥) prettify-symbols-alist)
+                            (push '("\\leq" . ?≤) prettify-symbols-alist)
+                            (push '("\\neg" . ?¬) prettify-symbols-alist)
+                            (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+                            (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+                            (push '("\\infty" . ?∞) prettify-symbols-alist)
+                            (push '("-->" . ?→) prettify-symbols-alist)
+                            (push '("<--" . ?←) prettify-symbols-alist)
+                            (push '("\\exists" . ?∃) prettify-symbols-alist)
+                            (push '("\\nexists" . ?∄) prettify-symbols-alist)
+                            (push '("\\forall" . ?∀) prettify-symbols-alist)
+                            (push '("\\or" . ?∨) prettify-symbols-alist)
+                            (push '("\\and" . ?∧) prettify-symbols-alist)
+                            (push '(":)" . ?☺) prettify-symbols-alist)
+                            (push '("):" . ?☹) prettify-symbols-alist)
+                            (push '(":D" . ?☺) prettify-symbols-alist)
+                            (push '("^_^" . ?☻) prettify-symbols-alist)
 
-;; ;; Show iCal calendars in the org agenda
-;; (when (and *is-a-mac* (require 'org-mac-iCal nil t))
-;;   (setq org-agenda-include-diary t
-;;         org-agenda-custom-commands
-;;         '(("I" "Import diary from iCal" agenda ""
-;;            ((org-agenda-mode-hook #'org-mac-iCal)))))
-
-;;   (add-hook 'org-agenda-cleanup-fancy-diary-hook
-;;             (lambda ()
-;;               (goto-char (point-min))
-;;               (save-excursion
-;;                 (while (re-search-forward "^[a-z]" nil t)
-;;                   (goto-char (match-beginning 0))
-;;                   (insert "0:00-24:00 ")))
-;;               (while (re-search-forward "^ [a-z]" nil t)
-;;                 (goto-char (match-beginning 0))
-;;                 (save-excursion
-;;                   (re-search-backward "^[0-9]+:[0-9]+-[0-9]+:[0-9]+ " nil t))
-;;                 (insert (match-string 0))))))
+                            (let ((original-command (lookup-key org-mode-map [tab])))
+                              `(lambda ()
+                                 (setq yas-fallback-behavior
+                                       '(apply ,original-command))
+                                 (local-set-key [tab] 'yas-expand)))))
 
 
 (after-load 'org

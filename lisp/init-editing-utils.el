@@ -16,6 +16,7 @@
  delete-selection-mode t
  ediff-split-window-function 'split-window-horizontally
  ediff-window-setup-function 'ediff-setup-windows-plain
+ next-line-add-newlines t
  indent-tabs-mode nil
  make-backup-files nil
  mouse-yank-at-point t
@@ -127,11 +128,35 @@
 (global-set-key (kbd "C-c j") 'join-line)
 (global-set-key (kbd "C-c J") (lambda () (interactive) (join-line 1)))
 
+;;toggle refill-mode
+(setq refill-mode-state 0)
+;; This is just not working...
+(defun toggle-refill-mode ()
+  "This will toggle refill mode"
+  (interactive)
+  (set-fill-column 134)
+  (if (= refill-mode-state 0)
+      '(lambda ()
+         (set-fill-column 134)
+         ;;since refill-mode state is off, then turn on refill-mode
+         (refill-mode 1)
+         (setq refill-mode-state 1))
+    '(lambda ()
+       (refill-mode 0)
+       (set-fill-column 134)
+       (setq refill-mode-state 0))))
+
+(global-set-key (kbd "C-c C-x r") 'toggle-refill-mode)
+
 ;; all of my "C-c [letter]" commands
 (global-set-key (kbd "C-c d") 'dired-jump)
 (global-set-key (kbd "C-c g") 'magit-status)
 (global-set-key (kbd "C-c l") 'eval-last-sexp)
 (global-set-key (kbd "C-c b") 'eval-buffer)
+(global-set-key (kbd "C-c m") 'helm-mini)
+(global-set-key (kbd "C-c q") 'fill-paragraph)
+(global-set-key (kbd "C-c e") 'helm-M-x)
+(global-set-key (kbd "C-c m") 'helm-mini)
 
 (global-set-key (kbd "C-x C-.") 'pop-global-mark)
 
@@ -204,7 +229,6 @@
       (with-current-buffer buffer
         (when (sanityinc/fci-enabled-p)
           (turn-on-fci-mode))))))
-
 
 ;;----------------------------------------------------------------------------
 ;; Shift lines up and down with M-up and M-down. When paredit is enabled,
