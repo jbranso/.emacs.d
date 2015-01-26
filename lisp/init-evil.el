@@ -5,6 +5,7 @@
 ;;I don't know why this is not working.
 ;;(add-hook 'evil-mode-hook 'turn-on-surround-mode)
 
+(setq evil-move-cursor-back nil)
 ;; macros
 (fset 'viper-space "\C-z \C-z")
 
@@ -57,6 +58,7 @@
 (define-key evil-visual-state-map "O" 'evil-backward-WORD-end)
 (define-key evil-visual-state-map "E" 'evil-forward-WORD-end)
 (define-key evil-visual-state-map (kbd "<backspace>") 'ace-jump-char-mode)
+(define-key evil-visual-state-map (kbd ";") 'comment-dwim)
 
 (define-key evil-replace-state-map (kbd "C-s") 'evil-substitute)
 (define-key evil-replace-state-map "s" 'evil-forward-char)
@@ -92,12 +94,13 @@
 (define-key evil-normal-state-map (kbd "C-t") 'evil-open-above)
 (define-key evil-normal-state-map (kbd ";") 'comment-dwim)
 (define-key evil-normal-state-map (kbd "C-c r") 'evil-record-macro)
+;; These bindings have been put into init-editing-utils.el, which is where all of my
+;; C-c . bindings are.
 ;; (define-key evil-normal-state-map (kbd "C-c h") 'help)
 ;; (define-key evil-normal-state-map (kbd "C-c d") 'dired-jump)
 ;; (define-key evil-normal-state-map (kbd "C-c g") 'magit-status)
 ;; (define-key evil-normal-state-map (kbd "C-c b") 'eval-buffer)
 ;; (define-key evil-normal-state-map (kbd "C-c l") 'eval-last-sexp)
-;; (define-key evil-normal-state-map (kbd "C-c b") 'eval-buffer)
 ;; (define-key evil-normal-state-map (kbd "C-c e") 'helm-M-x)
 ;; (define-key evil-normal-state-map (kbd "C-c m") 'helm-mini)
 (define-key evil-normal-state-map (kbd "M") (kbd "ESC"))
@@ -149,21 +152,23 @@
 (define-key evil-insert-state-map (kbd "C-d") 'delete-char)
 (define-key evil-insert-state-map (kbd "<backspace>") 'delete-backward-char)
 (define-key evil-insert-state-map (kbd "<return>") 'newline-and-indent)
-(define-key evil-insert-state-map (kbd "C-n") 'backward-char)
 (define-key evil-insert-state-map (kbd "C-h") 'next-line)
 (define-key evil-insert-state-map (kbd "C-t") 'previous-line)
+(define-key evil-insert-state-map (kbd "C-n") 'backward-char)
 (define-key evil-insert-state-map (kbd "C-s") 'forward-char)
-(define-key evil-insert-state-map (kbd "C-c h") 'help)
 (define-key evil-insert-state-map (kbd "C-i") 'info-display-manual)
+(define-key evil-insert-state-map (kbd "C-z") 'evil-normal-state)
 
-(define-key evil-emacs-state-map (kbd "C-c h") 'help)
-(define-key evil-emacs-state-map (kbd "C-c d") 'dired-jump)
-(define-key evil-emacs-state-map (kbd "C-c g") 'magit-status)
-(define-key evil-emacs-state-map (kbd "C-c b") 'eval-buffer)
-(define-key evil-emacs-state-map (kbd "C-c l") 'eval-last-sexp)
-(define-key evil-emacs-state-map (kbd "C-c r") 'evil-record-macro)
-(define-key evil-emacs-state-map (kbd "C-c b") 'eval-buffer)
-(define-key evil-emacs-state-map (kbd "M") (kbd "ESC"))
+;; these bindings have been placed into init-editing-utils.el, which is where
+;; most of my global key-bindings are.
+;; (define-key evil-emacs-state-map (kbd "C-c h") 'help)
+;; (define-key evil-emacs-state-map (kbd "C-c d") 'dired-jump)
+;; (define-key evil-emacs-state-map (kbd "C-c g") 'magit-status)
+;; (define-key evil-emacs-state-map (kbd "C-c b") 'eval-buffer)
+;; (define-key evil-emacs-state-map (kbd "C-c l") 'eval-last-sexp)
+;; (define-key evil-emacs-state-map (kbd "C-c r") 'evil-record-macro)
+;; (define-key evil-emacs-state-map (kbd "C-c b") 'eval-buffer)
+;; (define-key evil-emacs-state-map (kbd "M") (kbd "ESC"))
 ;; I would like to use these, but they do not work well with golden-ratio-mode
 ;;(define-key evil-emacs-state-map (kbd "C-w h") 'evil-window-down)
 ;;(define-key evil-emacs-state-map (kbd "C-w t") 'evil-window-up)

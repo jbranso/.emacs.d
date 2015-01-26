@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: <ulc
+# key: <ulc
+# binding: direct-keybinding
+# --
+<ul class="$1">$0</ul>

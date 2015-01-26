@@ -16,9 +16,11 @@
  delete-selection-mode t
  ediff-split-window-function 'split-window-horizontally
  ediff-window-setup-function 'ediff-setup-windows-plain
+ ;;when you are on the last line of the buffer, C-n will act like <return>
  next-line-add-newlines t
  indent-tabs-mode nil
  make-backup-files nil
+ auto-save-timeout 300
  mouse-yank-at-point t
  save-interprogram-paste-before-kill t
  scroll-preserve-screen-position 'always
@@ -27,7 +29,8 @@
  tooltip-delay 1.5
  truncate-lines nil
  truncate-partial-width-windows nil
- visible-bell t)
+ ;;visible-bell t
+ )
 
 (global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
@@ -148,15 +151,51 @@
 
 (global-set-key (kbd "C-c C-x r") 'toggle-refill-mode)
 
-;; all of my "C-c [letter]" commands
+(defun endless/comment-line (n)
+  "Comment or uncomment current line and leave point after it.
+With positive prefix, apply to N lines including current one.
+With negative prefix, apply to -N lines above."
+  (interactive "p")
+  (comment-or-uncomment-region
+   (line-beginning-position)
+   (goto-char (line-end-position n)))
+  (forward-line 1)
+  (back-to-indentation))
+
+(defun my/uppercase-word ()
+  "capitalize the current word."
+  (interactive)
+  (forward-word)
+  (backward-word)
+  (capitalize-word 1))
+
+(defun my/downcase-word ()
+  "downcase the current word."
+  (interactive)
+  (forward-word)
+  (backward-word)
+  (downcase-word 1))
+
+;;all of my "C-c [letter]" commands
+;; most of these commands are also in init-evil.el
+;; It's probably not a good idea to have duplicate code, but
+;; if
+(global-set-key (kbd "C-c t") #'transpose-chars)
+(global-set-key (kbd "C-c u") #'my/uppercase-word)
+(global-set-key (kbd "C-c d") #'my/downcase-word)
+(global-set-key (kbd "C-c ;") #'endless/comment-line)
+(global-set-key (kbd "C-c h") 'help)
 (global-set-key (kbd "C-c d") 'dired-jump)
 (global-set-key (kbd "C-c g") 'magit-status)
-(global-set-key (kbd "C-c l") 'eval-last-sexp)
 (global-set-key (kbd "C-c b") 'eval-buffer)
+(global-set-key (kbd "C-c l") 'eval-last-sexp)
 (global-set-key (kbd "C-c m") 'helm-mini)
 (global-set-key (kbd "C-c q") 'fill-paragraph)
 (global-set-key (kbd "C-c e") 'helm-M-x)
 (global-set-key (kbd "C-c m") 'helm-mini)
+;; this is not working for some reason.
+(global-set-key (kbd "C-c x") 'er/expand-region)
+(global-set-key (kbd "C-c i") 'info-display-manual)
 
 (global-set-key (kbd "C-x C-.") 'pop-global-mark)
 

@@ -3,8 +3,6 @@
   (dolist (hook '(css-mode-hook html-mode-hook sass-mode-hook))
     (add-hook hook 'rainbow-mode)))
 
-
-;;; Embedding in html
 
 
 ;;; SASS and SCSS
@@ -32,5 +30,7 @@
 (autoload 'turn-on-css-eldoc "css-eldoc")
 (add-hook 'css-mode-hook 'turn-on-css-eldoc)
 
+(add-to-list 'ac-sources 'ac-source-css-property)
+(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 
 (provide 'init-css)
