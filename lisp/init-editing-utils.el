@@ -20,7 +20,12 @@
  next-line-add-newlines t
  indent-tabs-mode nil
  make-backup-files nil
- auto-save-timeout 300
+ ;; only auto-save when the buffer has been idle for 1 hour.  This has no purpose other than to stop auto-saves
+ ;; the next two lines are dumb hacks to try to stop auto-saving
+ ;;auto-save-timeout 3600
+ ;;auto-save-interval 2000
+ ;; this should turn off auto-saving the proper way.
+ auto-save-default t
  mouse-yank-at-point t
  save-interprogram-paste-before-kill t
  scroll-preserve-screen-position 'always
@@ -179,7 +184,8 @@ With negative prefix, apply to -N lines above."
 ;;all of my "C-c [letter]" commands
 ;; most of these commands are also in init-evil.el
 ;; It's probably not a good idea to have duplicate code, but
-;; if
+;;this is not working.
+;;(define-key yas-minor-mode-map (kbd "C-c s") 'yas-expand)
 (global-set-key (kbd "C-c t") #'transpose-chars)
 (global-set-key (kbd "C-c u") #'my/uppercase-word)
 (global-set-key (kbd "C-c d") #'my/downcase-word)

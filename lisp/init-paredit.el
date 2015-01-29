@@ -22,11 +22,9 @@
   ;; Allow my global binding of M-? to work when paredit is active
   (define-key paredit-mode-map (kbd "M-?") nil))
 
-
 ;; Compatibility with other modes
 
 (suspend-mode-during-cua-rect-selection 'paredit-mode)
-
 
 ;; Use paredit in the minibuffer
 ;; TODO: break out into separate package
@@ -49,8 +47,9 @@
 ;; Enable some handy paredit functions in all prog modes
 ;; ----------------------------------------------------------------------------
 
-(require-package 'paredit-everywhere)
-(add-hook 'prog-mode-hook 'paredit-everywhere-mode)
-(add-hook 'css-mode-hook 'paredit-everywhere-mode)
+;; I don't use paredit everywhere, so why enable it everywhere?
+;;(require-package 'paredit-everywhere)
+;;(add-hook 'prog-mode-hook 'paredit-everywhere-mode)
+;;(add-hook 'css-mode-hook 'paredit-everywhere-mode)
 
 (provide 'init-paredit)

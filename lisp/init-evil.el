@@ -5,14 +5,30 @@
 ;;I don't know why this is not working.
 ;;(add-hook 'evil-mode-hook 'turn-on-surround-mode)
 
+;;Do not move the cursor back when exiting insert mode.
 (setq evil-move-cursor-back nil)
-;; macros
+;; This macro allows me to insert a space with the spacebar.
 (fset 'viper-space "\C-z \C-z")
+;; this macro will turn a WORD into a proper html link
+(fset 'makeHref
+      (lambda (&optional arg)
+        "Keyboard macro."
+        (interactive "p")
+        (kmacro-exec-ring-item
+         (quote ("EBEyES<a href=\">" 0 "%d")) arg)))
 
 ;; Make evil-insert-mode allow emacs keybindings
 (setcdr evil-insert-state-map nil)
-(define-key evil-insert-state-map
-  (kbd "ESC") 'evil-normal-state)
+
+;; I have no idea why this is not working. It should be!
+(require 'evil-dvorak)
+(add-hook 'evil-mode-hook '(lambda ()
+                             (interactive)
+                             (evil-dvorak-mode 1)))
+;; this a file that will hopefully soon become and emacs package.
+;;(require 'evil-dorak)
+
+(define-key evil-insert-state-map (kbd "ESC") 'evil-normal-state)
 
 (define-key evil-motion-state-map "k" 'kill-line)
 (define-key evil-motion-state-map "n" 'evil-backward-char)
@@ -34,6 +50,7 @@
 (define-key evil-motion-state-map (kbd "C-w n") 'windmove-left)
 (define-key evil-motion-state-map (kbd "C-w s") 'windmove-right)
 
+(define-key evil-operator-state-map "l" 'evil-change-whole-line)
 (define-key evil-operator-state-map "s" 'evil-forward-char)
 (define-key evil-operator-state-map "n" 'evil-backward-char)
 (define-key evil-operator-state-map "t" 'evil-previous-line)

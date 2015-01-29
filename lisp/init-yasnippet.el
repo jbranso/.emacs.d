@@ -6,4 +6,5 @@
 ;; however, if I can change yas-expand key to something other than tab, then I should turn this back on.
 ;; because then I can have snippets for javascript, jquery, and php!
 ;;(yas-global-mode 1)
+
 (provide 'init-yasnippet)

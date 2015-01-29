@@ -9,6 +9,22 @@
 
 (define-key web-mode-map (kbd "C-c C-a k") 'web-mode-attribute-kill)
 
+;; connect emacs to mozilla so I can reload the webpage.
+(load "~/.emacs.d/elpa/mol.el")
+(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+
+(defun auto-reload-firefox-on-after-save-hook ()
+  (add-hook 'after-save-hook
+            '(lambda ()
+               (interactive)
+               (comint-send-string (inferior-moz-process)
+                                   "setTimeout(BrowserReload(), \"1000\");"))
+            'append 'local)) ; buffer-local
+
+;; Example - you may want to add hooks for your own modes.
+;; I also add this to python-mode when doing django development.
+(add-hook 'web-mode-hook 'auto-reload-firefox-on-after-save-hook)
+
 ;; I'd like to start using use-package, but it does not seem to be working.
 ;; (require 'use-package)
 ;; (use-package web-mode
@@ -40,6 +56,7 @@
                            ;; (yas-minor-mode)
                            ;;(yas-reload-all)
                            (emmet-mode)
+                           (moz-minor-mode 1)
                            (push '("function" . ?𝆑) prettify-symbols-alist)
                            (push '(">=" . ?≥) prettify-symbols-alist)
                            (push '("<=" . ?≤) prettify-symbols-alist)

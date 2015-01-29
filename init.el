@@ -62,6 +62,8 @@
 (require 'init-windows)
 (require 'init-sessions)
 (require 'init-fonts)
+(require 'init-helm)
+(require 'init-projectile)
 
 (require 'init-editing-utils)
 (require 'init-evil)
