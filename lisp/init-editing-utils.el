@@ -186,6 +186,7 @@ With negative prefix, apply to -N lines above."
 ;; It's probably not a good idea to have duplicate code, but
 ;;this is not working.
 ;;(define-key yas-minor-mode-map (kbd "C-c s") 'yas-expand)
+(global-set-key (kbd "C-c f") #'isearch-forward)
 (global-set-key (kbd "C-c t") #'transpose-chars)
 (global-set-key (kbd "C-c u") #'my/uppercase-word)
 (global-set-key (kbd "C-c d") #'my/downcase-word)

@@ -7,7 +7,6 @@
   (when mark-active
     (kill-region (region-beginning) (region-end))))
 
-(define-key web-mode-map (kbd "C-c C-a k") 'web-mode-attribute-kill)
 
 ;; connect emacs to mozilla so I can reload the webpage.
 (load "~/.emacs.d/elpa/mol.el")
@@ -56,6 +55,12 @@
                            ;; (yas-minor-mode)
                            ;;(yas-reload-all)
                            (emmet-mode)
+                           (local-unset-key (kbd "C-<return>"))
+                           (define-key web-mode-map (kbd "C-c C-a k") 'web-mode-attribute-kill)
+                           (define-key web-mode-map (kbd "C-<return>") '(lambda ()
+                                                                          (interactive)
+                                                                          (newline)
+                                                                          (evil-open-above 0)))
                            (moz-minor-mode 1)
                            (push '("function" . ?𝆑) prettify-symbols-alist)
                            (push '(">=" . ?≥) prettify-symbols-alist)
