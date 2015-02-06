@@ -7,6 +7,8 @@
 (require-package 'gitignore-mode)
 (require-package 'gitconfig-mode)
 (require-package 'git-messenger) ;; Though see also vc-annotate's "n" & "p" bindings
+;; this package is soooo cool! you execute git-timemachine, you can then press p and n to go to the
+;; previous and next verions. w copies the git hash of the current buffer, and q quits the buffer
 (require-package 'git-timemachine)
 
 (setq-default
