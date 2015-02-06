@@ -1,7 +1,7 @@
 ;;----------------------------------------------------------------------------
 ;; Misc config - yet to be placed in separate files
 ;;----------------------------------------------------------------------------
-(add-auto-mode 'tcl-mode "Portfile\\'")
+;; make all questions ask you y for yes and n for no
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (dolist (hook (if (fboundp 'prog-mode)

@@ -1,5 +1,6 @@
 (setq-default compilation-scroll-output t)
 
+;; this is a message that displays messages to the user. It is an alternate method of the emacs message function
 (require-package 'alert)
 
 ;; Customize `alert-default-style' to get messages after compilation

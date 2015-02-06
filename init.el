@@ -82,8 +82,6 @@
 (require 'init-github)
 
 (require 'init-compile)
-(require 'init-crontab)
-(require 'init-textile)
 
 (require 'init-javascript)
 (require 'init-org)
@@ -102,7 +100,6 @@
 
 (require 'init-misc)
 
-(require 'init-dash)
 (require 'init-ledger)
 ;; Extra packages which don't require any configuration
 
