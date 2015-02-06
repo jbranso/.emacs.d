@@ -11,7 +11,7 @@
 
   (defun extract-host-and-port (url-string)
     (if (string-match "^[a-z]+://\\([^/]+\\)" url-string)
-      (match-string 1 url-string)
+        (match-string 1 url-string)
       url-string))
 
   (defun assq-delete-all-with-test (k l &optional test)

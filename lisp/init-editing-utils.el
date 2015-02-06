@@ -189,9 +189,9 @@ With negative prefix, apply to -N lines above."
 (global-set-key (kbd "C-c f") #'isearch-forward)
 (global-set-key (kbd "C-c t") #'transpose-chars)
 (global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-set-key (kbd "C-c u") #'my/uppercase-word)
+(global-set-key (kbd "s-u") #'my/uppercase-word)
 ;; this conflicts with my command for dired.
-(global-set-key (kbd "C-c d") #'my/downcase-word)
+(global-set-key (kbd "s-d") #'my/downcase-word)
 (global-set-key (kbd "C-c ;") #'endless/comment-line)
 (global-set-key (kbd "C-c d") 'dired-jump)
 (global-set-key (kbd "C-c g") 'magit-status)
