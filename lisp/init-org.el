@@ -23,11 +23,12 @@
       org-tags-column 80)
 
 
-; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
-(setq org-refile-targets (quote ((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5))))
-; Targets start with the file name - allows creating level 1 tasks
+                                        ; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
+;;(setq org-refile-targets (quote ((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5))))
+(setq org-agenda-files "~/programming/org/gtd/gtd.org")
+                                        ; Targets start with the file name - allows creating level 1 tasks
 (setq org-refile-use-outline-path (quote file))
-; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
+                                        ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
 (setq org-outline-path-complete-in-steps t)
 
 

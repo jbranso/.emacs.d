@@ -37,8 +37,12 @@
 ;;(require-package 'use-package)
 (require-package 'wgrep)
 (require-package 'project-local-variables)
+;; this helps you minizize modeline clutter by hidding some modes on the mode line.
+;; http://www.emacswiki.org/emacs/DiminishedModes
 (require-package 'diminish)
-(require-package 'scratch)
+;;I have no idea what this next package does
+;;(require-package 'scratch)
+;; this will be cool to monitor my commands.
 (require-package 'mwe-log-commands)
 
 (require 'init-frame-hooks)
@@ -46,7 +50,8 @@
 ;;(require 'init-themes)
 (require 'init-osx-keys)
 (require 'init-gui-frames)
-(require 'init-proxies)
+;; I don't think I'll need this.
+;;(require 'init-proxies)
 (require 'init-dired)
 (require 'init-isearch)
 (require 'init-grep)
@@ -55,11 +60,12 @@
 (require 'init-flycheck)
 
 (require 'init-recentf)
-(require 'init-ido)
-(require 'init-hippie-expand)
+;; I don't use hippie expand
+;;(require 'init-hippie-expand)
 (require 'init-cedet)
 (require 'init-yasnippet)
 (require 'init-windows)
+;; this file saves all open buffers. It is so useful!
 (require 'init-sessions)
 (require 'init-fonts)
 (require 'init-helm)
@@ -69,7 +75,9 @@
 (require 'init-evil)
 
 (require 'init-vc)
-(require 'init-darcs)
+;; I've no idea what this does
+;; http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html
+;;(require 'init-darcs)
 (require 'init-git)
 (require 'init-github)
 
@@ -91,9 +99,6 @@
 (when (>= emacs-major-version 24)
   (require 'init-clojure-cider))
 (require 'init-common-lisp)
-
-(when *spell-check-support-enabled*
-  (require 'init-spelling))
 
 (require 'init-misc)
 

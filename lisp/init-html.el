@@ -66,6 +66,9 @@
                            (push '(">=" . ?≥) prettify-symbols-alist)
                            (push '("<=" . ?≤) prettify-symbols-alist)
                            (aggressive-indent-mode)
+                           ;; unset web mode's C-c C-h command, because I want to use that for 'help
+                           (local-unset-key (kbd "C-c C-h"))
+                           (global-set-key (kbd "C-c C-h") 'help)
                            (auto-fill-mode)))
 
 (add-to-list 'web-mode-ac-sources-alist

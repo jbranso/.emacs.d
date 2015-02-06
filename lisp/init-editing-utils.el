@@ -25,7 +25,7 @@
  ;;auto-save-timeout 3600
  ;;auto-save-interval 2000
  ;; this should turn off auto-saving the proper way.
- auto-save-default t
+ auto-save-default nil
  mouse-yank-at-point t
  save-interprogram-paste-before-kill t
  scroll-preserve-screen-position 'always
@@ -188,10 +188,11 @@ With negative prefix, apply to -N lines above."
 ;;(define-key yas-minor-mode-map (kbd "C-c s") 'yas-expand)
 (global-set-key (kbd "C-c f") #'isearch-forward)
 (global-set-key (kbd "C-c t") #'transpose-chars)
+(global-set-key (kbd "C-c h") 'helm-command-prefix)
 (global-set-key (kbd "C-c u") #'my/uppercase-word)
+;; this conflicts with my command for dired.
 (global-set-key (kbd "C-c d") #'my/downcase-word)
 (global-set-key (kbd "C-c ;") #'endless/comment-line)
-(global-set-key (kbd "C-c h") 'help)
 (global-set-key (kbd "C-c d") 'dired-jump)
 (global-set-key (kbd "C-c g") 'magit-status)
 (global-set-key (kbd "C-c b") 'eval-buffer)
@@ -205,6 +206,13 @@ With negative prefix, apply to -N lines above."
 (global-set-key (kbd "C-c i") 'info-display-manual)
 
 (global-set-key (kbd "C-x C-.") 'pop-global-mark)
+;; web-mode has a command C-c C-h that overrides this.
+;; I've modified the web-mode-hook to account for this.
+(global-set-key (kbd "C-c C-h") 'help)
+(global-set-key (kbd "C-c h k") 'helm-show-kill-ring)
+(global-set-key (kbd "C-x f") 'helm-find-files)
+(global-set-key (kbd "C-c h o") 'helm-occur)
+(global-set-key (kbd "C-c h c") 'helm-calcul-expression)
 
 (require-package 'multiple-cursors)
 ;; multiple-cursors

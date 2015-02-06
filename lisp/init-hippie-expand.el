@@ -6,5 +6,4 @@
         try-expand-dabbrev
         try-expand-dabbrev-all-buffers
         try-expand-dabbrev-from-kill))
-
 (provide 'init-hippie-expand)
