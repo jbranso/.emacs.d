@@ -57,18 +57,19 @@
 ;; (require 'init-grep)
 ;; (require 'init-uniquify)
 ;; (require 'init-ibuffer)
+;; (require 'init-flycheck)
 
 ;;(require 'init-recentf)
-(require 'init-cedet)
+;;(require 'init-cedet)
 ;; (require 'init-yasnippet)
 ;; (require 'init-windows)
 ;; this file saves all open buffers. It is so useful!
 ;; (require 'init-sessions)
 ;; (require 'init-fonts)
-(require 'init-helm)
-(require 'init-projectile)
+;;(require 'init-helm)
+;;(require 'init-projectile)
 
-(require 'init-editing-utils)
+;;(require 'init-editing-utils)
 ;; (require 'init-evil)
 
 (require 'init-vc)
