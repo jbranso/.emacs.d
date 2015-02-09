@@ -57,13 +57,10 @@
 ;; (require 'init-grep)
 ;; (require 'init-uniquify)
 ;; (require 'init-ibuffer)
-;; (require 'init-flycheck)
 
 ;;(require 'init-recentf)
-;; I don't use hippie expand
-;;(require 'init-hippie-expand)
 (require 'init-cedet)
-(require 'init-yasnippet)
+;; (require 'init-yasnippet)
 ;; (require 'init-windows)
 ;; this file saves all open buffers. It is so useful!
 ;; (require 'init-sessions)
@@ -104,17 +101,17 @@
 ;;(require 'init-ledger)
 ;; Extra packages which don't require any configuration
 
-(require-package 'gnuplot)
-(require-package 'lua-mode)
-(require-package 'htmlize)
-(require-package 'dsvn)
+;; (require-package 'gnuplot)
+;; (require-package 'lua-mode)
+;; (require-package 'htmlize)
+;; (require-package 'dsvn)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
 ;;----------------------------------------------------------------------------
-(require 'server)
-(unless (server-running-p)
-  (server-start))
+;; (require 'server)
+;; (unless (server-running-p)
+;;   (server-start))
 
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
