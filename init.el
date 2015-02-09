@@ -60,7 +60,7 @@
 (require 'init-flycheck)
 
 (require 'init-recentf)
-;;(require 'init-cedet)
+(require 'init-cedet)
 (require 'init-yasnippet)
 (require 'init-windows)
 ;; this file saves all open buffers. It is so useful!
