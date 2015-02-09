@@ -7,6 +7,7 @@
 
 ;;----------------------------------------------------------------------------
 ;; When splitting window, show (other-buffer) in the new window
+;; I believe this splits the window, and in the new window, it displays the previous buffer.
 ;;----------------------------------------------------------------------------
 (defun split-window-func-with-other-buffer (split-function)
   (lexical-let ((s-f split-function))
@@ -43,8 +44,6 @@
     (delete-other-windows)
     (funcall (split-window-func-with-other-buffer 'split-window-vertically))))
 
-(global-set-key "\C-x|" 'split-window-horizontally-instead)
-(global-set-key "\C-x_" 'split-window-vertically-instead)
 ;; the notation (kbd "s--") means Hold the command key, then press -
 (global-set-key (kbd "s-\\")  'split-window-horizontally-instead)
 (global-set-key (kbd "s--") 'split-window-vertically-instead)

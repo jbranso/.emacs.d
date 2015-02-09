@@ -32,9 +32,9 @@
 ;; put numbers on the side of the screen.
 (global-linum-mode 1)
 
-(let ((no-border '(internal-border-width . 0)))
-  (add-to-list 'default-frame-alist no-border)
-  (add-to-list 'initial-frame-alist no-border))
+;; (let ((no-border '(internal-border-width . 0)))
+;;  (add-to-list 'default-frame-alist no-border)
+;;  (add-to-list 'initial-frame-alist no-border))
 
 (defun sanityinc/adjust-opacity (frame incr)
   (let* ((oldalpha (or (frame-parameter frame 'alpha) 100))

@@ -49,11 +49,9 @@
 (require-package 'mwe-log-commands)
 
 (require 'init-frame-hooks)
-(require 'init-xterm)
-;;(require 'init-themes)
+;;(require 'init-xterm)
 (require 'init-gui-frames)
 ;; I don't think I'll need this.
-(require 'init-proxies)
 (require 'init-dired)
 (require 'init-isearch)
 (require 'init-grep)
@@ -102,7 +100,8 @@
 
 (require 'init-misc)
 
-(require 'init-ledger)
+;; use the command line accounting tool ledger
+;;(require 'init-ledger)
 ;; Extra packages which don't require any configuration
 
 (require-package 'gnuplot)
