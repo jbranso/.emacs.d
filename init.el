@@ -46,28 +46,28 @@
 ;; kind of silly.
 ;;(require-package 'scratch)
 ;; But I have to initialize it...It will not record commands by default.
-(require-package 'mwe-log-commands)
+;;(require-package 'mwe-log-commands)
 
-(require 'init-frame-hooks)
+;;(require 'init-frame-hooks)
 ;;(require 'init-xterm)
-(require 'init-gui-frames)
+;;(require 'init-gui-frames)
 ;; I don't think I'll need this.
-(require 'init-dired)
-(require 'init-isearch)
-(require 'init-grep)
-(require 'init-uniquify)
-(require 'init-ibuffer)
-(require 'init-flycheck)
+;; (require 'init-dired)
+;; (require 'init-isearch)
+;; (require 'init-grep)
+;; (require 'init-uniquify)
+;; (require 'init-ibuffer)
+;; (require 'init-flycheck)
 
-(require 'init-recentf)
+;;(require 'init-recentf)
 ;; I don't use hippie expand
 ;;(require 'init-hippie-expand)
 (require 'init-cedet)
 (require 'init-yasnippet)
-(require 'init-windows)
+;; (require 'init-windows)
 ;; this file saves all open buffers. It is so useful!
-(require 'init-sessions)
-(require 'init-fonts)
+;; (require 'init-sessions)
+;; (require 'init-fonts)
 (require 'init-helm)
 (require 'init-projectile)
 
@@ -81,7 +81,7 @@
 (require 'init-git)
 (require 'init-github)
 
-(require 'init-compile)
+;; (require 'init-compile)
 
 (require 'init-javascript)
 (require 'init-org)
@@ -91,7 +91,7 @@
 (require 'init-python-mode)
 (require 'init-sql)
 
-(require 'init-paredit)
+;; (require 'init-paredit)
 (require 'init-lisp)
 (require 'init-clojure)
 (when (>= emacs-major-version 24)
