@@ -66,8 +66,8 @@
 ;; this file saves all open buffers. It is so useful!
 (require 'init-sessions)
 (require 'init-fonts)
-;;(require 'init-helm)
-;;(require 'init-projectile)
+(require 'init-helm)
+(require 'init-projectile)
 
 ;;(require 'init-editing-utils)
 (require 'init-evil)
@@ -79,7 +79,7 @@
 (require 'init-git)
 (require 'init-github)
 
-;; (require 'init-compile)
+(require 'init-compile)
 
 (require 'init-javascript)
 (require 'init-org)
@@ -102,17 +102,17 @@
 ;;(require 'init-ledger)
 ;; Extra packages which don't require any configuration
 
-;; (require-package 'gnuplot)
-;; (require-package 'lua-mode)
-;; (require-package 'htmlize)
-;; (require-package 'dsvn)
+(require-package 'gnuplot)
+(require-package 'lua-mode)
+(require-package 'htmlize)
+(require-package 'dsvn)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
 ;;----------------------------------------------------------------------------
-;; (require 'server)
-;; (unless (server-running-p)
-;;   (server-start))
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
