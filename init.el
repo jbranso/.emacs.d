@@ -37,7 +37,7 @@
 ;;(require-package 'use-package)
 ;; I haven't used this yet so...
 ;; but it allows you to use grep and edit the grep buffer, which will also write to the files.
-;;(require-package 'wgrep)
+(require-package 'wgrep)
 (require-package 'project-local-variables)
 ;; this helps you minizize modeline clutter by hidding some modes on the mode line.
 ;; http://www.emacswiki.org/emacs/DiminishedModes
@@ -46,31 +46,31 @@
 ;; kind of silly.
 ;;(require-package 'scratch)
 ;; But I have to initialize it...It will not record commands by default.
-;;(require-package 'mwe-log-commands)
+(require-package 'mwe-log-commands)
 
-;;(require 'init-frame-hooks)
-;;(require 'init-xterm)
-;;(require 'init-gui-frames)
+(require 'init-frame-hooks)
+(require 'init-xterm)
+(require 'init-gui-frames)
 ;; I don't think I'll need this.
-;; (require 'init-dired)
-;; (require 'init-isearch)
-;; (require 'init-grep)
-;; (require 'init-uniquify)
-;; (require 'init-ibuffer)
-;; (require 'init-flycheck)
+(require 'init-dired)
+(require 'init-isearch)
+(require 'init-grep)
+(require 'init-uniquify)
+(require 'init-ibuffer)
+(require 'init-flycheck)
 
-;;(require 'init-recentf)
+(require 'init-recentf)
 ;;(require 'init-cedet)
-;; (require 'init-yasnippet)
-;; (require 'init-windows)
+(require 'init-yasnippet)
+(require 'init-windows)
 ;; this file saves all open buffers. It is so useful!
-;; (require 'init-sessions)
-;; (require 'init-fonts)
+(require 'init-sessions)
+(require 'init-fonts)
 ;;(require 'init-helm)
 ;;(require 'init-projectile)
 
 ;;(require 'init-editing-utils)
-;; (require 'init-evil)
+(require 'init-evil)
 
 (require 'init-vc)
 ;; I've no idea what this does
