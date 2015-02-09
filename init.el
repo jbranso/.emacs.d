@@ -72,7 +72,7 @@
 (require 'init-projectile)
 
 (require 'init-editing-utils)
-(require 'init-evil)
+;; (require 'init-evil)
 
 (require 'init-vc)
 ;; I've no idea what this does
