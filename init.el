@@ -35,23 +35,25 @@
 
 ;;I can't get use-package to work.
 ;;(require-package 'use-package)
-(require-package 'wgrep)
+;; I haven't used this yet so...
+;; but it allows you to use grep and edit the grep buffer, which will also write to the files.
+;;(require-package 'wgrep)
 (require-package 'project-local-variables)
 ;; this helps you minizize modeline clutter by hidding some modes on the mode line.
 ;; http://www.emacswiki.org/emacs/DiminishedModes
 (require-package 'diminish)
-;;I have no idea what this next package does
+;; Scratch lets you make a buffer for a particular mode.  It lets you play with some code, and then put it in your own file.
+;; kind of silly.
 ;;(require-package 'scratch)
-;; this will be cool to monitor my commands.
+;; But I have to initialize it...It will not record commands by default.
 (require-package 'mwe-log-commands)
 
 (require 'init-frame-hooks)
 (require 'init-xterm)
 ;;(require 'init-themes)
-(require 'init-osx-keys)
 (require 'init-gui-frames)
 ;; I don't think I'll need this.
-;;(require 'init-proxies)
+(require 'init-proxies)
 (require 'init-dired)
 (require 'init-isearch)
 (require 'init-grep)

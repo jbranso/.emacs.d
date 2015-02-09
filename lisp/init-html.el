@@ -1,11 +1,11 @@
 (require 'web-mode)
 
-(defun web-mode-attribute-kill ()
-  "Kill the current html attribute."
-  (interactive)
-  (web-mode-attribute-select)
-  (when mark-active
-    (kill-region (region-beginning) (region-end))))
+;; (defun web-mode-attribute-kill ()
+;;   "Kill the current html attribute."
+;;   (interactive)
+;;   (web-mode-attribute-select)
+;;   (when mark-active
+;;     (kill-region (region-beginning) (region-end))))
 
 
 ;; connect emacs to mozilla so I can reload the webpage.
@@ -49,6 +49,7 @@
 
 (require 'emmet-mode)
 
+
 (add-hook 'web-mode-hook (lambda ()
                            (flyspell-prog-mode)
                            ;;emmet mode is sooo much better than yas
@@ -56,7 +57,7 @@
                            ;;(yas-reload-all)
                            (emmet-mode)
                            (local-unset-key (kbd "C-<return>"))
-                           (define-key web-mode-map (kbd "C-c C-a k") 'web-mode-attribute-kill)
+;;                           (define-key web-mode-map (kbd "C-c C-a k") 'web-mode-attribute-kill)
                            (define-key web-mode-map (kbd "C-<return>") '(lambda ()
                                                                           (interactive)
                                                                           (newline)
@@ -78,13 +79,4 @@
                          (ac-source-jquery
                           (ac-source-html-bootstrap+)))))
 
-;; (add-to-list 'ac-sources
-;;              ac-source-html-tag
-;;              ac-source-html-attribute
-;;              ac-source-css-property
-;;              ac-source-html-bootstrap
-;;              ;;this package has almost nothing in it.
-;;              ;; or does it?
-;;              ;;ac-source-html-bootstrap+
-;;              )
 (provide 'init-html)
