@@ -1,5 +1,6 @@
 ;;----------------------------------------------------------------------------
 ;; When splitting window, show (other-buffer) in the new window
+;; I believe this splits the window, and in the new window, it displays the previous buffer.
 ;;----------------------------------------------------------------------------
 (defun split-window-func-with-other-buffer (split-function)
   (lexical-let ((s-f split-function))

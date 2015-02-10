@@ -149,9 +149,9 @@ With negative prefix, apply to -N lines above."
 (global-set-key (kbd "C-c f") #'isearch-forward)
 (global-set-key (kbd "C-c t") #'transpose-chars)
 (global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-set-key (kbd "C-c u") #'my/uppercase-word)
+(global-set-key (kbd "s-u") #'my/uppercase-word)
 ;; this conflicts with my command for dired.
-(global-set-key (kbd "C-c d") #'my/downcase-word)
+(global-set-key (kbd "s-d") #'my/downcase-word)
 (global-set-key (kbd "C-c ;") #'endless/comment-line)
 (global-set-key (kbd "C-c d") 'dired-jump)
 (global-set-key (kbd "C-c g") 'magit-status)
@@ -226,9 +226,8 @@ With negative prefix, apply to -N lines above."
 
 
 (require-package 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n"))
+(setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-c p" "C-c h"))
 (guide-key-mode 1)
 (diminish 'guide-key-mode)
-
 
 (provide 'init-editing-utils)

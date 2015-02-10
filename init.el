@@ -42,7 +42,11 @@
 (require-package 'diminish)
 ;;I have no idea what this next package does
 ;;(require-package 'scratch)
+<<<<<<< variant A
 ;; this will be cool to monitor my commands.
+>>>>>>> variant B
+;; But I have to initialize it...It will not record commands by default.
+======= end
 (require-package 'mwe-log-commands)
 
 ;;(require 'init-frame-hooks)
@@ -51,7 +55,6 @@
 ;;(require 'init-osx-keys)
 (require 'init-gui-frames)
 ;; I don't think I'll need this.
-;;(require 'init-proxies)
 (require 'init-dired)
 (require 'init-isearch)
 (require 'init-grep)
@@ -61,8 +64,6 @@
 (require 'init-flycheck)
 
 (require 'init-recentf)
-;; I don't use hippie expand
-;;(require 'init-hippie-expand)
 (require 'init-cedet)
 ;; since I don't use it... why enable it?
 ;;(require 'init-yasnippet)
@@ -100,8 +101,8 @@
 
 (require 'init-misc)
 
-(require 'init-dash)
-(require 'init-ledger)
+;; use the command line accounting tool ledger
+;;(require 'init-ledger)
 ;; Extra packages which don't require any configuration
 
 (require-package 'gnuplot)

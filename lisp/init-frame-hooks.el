@@ -23,13 +23,11 @@ Selectively runs either `after-make-console-frame-hooks' or
 
 (add-hook 'before-save-hook
           #'(lambda ()
-              ;; (if THEN ELSE)
               (if (not (eq (buffer-name) "Makefile"))
                   ;; (prog1 FORM Body)
                   (prog1
                       (delete-trailing-whitespace)
                     (indent-region (point-min (point-max))))
                 (indent-region (point-min) (point-max)))))
-
 
 (provide 'init-frame-hooks)

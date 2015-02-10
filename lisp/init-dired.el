@@ -6,6 +6,7 @@
 
 (after-load 'dired
   (require 'dired+)
+  ;;This sorts files is dired. Just press "s" to see it in action.
   (require 'dired-sort)
   (when (fboundp 'global-dired-hide-details-mode)
     (global-dired-hide-details-mode -1))

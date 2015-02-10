@@ -72,9 +72,8 @@
 ;;(setq-default ac-expand-on-auto-complete nil)
 (setq-default ac-expand-on-auto-complete t)
 ;;how long a word needs to be before auto-complete suggestions come up.
-(setq-default ac-auto-start 2)
+(setq-default ac-auto-start 3)
 (setq-default ac-dwim t) ; To get pop-ups with docs even if a word is uniquely completed
-
 
 ;;----------------------------------------------------------------------------
 ;; Use Emacs' built-in TAB completion hooks to trigger AC (Emacs >= 23.2)
