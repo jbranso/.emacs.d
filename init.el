@@ -35,8 +35,8 @@
 
 ;;I can't get use-package to work.
 ;;(require-package 'use-package)
-(require-package 'wgrep)
-(require-package 'project-local-variables)
+;;(require-package 'wgrep)
+;;(require-package 'project-local-variables)
 ;; this helps you minizize modeline clutter by hidding some modes on the mode line.
 ;; http://www.emacswiki.org/emacs/DiminishedModes
 (require-package 'diminish)
@@ -45,10 +45,10 @@
 ;; this will be cool to monitor my commands.
 (require-package 'mwe-log-commands)
 
-(require 'init-frame-hooks)
-(require 'init-xterm)
+;;(require 'init-frame-hooks)
+;;(require 'init-xterm)
 ;;(require 'init-themes)
-(require 'init-osx-keys)
+;;(require 'init-osx-keys)
 (require 'init-gui-frames)
 ;; I don't think I'll need this.
 ;;(require 'init-proxies)
@@ -56,18 +56,19 @@
 (require 'init-isearch)
 (require 'init-grep)
 (require 'init-uniquify)
-(require 'init-ibuffer)
+;; What's this do?
+;;(require 'init-ibuffer)
 (require 'init-flycheck)
 
 (require 'init-recentf)
 ;; I don't use hippie expand
 ;;(require 'init-hippie-expand)
 (require 'init-cedet)
-(require 'init-yasnippet)
+;; since I don't use it... why enable it?
+;;(require 'init-yasnippet)
 (require 'init-windows)
 ;; this file saves all open buffers. It is so useful!
 (require 'init-sessions)
-(require 'init-fonts)
 (require 'init-helm)
 (require 'init-projectile)
 
@@ -82,8 +83,6 @@
 (require 'init-github)
 
 (require 'init-compile)
-(require 'init-crontab)
-(require 'init-textile)
 
 (require 'init-javascript)
 (require 'init-org)
@@ -93,7 +92,6 @@
 (require 'init-python-mode)
 (require 'init-sql)
 
-(require 'init-paredit)
 (require 'init-lisp)
 (require 'init-clojure)
 (when (>= emacs-major-version 24)

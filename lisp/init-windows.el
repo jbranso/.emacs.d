@@ -1,11 +1,4 @@
 ;;----------------------------------------------------------------------------
-;; Navigate window layouts with "C-c <left>" and "C-c <right>"
-;;----------------------------------------------------------------------------
-(winner-mode 1)
-
-
-
-;;----------------------------------------------------------------------------
 ;; When splitting window, show (other-buffer) in the new window
 ;;----------------------------------------------------------------------------
 (defun split-window-func-with-other-buffer (split-function)
@@ -43,8 +36,6 @@
     (delete-other-windows)
     (funcall (split-window-func-with-other-buffer 'split-window-vertically))))
 
-(global-set-key "\C-x|" 'split-window-horizontally-instead)
-(global-set-key "\C-x_" 'split-window-vertically-instead)
 ;; the notation (kbd "s--") means Hold the command key, then press -
 (global-set-key (kbd "s-\\")  'split-window-horizontally-instead)
 (global-set-key (kbd "s--") 'split-window-vertically-instead)

@@ -23,7 +23,8 @@
 
 ;; I have no idea why this is not working. It should be!
 ;; this a file that will hopefully soon become and emacs package.
-(setq dvorak-funky-h-and-t 1)
+(setq evil-dvorak-funky-h-and-t 1)
+(setq evil-dvorak-use-for-web-mode)
 (require 'evil-dvorak)
 (global-evil-dvorak-mode 1)
 

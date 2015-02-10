@@ -11,8 +11,6 @@
 
 (add-hook 'ibuffer-hook 'ibuffer-set-up-preferred-filters)
 
-
-
 (after-load 'ibuffer
   ;; Use human readable Size column instead of original one
   (define-ibuffer-column size-h
