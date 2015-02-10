@@ -2,18 +2,11 @@
 ;;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
 
-(let ((minver "23.3"))
-  (when (version<= emacs-version "23.1")
-    (error "Your Emacs is too old -- this config requires v%s or higher" minver)))
-(when (version<= emacs-version "24")
-  (message "Your Emacs is old, and some functionality in this config will be disabled. Please upgrade if possible."))
-
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(require 'init-benchmarking) ;; Measure startup time
+;;(require 'init-benchmarking) ;; Measure startup time
 
 (defconst *spell-check-support-enabled* t) ;; Enable with t if you prefer
 (defconst *is-a-mac* (eq system-type 'darwin))
-
 
 ;;----------------------------------------------------------------------------
 ;; Bootstrap config
@@ -27,7 +20,7 @@
 ;;----------------------------------------------------------------------------
 ;; Allow users to provide an optional "init-preload-local.el"
 ;;----------------------------------------------------------------------------
-(require 'init-preload-local nil t)
+;;(require 'init-preload-local nil t)
 
 ;;----------------------------------------------------------------------------
 ;; Load configs for specific features and modes
@@ -42,34 +35,24 @@
 (require-package 'diminish)
 ;;I have no idea what this next package does
 ;;(require-package 'scratch)
-<<<<<<< variant A
+
 ;; this will be cool to monitor my commands.
->>>>>>> variant B
 ;; But I have to initialize it...It will not record commands by default.
-======= end
 (require-package 'mwe-log-commands)
 
-;;(require 'init-frame-hooks)
-;;(require 'init-xterm)
-;;(require 'init-themes)
-;;(require 'init-osx-keys)
-(require 'init-gui-frames)
 ;; I don't think I'll need this.
 (require 'init-dired)
 (require 'init-isearch)
 (require 'init-grep)
 (require 'init-uniquify)
-;; What's this do?
-;;(require 'init-ibuffer)
 (require 'init-flycheck)
 
-(require 'init-recentf)
+;;(require 'init-recentf)
 (require 'init-cedet)
 ;; since I don't use it... why enable it?
 ;;(require 'init-yasnippet)
-(require 'init-windows)
 ;; this file saves all open buffers. It is so useful!
-(require 'init-sessions)
+;;(require 'init-sessions)
 (require 'init-helm)
 (require 'init-projectile)
 
@@ -94,21 +77,7 @@
 (require 'init-sql)
 
 (require 'init-lisp)
-(require 'init-clojure)
-(when (>= emacs-major-version 24)
-  (require 'init-clojure-cider))
-(require 'init-common-lisp)
-
 (require 'init-misc)
-
-;; use the command line accounting tool ledger
-;;(require 'init-ledger)
-;; Extra packages which don't require any configuration
-
-(require-package 'gnuplot)
-(require-package 'lua-mode)
-(require-package 'htmlize)
-(require-package 'dsvn)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
@@ -136,14 +105,6 @@
 ;;----------------------------------------------------------------------------
 ;; Locales (setting them earlier in this file doesn't work in X)
 ;;----------------------------------------------------------------------------
-(require 'init-locales)
-
-(add-hook 'after-init-hook
-          (lambda ()
-            (message "init completed in %.2fms"
-                     (sanityinc/time-subtract-millis after-init-time before-init-time))))
-
-
 (provide 'init)
 
 ;; Local Variables:
