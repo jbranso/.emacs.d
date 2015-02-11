@@ -6,6 +6,11 @@
 ;;I don't know why this is not working.
 ;;(add-hook 'evil-mode-hook 'turn-on-surround-mode)
 
+(require 'powerline)
+(require 'powerline-evil)
+(powerline-evil-vim-theme)
+
+
 ;;Do not move the cursor back when exiting insert mode.
 (setq evil-move-cursor-back nil)
 ;; This macro allows me to insert a space with the spacebar.
