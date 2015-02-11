@@ -4,7 +4,7 @@
 ;; make semantic integrate with the imenu package.
 (defun my-semantic-hook ()
   (imenu-add-to-menubar "TAGS"))
-(add-hook 'semantic-init-hooks 'my-semantic-hook)
+(add-hook 'semantic-init-hooks #'my-semantic-hook)
 
 ;; specify all the semantic submodules you want to use.
 (setq semantic-default-submodes
@@ -23,11 +23,9 @@
         ;; global-cedet-m3-minor-mode
         global-semantic-idle-local-symbol-highlight-mode)))
 
-
 (semantic-mode 1)
 
 (require 'semantic/bovine/gcc)
-
 ;; if I'm to use semantic, then I need to enable global ede mode.
 (global-ede-mode t)
 
@@ -50,11 +48,6 @@
   ;; to be aware of. The cdr of each cell is the source that will
   ;; supply the completion data.  The following tells autocomplete
   ;; to begin completion when you type in a . or a ->
-
-  (add-to-list 'ac-omni-completion-sources
-               (cons "\\." '(ac-source-semantic)))
-  (add-to-list 'ac-omni-completion-sources
-               (cons "->" '(ac-source-semantic)))
 
   ;; ac-sources was also made buffer local in new versions of
   ;; autocomplete.  In my case, I want AutoComplete to use
@@ -83,12 +76,11 @@
 ;; Stop completion-at-point from popping up completion buffers so eagerly
 (setq completion-cycle-threshold 5)
 
-;; TODO: find solution for php, haskell and other modes where TAB always does something
-
+;; I don't know what these next few lines do.
 ;; this is how it was when I found it.
 ;; (setq c-tab-always-indent nil c-insert-tab-function 'indent-for-tab-command)
-(setq c-tab-always-indent t
-      c-insert-tab-function 'indent-for-tab-command)
+;; (setq c-tab-always-indent t
+;;       c-insert-tab-function #'indent-for-tab-command)
 
 ;; hook AC into completion-at-point
 (defun sanityinc/auto-complete-at-point ()
@@ -140,6 +132,7 @@
 (defun sanityinc/dabbrev-friend-buffer (other-buffer)
   (< (buffer-size other-buffer) (* 1 1024 1024)))
 
-(setq dabbrev-friend-buffer-function 'sanityinc/dabbrev-friend-buffer)
+;; I don't know what this does.
+;; (setq dabbrev-friend-buffer-function 'sanityinc/dabbrev-friend-buffer) ;
 
 (provide 'init-cedet)

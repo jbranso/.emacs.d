@@ -55,13 +55,13 @@
 (defun sanityinc/hide-org-clock-from-header-line ()
   (setq-default header-line-format nil))
 
-(add-hook 'org-clock-in-hook 'sanityinc/show-org-clock-in-header-line)
-(add-hook 'org-clock-out-hook 'sanityinc/hide-org-clock-from-header-line)
-(add-hook 'org-clock-cancel-hook 'sanityinc/hide-org-clock-from-header-line)
+(add-hook 'org-clock-in-hook #'sanityinc/show-org-clock-in-header-line)
+(add-hook 'org-clock-out-hook #'sanityinc/hide-org-clock-from-header-line)
+(add-hook 'org-clock-cancel-hook #'sanityinc/hide-org-clock-from-header-line)
 
 (after-load 'org-clock
-  (define-key org-clock-mode-line-map [header-line mouse-2] 'org-clock-goto)
-  (define-key org-clock-mode-line-map [header-line mouse-1] 'org-clock-menu))
+  (define-key org-clock-mode-line-map [header-line mouse-2] #'org-clock-goto)
+  (define-key org-clock-mode-line-map [header-line mouse-1] #'org-clock-menu))
 
 
 (require-package 'org-pomodoro)
@@ -69,7 +69,7 @@
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
 ;; make org mode start up with auto fill mode
-(add-hook 'org-mode-hook '(lambda ()
+(add-hook 'org-mode-hook #'(lambda ()
                             (interactive)
                             (auto-fill-mode)
                             (visual-line-mode)
@@ -112,8 +112,8 @@
                                  (local-set-key [tab] 'yas-expand)))))
 
 (after-load 'org
-  (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element)
-  (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element)
+  (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element)
+  (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element))
 
 (after-load 'org
   (org-babel-do-load-languages

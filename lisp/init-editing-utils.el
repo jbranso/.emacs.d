@@ -115,7 +115,7 @@
        (set-fill-column 134)
        (setq refill-mode-state 0))))
 
-(global-set-key (kbd "C-c C-x r") 'toggle-refill-mode)
+(global-set-key (kbd "C-c C-x r") #'toggle-refill-mode)
 
 (defun endless/comment-line (n)
   "Comment or uncomment current line and leave point after it.
@@ -149,7 +149,7 @@ With negative prefix, apply to -N lines above."
 ;;(define-key yas-minor-mode-map (kbd "C-c s") 'yas-expand)
 (global-set-key (kbd "C-c f") #'isearch-forward)
 (global-set-key (kbd "C-c t") #'transpose-chars)
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
+(global-set-key (kbd "C-c h") #'helm-command-prefix)
 (global-set-key (kbd "s-u") #'my/uppercase-word)
 ;; this conflicts with my command for dired.
 (global-set-key (kbd "s-d") #'my/downcase-word)
@@ -157,37 +157,37 @@ With negative prefix, apply to -N lines above."
 (global-unset-key (kbd "C-a"))
 (local-unset-key (kbd "C-a"))
 (global-set-key (kbd "C-c ;") #'endless/comment-line)
-(global-set-key (kbd "C-c d") 'dired-jump)
-(global-set-key (kbd "C-c g") 'magit-status)
-(global-set-key (kbd "C-c b") 'eval-buffer)
-(global-set-key (kbd "C-c l") 'eval-last-sexp)
-(global-set-key (kbd "C-c m") 'helm-mini)
-(global-set-key (kbd "C-c q") 'fill-paragraph)
-(global-set-key (kbd "C-c e") 'helm-M-x)
-(global-set-key (kbd "C-c m") 'helm-mini)
+(global-set-key (kbd "C-c d") #'dired-jump)
+(global-set-key (kbd "C-c g") #'magit-status)
+(global-set-key (kbd "C-c b") #'eval-buffer)
+(global-set-key (kbd "C-c l") #'eval-last-sexp)
+(global-set-key (kbd "C-c m") #'helm-mini)
+(global-set-key (kbd "C-c q") #'fill-paragraph)
+(global-set-key (kbd "C-c e") #'helm-M-x)
+(global-set-key (kbd "C-c m") #'helm-mini)
 ;; this is not working for some reason.
-(global-set-key (kbd "C-c x") 'er/expand-region)
-(global-set-key (kbd "C-c i") 'info-display-manual)
+(global-set-key (kbd "C-c x") #'er/expand-region)
+(global-set-key (kbd "C-c i") #'info-display-manual)
 
-(global-set-key (kbd "C-x C-.") 'pop-global-mark)
+(global-set-key (kbd "C-x C-.") #'pop-global-mark)
 ;; web-mode has a command C-c C-h that overrides this.
 ;; I've modified the web-mode-hook to account for this.
-(global-set-key (kbd "C-c C-h") 'help)
-(global-set-key (kbd "C-c h k") 'helm-show-kill-ring)
-(global-set-key (kbd "C-x f") 'helm-find-files)
-(global-set-key (kbd "C-c h o") 'helm-occur)
-(global-set-key (kbd "C-c h c") 'helm-calcul-expression)
+(global-set-key (kbd "C-c C-h") #'help)
+(global-set-key (kbd "C-c h k") #'helm-show-kill-ring)
+(global-set-key (kbd "C-x f") #'helm-find-files)
+(global-set-key (kbd "C-c h o") #'helm-occur)
+(global-set-key (kbd "C-c h c") #'helm-calcul-expression)
 
 (require-package 'multiple-cursors)
 ;; multiple-cursors
-(global-set-key (kbd "C-c <") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c >") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c <") #'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c >") #'mc/mark-next-like-this)
+(global-set-key (kbd "C-c C-<") #'mc/mark-all-like-this)
 ;; From active region to multiple cursors:
-(global-set-key (kbd "C-c c r") 'set-rectangular-region-anchor)
-(global-set-key (kbd "C-c c c") 'mc/edit-lines)
-(global-set-key (kbd "C-c c e") 'mc/edit-ends-of-lines)
-(global-set-key (kbd "C-c c a") 'mc/edit-beginnings-of-lines)
+(global-set-key (kbd "C-c c r") #'set-rectangular-region-anchor)
+(global-set-key (kbd "C-c c c") #'mc/edit-lines)
+(global-set-key (kbd "C-c c e") #'mc/edit-ends-of-lines)
+(global-set-key (kbd "C-c c a") #'mc/edit-beginnings-of-lines)
 
 ;; To make myself use C-w h/t/n/s
 (global-unset-key (kbd "C-x o"))
