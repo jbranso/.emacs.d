@@ -1,12 +1,3 @@
-(when (< emacs-major-version 24)
-  (require-package 'org))
-(require-package 'org-fstree)
-(when *is-a-mac*
-  (require-package 'org-mac-link)
-  (autoload 'org-mac-grab-link "org-mac-link" nil t)
-  (require-package 'org-mac-iCal))
-
-(define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
 ;; Various preferences
@@ -32,9 +23,9 @@
 (setq org-outline-path-complete-in-steps t)
 
 
-(setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
-              (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)"))))
+;;(setq org-todo-keywords
+; ;     (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
+;;              (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)"))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -79,6 +70,7 @@
 
 ;; make org mode start up with auto fill mode
 (add-hook 'org-mode-hook '(lambda ()
+                            (interactive)
                             (auto-fill-mode)
                             (visual-line-mode)
                             ;;refill mode is pretty amazing. If you are getting tired of pressing M-q all
@@ -119,33 +111,19 @@
                                        '(apply ,original-command))
                                  (local-set-key [tab] 'yas-expand)))))
 
-
 (after-load 'org
   (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element)
-  (when *is-a-mac*
-    (define-key org-mode-map (kbd "M-h") nil))
   (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element)
-  (when *is-a-mac*
-    (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link)))
 
 (after-load 'org
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((R . t)
-     (ditaa . t)
-     (dot . t)
      (emacs-lisp . t)
-     (gnuplot . t)
-     (haskell . nil)
      (latex . t)
      (ledger . t)
-     (ocaml . nil)
-     (octave . t)
      (python . t)
-     (ruby . t)
-     (screen . nil)
      (sh . t)
-     (sql . nil)
      (sqlite . t))))
 
 

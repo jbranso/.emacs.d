@@ -9,6 +9,7 @@
  delete-selection-mode t
  ediff-split-window-function 'split-window-horizontally
  ediff-window-setup-function 'ediff-setup-windows-plain
+ fill-column 130
  ;;when you are on the last line of the buffer, C-n will act like <return>
  next-line-add-newlines t
  indent-tabs-mode nil
@@ -152,6 +153,9 @@ With negative prefix, apply to -N lines above."
 (global-set-key (kbd "s-u") #'my/uppercase-word)
 ;; this conflicts with my command for dired.
 (global-set-key (kbd "s-d") #'my/downcase-word)
+(global-set-key (kbd "s-a") #'mark-whole-buffer)
+(global-unset-key (kbd "C-a"))
+(local-unset-key (kbd "C-a"))
 (global-set-key (kbd "C-c ;") #'endless/comment-line)
 (global-set-key (kbd "C-c d") 'dired-jump)
 (global-set-key (kbd "C-c g") 'magit-status)

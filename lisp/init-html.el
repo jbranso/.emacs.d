@@ -49,9 +49,7 @@
 
 (require 'emmet-mode)
 
-
 (add-hook 'web-mode-hook (lambda ()
-                           (flyspell-prog-mode)
                            ;;emmet mode is sooo much better than yas
                            ;; (yas-minor-mode)
                            ;;(yas-reload-all)
@@ -69,8 +67,7 @@
                            (aggressive-indent-mode)
                            ;; unset web mode's C-c C-h command, because I want to use that for 'help
                            (local-unset-key (kbd "C-c C-h"))
-                           (global-set-key (kbd "C-c C-h") 'help)
-                           (auto-fill-mode)))
+                           (global-set-key (kbd "C-c C-h") 'help)))
 
 (add-to-list 'web-mode-ac-sources-alist
              '("html" . (ac-source-html-tag

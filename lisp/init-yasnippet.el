@@ -7,4 +7,6 @@
 ;; because then I can have snippets for javascript, jquery, and php!
 ;;(yas-global-mode 1)
 
+(define-key yas-minor-mode-map ("C-j") 'yas-expand)
+
 (provide 'init-yasnippet)
