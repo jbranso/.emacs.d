@@ -30,14 +30,14 @@
 
 ;; (define-key evil-normal-state-map (kbd "Hta") 'web-mode-tag-attributes-sort)
 ;; (evil-set-initial-state 'snake-mode 'emacs)
-
-    (loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
+(loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
                               (nrepl-mode . insert)
                               (pylookup-mode . emacs)
                               (comint-mode . normal)
                               (shell-mode . insert)
                               (git-commit-mode . insert)
                               (git-rebase-mode . emacs)
+                              (git-timemachine-mode . emacs)
                               (term-mode . emacs)
                               (help-mode . emacs)
                               (helm-grep-mode . emacs)
