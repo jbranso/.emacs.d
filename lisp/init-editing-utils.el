@@ -67,8 +67,8 @@
 (dolist (hook '(prog-mode-hook html-mode-hook css-mode-hook))
   (add-hook hook 'highlight-symbol-mode)
   (add-hook hook 'highlight-symbol-nav-mode))
-(eval-after-load 'highlight-symbol
-  '(diminish 'highlight-symbol-mode))
+;; (eval-after-load 'highlight-symbol
+;;   '(diminish 'highlight-symbol-mode))
 
 
 ;;----------------------------------------------------------------------------
@@ -198,7 +198,7 @@ With negative prefix, apply to -N lines above."
 ;; this turn ^L into nice long lines.
 (require-package 'page-break-lines)
 (global-page-break-lines-mode)
-(diminish 'page-break-lines-mode)
+;; (diminish 'page-break-lines-mode)
 
 ;;----------------------------------------------------------------------------
 ;; Shift lines up and down with M-up and M-down. When paredit is enabled,
@@ -229,6 +229,7 @@ With negative prefix, apply to -N lines above."
 (global-set-key [remap backward-up-list] 'backward-up-sexp) ; C-M-u, C-M-up
 
 
+;; This package pops up a buffer, when a key prefix is hit, that shows what keys the user can now hit to use a command.
 (require-package 'guide-key)
 (setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-c p" "C-c h"))
 (guide-key-mode 1)
