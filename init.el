@@ -1,4 +1,4 @@
-;;; This file bootstraps the configuration, which is divided into
+;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
@@ -39,11 +39,12 @@
 (require-package 'mwe-log-commands)
 (mwe:log-keyboard-commands)
 
-;; I don't think I'll need this.
+(require 'init-recentf)
 (require 'init-dired)
 (require 'init-grep)
 (require 'init-uniquify)
-
+;; this sets up paradox to use my private token to access public repos.
+(require 'init-paradox)
 ;;(require 'init-recentf)
 (require 'init-cedet)
 ;; since I don't use it... why enable it?
@@ -66,6 +67,7 @@
 (require 'init-html)
 (require 'init-css)
 (require 'init-python-mode)
+(require 'init-defuns)
 
 (require 'init-misc)
 
