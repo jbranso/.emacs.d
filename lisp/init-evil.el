@@ -33,11 +33,13 @@
 (require 'evil-dvorak)
 (global-evil-dvorak-mode 1)
 
-;; (define-key evil-normal-state-map (kbd "Hta") 'web-mode-tag-attributes-sort)
+;; set this key to be the projectile prefix.
+;;(define-key evil-normal-state-map (kbd "C-c p") 'web-mode-tag-attributes-sort)
 ;; (evil-set-initial-state 'snake-mode 'emacs)
 (evil-set-initial-state 'comint-mode 'normal)
+(evil-set-initial-state 'eshell-mode 'emacs)
 (evil-set-initial-state 'shell-mode 'emacs)
-(evil-set-initial-state 'git-commit-mode 'insert)
+(evil-set-initial-state 'git-commit-mode 'emacs)
 (evil-set-initial-state 'git-rebase-mode 'emacs)
 (evil-set-initial-state 'git-timemachine-mode 'emacs)
 (evil-set-initial-state 'term-mode 'emacs)
