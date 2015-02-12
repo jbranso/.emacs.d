@@ -1,6 +1,6 @@
 (require 'web-mode)
 
-;; (defun web-mode-attribute-kill ()
+;;  (defun web-mode-attribute-kill ()
 ;;   "Kill the current html attribute."
 ;;   (interactive)
 ;;   (web-mode-attribute-select)
@@ -55,7 +55,7 @@
                            ;;(yas-reload-all)
                            (emmet-mode)
                            (local-unset-key (kbd "C-<return>"))
-;;                           (define-key web-mode-map (kbd "C-c C-a k") 'web-mode-attribute-kill)
+                           ;;                           (define-key web-mode-map (kbd "C-c C-a k") 'web-mode-attribute-kill)
                            (define-key web-mode-map (kbd "C-<return>") '(lambda ()
                                                                           (interactive)
                                                                           (newline)
@@ -64,7 +64,12 @@
                            (push '("function" . ?𝆑) prettify-symbols-alist)
                            (push '(">=" . ?≥) prettify-symbols-alist)
                            (push '("<=" . ?≤) prettify-symbols-alist)
-                           (aggressive-indent-mode)
+                           ;; I should not enable aggressive indent mode for soihub files.
+                           ;; There's no need to have lots of git diffs with files.
+                           (if (equal (pwd) "/home/joshua/programming/soihub/")
+                               ;; if pwd is soihub, disable aggressive-indent-mode
+                               (aggressive-indent-mode -1)
+                             (aggressive-indent-mode))
                            ;; unset web mode's C-c C-h command, because I want to use that for 'help
                            (local-unset-key (kbd "C-c C-h"))
                            (global-set-key (kbd "C-c C-h") 'help)))

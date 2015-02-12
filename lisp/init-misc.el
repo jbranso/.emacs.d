@@ -8,4 +8,6 @@
 
 (load-theme 'zenburn t)
 
+(find-file "/home/joshua/programming/org/gtd/gtd.org")
+
 (provide 'init-misc)

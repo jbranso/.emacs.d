@@ -11,6 +11,9 @@
 ;;----------------------------------------------------------------------------
 ;; Bootstrap config
 ;;----------------------------------------------------------------------------
+;; initialize cedet before elpa, just in case.
+(load-file "/home/joshua/.emacs.d/cedet/cedet-devel-load.el")
+
 (require 'init-utils)
 (require 'init-elpa)      ;; Machinery for installing required packages
 ;;(require 'init-exec-path) ;; Set up $PATH
@@ -39,6 +42,8 @@
 (require-package 'mwe-log-commands)
 (mwe:log-keyboard-commands)
 
+(require 'init-vc)
+(require 'init-gui-frames)
 (require 'init-recentf)
 (require 'init-dired)
 (require 'init-grep)
@@ -62,6 +67,7 @@
 (require 'init-git)
 (require 'init-github)
 
+(require 'init-lisp)
 (require 'init-javascript)
 (require 'init-org)
 (require 'init-html)

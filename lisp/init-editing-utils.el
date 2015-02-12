@@ -1,5 +1,5 @@
 ;;----------------------------------------------------------------------------
-;; Some basic preferences
+;;  Some basic preferences
 ;;----------------------------------------------------------------------------
 (setq-default
  blink-cursor-interval 0.4
@@ -63,14 +63,20 @@
 
 
 ;;This mode highlights the current word under point! very cool!
-(require-package 'highlight-symbol)
-(dolist (hook '(prog-mode-hook html-mode-hook css-mode-hook))
-  (add-hook hook 'highlight-symbol-mode)
-  (add-hook hook 'highlight-symbol-nav-mode))
+;; (require-package 'highlight-symbol)
+;; (dolist (hook '(prog-mode-hook html-mode-hook css-mode-hook))
+;;   (add-hook hook 'highlight-symbol-mode)
+;;   (add-hook hook 'highlight-symbol-nav-mode))
 ;; (eval-after-load 'highlight-symbol
 ;;   '(diminish 'highlight-symbol-mode))
 
 
+
+;; save all buffers after saving the current buffer.
+(add-hook 'after-save-hook #'(lambda ()
+                               (interactive)
+                               (save-some-buffers 1)))
+ 
 ;;----------------------------------------------------------------------------
 ;; Don't disable narrowing commands
 ;;----------------------------------------------------------------------------
@@ -147,6 +153,7 @@ With negative prefix, apply to -N lines above."
 ;; It's probably not a good idea to have duplicate code, but
 ;;this is not working.
 ;;(define-key yas-minor-mode-map (kbd "C-c s") 'yas-expand)
+(global-set-key (kbd "s-s") #'save-buffer)
 (global-set-key (kbd "C-c f") #'isearch-forward)
 (global-set-key (kbd "C-c t") #'transpose-chars)
 (global-set-key (kbd "C-c h") #'helm-command-prefix)
@@ -211,8 +218,8 @@ With negative prefix, apply to -N lines above."
 (global-set-key [M-S-up] 'md/move-lines-up)
 (global-set-key [M-S-down] 'md/move-lines-down)
 
-(global-set-key (kbd "C-c p") 'md/duplicate-down)
-(global-set-key (kbd "C-c P") 'md/duplicate-up)
+(global-set-key (kbd "s-p") 'md/duplicate-down)
+(global-set-key (kbd "\s P") 'md/duplicate-up)
 
 ;;----------------------------------------------------------------------------
 ;; Fix backward-up-list to understand quotes, see http://bit.ly/h7mdIL
@@ -231,7 +238,7 @@ With negative prefix, apply to -N lines above."
 
 ;; This package pops up a buffer, when a key prefix is hit, that shows what keys the user can now hit to use a command.
 (require-package 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-c p" "C-c h"))
+(setq guide-key/guide-key-sequence '("C-c ," "C-c ."  "C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-c p" "C-c h"))
 (guide-key-mode 1)
 (diminish 'guide-key-mode)
 

@@ -1,31 +1,46 @@
 ;; Setting up semantic mode.
 ;; This is where I'm getting all of this info from http://alexott.net/en/writings/emacs-devenv/EmacsCedet.html
 
-;; make semantic integrate with the imenu package.
-(defun my-semantic-hook ()
-  (imenu-add-to-menubar "TAGS"))
-(add-hook 'semantic-init-hooks #'my-semantic-hook)
+(setq cedet-root-path (file-name-as-directory "~/.emacs.d/"))
+
+(setq semanticdb-project-roots (quote (~/.emacs.d/ ~/.emacs.d/lisp ~/programming/bash/ ~/programming/c/
+                                                   ~/programming/gnu/wget/ /home/joshua/programming/emacs/evil-dvorak
+                                                   /home/joshua/programming/gcc/)))
 
 ;; specify all the semantic submodules you want to use.
-(setq semantic-default-submodes
-      (quote
-       (global-semantic-highlight-func-mode
-        global-semantic-decoration-mode
-        global-semantic-idle-completions-mode
-        global-semantic-idle-scheduler-mode
-        global-semanticdb-minor-mode
-        global-semantic-idle-summary-mode
-        global-semantic-mru-bookmark-mode
-        ;;this will put up triangles on the fringes where I can fold code
-        ;; I can also do this with senator-fold-tag
-        global-semantic-tag-folding-mode
-        ;; this is not being found
-        ;; global-cedet-m3-minor-mode
-        global-semantic-idle-local-symbol-highlight-mode)))
+;; activates highlighting of the current tag function and class under point
+(add-to-list 'semantic-default-submodes global-semantic-highlight-func-mode)
+(add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
+(add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
+;; this should echo some information about the symbol or function at point in the echo area.
+;; it is like eldoc, but I have not gotten it to work.
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
+(add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
+;;this will put up triangles on the fringes where I can fold code
+;; I can also do this with senator-fold-tag
+(add-to-list 'semantic-default-submodes 'global-semantic-tag-folding-mode)
+;; this is not being found
+;; global-cedet-m3-minor-mode
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-local-symbol-highlight-mode)
 
 (semantic-mode 1)
 
+;; advanced functionality for name completion
+(require 'semantic/ia)
+;; if you are using gcc for c and c++, then semantic will find the gcc header files.
 (require 'semantic/bovine/gcc)
+
+(require 'semantic/ia)
+
+
+
+;; integration with imenu
+(defun my-semantic-hook ()
+  (imenu-add-to-menubar "TAGS"))
+(add-hook 'semantic-init-hooks 'my-semantic-hook)
+
 ;; if I'm to use semantic, then I need to enable global ede mode.
 (global-ede-mode t)
 
@@ -54,7 +69,8 @@
   ;; semantic and yasnippet (order matters, if reversed snippets
   ;; will appear before semantic tag completions).
 
-  (add-to-list ac-sources '(ac-source-semantic)))
+  ;;(add-to-list ac-sources '(ac-source-semantic))
+  )
 ;;(add-hook 'c-mode-common-hook 'my-cedet-hook-for-c)
 
 ;;setting up ac
