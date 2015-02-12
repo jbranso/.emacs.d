@@ -6,6 +6,6 @@
 
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
-(load-theme 'zenburn)
+(load-theme 'zenburn t)
 
 (provide 'init-misc)
