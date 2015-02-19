@@ -1,9 +1,9 @@
 ;; Setting up semantic mode.
 ;; This is where I'm getting all of this info from http://alexott.net/en/writings/emacs-devenv/EmacsCedet.html
 
-(setq cedet-root-path (file-name-as-directory "~/.emacs.d/"))
+(setq cedet-root-path (file-name-as-directory "/home/joshua/.emacs.d/"))
 
-(setq semanticdb-project-roots (quote (~/.emacs.d/ ~/.emacs.d/lisp ~/programming/bash/ ~/programming/c/
+(setq semanticdb-project-roots (quote ( home/joshua/.emacs.d/ ~/.emacs.d/lisp ~/programming/bash/ ~/programming/c/
                                                    ~/programming/gnu/wget/ /home/joshua/programming/emacs/evil-dvorak
                                                    /home/joshua/programming/gcc/)))
 

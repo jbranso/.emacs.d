@@ -32,9 +32,10 @@
 (require 'evil-dvorak)
 (global-evil-dvorak-mode 1)
 
+(local-unset-key "\t")
 ;; set this key to be the projectile prefix.
 ;;(define-key evil-normal-state-map (kbd "C-c p") 'web-mode-tag-attributes-sort)
-;; (evil-set-initial-state 'snake-mode 'emacs)
+(evil-set-initial-state 'snake-mode 'emacs)
 (evil-set-initial-state 'comint-mode 'normal)
 (evil-set-initial-state 'eshell-mode 'emacs)
 (evil-set-initial-state 'shell-mode 'emacs)

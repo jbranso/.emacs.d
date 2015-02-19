@@ -53,4 +53,12 @@
 ;; you can use start-process like this:
 ;; (start-process NAME BUFFER PROGRAM &rest PROGRAM-ARGS))
 
+;;sh into soihub and pull stuff from master
+(defun soihub ()
+  "This runs /home/joshua/programming/bash/soihub"
+  (interactive)
+  (start-process "soihub" "soihub-process" "soihub" )
+  (message "soihub process finished."))
+
+
 (provide 'init-defuns)

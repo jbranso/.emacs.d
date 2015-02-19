@@ -8,9 +8,10 @@
 ;;     (kill-region (region-beginning) (region-end))))
 
 
+;; I think mozRepl is buggy.
 ;; connect emacs to mozilla so I can reload the webpage.
-(load "~/.emacs.d/elpa/mol.el")
-(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+;;(load "~/.emacs.d/elpa/mol.el")
+;;(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
 
 (defun auto-reload-firefox-on-after-save-hook ()
   (add-hook 'after-save-hook
@@ -20,10 +21,13 @@
                                    "setTimeout(BrowserReload(), \"1000\");"))
             'append 'local)) ; buffer-local
 
+;;(add-hook 'web-mode-hook 'auto-reload-firefox-on-after-save-hook)
+(remove-hook 'web-mode-hook 'auto-reload-firefox-on-after-save-hook)
+
 ;; Example - you may want to add hooks for your own modes.
 ;; I also add this to python-mode when doing django development.
-(add-hook 'web-mode-hook 'auto-reload-firefox-on-after-save-hook)
-
+;; this is not working... I think MozRepl is very very buggy.
+;;(add-hook 'web-mode-hook 'auto-reload-firefox-on-after-save-hook)
 ;; I'd like to start using use-package, but it does not seem to be working.
 ;; (require 'use-package)
 ;; (use-package web-mode

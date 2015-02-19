@@ -62,6 +62,25 @@
   (global-prettify-symbols-mode))
 
 
+;; When you define a macro, you can type C-x Q to prompt the user for input.
+;; Very helpful and cool!
+(defun my-macro-query (arg)
+      "Prompt for input using minibuffer during kbd macro execution.
+    With prefix argument, allows you to select what prompt string to use.
+    If the input is non-empty, it is inserted at point."
+      (interactive "P")
+      (let* ((query (lambda () (kbd-macro-query t)))
+             (prompt (if arg (read-from-minibuffer "PROMPT: ") "Input: "))
+             (input (unwind-protect
+                        (progn
+                          (add-hook 'minibuffer-setup-hook query)
+                          (read-from-minibuffer prompt))
+                      (remove-hook 'minibuffer-setup-hook query))))
+        (unless (string= "" input) (insert input))))
+
+(global-set-key "\C-xQ" 'my-macro-query)
+
+;; put semantic is supposed to have that feature too.
 ;;This mode highlights the current word under point! very cool!
 ;; (require-package 'highlight-symbol)
 ;; (dolist (hook '(prog-mode-hook html-mode-hook css-mode-hook))
@@ -76,7 +95,7 @@
 (add-hook 'after-save-hook #'(lambda ()
                                (interactive)
                                (save-some-buffers 1)))
- 
+
 ;;----------------------------------------------------------------------------
 ;; Don't disable narrowing commands
 ;;----------------------------------------------------------------------------
@@ -153,8 +172,11 @@ With negative prefix, apply to -N lines above."
 ;; It's probably not a good idea to have duplicate code, but
 ;;this is not working.
 ;;(define-key yas-minor-mode-map (kbd "C-c s") 'yas-expand)
+(global-set-key "\t" #'indent-for-tab-command)
 (global-set-key (kbd "s-s") #'save-buffer)
+(global-set-key (kbd "C-c P") #'pwd)
 (global-set-key (kbd "C-c f") #'isearch-forward)
+(global-set-key (kbd "C-c F") #'isearch-forward-regexp)
 (global-set-key (kbd "C-c t") #'transpose-chars)
 (global-set-key (kbd "C-c h") #'helm-command-prefix)
 (global-set-key (kbd "s-u") #'my/uppercase-word)
@@ -219,7 +241,7 @@ With negative prefix, apply to -N lines above."
 (global-set-key [M-S-down] 'md/move-lines-down)
 
 (global-set-key (kbd "s-p") 'md/duplicate-down)
-(global-set-key (kbd "\s P") 'md/duplicate-up)
+(global-set-key (kbd "s-P") 'md/duplicate-up)
 
 ;;----------------------------------------------------------------------------
 ;; Fix backward-up-list to understand quotes, see http://bit.ly/h7mdIL
