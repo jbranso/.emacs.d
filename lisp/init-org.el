@@ -1,5 +1,8 @@
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
+;; define what files org opens
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
+
 ;; Various preferences
 (setq org-log-done t
       org-completion-use-ido t
@@ -16,7 +19,9 @@
 
                                         ; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
 ;;(setq org-refile-targets (quote ((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5))))
-(setq org-agenda-files "~/programming/org/gtd/gtd.org")
+(setq org-agenda-files (quote ("~/programming/org/gtd/gtd.org"
+                               ;; I can add more files here!
+                               )))
                                         ; Targets start with the file name - allows creating level 1 tasks
 (setq org-refile-use-outline-path (quote file))
                                         ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc

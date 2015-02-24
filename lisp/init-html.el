@@ -85,4 +85,6 @@
                          (ac-source-jquery
                           (ac-source-html-bootstrap+)))))
 
+(setq web-mode-code-indent-offset 4)
+
 (provide 'init-html)

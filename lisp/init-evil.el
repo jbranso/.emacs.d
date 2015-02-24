@@ -32,7 +32,8 @@
 (require 'evil-dvorak)
 (global-evil-dvorak-mode 1)
 
-(local-unset-key "\t")
+(local-unset-key (kbd "TAB"))
+(define-key evil-normal-state-map (kbd "TAB") 'indent-for-tab-command)
 ;; set this key to be the projectile prefix.
 ;;(define-key evil-normal-state-map (kbd "C-c p") 'web-mode-tag-attributes-sort)
 (evil-set-initial-state 'snake-mode 'emacs)
@@ -51,6 +52,7 @@
 (evil-set-initial-state 'rdictcc-buffer-mode 'emacs)
 (evil-set-initial-state 'dired-mode 'emacs)
 (evil-set-initial-state 'wdired-mode 'normal)
+(evil-set-initial-state 'git-timemachine-mode 'emacs)
 
 (provide 'init-evil)
 ;; ;;; evil-changes.el ends here

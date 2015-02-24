@@ -6,6 +6,7 @@
  bookmark-default-file (expand-file-name ".bookmarks.el" user-emacs-directory)
  buffers-menu-max-size 30
  case-fold-search t
+ default-tab-width 4
  delete-selection-mode t
  ediff-split-window-function 'split-window-horizontally
  ediff-window-setup-function 'ediff-setup-windows-plain
@@ -30,6 +31,8 @@
  truncate-partial-width-windows nil
  ;;visible-bell t
  )
+
+(global-linum-mode 1)
 
 (global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
@@ -174,6 +177,8 @@ With negative prefix, apply to -N lines above."
 ;;(define-key yas-minor-mode-map (kbd "C-c s") 'yas-expand)
 (global-set-key "\t" #'indent-for-tab-command)
 (global-set-key (kbd "s-s") #'save-buffer)
+(global-set-key (kbd "s-g") #'magit-status)
+(global-set-key (kbd "C-c g") #'magit-status)
 (global-set-key (kbd "C-c P") #'pwd)
 (global-set-key (kbd "C-c f") #'isearch-forward)
 (global-set-key (kbd "C-c F") #'isearch-forward-regexp)
@@ -187,7 +192,6 @@ With negative prefix, apply to -N lines above."
 (local-unset-key (kbd "C-a"))
 (global-set-key (kbd "C-c ;") #'endless/comment-line)
 (global-set-key (kbd "C-c d") #'dired-jump)
-(global-set-key (kbd "C-c g") #'magit-status)
 (global-set-key (kbd "C-c b") #'eval-buffer)
 (global-set-key (kbd "C-c l") #'eval-last-sexp)
 (global-set-key (kbd "C-c m") #'helm-mini)
@@ -220,6 +224,8 @@ With negative prefix, apply to -N lines above."
 
 ;; To make myself use C-w h/t/n/s
 (global-unset-key (kbd "C-x o"))
+;; make myself use "s-s"
+(global-unset-key (kbd "C-x C-s"))
 
 ;;----------------------------------------------------------------------------
 ;; Page break lines
@@ -263,5 +269,11 @@ With negative prefix, apply to -N lines above."
 (setq guide-key/guide-key-sequence '("C-c ," "C-c ."  "C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-c p" "C-c h"))
 (guide-key-mode 1)
 (diminish 'guide-key-mode)
+
+
+(add-hook 'before-save-hook
+	  #'(lambda ()
+	     (delete-trailing-whitespace)
+         ))
 
 (provide 'init-editing-utils)
