@@ -34,6 +34,9 @@
 
 (local-unset-key (kbd "TAB"))
 (define-key evil-normal-state-map (kbd "TAB") 'indent-for-tab-command)
+(define-key evil-normal-state-map (kbd "s-z") 'evil-emacs-state)
+(define-key evil-insert-state-map (kbd "s-z") 'evil-normal-state)
+(define-key evil-emacs-state-map (kbd "s-z") 'evil-normal-state)
 ;; set this key to be the projectile prefix.
 ;;(define-key evil-normal-state-map (kbd "C-c p") 'web-mode-tag-attributes-sort)
 (evil-set-initial-state 'snake-mode 'emacs)

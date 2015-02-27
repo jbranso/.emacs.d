@@ -54,11 +54,21 @@
 ;; (start-process NAME BUFFER PROGRAM &rest PROGRAM-ARGS))
 
 ;;sh into soihub and pull stuff from master
-(defun soihub ()
+(defun soihub-update-dev-server ()
   "This runs /home/joshua/programming/bash/soihub"
   (interactive)
-  (start-process "soihub" "soihub-process" "soihub" )
+  (call-process-shell-command "soihub" nil nil)
   (message "soihub process finished."))
+
+
+;; this writes the current file to the live soihub server
+(defun soihub-save-this-buffer-to-live-server ()
+  "Write this buffer to soihub"
+  (interactive)
+  ;; this when statement probably doesn't need to be here.
+  (when (string-match "_[-a-z_A-Z0-9]*\\.php\\|[-a-z_A-Z0-9]*\\.php" buffer-file-name)
+    (setq php-file-name (match-string 0 buffer-file-name) ))
+  (write-file "/ssh:jbranso@locutus.cs.purdue.edu:/home/isi-wiki/soi/"))
 
 
 (provide 'init-defuns)

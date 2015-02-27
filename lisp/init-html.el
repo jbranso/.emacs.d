@@ -64,7 +64,7 @@
                                                                           (interactive)
                                                                           (newline)
                                                                           (evil-open-above 0)))
-                           (moz-minor-mode 1)
+                           ;;(moz-minor-mode 1)
                            (push '("function" . ?𝆑) prettify-symbols-alist)
                            (push '(">=" . ?≥) prettify-symbols-alist)
                            (push '("<=" . ?≤) prettify-symbols-alist)
