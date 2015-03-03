@@ -5,18 +5,28 @@
 ;; define what files org opens
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
 (setq org-capture-templates
-      '(("e" "Emacs Todo" entry (file+headline "~/programming/org/gtd/emacs-todos.org" "Tasks")
+      '(
+        ("a" "Awesome WM" entry (file+datetree "~/programming/org/gtd/awesome-todos.org")
+         "* %?\nEntered on %U\n  %i\n  %a")
+        ("e" "Emacs Todo" entry (file+headline "~/programming/org/gtd/emacs-todos.org" "Tasks")
          "* TODO %?\n  %i\n  %a")
         ("E" "Emacs Reference" entry (file+datetree "~/programming/org/gtd/emacs-reference.org")
+         "* %?\nEntered on %U\n  %i\n  %a")
+        ("c" "community TODO" entry (file+headline "~/programming/org/gtd/community-todo.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")
+        ("h" "high star TODO" entry (file+headline "~/programming/org/gtd/high-star-todos.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")
+        ("l" "linux TODO" entry (file+headline "~/programming/org/gtd/linux-todos.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")
+        ("r" "Reference" entry (file+datetree "~/programming/org/gtd/reference.org")
          "* %?\nEntered on %U\n  %i\n  %a")
         ("s" "Soihub" entry (file+datetree "~/programming/org/gtd/soihub-todos.org")
          "* %?\nEntered on %U\n  %i\n  %a")
         ("S" "Star High" entry (file+datetree "~/programming/org/gtd/starhigh-todos.org")
          "* %?\nEntered on %U\n  %i\n  %a")
-        ("a" "Awesome WM" entry (file+datetree "~/programming/org/gtd/awesome-todos.org")
+        ("t" "TODO" entry (file+datetree "~/programming/org/gtd/starhigh-todos.org")
          "* %?\nEntered on %U\n  %i\n  %a")
-        ("r" "Reference" entry (file+datetree "~/programming/org/gtd/reference.org")
-         "* %?\nEntered on %U\n  %i\n  %a")))
+        ))
 (define-key global-map "\C-cc" 'org-capture)
 ;; 9.1.3 Capture templates
 
