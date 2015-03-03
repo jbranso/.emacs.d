@@ -53,6 +53,13 @@
 ;; you can use start-process like this:
 ;; (start-process NAME BUFFER PROGRAM &rest PROGRAM-ARGS))
 
+;; open index.php
+(defun soihub-index ()
+  "This opens /home/joshua/programming/soihub/index.php"
+  (interactive)
+  (find-file "/home/joshua/programming/soihub/index.php"))
+
+
 ;;sh into soihub and pull stuff from master
 (defun soihub-update-dev-server ()
   "This runs /home/joshua/programming/bash/soihub"

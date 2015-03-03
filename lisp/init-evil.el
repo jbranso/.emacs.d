@@ -29,6 +29,7 @@
 ;; this a file that will hopefully soon become and emacs package.
 (setq evil-dvorak-funky-h-and-t 1)
 (setq evil-dvorak-use-for-web-mode 1)
+
 (require 'evil-dvorak)
 (global-evil-dvorak-mode 1)
 
@@ -36,6 +37,8 @@
 (define-key evil-normal-state-map (kbd "TAB") 'indent-for-tab-command)
 (define-key evil-normal-state-map (kbd "s-z") 'evil-emacs-state)
 (define-key evil-insert-state-map (kbd "s-z") 'evil-normal-state)
+(define-key evil-normal-state-map (kbd "C-w h") 'windmove-down)
+(define-key evil-normal-state-map (kbd "C-w t") 'windmove-up)
 (define-key evil-emacs-state-map (kbd "s-z") 'evil-normal-state)
 ;; set this key to be the projectile prefix.
 ;;(define-key evil-normal-state-map (kbd "C-c p") 'web-mode-tag-attributes-sort)

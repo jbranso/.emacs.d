@@ -1,4 +1,4 @@
-(require 'web-mode)
+ (require 'web-mode)
 
 ;;  (defun web-mode-attribute-kill ()
 ;;   "Kill the current html attribute."

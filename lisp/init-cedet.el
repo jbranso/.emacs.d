@@ -9,8 +9,8 @@
 
 ;; specify all the semantic submodules you want to use.
 ;; activates highlighting of the current tag function and class under point
-(add-to-list 'semantic-default-submodes global-semantic-highlight-func-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)
+;; (add-to-list 'semantic-default-submodes global-semantic-highlight-func-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
 (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)

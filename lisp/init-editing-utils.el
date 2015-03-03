@@ -33,6 +33,9 @@
  )
 
 (global-linum-mode 1)
+;; this highlights search and replace as you type
+(require 'anzu)
+(global-anzu-mode +1)
 
 (global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
@@ -68,18 +71,18 @@
 ;; When you define a macro, you can type C-x Q to prompt the user for input.
 ;; Very helpful and cool!
 (defun my-macro-query (arg)
-      "Prompt for input using minibuffer during kbd macro execution.
+  "Prompt for input using minibuffer during kbd macro execution.
     With prefix argument, allows you to select what prompt string to use.
     If the input is non-empty, it is inserted at point."
-      (interactive "P")
-      (let* ((query (lambda () (kbd-macro-query t)))
-             (prompt (if arg (read-from-minibuffer "PROMPT: ") "Input: "))
-             (input (unwind-protect
-                        (progn
-                          (add-hook 'minibuffer-setup-hook query)
-                          (read-from-minibuffer prompt))
-                      (remove-hook 'minibuffer-setup-hook query))))
-        (unless (string= "" input) (insert input))))
+  (interactive "P")
+  (let* ((query (lambda () (kbd-macro-query t)))
+         (prompt (if arg (read-from-minibuffer "PROMPT: ") "Input: "))
+         (input (unwind-protect
+                    (progn
+                      (add-hook 'minibuffer-setup-hook query)
+                      (read-from-minibuffer prompt))
+                  (remove-hook 'minibuffer-setup-hook query))))
+    (unless (string= "" input) (insert input))))
 
 (global-set-key "\C-xQ" 'my-macro-query)
 
@@ -170,6 +173,12 @@ With negative prefix, apply to -N lines above."
   (backward-word)
   (downcase-word 1))
 
+
+(defun indent-whole-buffer ()
+  "This indents the whole buffer"
+  (interactive)
+  (indent-region (point-min) (point-max)))
+
 ;;all of my "C-c [letter]" commands
 ;; most of these commands are also in init-evil.el
 ;; It's probably not a good idea to have duplicate code, but
@@ -223,7 +232,7 @@ With negative prefix, apply to -N lines above."
 (global-set-key (kbd "C-c c a") #'mc/edit-beginnings-of-lines)
 
 ;; To make myself use C-w h/t/n/s
-(global-unset-key (kbd "C-x o"))
+(global-set-key (kbd "C-x o") 'other-window)
 ;; make myself use "s-s"
 (global-unset-key (kbd "C-x C-s"))
 
@@ -267,14 +276,13 @@ With negative prefix, apply to -N lines above."
 
 ;; This package pops up a buffer, when a key prefix is hit, that shows what keys the user can now hit to use a command.
 (require-package 'guide-key)
-(setq guide-key/guide-key-sequence '("C-c ," "C-c ."  "C-x" "C-c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-c p" "C-c h"))
+(setq guide-key/guide-key-sequence '("C-c ," "C-c ."  "C-x" "C-c" "C-c c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-c p" "C-c h"))
 (guide-key-mode 1)
 (diminish 'guide-key-mode)
 
 
 (add-hook 'before-save-hook
-	  #'(lambda ()
-	     (delete-trailing-whitespace)
-         ))
+          '(lambda ()
+             (delete-trailing-whitespace)))
 
 (provide 'init-editing-utils)

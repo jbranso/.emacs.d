@@ -1,7 +1,41 @@
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
+(define-key org-mode-map "\"" #'endless/round-quotes)
+
 ;; define what files org opens
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
+(setq org-capture-templates
+      '(("e" "Emacs Todo" entry (file+headline "~/programming/org/gtd/emacs-todos.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")
+        ("E" "Emacs Reference" entry (file+datetree "~/programming/org/gtd/emacs-reference.org")
+         "* %?\nEntered on %U\n  %i\n  %a")
+        ("s" "Soihub" entry (file+datetree "~/programming/org/gtd/soihub-todos.org")
+         "* %?\nEntered on %U\n  %i\n  %a")
+        ("S" "Star High" entry (file+datetree "~/programming/org/gtd/starhigh-todos.org")
+         "* %?\nEntered on %U\n  %i\n  %a")
+        ("a" "Awesome WM" entry (file+datetree "~/programming/org/gtd/awesome-todos.org")
+         "* %?\nEntered on %U\n  %i\n  %a")
+        ("r" "Reference" entry (file+datetree "~/programming/org/gtd/reference.org")
+         "* %?\nEntered on %U\n  %i\n  %a")))
+(define-key global-map "\C-cc" 'org-capture)
+;; 9.1.3 Capture templates
+
+;; You can use templates for different types of capture items, and for different target locations. The easiest way to create such
+;; templates is through the customize interface.
+
+;; C-c c C
+;;     Customize the variable org-capture-templates.
+
+;; Before we give the formal description of template definitions, let's look at an example. Say you would like to use one template
+;; to create general TODO entries, and you want to put these entries under the heading ‘Tasks’ in your file ~/org/gtd.org. Also, a
+;; date tree in the file journal.org should capture journal entries. A possible configuration would look like:
+
+;;      (setq org-capture-templates
+;;       '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
+;;              "* TODO %?\n  %i\n  %a")
+;;         ("j" "Journal" entry (file+datetree "~/org/journal.org")
+;;              "* %?\nEntered on %U\n  %i\n  %a")))
+
 
 ;; Various preferences
 (setq org-log-done t
