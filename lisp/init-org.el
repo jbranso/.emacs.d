@@ -2,6 +2,46 @@
 
 (define-key org-mode-map "\"" #'endless/round-quotes)
 
+(defun endless/round-quotes (italicize)
+  "Insert “” and leave point in the middle.
+With prefix argument ITALICIZE, insert /“”/ instead
+\(meant for org-mode).
+Inside a code-block, just call `self-insert-command'."
+  (interactive "P")
+  (if (and (derived-mode-p 'org-mode)
+           (org-in-block-p '("src" "latex" "html")))
+      (call-interactively #'self-insert-command)
+    (if (looking-at "”[/=_\\*]?")
+        (goto-char (match-end 0))
+      (when italicize
+        (if (derived-mode-p 'markdown-mode)
+            (insert "__")
+          (insert "//"))
+        (forward-char -1))
+      (insert "“”")
+      (forward-char -1))))
+
+(define-key org-mode-map "'" #'endless/apostrophe)
+;; (eval-after-load 'markdown-mode
+;;   '(define-key markdown-mode-map "'"
+;;      #'endless/apostrophe))
+
+(defun endless/apostrophe (opening)
+  "Insert ’ in prose or `self-insert-command' in code.
+With prefix argument OPENING, insert ‘’ instead and
+leave point in the middle.
+Inside a code-block, just call `self-insert-command'."
+  (interactive "P")
+  (if (and (derived-mode-p 'org-mode)
+           (org-in-block-p '("src" "latex" "html")))
+      (call-interactively #'self-insert-command)
+    (if (looking-at "['’][=_/\\*]?")
+        (goto-char (match-end 0))
+      (if (null opening)
+          (insert "’")
+        (insert "‘’")
+        (forward-char -1)))))
+
 ;; define what files org opens
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
 (setq org-capture-templates
@@ -20,11 +60,11 @@
          "* TODO %?\n  %i\n  %a")
         ("r" "Reference" entry (file+datetree "~/programming/org/gtd/reference.org")
          "* %?\nEntered on %U\n  %i\n  %a")
-        ("s" "Soihub" entry (file+datetree "~/programming/org/gtd/soihub-todos.org")
+        ("s" "soihub TODO" entry (file+datetree "~/programming/org/gtd/soihub-todos.org")
          "* %?\nEntered on %U\n  %i\n  %a")
-        ("S" "Star High" entry (file+datetree "~/programming/org/gtd/starhigh-todos.org")
+        ("S" "Soihub Reference" entry (file+datetree "~/programming/org/gtd/soihub-reference.org")
          "* %?\nEntered on %U\n  %i\n  %a")
-        ("t" "TODO" entry (file+datetree "~/programming/org/gtd/starhigh-todos.org")
+        ("t" "TODO" entry (file+datetree "~/programming/org/gtd/todos.org")
          "* %?\nEntered on %U\n  %i\n  %a")
         ))
 (define-key global-map "\C-cc" 'org-capture)

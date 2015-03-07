@@ -11,6 +11,7 @@
  ediff-split-window-function 'split-window-horizontally
  ediff-window-setup-function 'ediff-setup-windows-plain
  fill-column 130
+ ;; enable visual line mode
  ;;when you are on the last line of the buffer, C-n will act like <return>
  next-line-add-newlines t
  indent-tabs-mode nil
@@ -32,6 +33,7 @@
  ;;visible-bell t
  )
 
+(global-visual-line-mode 1)
 (global-linum-mode 1)
 ;; this highlights search and replace as you type
 (require 'anzu)
