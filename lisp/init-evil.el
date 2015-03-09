@@ -39,6 +39,13 @@
 (define-key evil-insert-state-map (kbd "s-z") 'evil-normal-state)
 (define-key evil-normal-state-map (kbd "C-w h") 'windmove-down)
 (define-key evil-normal-state-map (kbd "C-w t") 'windmove-up)
+(define-key evil-normal-state-map (kbd "Q") 'anzu-query-replace-regexp)
+;; This for when I use visual line mode mode. Now visual line mode should work for basic
+;; key movements
+(define-key evil-normal-state-map (kbd "h") 'next-line)
+(define-key evil-normal-state-map (kbd "t") 'previous-line)
+(define-key evil-normal-state-map (kbd "n") 'backward-char)
+(define-key evil-normal-state-map (kbd "l") 'forward-char)
 (define-key evil-emacs-state-map (kbd "s-z") 'evil-normal-state)
 ;; set this key to be the projectile prefix.
 ;;(define-key evil-normal-state-map (kbd "C-c p") 'web-mode-tag-attributes-sort)
