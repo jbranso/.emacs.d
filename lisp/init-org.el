@@ -58,6 +58,8 @@ Inside a code-block, just call `self-insert-command'."
          "* TODO %?\n  %i\n  %a")
         ("l" "linux TODO" entry (file+headline "~/programming/org/gtd/linux-todos.org" "Tasks")
          "* TODO %?\n  %i\n  %a")
+        ("L" "Linux Reference" entry (file+datetree "~/programming/org/gtd/linux-reference.org")
+         "* %?\nEntered on %U\n  %i\n  %a")
         ("r" "Reference" entry (file+datetree "~/programming/org/gtd/reference.org")
          "* %?\nEntered on %U\n  %i\n  %a")
         ("s" "soihub TODO" entry (file+datetree "~/programming/org/gtd/soihub-todos.org")
@@ -104,6 +106,13 @@ Inside a code-block, just call `self-insert-command'."
                                         ; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
 ;;(setq org-refile-targets (quote ((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5))))
 (setq org-agenda-files (quote ("~/programming/org/gtd/gtd.org"
+                               "/home/joshua/programming/org/gtd/awesome-todos.org"
+                               "/home/joshua/programming/org/gtd/todos.org "
+                               "/home/joshua/programming/org/gtd/emacs-todos.org"
+                               "/home/joshua/programming/org/gtd/linux-todos.org"
+                               "/home/joshua/programming/org/gtd/community-todo.org"
+                               "/home/joshua/programming/org/gtd/soihub-todos.org"
+                               "/home/joshua/programming/org/gtd/high-star-todos.org"
                                ;; I can add more files here!
                                )))
                                         ; Targets start with the file name - allows creating level 1 tasks
