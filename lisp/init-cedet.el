@@ -3,7 +3,10 @@
 
 (setq cedet-root-path (file-name-as-directory "/home/joshua/.emacs.d/"))
 
-(setq semanticdb-project-roots (quote ( home/joshua/.emacs.d/ ~/.emacs.d/lisp ~/programming/bash/ ~/programming/c/
+;;This file was causing a very bizzare error... with helm-mini. But it should not be doing it anymore.
+;; The first element in the quote below use to say
+;; "home/joshua/.emacs.d/", which was missing the initial "/", but it should be working fine now.
+(setq semanticdb-project-roots (quote ( /home/joshua/.emacs.d/ ~/.emacs.d/lisp ~/programming/bash/ ~/programming/c/
                                                    ~/programming/gnu/wget/ /home/joshua/programming/emacs/evil-dvorak
                                                    /home/joshua/programming/gcc/)))
 

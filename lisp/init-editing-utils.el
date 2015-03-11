@@ -150,17 +150,6 @@
 
 (global-set-key (kbd "C-c C-x r") #'toggle-refill-mode)
 
-(defun endless/comment-line (n)
-  "Comment or uncomment current line and leave point after it.
-With positive prefix, apply to N lines including current one.
-With negative prefix, apply to -N lines above."
-  (interactive "p")
-  (comment-or-uncomment-region
-   (line-beginning-position)
-   (goto-char (line-end-position n)))
-  (forward-line 1)
-  (back-to-indentation))
-
 (defun my/uppercase-word ()
   "capitalize the current word."
   (interactive)
@@ -201,7 +190,7 @@ With negative prefix, apply to -N lines above."
 (global-set-key (kbd "s-a") #'mark-whole-buffer)
 (global-unset-key (kbd "C-a"))
 (local-unset-key (kbd "C-a"))
-(global-set-key (kbd "C-c ;") #'endless/comment-line)
+(global-set-key (kbd "C-c ;") #'comment-dwim)
 (global-set-key (kbd "C-c d") #'dired-jump)
 (global-set-key (kbd "C-c b") #'eval-buffer)
 (global-set-key (kbd "C-c l") #'eval-last-sexp)

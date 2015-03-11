@@ -42,6 +42,7 @@
 (define-key evil-normal-state-map (kbd "Q") 'anzu-query-replace-regexp)
 ;; This for when I use visual line mode mode. Now visual line mode should work for basic
 ;; key movements
+;; This is not working.
 (define-key evil-normal-state-map (kbd "h") 'next-line)
 (define-key evil-normal-state-map (kbd "t") 'previous-line)
 (define-key evil-normal-state-map (kbd "n") 'backward-char)
