@@ -1,5 +1,18 @@
 ;; Setting up semantic mode.
 ;; This is where I'm getting all of this info from http://alexott.net/en/writings/emacs-devenv/EmacsCedet.html
+;; A good config comes from here:
+;; https://gist.github.com/alexott/3968635
+(require 'semantic-decorate-include)
+(require 'semantic-gcc)
+(require 'semantic-ia)
+(require 'eassist)
+(require 'semantic-lex-spp)
+
+(setq senator-minor-mode-name "SN")
+(setq semantic-imenu-auto-rebuild-directory-indexes nil)
+(global-srecode-minor-mode 1)
+(global-semantic-mru-bookmark-mode 1)
+(global-semantic-tag-folding-mode 1)
 
 (setq cedet-root-path (file-name-as-directory "/home/joshua/.emacs.d/"))
 
@@ -30,15 +43,6 @@
 
 (semantic-mode 1)
 
-;; advanced functionality for name completion
-(require 'semantic/ia)
-;; if you are using gcc for c and c++, then semantic will find the gcc header files.
-(require 'semantic/bovine/gcc)
-
-(require 'semantic/ia)
-
-
-
 ;; integration with imenu
 (defun my-semantic-hook ()
   (imenu-add-to-menubar "TAGS"))
@@ -46,6 +50,7 @@
 
 ;; if I'm to use semantic, then I need to enable global ede mode.
 (global-ede-mode t)
+(ede-enable-generic-projects)
 
 ;; this hook is not working. Emacs does not like it.
 (defun my-cedet-hook-for-c ()
