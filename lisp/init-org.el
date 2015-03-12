@@ -48,7 +48,7 @@ Inside a code-block, just call `self-insert-command'."
       '(
         ("a" "Awesome WM" entry (file+datetree "~/programming/org/gtd/awesome-todos.org")
          "* %?\nEntered on %U\n  %i\n  %a")
-        ("e" "Emacs Todo" entry (file+headline "~/programming/org/gtd/emacs-todos.org" "Tasks")
+        ("e" "emacs Todo" entry (file+headline "~/programming/org/gtd/emacs-todos.org" "Tasks")
          "* TODO %?\n  %i\n  %a")
         ("E" "Emacs Reference" entry (file+datetree "~/programming/org/gtd/emacs-reference.org")
          "* %?\nEntered on %U\n  %i\n  %a")
@@ -60,6 +60,8 @@ Inside a code-block, just call `self-insert-command'."
          "* TODO %?\n  %i\n  %a")
         ("L" "Linux Reference" entry (file+datetree "~/programming/org/gtd/linux-reference.org")
          "* %?\nEntered on %U\n  %i\n  %a")
+        ("o" "organ TODO" entry (file+headline "~/programming/org/gtd/organ-todos.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")
         ("r" "Reference" entry (file+datetree "~/programming/org/gtd/reference.org")
          "* %?\nEntered on %U\n  %i\n  %a")
         ("s" "soihub TODO" entry (file+datetree "~/programming/org/gtd/soihub-todos.org")

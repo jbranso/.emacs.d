@@ -2,26 +2,27 @@
 ;; This is where I'm getting all of this info from http://alexott.net/en/writings/emacs-devenv/EmacsCedet.html
 ;; A good config comes from here:
 ;; https://gist.github.com/alexott/3968635
-(require 'semantic-decorate-include)
-(require 'semantic-gcc)
-(require 'semantic-ia)
-(require 'eassist)
-(require 'semantic-lex-spp)
+;;(require 'semantic-decorate-include)
+;;(require 'semantic-gcc)
+;;(require 'semantic-ia)
+;;(require 'eassist)
+;;(require 'semantic-lex-spp)
 
 (setq senator-minor-mode-name "SN")
-(setq semantic-imenu-auto-rebuild-directory-indexes nil)
+;;(setq semantic-imenu-auto-rebuild-directory-indexes nil)
 (global-srecode-minor-mode 1)
 (global-semantic-mru-bookmark-mode 1)
-(global-semantic-tag-folding-mode 1)
+;;(global-semantic-tag-folding-mode 1)
 
-(setq cedet-root-path (file-name-as-directory "/home/joshua/.emacs.d/"))
+;;(setq cedet-root-path (file-name-as-directory "/home/joshua/.emacs.d/"))
 
 ;;This file was causing a very bizzare error... with helm-mini. But it should not be doing it anymore.
 ;; The first element in the quote below use to say
 ;; "home/joshua/.emacs.d/", which was missing the initial "/", but it should be working fine now.
-(setq semanticdb-project-roots (quote ( /home/joshua/.emacs.d/ ~/.emacs.d/lisp ~/programming/bash/ ~/programming/c/
-                                                   ~/programming/gnu/wget/ /home/joshua/programming/emacs/evil-dvorak
-                                                   /home/joshua/programming/gcc/)))
+;; (setq semanticdb-project-roots (quote ( /home/joshua/.emacs.d/ /home/joshua/.emacs.d/lisp /home/joshua/programming/bash/
+;;                                                                /home/joshua/programming/c/ /home/joshua/programming/gnu/wget/
+;;                                                                /home/joshua/programming/emacs/evil-dvorak
+;;                                                                /home/joshua/programming/gcc/)))
 
 ;; specify all the semantic submodules you want to use.
 ;; activates highlighting of the current tag function and class under point
@@ -44,42 +45,13 @@
 (semantic-mode 1)
 
 ;; integration with imenu
-(defun my-semantic-hook ()
-  (imenu-add-to-menubar "TAGS"))
-(add-hook 'semantic-init-hooks 'my-semantic-hook)
+;; (defun my-semantic-hook ()
+;;   (imenu-add-to-menubar "TAGS"))
+;; (add-hook 'semantic-init-hooks 'my-semantic-hook)
 
 ;; if I'm to use semantic, then I need to enable global ede mode.
 (global-ede-mode t)
 (ede-enable-generic-projects)
-
-;; this hook is not working. Emacs does not like it.
-(defun my-cedet-hook-for-c ()
-  (local-set-key [(control return)] 'semantic-ia-complete-symbol)
-  (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
-  ;;(local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-  ;;(local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
-  ;;(local-set-key "." 'semantic-complete-self-insert)
-  ;;(local-set-key ">" 'semantic-complete-self-insert)
-  ;; ac-omni-completion-sources is made buffer local so
-  ;; you need to add it to a mode hook to activate on
-  ;; whatever buffer you want to use it with.  This
-  ;; example uses C mode (as you probably surmised).
-
-  ;; auto-complete.el expects ac-omni-completion-sources to be
-  ;; a list of cons cells where each cell's car is a regex
-  ;; that describes the syntactical bits you want AutoComplete
-  ;; to be aware of. The cdr of each cell is the source that will
-  ;; supply the completion data.  The following tells autocomplete
-  ;; to begin completion when you type in a . or a ->
-
-  ;; ac-sources was also made buffer local in new versions of
-  ;; autocomplete.  In my case, I want AutoComplete to use
-  ;; semantic and yasnippet (order matters, if reversed snippets
-  ;; will appear before semantic tag completions).
-
-  ;;(add-to-list ac-sources '(ac-source-semantic))
-  )
-;;(add-hook 'c-mode-common-hook 'my-cedet-hook-for-c)
 
 ;;setting up ac
 
@@ -107,19 +79,19 @@
 ;;       c-insert-tab-function #'indent-for-tab-command)
 
 ;; hook AC into completion-at-point
-(defun sanityinc/auto-complete-at-point ()
-  (when (and (not (minibufferp))
-             (fboundp 'auto-complete-mode)
-             auto-complete-mode)
-    (auto-complete)))
+;; (defun sanityinc/auto-complete-at-point ()
+  ;; (when (and (not (minibufferp))
+  ;;            (fboundp 'auto-complete-mode)
+  ;;            auto-complete-mode)
+    ;; (auto-complete)))
 
-(defun sanityinc/never-indent ()
-  (set (make-local-variable 'indent-line-function) (lambda () 'noindent)))
+;; (defun sanityinc/never-indent ()
+;;   (set (make-local-variable 'indent-line-function) (lambda () 'noindent)))
 
-(defun set-auto-complete-as-completion-at-point-function ()
-  (setq completion-at-point-functions
-        (cons 'sanityinc/auto-complete-at-point
-              (remove 'sanityinc/auto-complete-at-point completion-at-point-functions))))
+;; (defun set-auto-complete-as-completion-at-point-function ()
+;;   (setq completion-at-point-functions
+;;         (cons 'sanityinc/auto-complete-at-point
+;;               (remove 'sanityinc/auto-complete-at-point completion-at-point-functions))))
 
 ;; what does this do?
 ;;(add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
@@ -132,12 +104,12 @@
 (define-key ac-complete-mode-map "\C-t" 'ac-previous)
 
 (set-default 'ac-sources
-             '(ac-source-imenu
+             '(;;ac-source-imenu
                ;;ac-source-yasnippet
                ac-source-dictionary
-               ac-source-words-in-buffer
+               ;;ac-source-words-in-buffer
                ac-source-semantic
-               ac-source-words-in-same-mode-buffers
+               ;;ac-source-words-in-same-mode-buffers
                ac-source-words-in-all-buffer))
 
 (dolist (mode '(magit-log-edit-mode

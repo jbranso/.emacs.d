@@ -75,7 +75,11 @@
   ;; this when statement probably doesn't need to be here.
   (when (string-match "_[-a-z_A-Z0-9]*\\.php\\|[-a-z_A-Z0-9]*\\.php" buffer-file-name)
     (setq php-file-name (match-string 0 buffer-file-name) ))
-  (write-file "/ssh:jbranso@locutus.cs.purdue.edu:/home/isi-wiki/soi/"))
+  ;; Take the current file and save it on the live server
+  (write-file "/ssh:jbranso@locutus.cs.purdue.edu:/home/isi-wiki/soi/")
+  ;;Take the current file and save it locally, that way, after I'm done saying the local file
+  ;;to the server, pwd is still ~/programming/soihub
+  (write-file "/home/joshua/programming/soihub/"))
 
 
 (provide 'init-defuns)
