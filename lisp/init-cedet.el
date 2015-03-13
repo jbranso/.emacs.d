@@ -50,8 +50,8 @@
 ;; (add-hook 'semantic-init-hooks 'my-semantic-hook)
 
 ;; if I'm to use semantic, then I need to enable global ede mode.
-(global-ede-mode t)
-(ede-enable-generic-projects)
+;;(global-ede-mode t)
+;; (ede-enable-generic-projects)
 
 ;;setting up ac
 
