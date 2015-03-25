@@ -57,7 +57,7 @@
 ;; this file saves all open buffers. It is so useful!
 ;;(require 'init-sessions)
 (require 'init-helm)
-;;(require 'init-projectile)
+(require 'init-projectile)
 
 (require 'init-editing-utils)
 (require 'init-evil)

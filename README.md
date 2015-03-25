@@ -1,27 +1,25 @@
-# A reasonable Emacs config
+# My reasonable Emacs config
 
-This is my emacs configuration tree, continually used and tweaked
-since 2000, and it may be a good starting point for other Emacs
-users, especially those who are web developers. These days it's
-somewhat geared towards OS X, but it is known to also work on Linux
-and Windows.
+Not so long ago I forked Steve Purcell's emacs config.  You can find the original config here: https://github.com/purcell/emacs.d
+
+My emacs config is still structured like Steve Purcell's.  All of my code for my init.el is in my lisp/ folder. Mostly, I have removed
+some of the features that he added to his emacs config.  Most notably, I do not use mmm-mode (more than one major mode).  To edit web
+pages, I use web-mode.el. This config also assumes you want to use evil-mode with a dvorak keyboard.  *If you like the qwerty keyboard layout and the default non-modal behavior of emacs, then you probably should not use this config.*
 
 Emacs itself comes with support for many programming languages. This
 config adds improved defaults and extended support for the following:
 
-* Ruby / Ruby on Rails
-* CSS / LESS / SASS / SCSS
-* HAML / Markdown / Textile / ERB
-* Clojure (with Cider and nRepl)
-* Javascript / Coffeescript
+* CSS
+* Javascript
 * Python
-* PHP
-* Haskell
-* Erlang
-* Common Lisp (with Slime)
+* PHP (web-mode.el).
+* Common Lisp (with Slime ?)
+* evil-mode (vim like keybindings).
+* evil-dvorak-mode (restructures vim's keybindings to work for dvorak keyboard layouts).
+* helm (because ido is not nearly as cool)
+* projectile (which I'm still trying to learn how to use)
 
-In particular, there's a nice config for *tab autocompletion*, and
-flycheck is used to immediately highlight syntax errors in Ruby, HAML,
+Flycheck is used to immediately highlight syntax errors in Ruby, HAML,
 Python, Javascript, PHP and a number of other languages.
 
 ## Requirements
@@ -46,14 +44,14 @@ git clone https://github.com/purcell/emacs.d.git ~/.emacs.d
 Upon starting up Emacs for the first time, further third-party
 packages will be automatically downloaded and installed.
 
-## Important note about `ido`
+## Important note about helm
 
-This config enables `ido-mode` completion in the minibuffer wherever
-possible, which might confuse you when trying to open files using
-<kbd>C-x C-f</kbd>, e.g. when you want to open a directory to use
-`dired` -- if you get stuck, use <kbd>C-f</kbd> to drop into the
-regular `find-file` prompt. (You might want to customize the
-`ido-show-dot-for-dired` variable if this is an issue for you.)
+I use helm-mode instead of ido.  You should consider to use helm too. Helm-swoop alone is super amazing (although swiper.el, is nice too).  This config uses "C-c h" as the default helm keybinding.
+
+## Important note about helm
+
+I also use projectile, which is a way to quickly navigate your way through lots of source code files.  Type "C-c p" to see a list
+of options. I really like "C-c p h", which uses helm to navigate projectile's sources!
 
 ## Updates
 
@@ -88,16 +86,10 @@ You might also want to check out `emacs-starter-kit` and `prelude`.
 If you hit any problems, please first ensure that you are using the latest version
 of this code, and that you have updated your packages to the most recent available
 versions (see "Updates" above). If you still experience problems, go ahead and
-[file an issue on the github project](https://github.com/purcell/emacs.d).
+[file an issue on the github project](https://github.com/jbranso/emacs.d).
 
--Steve Purcell
+-Joshua Branson
 
 <hr>
 
-[![](http://api.coderwall.com/purcell/endorsecount.png)](http://coderwall.com/purcell)
-
-[![](http://www.linkedin.com/img/webpromo/btn_liprofile_blue_80x15.png)](http://uk.linkedin.com/in/stevepurcell)
-
-[sanityinc.com](http://www.sanityinc.com/)
-
-[@sanityinc](https://twitter.com/)
+[jbranso](http://web.ics.purdue.edu/~jbranso)
