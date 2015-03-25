@@ -48,7 +48,7 @@ packages will be automatically downloaded and installed.
 
 I use helm-mode instead of ido.  You should consider to use helm too. Helm-swoop alone is super amazing (although swiper.el, is nice too).  This config uses "C-c h" as the default helm keybinding.
 
-## Important note about helm
+## Important note about projectile
 
 I also use projectile, which is a way to quickly navigate your way through lots of source code files.  Type "C-c p" to see a list
 of options. I really like "C-c p h", which uses helm to navigate projectile's sources!
