@@ -8,10 +8,10 @@
 ;;(require 'eassist)
 ;;(require 'semantic-lex-spp)
 
-(setq senator-minor-mode-name "SN")
+;;(setq senator-minor-mode-name "SN")
 ;;(setq semantic-imenu-auto-rebuild-directory-indexes nil)
-(global-srecode-minor-mode 1)
-(global-semantic-mru-bookmark-mode 1)
+;;(global-srecode-minor-mode 1)
+;;(global-semantic-mru-bookmark-mode 1)
 ;;(global-semantic-tag-folding-mode 1)
 
 ;;(setq cedet-root-path (file-name-as-directory "/home/joshua/.emacs.d/"))
@@ -28,21 +28,21 @@
 ;; activates highlighting of the current tag function and class under point
 ;; (add-to-list 'semantic-default-submodes global-semantic-highlight-func-mode)
 ;; (add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
-(add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
+;;(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
+;;(add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
 ;; this should echo some information about the symbol or function at point in the echo area.
 ;; it is like eldoc, but I have not gotten it to work.
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
 ;;this will put up triangles on the fringes where I can fold code
 ;; I can also do this with senator-fold-tag
-(add-to-list 'semantic-default-submodes 'global-semantic-tag-folding-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-tag-folding-mode)
 ;; this is not being found
 ;; global-cedet-m3-minor-mode
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-local-symbol-highlight-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-local-symbol-highlight-mode)
 
-(semantic-mode 1)
+;; (semantic-mode 1)
 
 ;; integration with imenu
 ;; (defun my-semantic-hook ()
@@ -108,17 +108,21 @@
                ;;ac-source-yasnippet
                ac-source-dictionary
                ;;ac-source-words-in-buffer
-               ac-source-semantic
+               ;; ac-source-semantic
                ;;ac-source-words-in-same-mode-buffers
                ac-source-words-in-all-buffer))
 
 (dolist (mode '(magit-log-edit-mode
                 log-edit-mode org-mode text-mode
                 git-commit-mode
-                sass-mode espresso-mode
-                html-mode smarty-mode clojure-mode
-                lisp-mode textile-mode markdown-mode
-                js3-mode css-mode less-css-mode sql-mode
+                ;; sass-mode espresso-mode
+                html-mode smarty-mode
+                ;; clojure-mode
+                lisp-mode
+                ;; textile-mode markdown-mode
+                js3-mode css-mode
+                ;; less-css-mode
+                sql-mode
                 sql-interactive-mode
                 inferior-emacs-lisp-mode))
   (add-to-list 'ac-modes mode))

@@ -12,7 +12,7 @@
 ;; Bootstrap config
 ;;----------------------------------------------------------------------------
 ;; initialize cedet before elpa, just in case.
-(load-file "/home/joshua/.emacs.d/cedet/cedet-devel-load.el")
+;;(load-file "/home/joshua/.emacs.d/cedet/cedet-devel-load.el")
 
 (require 'init-utils)
 (require 'init-elpa)      ;; Machinery for installing required packages

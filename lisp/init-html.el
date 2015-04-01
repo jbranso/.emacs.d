@@ -10,8 +10,8 @@
 
 ;; I think mozRepl is buggy.
 ;; connect emacs to mozilla so I can reload the webpage.
-;;(load "~/.emacs.d/elpa/mol.el")
-;;(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+(load "~/.emacs.d/elpa/mol.el")
+(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
 
 (defun auto-reload-firefox-on-after-save-hook ()
   (add-hook 'after-save-hook
@@ -21,8 +21,8 @@
                                    "setTimeout(BrowserReload(), \"1000\");"))
             'append 'local)) ; buffer-local
 
-;;(add-hook 'web-mode-hook 'auto-reload-firefox-on-after-save-hook)
-(remove-hook 'web-mode-hook 'auto-reload-firefox-on-after-save-hook)
+(add-hook 'web-mode-hook 'auto-reload-firefox-on-after-save-hook)
+;;(remove-hook 'web-mode-hook 'auto-reload-firefox-on-after-save-hook)
 
 ;; Example - you may want to add hooks for your own modes.
 ;; I also add this to python-mode when doing django development.
@@ -45,11 +45,21 @@
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.php?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.css?\\'" . css-mode))
+(add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-mode))
 
 (setq web-mode-engines-alist
-      '(("php"    . "\\.phtml\\'")
-        ("php"  . "\\.php\\.")
+      '(("php"  . "\\.php\\.")
         ("django"  . "\\.djhtml\\.")))
+
+;; default html indentation
+(setq web-mode-markup-indent-offset 4)
+;; default css indentation
+;; since I'm not using web-mode for css, I don't need this next line
+;;(setq web-mode-css-indent-offset 4)
+;; default script indentation (php and js)
+;; since I'm not using web-mode for js2-mode, I don't need the next line
+;;(setq web-mode-code-indent-offset 4)
 
 (require 'emmet-mode)
 
@@ -78,12 +88,18 @@
                            (local-unset-key (kbd "C-c C-h"))
                            (global-set-key (kbd "C-c C-h") 'help)))
 
-(add-to-list 'web-mode-ac-sources-alist
-             '("html" . (ac-source-html-tag
-                         ac-source-html-attribute
-                         ac-source-html-attribute-2
-                         (ac-source-jquery
-                          (ac-source-html-bootstrap+)))))
+(setq web-mode-ac-sources-alist
+  '(("css" . (ac-source-css-property ac-source-html-bootstrap+))
+    ("html" . (ac-source-words-in-buffer ac-source-abbrev ac-source-html-bootstrap+))
+    ("php" . (ac-source-words-in-buffer
+              ac-source-abbrev
+              ac-source-html-tag
+              ac-source-html-attribute
+              ac-source-html-attribute-2
+              ac-source-jquery
+              ac-source-html-bootstrap+
+              ac-source-html-bootstrap))))
+
 
 (setq web-mode-code-indent-offset 4)
 

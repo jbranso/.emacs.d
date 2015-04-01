@@ -192,14 +192,14 @@
 (global-unset-key (kbd "C-a"))
 (local-unset-key (kbd "C-a"))
 (global-set-key (kbd "C-c ;") #'comment-dwim)
+(global-set-key (kbd "C-c b") #'eval-buffer)
 (global-set-key (kbd "C-c d") #'dired-jump)
 (global-set-key (kbd "C-c D") #'soihub-update-dev-server)
-(global-set-key (kbd "C-c b") #'eval-buffer)
+(global-set-key (kbd "C-c e") #'helm-M-x)
 (global-set-key (kbd "C-c l") #'eval-last-sexp)
 (global-set-key (kbd "C-c m") #'helm-mini)
 (global-set-key (kbd "C-c q") #'fill-paragraph)
-(global-set-key (kbd "C-c e") #'helm-M-x)
-(global-set-key (kbd "C-c m") #'helm-mini)
+(global-set-key (kbd "C-c s") #'ag-regexp)
 ;; this is not working for some reason.
 (global-set-key (kbd "C-c x") #'er/expand-region)
 (global-set-key (kbd "C-c i") #'info-display-manual)
@@ -269,7 +269,8 @@
 
 ;; This package pops up a buffer, when a key prefix is hit, that shows what keys the user can now hit to use a command.
 (require-package 'guide-key)
-(setq guide-key/guide-key-sequence '("C-c ," "C-c ."  "C-x" "C-c" "C-c c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-c p" "C-c h"))
+(setq guide-key/guide-key-sequence '("C-c ," "C-c ."  "C-x" "C-c" "C-c c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-c p"
+                                     "C-c h" "C-c /"))
 (guide-key-mode 1)
 (diminish 'guide-key-mode)
 

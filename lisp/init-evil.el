@@ -39,7 +39,7 @@
 (define-key evil-insert-state-map (kbd "s-z") 'evil-normal-state)
 (define-key evil-normal-state-map (kbd "C-w h") 'windmove-down)
 (define-key evil-normal-state-map (kbd "C-w t") 'windmove-up)
-(define-key evil-normal-state-map (kbd "Q") 'anzu-query-replace-regexp)
+;;(define-key evil-normal-state-map (kbd "Q") 'anzu-query-replace-regexp)
 ;; This for when I use visual line mode mode. Now visual line mode should work for basic
 ;; key movements
 ;; This is not working.
@@ -47,7 +47,23 @@
 (define-key evil-normal-state-map (kbd "t") 'previous-line)
 (define-key evil-normal-state-map (kbd "n") 'backward-char)
 (define-key evil-normal-state-map (kbd "l") 'forward-char)
+;;(define-key evil-normal-state-map (kbd "<return>") 'newline-and-indent)
+;;(define-key evil-insert-state-map (kbd "<return>") 'newline-and-indent)
+
 (define-key evil-emacs-state-map (kbd "s-z") 'evil-normal-state)
+
+;; Ask on IRC about this
+;; I'm trying to make emacs treat the letter after O in the alphabet as ESC
+;; (add-hook evil-normal-state-entry-hook 'lambda ()
+;;           (interactive)
+;;           (keyboard-translate ?M 27 )
+;;           (define-key evil-normal-state-map (kbd "ESC") 'emacs-prefix-key))
+
+;; (add-hook evil-normal-state-exit-hook 'lambda ()
+;;           (interactive)
+;;           (keyboard-translate <ESC> ?M))
+
+
 ;; set this key to be the projectile prefix.
 ;;(define-key evil-normal-state-map (kbd "C-c p") 'web-mode-tag-attributes-sort)
 (evil-set-initial-state 'snake-mode 'emacs)
