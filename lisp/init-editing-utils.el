@@ -17,6 +17,9 @@
  next-line-add-newlines t
  indent-tabs-mode nil
  make-backup-files nil
+ ;; don't let the cursor go into minibuffer prompt
+ ;; http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
+ minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
  ;; only auto-save when the buffer has been idle for 1 hour.  This has no purpose other than to stop auto-saves
  ;; the next two lines are dumb hacks to try to stop auto-saving
  ;;auto-save-timeout 3600
