@@ -11,6 +11,13 @@
 ;; this package is soooo cool! you execute git-timemachine, you can then press p and n to go to the
 ;; previous and next verions. w copies the git hash of the current buffer, and q quits the buffer
 (require-package 'git-timemachine)
+;; make git-timemachine's bindings over-ride evil normal mode's bindings
+;; this code won't work, because I have evil-dvorak.el installed.
+;; (eval-after-load 'git-timemachine
+;;   '(progn
+;;      (evil-make-overriding-map git-timemachine-mode-map 'normal)
+;;      ;; force update evil keymaps after git-timemachine-mode loaded
+;;      (add-hook 'git-timemachine-mode-hook #'evil-normalize-keymaps)))
 
 (setq-default
  magit-save-some-buffers nil

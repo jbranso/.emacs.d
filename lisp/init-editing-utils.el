@@ -16,6 +16,9 @@
  ;;when you are on the last line of the buffer, C-n will act like <return>
  next-line-add-newlines t
  indent-tabs-mode nil
+ inhibit-splash-screen t
+ inhibit-startup-echo-area-message t
+ inhibit-startup-message t
  make-backup-files nil
  ;; don't let the cursor go into minibuffer prompt
  ;; http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
