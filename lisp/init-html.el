@@ -1,30 +1,3 @@
-;; set up org2blog
-(require 'xml-rpc)
-(require 'metaweblog)
-(require 'org2blog-autoloads)
-
-(setq org2blog/wp-blog-alist
-      '(("jbranso.me"
-         :url "http://jbranso.me/xmlrpc.php"
-         :username "jbranso"
-         :default-title "Hello World"
-         :default-categories ("org2blog" "emacs")
-         :tags-as-categories nil)
-        ))
-
-;; (require 'auth-source) ;; or nothing if already in the load-path
-;; (let (credentials)
-;;   ;; only required if your auth file is not already in the list of auth-sources
-;;   (add-to-list 'auth-sources "~/.netrc")
-;;   (setq credentials (auth-source-user-and-password "jbranso.me"))
-;;   (setq org2blog/wp-blog-alist
-;;         `(("jbranso.me"
-;;            :url "http://jbranso.me"
-;;            :username ,(car credentials)
-;;            :password ,(cadr credentials)))))
-
-(require 'web-mode)
-
 ;;  (defun web-mode-attribute-kill ()
 ;;   "Kill the current html attribute."
 ;;   (interactive)
