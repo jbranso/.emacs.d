@@ -71,6 +71,7 @@
 (require 'init-javascript)
 (require 'init-org)
 (require 'init-html)
+(require 'init-org2blog)
 (require 'init-css)
 (require 'init-python-mode)
 (require 'init-defuns)

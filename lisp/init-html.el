@@ -1,11 +1,4 @@
-;;  (defun web-mode-attribute-kill ()
-;;   "Kill the current html attribute."
-;;   (interactive)
-;;   (web-mode-attribute-select)
-;;   (when mark-active
-;;     (kill-region (region-beginning) (region-end))))
-
-
+(require 'web-mode)
 ;; I think mozRepl is buggy.
 ;; connect emacs to mozilla so I can reload the webpage.
 (load "~/.emacs.d/elpa/mol.el")
