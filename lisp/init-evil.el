@@ -22,6 +22,21 @@
         (kmacro-exec-ring-item
          (quote ("EBEyES<a href=\">" 0 "%d")) arg)))
 
+
+;; This macro will insert an org link.
+(fset 'org-link
+   [?i ?\[ ?\[ ?\C-x ?Q return ?\] ?\] backspace ?\[ ?\C-x ?Q return ?\] ?\]])
+
+(fset 'org-link
+      [?i ?\[ ?\[ ?\C-x ?Q return ?\] ?\] backspace ?\[ ?\C-x ?Q return ?\] ?\]])
+
+
+;; (defun org-link ()
+
+;;   )
+
+
+
 ;; Make evil-insert-mode allow emacs keybindings
 (setcdr evil-insert-state-map nil)
 
@@ -36,6 +51,7 @@
 (local-unset-key (kbd "TAB"))
 (define-key evil-normal-state-map (kbd "TAB") 'indent-for-tab-command)
 (define-key evil-normal-state-map (kbd "s-z") 'evil-emacs-state)
+(define-key evil-normal-state-map (kbd "s-l") 'org-link)
 (define-key evil-insert-state-map (kbd "s-z") 'evil-normal-state)
 (define-key evil-normal-state-map (kbd "C-w h") 'windmove-down)
 (define-key evil-normal-state-map (kbd "C-w t") 'windmove-up)

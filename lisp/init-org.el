@@ -2,6 +2,11 @@
 
 (define-key org-mode-map "\"" #'endless/round-quotes)
 
+(add-hook 'org-mode-hook #'yas-minor-mode)
+
+;;this is an awesome thing won't work.
+;;(define-key yas-minor-mode-map (kbd "<s-tab>") 'yas-ido-expand)
+
 (defun endless/round-quotes (italicize)
   "Insert “” and leave point in the middle.
 With prefix argument ITALICIZE, insert /“”/ instead
@@ -62,8 +67,12 @@ Inside a code-block, just call `self-insert-command'."
          "* TODO %?\n  %i\n  %a")
         ("L" "Linux Reference" entry (file+headline "~/programming/org/gtd/gtd.org" "linux reference")
          "* %?\nEntered on %U\n  %i\n  %a")
+        ("m" "Matt Notes" entry (file+headline "~/programming/org/gtd/gtd.org" "Matt Notes")
+         "*  %i\n  %a")
         ("n" "nice things to say" entry (file+headline "~/programming/org/gtd/gtd.org" "nice things to say to people")
          "* TODO %?\nEntered on %U\n  %i\n  %a")
+        ("N" "entertainment" entry (file+headline "~/programming/org/gtd/gtd.org" "entertainment someday")
+         "* TODO %?\nEntered on %U\n  ")
         ("o" "organ TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "organ todo")
          "* TODO %?\n  %i\n  %a")
         ("r" "Reference" entry (file+headline "~/programming/org/gtd/gtd.org" "general reference")
@@ -228,6 +237,7 @@ Inside a code-block, just call `self-insert-command'."
      (ledger . t)
      (python . t)
      (sh . t)
+     (sql . t)
      (sqlite . t))))
 
 

@@ -1,5 +1,6 @@
 ;; set up gnus to use Purdue IMAP
 
+;; You can find the following guide here: http://www.emacswiki.org/emacs/GnusGmail#toc1
 ;; Quickstart
 ;; Put the following in ~/.profile (I put it in .bash_profile) :
 

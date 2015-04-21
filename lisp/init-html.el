@@ -1,8 +1,8 @@
 (require 'web-mode)
 ;; I think mozRepl is buggy.
 ;; connect emacs to mozilla so I can reload the webpage.
-(load "~/.emacs.d/elpa/mol.el")
-(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+;; (load "~/.emacs.d/elpa/mol.el")
+;; (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
 
 ;; This will probably come in handy.
 ;; (defun my-setup-indent (n)
@@ -44,7 +44,7 @@
                                    "setTimeout(BrowserReload(), \"1000\");"))
             'append 'local)) ; buffer-local
 
-(add-hook 'web-mode-hook 'auto-reload-firefox-on-after-save-hook)
+;;(add-hook 'web-mode-hook 'auto-reload-firefox-on-after-save-hook)
 ;;(remove-hook 'web-mode-hook 'auto-reload-firefox-on-after-save-hook)
 
 ;; Example - you may want to add hooks for your own modes.

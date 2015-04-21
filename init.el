@@ -42,6 +42,7 @@
 (require-package 'mwe-log-commands)
 (mwe:log-keyboard-commands)
 
+(require 'init-gnus)
 (require 'init-vc)
 (require 'init-gui-frames)
 (require 'init-recentf)
