@@ -185,7 +185,7 @@
 (global-set-key "\t" #'indent-for-tab-command)
 (global-set-key (kbd "s-s") #'save-buffer)
 (global-set-key (kbd "s-g") #'magit-status)
-(global-set-key (kbd "C-c g") #'magit-status)
+(global-set-key (kbd "C-c g") #'gnus)
 (global-set-key (kbd "C-c P") #'pwd)
 (global-set-key (kbd "C-c F") #'isearch-forward)
 (global-set-key (kbd "C-c f") #'isearch-forward-regexp)
