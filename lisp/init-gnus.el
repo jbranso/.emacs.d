@@ -34,13 +34,34 @@
 
 ;; Run ‘M-x gnus’ and enjoy.
 
+;; set up search in GNUS
+;; http://www.emacswiki.org/emacs/GnusGmail#toc21
+(require 'nnir)
 
+;; tell gnus to use my purdue email, and to enable searching my inbox
+;; typing GG in the buffer group, lets me search the current group for a string
 (setq gnus-select-method
-      '(nnimap "purdue email"
+      '(nnimap "mymail.purdue.edu"
 	       (nnimap-address "mymail.purdue.edu")  ; it could also be imap.googlemail.com if that's your server.
 	       (nnimap-server-port "993")
-	       (nnimap-stream ssl)))
+	       (nnimap-stream ssl)
+           (nnir-search-engine imap)
+           ))
 
-(setq smtpmail-smtp-service 465)
+;; (setq message-send-mail-function 'message-smtpmail-send-it
+;;       smtpmail-smtp-server "smtp.purdue.edu"
+;;       smtpmail-stream-type 'ssl
+;;       smtpmail-smtp-service 465)
+
+;; The variable smtpmail-stream-type controls what form of connection the SMTP library uses. The default value is nil, which
+ ;; means to use a plain connection, but try to switch to a STARTTLS encrypted connection if the server supports it. Other
+ ;; possible values are: starttls to insist on STARTTLS; ssl to use TLS/SSL; and plain for encryption.
+
+(setq
+ smtpmail-smtp-server "smtp.purdue.edu"
+ ;;smtpmail-default-smtp-server "smtp.purdue.edu"
+ smtpmail-stream-type 'ssl
+ smtpmail-smtp-service 465)
+
 
 (provide 'init-gnus)
