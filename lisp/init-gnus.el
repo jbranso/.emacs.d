@@ -73,6 +73,15 @@
       "Joshua Branson\nPurdue University\nWeb Production Assistant\nweb.ics.purdue.edu/~jbranso\njbranso.me"
       gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n")
 
+
+
+;;have gnus alert you when a new mail arrives
+(require 'gnus-desktop-notify)
+(gnus-desktop-notify-mode)
+(gnus-demon-add-scanmail)
+(gnus-demon-add-handler 'gnus-group-get-new-news 20 t)
+;;alledigeely this next line is not necessary
+;;(gnus-demon-init)
 
 ;; change how the summary buffer looks
 ;;(setq
