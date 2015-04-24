@@ -3,11 +3,13 @@
 ;;----------------------------------------------------------------------------
 (setq-default
  blink-cursor-interval 0.4
+ ;; I want to open links from org-mode in chromium
+ browse-url-browser-function (quote browse-url-chromium)
  bookmark-default-file (expand-file-name ".bookmarks.el" user-emacs-directory)
  buffers-menu-max-size 30
  case-fold-search t
  default-tab-width 4
- debug-on-error t
+ ;; debug-on-error t
  delete-selection-mode t
  ediff-split-window-function 'split-window-horizontally
  ediff-window-setup-function 'ediff-setup-windows-plain
@@ -177,6 +179,20 @@
   (interactive)
   (indent-region (point-min) (point-max)))
 
+;; the default behavior on i-search stinks.  This might be a little better
+;; http://endlessparentheses.com/better-backspace-during-isearch.html?source=rss
+;; (defun mydelete ()
+;;   "Delete the failed portion of the search string, or the last char if successful."
+;;   (interactive)
+;;   (with-isearch-suspended
+;;       (setq isearch-new-string
+;;             (substring
+;;              isearch-string 0 (or (isearch-fail-pos) (1- (length isearch-string))))
+;;             isearch-new-message
+;;             (mapconcat 'isearch-text-char-description isearch-new-string ""))))
+
+;; (define-key isearch-mode-map (kbd "DEL") 'mydelete)
+
 ;;all of my "C-c [letter]" commands
 ;; most of these commands are also in init-evil.el
 ;; It's probably not a good idea to have duplicate code, but
@@ -276,7 +292,7 @@
 ;; This package pops up a buffer, when a key prefix is hit, that shows what keys the user can now hit to use a command.
 (require-package 'guide-key)
 (setq guide-key/guide-key-sequence '("C-c ," "C-c ."  "C-x" "C-c" "C-c c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-c p"
-                                     "C-c h" "C-c /"))
+                                     "C-c h" "C-c /"  "C-c C-m"))
 (guide-key-mode 1)
 (diminish 'guide-key-mode)
 

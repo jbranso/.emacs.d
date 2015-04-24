@@ -34,6 +34,10 @@
 
 ;; Run ‘M-x gnus’ and enjoy.
 
+;; let's tell gnus who we aref
+(setq user-mail-address	"jbranso@purdue.edu"
+	  user-full-name	"Joshua Branson")
+
 ;; set up search in GNUS
 ;; http://www.emacswiki.org/emacs/GnusGmail#toc21
 (require 'nnir)
@@ -60,8 +64,18 @@
 (setq
  smtpmail-smtp-server "smtp.purdue.edu"
  ;;smtpmail-default-smtp-server "smtp.purdue.edu"
+ send-mail-function (quote smtpmail-send-it)
  smtpmail-stream-type 'ssl
  smtpmail-smtp-service 465)
 
+;; make a default signature
+(setq message-signature
+      "Joshua Branson\nPurdue University\nWeb Production Assistant\nweb.ics.purdue.edu/~jbranso\njbranso.me"
+      gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n")
+
+
+;; change how the summary buffer looks
+;;(setq
+ ;; gnus-summary-line-format '(%U%R%z%I%(%[%4L: %-23,23f%]%) %s\n))
 
 (provide 'init-gnus)
