@@ -95,7 +95,7 @@
 ;; these string are needed to initial bbdb for gnus, message, and send mail
 ;;(bbdb-initialize 'gnus 'message 'sendmail 'w3)
 ;; if this doesn't work, use the obve code
-(bbdb-initialize 'gnus 'message 'sendmail 'w3)
+(bbdb-initialize 'gnus 'message 'w3)
 
 ;;initialize bbdb for gnus
 (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
@@ -107,14 +107,25 @@
 ;;(bbdb-insinuate-w3)
 
 (setq bbdb/gnus-summary-prefer-real-names t
-      bbdb-file "~/.bbdb"
+      bbdb-file "~/.emacs.d/bbdb"
       bbdb-default-area-code 765
       ;; make gnus auto create records for the email that I read
-      bbdb/news-auto-create-p t
+      ;; this is a bad idea, because I get junk mail
+      ;; bbdb/news-auto-create-p t
       bbdb-user-mail-names "jbranso@purdue.edu"
+      ;; make bbdb pop up when you are using it in gnus
       bbdb-use-pop-up t
       ;; make bbdb save the database without asking
       bbdb-offer-save  1
-      )
+      bbdb-update-records-p t
+      ;; gnus will recognize these email addresses as mine
+      bbdb-user-mail-address-re
+      (regexp-opt
+       '("jbranso@purdue.edu" "bransoj@hotmail.com"))
+      message-dont-reply-to-names bbdb-user-mail-address-re
+      gnus-ignored-from-addresses bbdb-user-mail-address-re)
+
+(bbdb-initialize 'gnus 'message)
+(bbdb-mua-auto-update-init 'message)
 
 (provide 'init-gnus)
