@@ -87,4 +87,34 @@
 ;;(setq
  ;; gnus-summary-line-format '(%U%R%z%I%(%[%4L: %-23,23f%]%) %s\n))
 
+
+
+;; get bbdb set up (insidious big brother database) it manages your mail contacts
+;; http://bbdb.sourceforge.net/bbdb.html#SEC13
+(require 'bbdb)
+;; these string are needed to initial bbdb for gnus, message, and send mail
+;;(bbdb-initialize 'gnus 'message 'sendmail 'w3)
+;; if this doesn't work, use the obve code
+(bbdb-initialize 'gnus 'message 'sendmail 'w3)
+
+;;initialize bbdb for gnus
+(add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+
+;; use bbdb in message mode
+(bbdb-insinuate-message)
+
+;;allow bbdb records to allow the inclusion of URLs
+;;(bbdb-insinuate-w3)
+
+(setq bbdb/gnus-summary-prefer-real-names t
+      bbdb-file "~/.bbdb"
+      bbdb-default-area-code 765
+      ;; make gnus auto create records for the email that I read
+      bbdb/news-auto-create-p t
+      bbdb-user-mail-names "jbranso@purdue.edu"
+      bbdb-use-pop-up t
+      ;; make bbdb save the database without asking
+      bbdb-offer-save  1
+      )
+
 (provide 'init-gnus)

@@ -55,6 +55,8 @@ Inside a code-block, just call `self-insert-command'."
          "* TODO %?\nEntered on %U\n  %i\n  %a")
         ("c" "community TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "community someday")
          "* TODO %?\n  %i\n  %a")
+        ("C" "Calendar TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "calendar")
+         "* TODO %?\n  %i\n  %a")
         ("e" "emacs Todo" entry (file+headline "~/programming/org/gtd/gtd.org" "emacs someday")
          "* TODO %?\n  %i\n  %a")
         ("E" "Emacs Reference" entry (file+headline "~/programming/org/gtd/gtd.org" "emacs reference")
