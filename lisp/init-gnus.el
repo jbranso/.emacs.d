@@ -42,6 +42,7 @@
 ;; http://www.emacswiki.org/emacs/GnusGmail#toc21
 (require 'nnir)
 
+
 ;; tell gnus to use my purdue email, and to enable searching my inbox
 ;; typing GG in the buffer group, lets me search the current group for a string
 (setq gnus-select-method
@@ -103,6 +104,11 @@
 ;; use bbdb in message mode
 (bbdb-insinuate-message)
 
+;; this is not working right now.
+;; (add-hook 'message-mode-hook
+;;           '(lambda ()
+;;              (local-set-key "s-<TAB>" 'bbdb-complete-name)))
+
 ;;allow bbdb records to allow the inclusion of URLs
 ;;(bbdb-insinuate-w3)
 
@@ -127,5 +133,19 @@
 
 (bbdb-initialize 'gnus 'message)
 (bbdb-mua-auto-update-init 'message)
+
+;; making gnus a little faster
+(setq
+ ;;make startup faster
+ gnus-check-new-newsgroups nil
+ gnus-check-bogus-newsgroups nil
+ ;;entering the summary buffer faster
+ gnus-nov-is-evil nil
+ gnus-show-threads nil
+ gnus-use-cross-reference nil)
+
+;; use smiley's in gnus
+(setq gnus-treat-display-smileys t)
+
 
 (provide 'init-gnus)

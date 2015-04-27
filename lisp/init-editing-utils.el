@@ -218,6 +218,7 @@
 (global-set-key (kbd "C-c d") #'dired-jump)
 (global-set-key (kbd "C-c D") #'soihub-update-dev-server)
 (global-set-key (kbd "C-c e") #'helm-M-x)
+(global-set-key (kbd "C-c E") #'eshell)
 (global-set-key (kbd "C-c l") #'eval-last-sexp)
 (global-set-key (kbd "C-c m") #'helm-mini)
 (global-set-key (kbd "C-c q") #'fill-paragraph)

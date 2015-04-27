@@ -77,6 +77,8 @@ Inside a code-block, just call `self-insert-command'."
          "* TODO %?\nEntered on %U\n  ")
         ("o" "organ TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "organ todo")
          "* TODO %?\n  %i\n  %a")
+        ("p" "payless TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "shopping todo")
+         "* TODO %?\n  %i\n  %a")
         ("r" "Reference" entry (file+headline "~/programming/org/gtd/gtd.org" "general reference")
          "* %?\nEntered on %U\n  %i\n  %a")
         ("s" "soihub TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "soihub todo")
