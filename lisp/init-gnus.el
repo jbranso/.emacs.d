@@ -1,3 +1,6 @@
+;; read these pages:
+;;http://www.mostlymaths.net/2010/12/emacs-30-day-challenge-glimpse-of-bbdb.html
+;; http://www.mostlymaths.net/2010/12/emacs-30-day-challenge-using-gnus-to.html
 ;; set up gnus to use Purdue IMAP
 
 ;; You can find the following guide here: http://www.emacswiki.org/emacs/GnusGmail#toc1
@@ -34,6 +37,9 @@
 
 ;; Run ‘M-x gnus’ and enjoy.
 
+
+;;establishing a connection
+
 ;; let's tell gnus who we aref
 (setq user-mail-address	"jbranso@purdue.edu"
 	  user-full-name	"Joshua Branson")
@@ -47,16 +53,11 @@
 ;; typing GG in the buffer group, lets me search the current group for a string
 (setq gnus-select-method
       '(nnimap "mymail.purdue.edu"
-	       (nnimap-address "mymail.purdue.edu")  ; it could also be imap.googlemail.com if that's your server.
+	      ;; (nnimap-address "mymail.purdue.edu")  ; it could also be imap.googlemail.com if that's your server.
 	       (nnimap-server-port "993")
 	       (nnimap-stream ssl)
            (nnir-search-engine imap)
            ))
-
-;; (setq message-send-mail-function 'message-smtpmail-send-it
-;;       smtpmail-smtp-server "smtp.purdue.edu"
-;;       smtpmail-stream-type 'ssl
-;;       smtpmail-smtp-service 465)
 
 ;; The variable smtpmail-stream-type controls what form of connection the SMTP library uses. The default value is nil, which
  ;; means to use a plain connection, but try to switch to a STARTTLS encrypted connection if the server supports it. Other
@@ -68,6 +69,15 @@
  send-mail-function (quote smtpmail-send-it)
  smtpmail-stream-type 'ssl
  smtpmail-smtp-service 465)
+
+;; make gnus load more than 1 email in the background
+
+(setq
+ gnus-asynchronous t
+ ;; fetch 15 messages by default
+ gnus-use-article-prefetch 15)
+
+
 
 ;; make a default signature
 (setq message-signature

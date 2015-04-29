@@ -221,6 +221,8 @@
 (global-set-key (kbd "C-c E") #'eshell)
 (global-set-key (kbd "C-c l") #'eval-last-sexp)
 (global-set-key (kbd "C-c m") #'helm-mini)
+(global-set-key (kbd "C-c M") #'gnus-msg-mail)
+
 (global-set-key (kbd "C-c q") #'fill-paragraph)
 (global-set-key (kbd "C-c s") #'ag-regexp)
 ;; this is not working for some reason.
