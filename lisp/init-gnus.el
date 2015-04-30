@@ -71,11 +71,11 @@
  smtpmail-smtp-service 465)
 
 ;; make gnus load more than 1 email in the background
-
-(setq
- gnus-asynchronous t
- ;; fetch 15 messages by default
- gnus-use-article-prefetch 15)
+;; this seems to slow stuff down
+;; (setq
+;;  gnus-asynchronous t
+;;  ;; fetch 15 messages by default
+;;  gnus-use-article-prefetch 15)
 
 
 

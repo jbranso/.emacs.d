@@ -201,12 +201,7 @@
 (global-set-key "\t" #'indent-for-tab-command)
 (global-set-key (kbd "s-s") #'save-buffer)
 (global-set-key (kbd "s-g") #'magit-status)
-(global-set-key (kbd "C-c g") #'gnus)
 (global-set-key (kbd "C-c P") #'pwd)
-(global-set-key (kbd "C-c F") #'isearch-forward)
-(global-set-key (kbd "C-c f") #'isearch-forward-regexp)
-(global-set-key (kbd "C-c t") #'transpose-chars)
-(global-set-key (kbd "C-c h") #'helm-command-prefix)
 (global-set-key (kbd "s-u") #'my/uppercase-word)
 ;; this conflicts with my command for dired.
 (global-set-key (kbd "s-d") #'my/downcase-word)
@@ -219,15 +214,21 @@
 (global-set-key (kbd "C-c D") #'soihub-update-dev-server)
 (global-set-key (kbd "C-c e") #'helm-M-x)
 (global-set-key (kbd "C-c E") #'eshell)
+(global-set-key (kbd "C-c f") #'isearch-forward-regexp)
+(global-set-key (kbd "C-c F") #'isearch-forward)
+(global-set-key (kbd "C-c g") #'gnus)
+(global-set-key (kbd "C-c h") #'helm-command-prefix)
+(global-set-key (kbd "C-c i") #'info-display-manual)
 (global-set-key (kbd "C-c l") #'eval-last-sexp)
 (global-set-key (kbd "C-c m") #'helm-mini)
 (global-set-key (kbd "C-c M") #'gnus-msg-mail)
-
+;;This does recursive find and replace
+(global-set-key (kbd "C-c R") #'find-name-dired)
 (global-set-key (kbd "C-c q") #'fill-paragraph)
 (global-set-key (kbd "C-c s") #'ag-regexp)
+(global-set-key (kbd "C-c t") #'transpose-chars)
 ;; this is not working for some reason.
 (global-set-key (kbd "C-c x") #'er/expand-region)
-(global-set-key (kbd "C-c i") #'info-display-manual)
 
 (global-set-key (kbd "C-x C-.") #'pop-global-mark)
 ;; web-mode has a command C-c C-h that overrides this.
