@@ -60,6 +60,46 @@ the third-party packages regularly too:
 
 <kbd>M-x package-list-packages</kbd>, then <kbd>U</kbd> followed by <kbd>x</kbd>.
 
+## Default C-c <key> bindings
+
+All of these key bindings can be found in lisp/init-editing-utilities.el
+
+Keybinding         | Description
+-------------------|------------------------------------------------------------
+<kbd> C-c a </kbd> | highlight the whole buffer
+<kbd> C-c b </kbd> | eval the whole buffer. ie: if it's lisp code, evaluate the code (eval-buffer)
+<kbd> C-c d </kbd> | open dired in the current directory (dired-jump)
+<kbd> C-c e </kbd> | use helm to select an emacs command (helm-M-x)
+<kbd> C-c E </kbd> | open eshell (eshell)
+<kbd> C-c f </kbd> | do a regexp search forward (isearch-forward-regexp)
+<kbd> C-c F </kbd> | do a regular search forward (isearch-forward)
+<kbd> C-c g </kbd> | open gnus (gnus)
+<kbd> C-c h </kbd> | this is helm's command prefix and does nada
+<kbd> C-c i </kbd> | prompts for an info manual name then opens it
+<kbd> C-c l </kbd> | evaluate the last elisp express ie (dired-jump)
+<kbd> C-c m </kbd> | opens up helm-mini, which is a nice way to open up recently visited files (helm-mini)
+<kbd> C-c M </kbd> | ace-jump-mode
+<kbd> C-c R </kbd>     | insert to the left of point
+<kbd> C-c q </kbd>   | insert to the right of point
+<kbd> C-c s </kbd> | undo last command
+<kbd> C-c t </kbd>     | redo last command
+<kbd> C-c x </kbd> | check the spelling of the current word
+<kbd> j </kbd>     | join the lower line to the end of this line
+<kbd> J </kbd>   | join the current line the end of the previous line
+<kbd> m KEY </kbd>     | mark the current spot in the buffer with KEY
+<kbd> ' KEY </kbd> | go to the marked KEY in the buffer
+<kbd> ; </kbd>     | comment-dwin. This is an emacs command that either adds a comment to the current line, or if the line is highlighted, then it comments out the line
+<kbd> q </kbd>     | save and quit the current buffer. This is the same as (save-buffer) (kill-buffer)
+<kbd> C-w [h \| t \| n \| s] </kbd>     |  move to the up, down, left, or right window.  The syntax [ h \| t \| n \| s ] means that you have to pick either h, t, n, s.  So the only valid commands are C-w h, C-w t, C-w n, C-w s
+<kbd> C-c r </kbd> |  This begins to define an evil macro.  In emacs state the binding for this in C-x (
+<kbd> C-h </kbd>   |  insert a new line below point and switch to insert state
+<kbd> C-t </kbd>   | insert a new line above point and switch to insert state.  The reader should not that this conflicts with the emacs binding of (transpose-chars), which I have rebound to (global-set-key (kbd "C-c t") 'transpose-chars)
+<kbd> spacebar  </kbd> |  inserts a space.
+<kbd> \>  </kbd>  | move point to the beginning of the buffer
+<kbd> \<  </kbd>  | move point to the end of the buffer
+
+
+
 ## Adding your own customization
 
 To add your own customization, use <kbd>M-x customize</kbd> and/or
