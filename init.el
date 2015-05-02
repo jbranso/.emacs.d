@@ -30,11 +30,14 @@
 
 ;;I can't get use-package to work.
 ;;(require-package 'use-package)
+(eval-when-compile
+  (require 'use-package))
+(require 'diminish)
+(require 'bind-key)
 ;;(require-package 'wgrep)
 ;;(require-package 'project-local-variables)
 ;; this helps you minizize modeline clutter by hidding some modes on the mode line.
 ;; http://www.emacswiki.org/emacs/DiminishedModes
-;;(require-package 'diminish)
 ;;I have no idea what this next package does
 ;;(require-package 'scratch)
 
