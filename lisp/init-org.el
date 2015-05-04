@@ -114,7 +114,8 @@ Inside a code-block, just call `self-insert-command'."
       org-edit-timestamp-down-means-later t
       org-agenda-start-on-weekday nil
       org-agenda-span 14
-      org-agenda-include-diary t
+      ;; using the diary really slows down the agenda view
+      ;;org-agenda-include-diary nil
       org-agenda-window-setup 'current-window
       org-fast-tag-selection-single-key 'expert
       org-html-validation-link nil
