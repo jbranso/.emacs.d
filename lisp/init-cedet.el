@@ -97,11 +97,11 @@
 ;;(add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
 
 ;; make expand be tab
-(define-key ac-complete-mode-map "\t" 'ac-expand)
+(define-key ac-complete-mode-map "\t" #'ac-expand)
 ;; make complet by return
-(define-key ac-complete-mode-map "\C-r" 'ac-complete)
-(define-key ac-complete-mode-map "\C-h" 'ac-next)
-(define-key ac-complete-mode-map "\C-t" 'ac-previous)
+(define-key ac-complete-mode-map "\C-r" #'ac-complete)
+(define-key ac-complete-mode-map "\C-h" #'ac-next)
+(define-key ac-complete-mode-map "\C-t" #'ac-previous)
 
 (set-default 'ac-sources
              '(;;ac-source-imenu
