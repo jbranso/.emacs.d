@@ -30,12 +30,9 @@
 (fset 'org-link
       [?i ?\[ ?\[ ?\C-x ?Q return ?\] ?\] backspace ?\[ ?\C-x ?Q return ?\] ?\]])
 
-
 ;; (defun org-link ()
 
 ;;   )
-
-
 
 ;; Make evil-insert-mode allow emacs keybindings
 (setcdr evil-insert-state-map nil)
@@ -49,13 +46,13 @@
 (global-evil-dvorak-mode 1)
 
 (local-unset-key (kbd "TAB"))
-(define-key evil-normal-state-map (kbd "TAB") 'indent-for-tab-command)
-(define-key evil-normal-state-map (kbd "s-z") 'evil-emacs-state)
-(define-key evil-normal-state-map (kbd "s-l") 'org-link)
-(define-key evil-insert-state-map (kbd "s-z") 'evil-normal-state)
-(define-key evil-normal-state-map (kbd "C-w h") 'windmove-down)
-(define-key evil-normal-state-map (kbd "C-w t") 'windmove-up)
-(define-key evil-normal-state-map (kbd "b") #'(lambda ()
+(define-key evil-normal-state-map (kbd "TAB") #'indent-for-tab-command)
+(define-key evil-normal-state-map (kbd "s-z") #'evil-emacs-state)
+(define-key evil-normal-state-map (kbd "s-l") #'org-link)
+(define-key evil-insert-state-map (kbd "s-z") #'evil-normal-state)
+(define-key evil-normal-state-map (kbd "C-w h") #'windmove-down)
+(define-key evil-normal-state-map (kbd "C-w t") #'windmove-up)
+(define-key evil-normal-state-map (kbd "b") ##'(lambda ()
   "Switch to the previous buffer"
   (interactive)
   (switch-to-buffer nil)))
@@ -63,14 +60,14 @@
 ;; This for when I use visual line mode mode. Now visual line mode should work for basic
 ;; key movements
 ;; This is not working.
-(define-key evil-normal-state-map (kbd "h") 'next-line)
-(define-key evil-normal-state-map (kbd "t") 'previous-line)
-(define-key evil-normal-state-map (kbd "n") 'backward-char)
-(define-key evil-normal-state-map (kbd "l") 'forward-char)
+(define-key evil-normal-state-map (kbd "h") #'next-line)
+(define-key evil-normal-state-map (kbd "t") #'previous-line)
+(define-key evil-normal-state-map (kbd "n") #'backward-char)
+(define-key evil-normal-state-map (kbd "l") #'forward-char)
 ;;(define-key evil-normal-state-map (kbd "<return>") 'newline-and-indent)
 ;;(define-key evil-insert-state-map (kbd "<return>") 'newline-and-indent)
 
-(define-key evil-emacs-state-map (kbd "s-z") 'evil-normal-state)
+(define-key evil-emacs-state-map (kbd "s-z") #'evil-normal-state)
 
 ;; Ask on IRC about this
 ;; I'm trying to make emacs treat the letter after O in the alphabet as ESC
