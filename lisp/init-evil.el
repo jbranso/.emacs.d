@@ -52,7 +52,7 @@
 (define-key evil-insert-state-map (kbd "s-z") #'evil-normal-state)
 (define-key evil-normal-state-map (kbd "C-w h") #'windmove-down)
 (define-key evil-normal-state-map (kbd "C-w t") #'windmove-up)
-(define-key evil-normal-state-map (kbd "b") ##'(lambda ()
+(define-key evil-normal-state-map (kbd "b") #'(lambda ()
   "Switch to the previous buffer"
   (interactive)
   (switch-to-buffer nil)))
