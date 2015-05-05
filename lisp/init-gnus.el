@@ -40,9 +40,36 @@
 
 ;;establishing a connection
 
-;; let's tell gnus who we aref
+;; let's tell gnus who we are
 (setq user-mail-address	"jbranso@purdue.edu"
-	  user-full-name	"Joshua Branson")
+	  user-full-name	"Joshua Branson"
+      ;;make a default signature
+      message-signature
+      "Joshua Branson\nPurdue University\nWeb Production Assistant\nweb.ics.purdue.edu/~jbranso\njbranso.me"
+      ;; add a date to the default summare line format
+      gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n"
+      ;; use smiley's in gnus
+      gnus-treat-display-smileys t
+
+      ;; making gnus a little faster
+      ;;make startup faster
+      gnus-check-new-newsgroups nil
+      gnus-check-bogus-newsgroups nil
+      ;;entering the summary buffer faster
+      gnus-nov-is-evil nil
+      gnus-show-threads nil
+      gnus-use-cross-reference nil
+
+      ;; default encryption and signing of stuff
+      ;;https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
+      ;;sign and encrypt messages if you recognize the senders by default
+      mm-verify-option "known"
+      mm-decrypt-option "known"
+      ;; reply and encrypt/sign messages if you know the user by default
+      ;; https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
+      gnus-message-replysign t
+      gnus-message-replyencrypt t
+      )
 
 ;; set up search in GNUS
 ;; http://www.emacswiki.org/emacs/GnusGmail#toc21
@@ -57,32 +84,24 @@
 	       (nnimap-server-port "993")
 	       (nnimap-stream ssl)
            (nnir-search-engine imap)
-           ))
-
-;; The variable smtpmail-stream-type controls what form of connection the SMTP library uses. The default value is nil, which
- ;; means to use a plain connection, but try to switch to a STARTTLS encrypted connection if the server supports it. Other
- ;; possible values are: starttls to insist on STARTTLS; ssl to use TLS/SSL; and plain for encryption.
-
-(setq
- smtpmail-smtp-server "smtp.purdue.edu"
- ;;smtpmail-default-smtp-server "smtp.purdue.edu"
- send-mail-function (quote smtpmail-send-it)
- smtpmail-stream-type 'ssl
- smtpmail-smtp-service 465)
+           )
+      ;; The variable smtpmail-stream-type controls what form of connection the SMTP library uses. The default value is nil, which
+      ;; means to use a plain connection, but try to switch to a STARTTLS encrypted connection if the server supports it. Other
+      ;; possible values are: starttls to insist on STARTTLS; ssl to use TLS/SSL; and plain for encryption.
+      smtpmail-smtp-server "smtp.purdue.edu"
+      ;;smtpmail-default-smtp-server "smtp.purdue.edu"
+      send-mail-function (quote smtpmail-send-it)
+      smtpmail-stream-type 'ssl
+      smtpmail-smtp-service 465
+      )
 
 ;; make gnus load more than 1 email in the background
-;; this seems to slow stuff down
+;; this seems to slow stuff down in the initial connection, and it doesn't seem all that fast once everything is opened.
 ;; (setq
 ;;  gnus-asynchronous t
 ;;  ;; fetch 15 messages by default
 ;;  gnus-use-article-prefetch 15)
 
-
-
-;; make a default signature
-(setq message-signature
-      "Joshua Branson\nPurdue University\nWeb Production Assistant\nweb.ics.purdue.edu/~jbranso\njbranso.me"
-      gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n")
 
 
 
@@ -144,30 +163,6 @@
 (bbdb-initialize 'gnus 'message)
 (bbdb-mua-auto-update-init 'message)
 
-;; making gnus a little faster
-(setq
- ;;make startup faster
- gnus-check-new-newsgroups nil
- gnus-check-bogus-newsgroups nil
- ;;entering the summary buffer faster
- gnus-nov-is-evil nil
- gnus-show-threads nil
- gnus-use-cross-reference nil)
-
-;; use smiley's in gnus
-(setq gnus-treat-display-smileys t)
-
-;; default encryption and signing of stuff
-(setq
- ;;https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
- ;;sign and encrypt messages if you recognize the senders by default
- mm-verify-option "known"
- mm-decrypt-option "known"
- ;; reply and encrypt/sign messages if you know the user by default
- ;; https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
- gnus-message-replysign t
- gnus-message-replyencrypt t
-)
 
 
 (provide 'init-gnus)
