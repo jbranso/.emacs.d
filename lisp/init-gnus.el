@@ -157,5 +157,17 @@
 ;; use smiley's in gnus
 (setq gnus-treat-display-smileys t)
 
+;; default encryption and signing of stuff
+(setq
+ ;;https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
+ ;;sign and encrypt messages if you recognize the senders by default
+ mm-verify-option "known"
+ mm-decrypt-option "known"
+ ;; reply and encrypt/sign messages if you know the user by default
+ ;; https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
+ gnus-message-replysign t
+ gnus-message-replyencrypt t
+)
+
 
 (provide 'init-gnus)
