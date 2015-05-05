@@ -1,51 +1,53 @@
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
-(define-key org-mode-map "\"" #'endless/round-quotes)
+;; (define-key org-mode-map "\"" #'endless/round-quotes)
 
-(add-hook 'org-mode-hook #'yas-minor-mode)
+;; I don't use yas for org.
+;;(add-hook 'org-mode-hook #'yas-minor-mode)
 
 ;;this is an awesome thing won't work.
 ;;(define-key yas-minor-mode-map (kbd "<s-tab>") 'yas-ido-expand)
 
-(defun endless/round-quotes (italicize)
-  "Insert “” and leave point in the middle.
-With prefix argument ITALICIZE, insert /“”/ instead
-\(meant for org-mode).
-Inside a code-block, just call `self-insert-command'."
-  (interactive "P")
-  (if (and (derived-mode-p 'org-mode)
-           (org-in-block-p '("src" "latex" "html")))
-      (call-interactively #'self-insert-command)
-    (if (looking-at "”[/=_\\*]?")
-        (goto-char (match-end 0))
-      (when italicize
-        (if (derived-mode-p 'markdown-mode)
-            (insert "__")
-          (insert "//"))
-        (forward-char -1))
-      (insert "“”")
-      (forward-char -1))))
+;; (defun endless/round-quotes (italicize)
+;;   "Insert “” and leave point in the middle.
+;; With prefix argument ITALICIZE, insert /“”/ instead
+;; \(meant for org-mode).
+;; Inside a code-block, just call `self-insert-command'."
+;;   (interactive "P")
+;;   (if (and (derived-mode-p 'org-mode)
+;;            (org-in-block-p '("src" "latex" "html")))
+;;       (call-interactively #'self-insert-command)
+;;     (if (looking-at "”[/=_\\*]?")
+;;         (goto-char (match-end 0))
+;;       (when italicize
+;;         (if (derived-mode-p 'markdown-mode)
+;;             (insert "__")
+;;           (insert "//"))
+;;         (forward-char -1))
+;;       (insert "“”")
+;;       (forward-char -1))))
 
-(define-key org-mode-map "'" #'endless/apostrophe)
+;; (define-key org-mode-map "'" #'endless/apostrophe)
+
 ;; (eval-after-load 'markdown-mode
 ;;   '(define-key markdown-mode-map "'"
 ;;      #'endless/apostrophe))
 
-(defun endless/apostrophe (opening)
-  "Insert ’ in prose or `self-insert-command' in code.
-With prefix argument OPENING, insert ‘’ instead and
-leave point in the middle.
-Inside a code-block, just call `self-insert-command'."
-  (interactive "P")
-  (if (and (derived-mode-p 'org-mode)
-           (org-in-block-p '("src" "latex" "html")))
-      (call-interactively #'self-insert-command)
-    (if (looking-at "['’][=_/\\*]?")
-        (goto-char (match-end 0))
-      (if (null opening)
-          (insert "’")
-        (insert "‘’")
-        (forward-char -1)))))
+;; (defun endless/apostrophe (opening)
+;;   "Insert ’ in prose or `self-insert-command' in code.
+;; With prefix argument OPENING, insert ‘’ instead and
+;; leave point in the middle.
+;; Inside a code-block, just call `self-insert-command'."
+;;   (interactive "P")
+;;   (if (and (derived-mode-p 'org-mode)
+;;            (org-in-block-p '("src" "latex" "html")))
+;;       (call-interactively #'self-insert-command)
+;;     (if (looking-at "['’][=_/\\*]?")
+;;         (goto-char (match-end 0))
+;;       (if (null opening)
+;;           (insert "’")
+;;         (insert "‘’")
+;;         (forward-char -1)))))
 
 ;; define what files org opens
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
@@ -182,10 +184,11 @@ Inside a code-block, just call `self-insert-command'."
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
 ;; make org mode start up with auto fill mode
-(add-hook 'org-mode-hook #'(lambda ()
-                            (interactive)
-                            (auto-fill-mode)
-                            (visual-line-mode)
+;; (add-hook 'org-mode-hook #'(lambda ()
+                            ;; (interactive)
+                            ;;(auto-fill-mode)
+                            ;; make the lines in the buffer wrap around the edges of the screen.
+                            ;;(visual-line-mode)
                             ;;refill mode is pretty amazing. If you are getting tired of pressing M-q all
                             ;;the time to fill paragraphs then turn on refill-mode.
                             ;; Be warned though, auto-fill-mode, refill-mode, and probably visual line mode,
@@ -218,27 +221,27 @@ Inside a code-block, just call `self-insert-command'."
                             ;; (push '(":D" . ?☺) prettify-symbols-alist)
                             ;; (push '("^_^" . ?☻) prettify-symbols-alist)
 
-                            (let ((original-command (lookup-key org-mode-map [tab])))
-                              `(lambda ()
-                                 (setq yas-fallback-behavior
-                                       '(apply ,original-command))
-                                 (local-set-key [tab] 'yas-expand)))))
+                            ;; (let ((original-command (lookup-key org-mode-map [tab])))
+                              ;; `(lambda ()
+                                 ;; (setq yas-fallback-behavior
+                                       ;; '(apply ,original-command))
+                                 ;; (local-set-key [tab] 'yas-expand)))))
 
-(after-load 'org
-  (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element)
-  (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element))
+;; (after-load 'org
+  ;; (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element)
+  ;; (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element))
 
 (after-load 'org
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((R . t)
-     (emacs-lisp . t)
+   '((emacs-lisp . t)
      (latex . t)
      (ledger . t)
      (python . t)
      (sh . t)
      (sql . t)
-     (sqlite . t))))
+     ;;(sqlite . t)
+     )))
 
 
 (provide 'init-org)
