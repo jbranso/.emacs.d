@@ -2,7 +2,7 @@
 ;;  Some basic preferences
 ;;----------------------------------------------------------------------------
 (setq-default
- blink-cursor-interval 0.4
+ ;;blink-cursor-interval 0.4
  ;; I want to open links from org-mode in chromium
  browse-url-browser-function (quote browse-url-chromium)
  bookmark-default-file (expand-file-name ".bookmarks.el" user-emacs-directory)
@@ -35,7 +35,8 @@
  save-interprogram-paste-before-kill t
  scroll-preserve-screen-position 'always
  set-mark-command-repeat-pop t
- show-trailing-whitespace t
+ ;;Since my save function deletes trailing white space, I don't need this.
+ ;;show-trailing-whitespace t
  tooltip-delay 1.5
  truncate-lines nil
  truncate-partial-width-windows nil
@@ -45,7 +46,7 @@
 (global-visual-line-mode 1)
 (global-linum-mode 1)
 ;; this highlights search and replace as you type
-(require 'anzu)
+(require-package 'anzu)
 (global-anzu-mode +1)
 
 (global-auto-revert-mode)
@@ -71,7 +72,7 @@
 
 
 ;;; Newline behaviour
-(global-set-key (kbd "RET") 'newline-and-indent)
+(global-set-key (kbd "RET") #'newline-and-indent)
 
 
 
@@ -95,7 +96,7 @@
                   (remove-hook 'minibuffer-setup-hook query))))
     (unless (string= "" input) (insert input))))
 
-(global-set-key "\C-xQ" 'my-macro-query)
+(global-set-key "\C-xQ" #'my-macro-query)
 
 ;; put semantic is supposed to have that feature too.
 ;;This mode highlights the current word under point! very cool!
@@ -210,6 +211,7 @@
 (local-unset-key (kbd "C-a"))
 (global-set-key (kbd "C-c ;") #'comment-dwim)
 (global-set-key (kbd "C-c b") #'eval-buffer)
+(global-set-key (kbd "C-c B") #'browse-kill-ring)
 (global-set-key (kbd "C-c d") #'dired-jump)
 (global-set-key (kbd "C-c D") #'soihub-update-dev-server)
 (global-set-key (kbd "C-c e") #'helm-M-x)
@@ -222,7 +224,7 @@
 (global-set-key (kbd "C-c l") #'eval-last-sexp)
 (global-set-key (kbd "C-c m") #'helm-mini)
 (global-set-key (kbd "C-c M") #'gnus-msg-mail)
-;;This does recursive find and replace
+;;This does recursive find and replace.  But I think it only works when you are in a dired buffer
 (global-set-key (kbd "C-c R") #'find-name-dired)
 (global-set-key (kbd "C-c q") #'fill-paragraph)
 (global-set-key (kbd "C-c s") #'ag-regexp)
@@ -269,10 +271,9 @@
 ;; use M-S-up and M-S-down, which will work even in lisp modes.
 ;;----------------------------------------------------------------------------
 (require-package 'move-dup)
-(global-set-key [M-up] 'md/move-lines-up)
-(global-set-key [M-down] 'md/move-lines-down)
-(global-set-key [M-S-up] 'md/move-lines-up)
-(global-set-key [M-S-down] 'md/move-lines-down)
+;; it would be nice if this worked, but life.
+(global-set-key (kbd "s-t") #'md/move-lines-up)
+(global-set-key (kbd "s-h") #'md/move-lines-down)
 
 (global-set-key (kbd "s-p") 'md/duplicate-down)
 (global-set-key (kbd "s-P") 'md/duplicate-up)

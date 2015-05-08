@@ -89,6 +89,8 @@
          "* %?\nEntered on %U\n  %i\n  %a")
         ("t" "TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "general todo")
          "* TODO %?\nEntered on %U\n  %i\n  %a")
+        ("W" "Web reference" entry (file+headline "~/programming/org/gtd/gtd.org" "Web reference")
+         "* %?\nEntered on %U\n  %i\n  %a")
         ))
 (define-key global-map "\C-cc" 'org-capture)
 ;; 9.1.3 Capture templates
@@ -138,9 +140,9 @@
 (setq org-outline-path-complete-in-steps t)
 
 
-;;(setq org-todo-keywords
-; ;     (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
-;;              (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)"))))
+;; (setq org-todo-keywords
+;;       (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
+;;               (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)"))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -153,7 +155,7 @@
 (setq org-clock-in-resume t)
 
 ;; Change task state to STARTED when clocking in
-(setq org-clock-in-switch-to-state "STARTED")
+;;(setq org-clock-in-switch-to-state "STARTED")
 ;; Save clock data and notes in the LOGBOOK drawer
 (setq org-clock-into-drawer t)
 ;; Removes clocked tasks with 0:00 duration
