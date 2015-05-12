@@ -3,6 +3,9 @@
 
 (require 'evil-surround)
 (global-evil-surround-mode 1)
+;; I can add more surround pairs by doing this
+;; (add-hook 'c++-mode-hook (lambda ()
+;;                            (push '(?< . ("< " . " >")) surround-pairs-alist)))
 ;;I don't know why this is not working.
 ;;(add-hook 'evil-mode-hook 'turn-on-surround-mode)
 

@@ -55,6 +55,11 @@
       ;;make startup faster
       gnus-check-new-newsgroups nil
       gnus-check-bogus-newsgroups nil
+      ;; this file is often large. Why read it? What's it do?
+      ;; the next two variables might be slowing it down
+      gnus-read-active-file nil
+      ;; no need to recenter the summary buffer all the time
+      gnus-auto-center-summary nil
       ;;entering the summary buffer faster
       gnus-nov-is-evil nil
       gnus-show-threads nil
@@ -69,7 +74,13 @@
       ;; https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
       gnus-message-replysign t
       gnus-message-replyencrypt t
+
+      ;;message filters
+      spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
+      spam-use-blacklist t
       )
+
+(spam-initialize)
 
 ;; set up search in GNUS
 ;; http://www.emacswiki.org/emacs/GnusGmail#toc21
