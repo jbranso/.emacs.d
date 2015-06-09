@@ -89,7 +89,7 @@
          "* %?\nEntered on %U\n  %i\n  %a")
         ("t" "TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "general todo")
          "* TODO %?\nEntered on %U\n  %i\n  %a")
-        ("W" "Web reference" entry (file+headline "~/programming/org/gtd/gtd.org" "Web reference")
+        ("W" "Web reference" entry (file+headline "~/programming/org/gtd/web.org" "Web reference")
          "* %?\nEntered on %U\n  %i\n  %a")
         ))
 (define-key global-map "\C-cc" 'org-capture)

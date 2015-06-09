@@ -297,7 +297,7 @@
 ;; This package pops up a buffer, when a key prefix is hit, that shows what keys the user can now hit to use a command.
 (require-package 'guide-key)
 (setq guide-key/guide-key-sequence '("C-c ," "C-c ."  "C-x" "C-c" "C-c c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-c p"
-                                     "C-c h" "C-c /"  "C-c C-m"))
+                                     "C-c h" "C-c /"  "C-c C-m" "C-c C-e"  "C-c C-a"))
 (guide-key-mode 1)
 (diminish 'guide-key-mode)
 
