@@ -55,6 +55,8 @@
       '(
         ("a" "Awesome WM" entry (file+headline "~/programming/org/gtd/gtd.org" "awesome WM someday")
          "* TODO %?\nEntered on %U\n  %i\n  %a")
+        ("A" "Accrisoft Reference" entry (file+headline "~/programming/org/gtd/web.org" "Accrisoft reference")
+         "* %?\nEntered on %U\n  %i\n  %a")
         ("c" "community TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "community someday")
          "* TODO %?\n  %i\n  %a")
         ("C" "Calendar TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "calendar")
