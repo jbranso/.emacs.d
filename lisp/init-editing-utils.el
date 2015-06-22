@@ -202,6 +202,7 @@
 (global-set-key "\t" #'indent-for-tab-command)
 (global-set-key (kbd "s-s") #'save-buffer)
 (global-set-key (kbd "s-g") #'magit-status)
+(global-set-key (kbd "s-r") #'align-regexp)
 (global-set-key (kbd "C-c P") #'pwd)
 (global-set-key (kbd "s-u") #'my/uppercase-word)
 ;; this conflicts with my command for dired.
@@ -209,6 +210,7 @@
 (global-set-key (kbd "s-a") #'mark-whole-buffer)
 (global-unset-key (kbd "C-a"))
 (local-unset-key (kbd "C-a"))
+(global-set-key (kbd "C-c TAB") #'indent-whole-buffer)
 (global-set-key (kbd "C-c ;") #'comment-dwim)
 (global-set-key (kbd "C-c b") #'eval-buffer)
 (global-set-key (kbd "C-c B") #'browse-kill-ring)
