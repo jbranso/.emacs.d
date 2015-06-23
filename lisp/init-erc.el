@@ -24,7 +24,7 @@ stuff, to the current ERC buffer."
 
 ;; This causes ERC to connect to the Freenode network upon hitting
 ;; C-c e f.  Replace MYNICK with your IRC nick.
-(global-set-key "\C-cef" (lambda () (interactive)
+(global-set-key (kbd "s-i") (lambda () (interactive)
                            (erc :server "irc.freenode.net" :port "6667"
                                 :nick "jbranso")))
 
@@ -65,3 +65,5 @@ stuff, to the current ERC buffer."
 ;; (setq erc-kill-queries-on-quit t)
 ;; Kill buffers for server messages after quitting the server
 ;; (setq erc-kill-server-buffer-on-quit t)
+
+(provide 'init-erc)

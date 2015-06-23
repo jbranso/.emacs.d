@@ -48,6 +48,7 @@
 (require 'init-recentf)
 (require 'init-dired)
 (require 'init-grep)
+(require 'init-erc)
 (require 'init-uniquify)
 ;; this sets up paradox to use my private token to access public repos.
 (require 'init-paradox)
