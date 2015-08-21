@@ -100,8 +100,9 @@
 (define-key ac-complete-mode-map "\t" #'ac-expand)
 ;; make complet by return
 (define-key ac-complete-mode-map "\C-r" #'ac-complete)
-(define-key ac-complete-mode-map "\C-h" #'ac-next)
-(define-key ac-complete-mode-map "\C-t" #'ac-previous)
+;; I was going to make every up and down be t and h but too annoying
+;;(define-key ac-complete-mode-map "\C-h" #'ac-next)
+;;(define-key ac-complete-mode-map "\C-t" #'ac-previous)
 
 (set-default 'ac-sources
              '(;;ac-source-imenu

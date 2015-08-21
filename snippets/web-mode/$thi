@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: $thi
+# key: $thi
+# binding: direct-keybinding
+# --
+$this->$1

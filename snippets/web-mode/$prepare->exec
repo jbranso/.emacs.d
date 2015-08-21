@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: $prepare->exec
+# key: $prepare->exec
+# binding: direct-keybinding
+# --
+$prepare->execute ();$0

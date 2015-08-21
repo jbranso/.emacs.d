@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: foreach
+# key: foreach
+# binding: direct-keybinding
+# --
+foreach (\$${1:prepare->fetchAll()} as \$${2:row}) {
+        $0
+}

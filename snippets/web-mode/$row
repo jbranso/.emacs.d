@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: $row
+# key: $row
+# binding: direct-keybinding
+# --
+$row['$1']$0

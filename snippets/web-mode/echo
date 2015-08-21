@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: echo
+# key: echo
+# binding: direct-keybinding
+# --
+echo "$0";

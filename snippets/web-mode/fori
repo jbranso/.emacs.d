@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: fori
+# key: fori
+# binding: direct-keybinding
+# --
+for ($i = ${1:0}; $i < $2; $i${3:++}) {
+    $0
+}

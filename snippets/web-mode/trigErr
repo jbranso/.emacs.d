@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: trigErr
+# key: trigErr
+# binding: direct-keybinding
+# --
+trigger_error ($1);
+$0

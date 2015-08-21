@@ -108,7 +108,6 @@
 ;;   '(diminish 'highlight-symbol-mode))
 
 
-
 ;; save all buffers after saving the current buffer.
 (add-hook 'after-save-hook #'(lambda ()
                                (interactive)
@@ -200,9 +199,12 @@
 ;;this is not working.
 ;;(define-key yas-minor-mode-map (kbd "C-c s") 'yas-expand)
 (global-set-key "\t" #'indent-for-tab-command)
-(global-set-key (kbd "s-s") #'save-buffer)
+(global-set-key (kbd "s-s") '(lambda ()
+                               (interactive)
+                               (save-some-buffers 1)))
 (global-set-key (kbd "s-g") #'magit-status)
-(global-set-key (kbd "s-r") #'align-regexp)
+(global-set-key (kbd "s-h") #'mark-paragraph)
+(global-set-key (kbd "C-c x") #'align-regexp)
 (global-set-key (kbd "C-c P") #'pwd)
 (global-set-key (kbd "s-u") #'my/uppercase-word)
 ;; this conflicts with my command for dired.
@@ -232,7 +234,7 @@
 (global-set-key (kbd "C-c s") #'ag-regexp)
 (global-set-key (kbd "C-c t") #'transpose-chars)
 ;; this is not working for some reason.
-(global-set-key (kbd "C-c x") #'er/expand-region)
+;;(global-set-key (kbd "C-c x") #'er/expand-region)
 
 (global-set-key (kbd "C-x C-.") #'pop-global-mark)
 ;; web-mode has a command C-c C-h that overrides this.
@@ -298,8 +300,8 @@
 
 ;; This package pops up a buffer, when a key prefix is hit, that shows what keys the user can now hit to use a command.
 (require-package 'guide-key)
-(setq guide-key/guide-key-sequence '("C-c ," "C-c ."  "C-x" "C-c" "C-c c" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n" "C-c p"
-                                     "C-c h" "C-c /"  "C-c C-m" "C-c C-e"  "C-c C-a"))
+(setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-x n" "C-c p"
+                                     "C-c h" ))
 (guide-key-mode 1)
 (diminish 'guide-key-mode)
 

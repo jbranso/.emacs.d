@@ -27,7 +27,14 @@
                                  ;;helm-source-files-in-all-dired
                                  ))
 
+
 (helm-mode 1)
+
+
+(define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
+(define-key helm-map (kbd "C-f") 'helm-execute-persistent-action)
+;;(define-key helm-top-map (kbd "C-k") 'helm-kill-this-unruly-process)
+(define-key helm--minor-mode-map (kbd "C-f") 'helm-execute-persistent-action)
 
 ;; how do I get this to work?
 ;; (define-key helm-find-files-map (kbd "s-h") 'helm-next-line)

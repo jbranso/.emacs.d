@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: $prepare->bind
+# key: $prepare->bind
+# binding: direct-keybinding
+# --
+$prepare->bindParam (":$1", \$$0);

@@ -46,7 +46,7 @@ stuff, to the current ERC buffer."
 ;;; Options
 
 ;; Join the #emacs and #erc channels whenever connecting to Freenode.
-(setq erc-autojoin-channels-alist '(("freenode.net" "#emacs"))
+(setq erc-autojoin-channels-alist '(("freenode.net" "#emacs")))
 
 ;; Rename server buffers to reflect the current network name instead
 ;; of SERVER:PORT. (e.g. "freenode" instead of "irc.freenode.net:6667"). This

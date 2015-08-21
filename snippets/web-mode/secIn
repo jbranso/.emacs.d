@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: secIn
+# key: secIn
+# binding: direct-keybinding
+# --
+secureInput (\$$1)$0

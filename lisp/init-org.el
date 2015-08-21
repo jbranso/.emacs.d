@@ -51,48 +51,61 @@
 
 ;; define what files org opens
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
+;;(setq org-default-notes-file (concat org-directory "/notes.org"))
+(setq org-capture-directory (quote ~/programming/org/gtd/gtd))
 (setq org-capture-templates
       '(
-        ("a" "Awesome WM" entry (file+headline "~/programming/org/gtd/gtd.org" "awesome WM someday")
-         "* TODO %?\nEntered on %U\n  %i\n  %a")
-        ("A" "Accrisoft Reference" entry (file+headline "~/programming/org/gtd/web.org" "Accrisoft reference")
+        ("c" "Computers Anything")
+        ("cA" "Accrisoft Reference" entry (file+headline "~/programming/org/gtd/web.org" "Accrisoft reference")
          "* %?\nEntered on %U\n  %i\n  %a")
-        ("c" "community TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "community someday")
+        ("ca" "Awesome WM" entry (file+headline "~/programming/org/gtd/gtd.org" "awesome WM someday")
+         "* TODO %?\nEntered on %U\n  %i\n  %a")
+        ("ce" "emacs Todo" entry (file+headline "~/programming/org/gtd/gtd.org" "emacs someday")
          "* TODO %?\n  %i\n  %a")
+        ("cE" "Emacs Reference" entry (file+headline "~/programming/org/gtd/gtd.org" "emacs reference")
+         "* %?\nEntered on %U\n  %i\n  %a")
+        ("cG" "Gimp Basics Reference" entry (file+headline "~/manuals/gimp.org" "Basic Concepts")
+         "* %?\nEntered on %U\n  %i\n  %a")
+        ("ci" "IBCA what I did last week" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org" "what I did last week")
+         "* TODO %?\n  %i\n  %a")
+        ("ch" "high star TODO" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "make high star an android app")
+         "* TODO %?\n  %i\n  %a")
+        ("cl" "linux TODO" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-developer.org" "linux someday")
+         "* TODO %?\n  %i\n  %a")
+        ("cL" "Linux Reference" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-developer.org" "linux reference")
+         "* %?\nEntered on %U\n  %i\n  %a")
+        ("co" "organ TODO" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "make organ an android app")
+         "* TODO %?\n  %i\n  %a")
+        ("cf" "Free the world" entry (file+headline "~/programming/org/gtd/gtd.org" "free the world free content")
+         "* %?\nEntered on %U\n  %i\n  %a")
+
+        ("cW" "Web reference" entry (file+headline "~/programming/org/gtd/web.org" "Web reference")
+         "* %?\nEntered on %U\n  %i\n  %a")
+
+        ("C" "Community")
+        ("Cc" "community TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "community someday")
+         "* TODO %?\n  %i\n  %a")
+        ("Cn" "nice things to say" entry (file+headline "~/programming/org/gtd/gtd.org" "nice things to say to people")
+         "* TODO %?\nEntered on %U\n  %i\n  %a")
+
         ("C" "Calendar TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "calendar")
          "* TODO %?\n  %i\n  %a")
-        ("e" "emacs Todo" entry (file+headline "~/programming/org/gtd/gtd.org" "emacs someday")
-         "* TODO %?\n  %i\n  %a")
-        ("E" "Emacs Reference" entry (file+headline "~/programming/org/gtd/gtd.org" "emacs reference")
-         "* %?\nEntered on %U\n  %i\n  %a")
-        ("f" "Free the world" entry (file+headline "~/programming/org/gtd/gtd.org" "free the world free content")
-         "* %?\nEntered on %U\n  %i\n  %a")
-        ("h" "high star TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "high star todo")
-         "* TODO %?\n  %i\n  %a")
-        ("l" "linux TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "linux someday")
-         "* TODO %?\n  %i\n  %a")
-        ("L" "Linux Reference" entry (file+headline "~/programming/org/gtd/gtd.org" "linux reference")
-         "* %?\nEntered on %U\n  %i\n  %a")
-        ("m" "Matt Notes" entry (file+headline "~/programming/org/gtd/gtd.org" "Matt Notes")
+
+        ("e" "entertainment")
+        ("ew" "movies to watch" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "movies to watch")
          "*  %i\n  %a")
-        ("n" "nice things to say" entry (file+headline "~/programming/org/gtd/gtd.org" "nice things to say to people")
-         "* TODO %?\nEntered on %U\n  %i\n  %a")
-        ("N" "entertainment" entry (file+headline "~/programming/org/gtd/gtd.org" "entertainment someday")
-         "* TODO %?\nEntered on %U\n  ")
-        ("o" "organ TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "organ todo")
+        ("er" "Good Movies Reference" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "Good Movies")
+         "*  %i\n  %a")
+        ("g" "getting close to God")
+        ("gg" "get a girlfriend" entry (file+headline "/home/joshua/programming/org/gtd/projects/get-close-to-God.org" "get a girl")
          "* TODO %?\n  %i\n  %a")
+
         ("p" "payless TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "shopping todo")
          "* TODO %?\n  %i\n  %a")
         ("r" "Reference" entry (file+headline "~/programming/org/gtd/gtd.org" "general reference")
          "* %?\nEntered on %U\n  %i\n  %a")
-        ("s" "soihub TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "soihub todo")
-         "* TODO %?\nEntered on %U\n  %i\n  %a")
-        ("S" "Soihub Reference" entry (file+headline "~/programming/org/gtd/gtd.org" "soihub reference")
-         "* %?\nEntered on %U\n  %i\n  %a")
         ("t" "TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "general todo")
          "* TODO %?\nEntered on %U\n  %i\n  %a")
-        ("W" "Web reference" entry (file+headline "~/programming/org/gtd/web.org" "Web reference")
-         "* %?\nEntered on %U\n  %i\n  %a")
         ))
 (define-key global-map "\C-cc" 'org-capture)
 ;; 9.1.3 Capture templates
@@ -132,6 +145,11 @@
 ;; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
 ;;(setq org-refile-targets (quote ((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5))))
 (setq org-agenda-files (quote ("~/programming/org/gtd/gtd.org"
+                               "~/programming/org/gtd/projects/get-close-to-God.org"
+                               "~/programming/org/gtd/projects/managing-my-monies.org"
+                               "/home/joshua/programming/org/gtd/projects/whatever-I-want.org"
+                               "/home/joshua/programming/org/gtd/projects/become-an-awesome-hacker.org"
+                               "~/programming/org/gtd/projects/working-for-waypoint.org"
                                ;; I can add more files here!
                                )))
 

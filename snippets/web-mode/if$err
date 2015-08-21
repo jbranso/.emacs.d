@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: if$err
+# key: if$err
+# binding: direct-keybinding
+# --
+if ($errorReporting)$0

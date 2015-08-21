@@ -1,8 +1,4 @@
 (require 'web-mode)
-;; I think mozRepl is buggy.
-;; connect emacs to mozilla so I can reload the webpage.
-;; (load "~/.emacs.d/elpa/mol.el")
-;; (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
 
 ;; This will probably come in handy.
 ;; (defun my-setup-indent (n)
@@ -35,18 +31,6 @@
 
 ;; I do this thing when switching project. It takes me no more than one minute. Since my project last at least three months, one minute is not a big deal.
 
-
-(defun auto-reload-firefox-on-after-save-hook ()
-  (add-hook 'after-save-hook
-            '(lambda ()
-               (interactive)
-               (comint-send-string (inferior-moz-process)
-                                   "setTimeout(BrowserReload(), \"1000\");"))
-            'append 'local)) ; buffer-local
-
-;;(add-hook 'web-mode-hook 'auto-reload-firefox-on-after-save-hook)
-;;(remove-hook 'web-mode-hook 'auto-reload-firefox-on-after-save-hook)
-
 ;; Example - you may want to add hooks for your own modes.
 ;; I also add this to python-mode when doing django development.
 ;; this is not working... I think MozRepl is very very buggy.
@@ -65,11 +49,14 @@
 ;;       (when mark-active
 ;;         (kill-region (region-beginning) (region-end)))))
 ;;   :bind  ("C-c C-a k" . web-mode-attribute-kill))
-
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.php?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.css?\\'" . css-mode))
 (add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-mode))
+
+(add-hook 'js2-mode-hook (lambda ()
+                          (yas-minor-mode)
+                          (yas-reload-all)))
 
 (setq web-mode-engines-alist
       '(("php"  . "\\.php\\.")
@@ -85,14 +72,16 @@
 ;;(setq web-mode-code-indent-offset 4)
 
 (require 'emmet-mode)
-
+;;(setq web-mode-enable-current-element-highlight t)
+(setq web-mode-enable-current-column-highlight t)
 (add-hook 'web-mode-hook (lambda ()
                            ;;emmet mode is sooo much better than yas
-                           ;; (yas-minor-mode)
-                           ;;(yas-reload-all)
+                           (yas-minor-mode)
+                           (yas-reload-all)
+                           (ggtags-mode 1)
                            (emmet-mode)
                            (local-unset-key (kbd "C-<return>"))
-                           ;;                           (define-key web-mode-map (kbd "C-c C-a k") 'web-mode-attribute-kill)
+
                            (define-key web-mode-map (kbd "C-<return>") '(lambda ()
                                                                           (interactive)
                                                                           (newline)
@@ -112,16 +101,17 @@
                            (global-set-key (kbd "C-c C-h") 'help)))
 
 (setq web-mode-ac-sources-alist
-  '(("css" . (ac-source-css-property ac-source-html-bootstrap+))
-    ("html" . (ac-source-words-in-buffer ac-source-abbrev ac-source-html-bootstrap+))
-    ("php" . (ac-source-words-in-buffer
-              ac-source-abbrev
-              ac-source-html-tag
-              ac-source-html-attribute
-              ac-source-html-attribute-2
-              ac-source-jquery
-              ac-source-html-bootstrap+
-              ac-source-html-bootstrap))))
+      '(("css" . (ac-source-css-property ac-source-html-bootstrap+))
+        ("html" . (ac-source-words-in-buffer ac-source-abbrev ac-source-html-bootstrap+))
+        ("php" . (ac-source-words-in-buffer
+                  ac-source-yasnippet
+                  ac-source-abbrev
+                  ac-source-html-tag
+                  ac-source-html-attribute
+                  ac-source-html-attribute-2
+                  ac-source-jquery
+                  ac-source-html-bootstrap+
+                  ac-source-html-bootstrap))))
 
 
 (setq web-mode-code-indent-offset 4)

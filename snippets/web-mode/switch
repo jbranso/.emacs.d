@@ -1,0 +1,14 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: switch
+# key: switch
+# binding: direct-keybinding
+# --
+switch ($1) {
+       case $2:
+       $0
+       break;
+       case $3:
+       break;
+       default:
+       break;
+}
