@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: header
+# key: header
+# binding: direct-keybinding
+# --
+header ('Location: $0');

@@ -66,7 +66,16 @@
          "* %?\nEntered on %U\n  %i\n  %a")
         ("cG" "Gimp Basics Reference" entry (file+headline "~/manuals/gimp.org" "Basic Concepts")
          "* %?\nEntered on %U\n  %i\n  %a")
-        ("ci" "IBCA what I did last week" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org" "what I did last week")
+        ("cw" "Waypoint")
+        ("cwi" "ibca Web App")
+        ("cwil" "IBCA what I did last week" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
+                                                                 "what I did last week")
+         "* TODO %?\n  %i\n  %a")
+        ("cwif" "features the app should have" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
+                                                                    "features the app should have")
+         "* TODO %?\n  %i\n  %a")
+        ("cwic" "core features that must be done" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
+                                                                       "core features that must be done")
          "* TODO %?\n  %i\n  %a")
         ("ch" "high star TODO" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "make high star an android app")
          "* TODO %?\n  %i\n  %a")

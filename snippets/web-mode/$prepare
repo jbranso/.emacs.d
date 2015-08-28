@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: $prepare
+# key: $prepare
+# binding: direct-keybinding
+# --
+\$prepare->${1:$$(yas-choose-value '("execute ();$0", "bindParam(':$2',$0);"))}

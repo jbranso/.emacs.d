@@ -56,7 +56,9 @@
 
 (add-hook 'js2-mode-hook (lambda ()
                           (yas-minor-mode)
-                          (yas-reload-all)))
+                          (yas-reload-all)
+                          (skewer-mode)
+                          ))
 
 (setq web-mode-engines-alist
       '(("php"  . "\\.php\\.")

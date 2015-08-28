@@ -34,14 +34,13 @@
 ;;(require-package 'project-local-variables)
 ;; this helps you minizize modeline clutter by hidding some modes on the mode line.
 ;; http://www.emacswiki.org/emacs/DiminishedModes
-;;I have no idea what this next package does
-;;(require-package 'scratch)
 
 ;; this will be cool to monitor my commands.
 ;; But I have to initialize it...It will not record commands by default.
 (require-package 'mwe-log-commands)
 (mwe:log-keyboard-commands)
 
+(require 'init-powerline-evil)
 (require 'init-gnus)
 (require 'init-vc)
 (require 'init-gui-frames)
@@ -55,7 +54,7 @@
 ;;(require 'init-recentf)
 (require 'init-cedet)
 ;; since I don't use it... why enable it?
-;;(require 'init-yasnippet)
+(require 'init-yasnippet)
 ;; this file saves all open buffers. It is so useful!
 ;;(require 'init-sessions)
 (require 'init-helm)

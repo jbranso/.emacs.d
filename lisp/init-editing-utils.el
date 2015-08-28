@@ -124,7 +124,7 @@
 ;; Show matching parens
 ;;----------------------------------------------------------------------------
 (show-paren-mode 1)
-
+(electric-pair-mode t)
 ;;----------------------------------------------------------------------------
 ;; Expand region
 ;;----------------------------------------------------------------------------
@@ -303,7 +303,7 @@
 (setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-x n" "C-c p"
                                      "C-c h" ))
 (guide-key-mode 1)
-(diminish 'guide-key-mode)
+;;(diminish 'guide-key-mode)
 
 
 (add-hook 'before-save-hook
