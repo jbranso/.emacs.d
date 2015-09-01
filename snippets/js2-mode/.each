@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: .each
+# key: .each
+# binding: direct-keybinding
+# --
+.each (function (index, element) {
+      $1
+})$0

@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: .change
+# key: .change
+# binding: direct-keybinding
+# --
+.change (eventData, function (eventData) {
+        $1
+})$0

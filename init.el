@@ -48,17 +48,21 @@
 (require 'init-dired)
 (require 'init-grep)
 (require 'init-erc)
+;; Nicer naming of buffers for files with identical names
+;; Instead of Makefile<1> and Makefile<2>, it will be
+;; Makefile | tmp  Makefile | lisp
 (require 'init-uniquify)
 ;; this sets up paradox to use my private token to access public repos.
 (require 'init-paradox)
-;;(require 'init-recentf)
+(require 'init-recentf)
 (require 'init-cedet)
 ;; since I don't use it... why enable it?
 (require 'init-yasnippet)
 ;; this file saves all open buffers. It is so useful!
 ;;(require 'init-sessions)
 (require 'init-helm)
-(require 'init-projectile)
+;; projectile is not working, so why have it?
+;;(require 'init-projectile)
 
 (require 'init-editing-utils)
 (require 'init-evil)
@@ -66,15 +70,15 @@
 ;; http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html
 ;;(require 'init-darcs)
 (require 'init-git)
-(require 'init-github)
+;;(require 'init-github)
 
 (require 'init-lisp)
 (require 'init-javascript)
 (require 'init-org)
 (require 'init-html)
-(require 'init-org2blog)
-(require 'init-css)
-(require 'init-python-mode)
+;;(require 'init-org2blog)
+;;(require 'init-css)
+;;(require 'init-python-mode)
 (require 'init-defuns)
 
 (require 'init-misc)

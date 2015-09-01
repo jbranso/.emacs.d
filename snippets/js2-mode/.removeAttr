@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: .removeAttr
+# key: .removeAttr
+# binding: direct-keybinding
+# --
+.removeAttr ("$1")$0

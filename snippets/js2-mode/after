@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: .after
+# key: .after
+# binding: direct-keybinding
+# --
+.after ("$0");

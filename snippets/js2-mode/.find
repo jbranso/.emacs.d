@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: .find
+# key: .find
+# binding: direct-keybinding
+# --
+.find ("$1")$0

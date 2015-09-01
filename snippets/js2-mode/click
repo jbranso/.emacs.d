@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: .click
+# key: .click
+# binding: direct-keybinding
+# --
+.click (data, function(data) {
+       $1
+});

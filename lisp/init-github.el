@@ -11,6 +11,6 @@
 ;; clone a package on github
 ;;(maybe-require-package 'github-clone)
 ;;this lets you send a pull request on github
-(maybe-require-package 'magit-gh-pulls)
+;;(maybe-require-package 'magit-gh-pulls)
 
 (provide 'init-github)

@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: .keyup
+# key: .keyup
+# binding: direct-keybinding
+# --
+.keyup (eventData, function(eventData) {
+       $1
+})$0

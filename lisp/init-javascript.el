@@ -1,7 +1,7 @@
-(require-package 'json-mode)
+;;(require-package 'json-mode)
 (maybe-require-package 'js2-mode)
-(maybe-require-package 'ac-js2)
-(maybe-require-package 'coffee-mode)
+;;(maybe-require-package 'ac-js2)
+;;(maybe-require-package 'coffee-mode)
 (require-package 'js-comint)
 
 (defcustom preferred-javascript-mode
@@ -91,10 +91,10 @@
 ;; Alternatively, use skewer-mode
 ;; ---------------------------------------------------------------------------
 
-(when (maybe-require-package 'skewer-mode)
-  (after-load 'skewer-mode
-    (add-hook 'skewer-mode-hook
-              (lambda () (inferior-js-keys-mode -1)))))
+;; (when (maybe-require-package 'skewer-mode)
+;;   (after-load 'skewer-mode
+;;     (add-hook 'skewer-mode-hook
+;;               (lambda () (inferior-js-keys-mode -1)))))
 
 
 (provide 'init-javascript)

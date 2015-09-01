@@ -1,54 +1,5 @@
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
-;; (define-key org-mode-map "\"" #'endless/round-quotes)
-
-;; I don't use yas for org.
-;;(add-hook 'org-mode-hook #'yas-minor-mode)
-
-;;this is an awesome thing won't work.
-;;(define-key yas-minor-mode-map (kbd "<s-tab>") 'yas-ido-expand)
-
-;; (defun endless/round-quotes (italicize)
-;;   "Insert “” and leave point in the middle.
-;; With prefix argument ITALICIZE, insert /“”/ instead
-;; \(meant for org-mode).
-;; Inside a code-block, just call `self-insert-command'."
-;;   (interactive "P")
-;;   (if (and (derived-mode-p 'org-mode)
-;;            (org-in-block-p '("src" "latex" "html")))
-;;       (call-interactively #'self-insert-command)
-;;     (if (looking-at "”[/=_\\*]?")
-;;         (goto-char (match-end 0))
-;;       (when italicize
-;;         (if (derived-mode-p 'markdown-mode)
-;;             (insert "__")
-;;           (insert "//"))
-;;         (forward-char -1))
-;;       (insert "“”")
-;;       (forward-char -1))))
-
-;; (define-key org-mode-map "'" #'endless/apostrophe)
-
-;; (eval-after-load 'markdown-mode
-;;   '(define-key markdown-mode-map "'"
-;;      #'endless/apostrophe))
-
-;; (defun endless/apostrophe (opening)
-;;   "Insert ’ in prose or `self-insert-command' in code.
-;; With prefix argument OPENING, insert ‘’ instead and
-;; leave point in the middle.
-;; Inside a code-block, just call `self-insert-command'."
-;;   (interactive "P")
-;;   (if (and (derived-mode-p 'org-mode)
-;;            (org-in-block-p '("src" "latex" "html")))
-;;       (call-interactively #'self-insert-command)
-;;     (if (looking-at "['’][=_/\\*]?")
-;;         (goto-char (match-end 0))
-;;       (if (null opening)
-;;           (insert "’")
-;;         (insert "‘’")
-;;         (forward-char -1)))))
-
 ;; define what files org opens
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
 ;;(setq org-default-notes-file (concat org-directory "/notes.org"))
@@ -117,31 +68,13 @@
          "* TODO %?\nEntered on %U\n  %i\n  %a")
         ))
 (define-key global-map "\C-cc" 'org-capture)
-;; 9.1.3 Capture templates
-
-;; You can use templates for different types of capture items, and for different target locations. The easiest way to create such
-;; templates is through the customize interface.
-
-;; C-c c C
-;;     Customize the variable org-capture-templates.
-
-;; Before we give the formal description of template definitions, let's look at an example. Say you would like to use one template
-;; to create general TODO entries, and you want to put these entries under the heading ‘Tasks’ in your file ~/org/gtd.org. Also, a
-;; date tree in the file journal.org should capture journal entries. A possible configuration would look like:
-
-;;      (setq org-capture-templates
-;;       '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
-;;              "* TODO %?\n  %i\n  %a")
-;;         ("j" "Journal" entry (file+datetree "~/org/journal.org")
-;;              "* %?\nEntered on %U\n  %i\n  %a")))
 
 
 ;; Various preferences
 (setq org-log-done t
-      org-completion-use-ido t
       org-edit-timestamp-down-means-later t
       org-agenda-start-on-weekday nil
-      org-agenda-span 14
+      org-agenda-span 7
       ;; using the diary really slows down the agenda view
       ;;org-agenda-include-diary nil
       org-agenda-window-setup 'current-window
@@ -215,7 +148,7 @@
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
 ;; make org mode start up with auto fill mode
-;; (add-hook 'org-mode-hook #'(lambda ()
+(add-hook 'org-mode-hook #'(lambda ()
                             ;; (interactive)
                             ;;(auto-fill-mode)
                             ;; make the lines in the buffer wrap around the edges of the screen.
@@ -232,45 +165,48 @@
                             ;;https://www.gnu.org /software/emacs/manual/html_node/emacs/Sentences.html
                             ;; I would love it if refill-mode would actually work with org-mode, but sadly it does not...
                             ;;(refill-mode)
-                            ;; (push '(">=" . ?≥) prettify-symbols-alist)
-                            ;; (push '("<=" . ?≤) prettify-symbols-alist)
-                            ;; (push '("\\geq" . ?≥) prettify-symbols-alist)
-                            ;; (push '("\\leq" . ?≤) prettify-symbols-alist)
-                            ;; (push '("\\neg" . ?¬) prettify-symbols-alist)
-                            ;; (push '("\\rightarrow" . ?→) prettify-symbols-alist)
-                            ;; (push '("\\leftarrow" . ?←) prettify-symbols-alist)
-                            ;; (push '("\\infty" . ?∞) prettify-symbols-alist)
-                            ;; (push '("-->" . ?→) prettify-symbols-alist)
-                            ;; (push '("<--" . ?←) prettify-symbols-alist)
-                            ;; (push '("\\exists" . ?∃) prettify-symbols-alist)
-                            ;; (push '("\\nexists" . ?∄) prettify-symbols-alist)
-                            ;; (push '("\\forall" . ?∀) prettify-symbols-alist)
-                            ;; (push '("\\or" . ?∨) prettify-symbols-alist)
-                            ;; (push '("\\and" . ?∧) prettify-symbols-alist)
-                            ;; (push '(":)" . ?☺) prettify-symbols-alist)
-                            ;; (push '("):" . ?☹) prettify-symbols-alist)
-                            ;; (push '(":D" . ?☺) prettify-symbols-alist)
-                            ;; (push '("^_^" . ?☻) prettify-symbols-alist)
+                            (push '(">=" . ?≥) prettify-symbols-alist)
+                            (push '("<=" . ?≤) prettify-symbols-alist)
+                            (push '("\\geq" . ?≥) prettify-symbols-alist)
+                            (push '("\\leq" . ?≤) prettify-symbols-alist)
+                            (push '("\\neg" . ?¬) prettify-symbols-alist)
+                            (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+                            (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+                            (push '("\\infty" . ?∞) prettify-symbols-alist)
+                            (push '("-->" . ?→) prettify-symbols-alist)
+                            (push '("<--" . ?←) prettify-symbols-alist)
+                            (push '("\\exists" . ?∃) prettify-symbols-alist)
+                            (push '("\\nexists" . ?∄) prettify-symbols-alist)
+                            (push '("\\forall" . ?∀) prettify-symbols-alist)
+                            (push '("\\or" . ?∨) prettify-symbols-alist)
+                            (push '("\\and" . ?∧) prettify-symbols-alist)
+                            (push '(":)" . ?☺) prettify-symbols-alist)
+                            (push '("):" . ?☹) prettify-symbols-alist)
+                            (push '(":D" . ?☺) prettify-symbols-alist)
+                            (push '("^_^" . ?☻) prettify-symbols-alist)
 
                             ;; (let ((original-command (lookup-key org-mode-map [tab])))
                               ;; `(lambda ()
                                  ;; (setq yas-fallback-behavior
                                        ;; '(apply ,original-command))
-                                 ;; (local-set-key [tab] 'yas-expand)))))
+                             ;; (local-set-key [tab] 'yas-expand))))
+                             ))
 
 ;; (after-load 'org
   ;; (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element)
   ;; (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element))
 
+;; I don't use any of these yet, so don't use 'em
 (after-load 'org
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((emacs-lisp . t)
-     (latex . t)
-     (ledger . t)
-     (python . t)
-     (sh . t)
-     (sql . t)
+   '(
+     ;;(emacs-lisp . t)
+     ;;(latex . t)
+     ;;(ledger . t)
+     ;;(python . t)
+     ;;(sh . t)
+     ;;(sql . t)
      ;;(sqlite . t)
      )))
 

@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: .closest
+# key: .closest
+# binding: direct-keybinding
+# --
+.closest ("$1")$0

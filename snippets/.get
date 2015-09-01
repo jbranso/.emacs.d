@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: .get
+# key: .get
+# binding: direct-keybinding
+# --
+.get ("$1", \{$2: "$3", \}, function (data, textStatus, jqXHR) \{
+      $0
+\});

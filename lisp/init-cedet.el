@@ -63,6 +63,7 @@
 ;;how long a word needs to be before auto-complete suggestions come up.
 (setq-default ac-auto-start 3)
 (setq-default ac-dwim t) ; To get pop-ups with docs even if a word is uniquely completed
+(setq-default ac-use-fuzzy t)
 
 ;;----------------------------------------------------------------------------
 ;; Use Emacs' built-in TAB completion hooks to trigger AC (Emacs >= 23.2)
@@ -72,48 +73,31 @@
 ;; Stop completion-at-point from popping up completion buffers so eagerly
 (setq completion-cycle-threshold 5)
 
-;; I don't know what these next few lines do.
-;; this is how it was when I found it.
-;; (setq c-tab-always-indent nil c-insert-tab-function 'indent-for-tab-command)
-;; (setq c-tab-always-indent t
-;;       c-insert-tab-function #'indent-for-tab-command)
-
-;; hook AC into completion-at-point
-;; (defun sanityinc/auto-complete-at-point ()
-  ;; (when (and (not (minibufferp))
-  ;;            (fboundp 'auto-complete-mode)
-  ;;            auto-complete-mode)
-    ;; (auto-complete)))
-
-;; (defun sanityinc/never-indent ()
-;;   (set (make-local-variable 'indent-line-function) (lambda () 'noindent)))
-
-;; (defun set-auto-complete-as-completion-at-point-function ()
-;;   (setq completion-at-point-functions
-;;         (cons 'sanityinc/auto-complete-at-point
-;;               (remove 'sanityinc/auto-complete-at-point completion-at-point-functions))))
-
-;; what does this do?
-;;(add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
 
 ;; make expand be tab
 (define-key ac-complete-mode-map "\t" #'ac-expand)
 ;; make complet by return
-(define-key ac-complete-mode-map "\C-r" #'ac-complete)
+(define-key ac-complete-mode-map "\C-m" #'ac-complete)
 ;; I was going to make every up and down be t and h but too annoying
-;;(define-key ac-complete-mode-map "\C-h" #'ac-next)
-;;(define-key ac-complete-mode-map "\C-t" #'ac-previous)
+(define-key ac-complete-mode-map "\C-n" #'ac-next)
+(define-key ac-complete-mode-map "\C-p" #'ac-previous)
+
 
 (set-default 'ac-sources
-             '(;;ac-source-imenu
-               ;;ac-source-yasnippet
+             '(
+               ;;ac-source-imenu
+               ac-source-yasnippet
                ac-source-dictionary
-               ;;ac-source-words-in-buffer
-               ;; ac-source-semantic
-               ;;ac-source-words-in-same-mode-buffers
-               ac-source-words-in-all-buffer))
+               ac-source-words-in-buffer
+               ac-source-css-property
+               ac-source-filename
+               ;;useful for eshell
+               ac-source-files-in-current-dir
+               ))
 
-(dolist (mode '(magit-log-edit-mode
+
+(dolist (mode '(
+                magit-log-edit-mode
                 log-edit-mode org-mode text-mode
                 git-commit-mode
                 ;; sass-mode espresso-mode
@@ -121,7 +105,9 @@
                 ;; clojure-mode
                 lisp-mode
                 ;; textile-mode markdown-mode
-                js3-mode css-mode
+                ;;js3-mode
+                css-mode
+                eshell-mode
                 ;; less-css-mode
                 sql-mode
                 sql-interactive-mode
@@ -133,7 +119,5 @@
 (defun sanityinc/dabbrev-friend-buffer (other-buffer)
   (< (buffer-size other-buffer) (* 1 1024 1024)))
 
-;; I don't know what this does.
-;; (setq dabbrev-friend-buffer-function 'sanityinc/dabbrev-friend-buffer) ;
 
 (provide 'init-cedet)
