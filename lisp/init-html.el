@@ -74,6 +74,7 @@
                   ac-source-words-in-buffer
                   ac-source-yasnippet
                   ac-source-filename
+                  ac-source-php
                   ))))
 
 

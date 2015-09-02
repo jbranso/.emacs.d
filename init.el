@@ -48,6 +48,7 @@
 (require 'init-dired)
 (require 'init-grep)
 (require 'init-erc)
+(require 'init-eshell)
 ;; Nicer naming of buffers for files with identical names
 ;; Instead of Makefile<1> and Makefile<2>, it will be
 ;; Makefile | tmp  Makefile | lisp
@@ -55,9 +56,10 @@
 ;; this sets up paradox to use my private token to access public repos.
 (require 'init-paradox)
 (require 'init-recentf)
+;;yasnippet needs to be loaded before auto complete to let them play nicely together
+(require 'init-yasnippet)
 (require 'init-cedet)
 ;; since I don't use it... why enable it?
-(require 'init-yasnippet)
 ;; this file saves all open buffers. It is so useful!
 ;;(require 'init-sessions)
 (require 'init-helm)

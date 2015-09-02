@@ -57,7 +57,17 @@
 
 (require-package 'auto-complete)
 (require 'auto-complete-config)
+;; I'm adding the next 3 lines from following this website
+;; https://truongtx.me/2013/01/06/config-yasnippet-and-autocomplete-on-emacs/
+(ac-config-default)
+;;; set the trigger key so that it can work together with yasnippet on tab key,
+;;; if the word exists in yasnippet, pressing tab will cause yasnippet to
+;;; activate, otherwise, auto-complete will
+(ac-set-trigger-key "TAB")
+(ac-set-trigger-key "<tab>")
+
 (global-auto-complete-mode t)
+
 ;;(setq-default ac-expand-on-auto-complete nil)
 (setq-default ac-expand-on-auto-complete t)
 ;;how long a word needs to be before auto-complete suggestions come up.
@@ -107,9 +117,9 @@
                 ;; textile-mode markdown-mode
                 ;;js3-mode
                 css-mode
-                eshell-mode
                 ;; less-css-mode
                 sql-mode
+                eshell-mode
                 sql-interactive-mode
                 inferior-emacs-lisp-mode))
   (add-to-list 'ac-modes mode))
