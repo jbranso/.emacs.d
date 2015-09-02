@@ -3,6 +3,6 @@
 # key: .keydown
 # binding: direct-keybinding
 # --
-.keydown (eventData, function(eventData) {
+.keydown (function() {
          $1
 })$0

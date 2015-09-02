@@ -1,4 +1,3 @@
-(require 'web-mode)
 
 ;; This will probably come in handy.
 (defun my-setup-indent (n)
@@ -21,13 +20,21 @@
   )
 
 
-;; I do this thing when switching project. It takes me no more than one minute. Since my project last at least three months, one minute is not a big deal.
-
+;;I'm not sure what this does
+(setq web-mode-extra-constants '(("php" . ("CONS1" "CONS2"))))
+(setq web-mode-enable-current-column-highlight t)
+;; <?php expands to <?php ?>
+(setq web-mode-enable-auto-pairing t)
 ;; Example - you may want to add hooks for your own modes.
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.php?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.css?\\'" . css-mode))
+(add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-mode))
+(setq web-mode-extra-auto-pairs
+      '(("erb"  . (("beg" "end")))
+        ("php"  . (("beg" "end")
+                   ("beg" "end")))
+        ))
 
 (add-hook 'js2-mode-hook (lambda ()
                            (yas-minor-mode)
@@ -49,15 +56,27 @@
       '(("php"  . "\\.php\\.")
         ("django"  . "\\.djhtml\\.")))
 
-;; default html indentation
-;; default css indentation
-;; since I'm not using web-mode for css, I don't need this next line
-;; default script indentation (php and js)
-;; since I'm not using web-mode for js2-mode, I don't need the next line
-;;(setq web-mode-code-indent-offset 4)
 
-;;(setq web-mode-enable-current-element-highlight t)
-(setq web-mode-enable-current-column-highlight t)
+(setq web-mode-ac-sources-alist
+      '(("css" . (ac-source-css-property ac-source-html-bootstrap+))
+        ("html" . (ac-source-words-in-buffer
+                   ac-source-abbrev
+                   ac-source-html-bootstrap+
+                   ;;no need for yasnippet in html emmet mode is sooo much better
+                   ;;ac-source-yasnippet
+                   ac-source-emmet-html-aliases
+                   ac-source-emmet-html-snippets
+                   ac-source-html-tag
+                   ac-source-html-attribute
+                   ac-source-html-attribute-2
+                                             ))
+        ("php" . (
+                  ac-source-words-in-buffer
+                  ac-source-yasnippet
+                  ac-source-filename
+                  ))))
+
+
 (add-hook 'web-mode-hook (lambda ()
                            ;;yas mode for php stuff
                            (yas-minor-mode)
@@ -79,18 +98,24 @@
                            (local-unset-key (kbd "C-c C-h"))
                            (global-set-key (kbd "C-c C-h") 'help)))
 
-(setq web-mode-ac-sources-alist
-      '(("css" . (ac-source-css-property ac-source-html-bootstrap+))
-        ("html" . (ac-source-words-in-buffer ac-source-abbrev ac-source-html-bootstrap+ ac-source-yasnippet
-                                             ac-source-html-tag
-                                             ac-source-html-attribute
-                                             ac-source-html-attribute-2
-                                             ))
-        ("php" . (ac-source-words-in-buffer
-                  ac-source-yasnippet
-                  ac-source-abbrev
-                  ac-source-html-bootstrap+
-                  ac-source-html-bootstrap))))
+
+
+;; js2 customizations
+(add-hook 'js2-mode-hook (lambda ()
+                           (yas-minor-mode)
+                           (yas-reload-all)
+                           (skewer-mode)
+                           (ggtags-mode 1)
+                           ;;this conflicts with the snippets, and it's seriously annoying
+                           ;;(ac-js2-mode)
+                           ;;set ac sources to nil for javascript that way it doesn't interfer with yasnippet
+                           (setq ac-sources
+                                 '(
+                                   ac-source-filename
+                                   ac-source-dictionary
+                                   ))
+                           ))
+
 
 
 (provide 'init-html)

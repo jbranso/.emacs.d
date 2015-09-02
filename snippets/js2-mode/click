@@ -3,6 +3,6 @@
 # key: .click
 # binding: direct-keybinding
 # --
-.click (data, function(data) {
+.click (function() {
        $1
 });

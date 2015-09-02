@@ -217,7 +217,7 @@
 (global-set-key (kbd "C-c b") #'eval-buffer)
 (global-set-key (kbd "C-c B") #'browse-kill-ring)
 (global-set-key (kbd "C-c d") #'dired-jump)
-(global-set-key (kbd "C-c D") #'soihub-update-dev-server)
+(global-set-key (kbd "C-c D") 'ggtags-find-tag-dwim)
 (global-set-key (kbd "C-c e") #'helm-M-x)
 (global-set-key (kbd "C-c E") #'eshell)
 (global-set-key (kbd "C-c f") #'isearch-forward-regexp)
