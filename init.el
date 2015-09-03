@@ -65,7 +65,7 @@
 (require 'init-helm)
 ;; projectile is not working, so why have it?
 ;;(require 'init-projectile)
-
+(require 'init-hydra)
 (require 'init-editing-utils)
 (require 'init-evil)
 

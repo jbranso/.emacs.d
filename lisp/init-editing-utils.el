@@ -204,7 +204,6 @@
                                (save-some-buffers 1)))
 (global-set-key (kbd "s-g") #'magit-status)
 (global-set-key (kbd "s-h") #'mark-paragraph)
-(global-set-key (kbd "C-c x") #'align-regexp)
 (global-set-key (kbd "C-c P") #'pwd)
 (global-set-key (kbd "s-u") #'my/uppercase-word)
 ;; this conflicts with my command for dired.
@@ -216,6 +215,7 @@
 (global-set-key (kbd "C-c ;") #'comment-dwim)
 (global-set-key (kbd "C-c b") #'eval-buffer)
 (global-set-key (kbd "C-c B") #'browse-kill-ring)
+(global-set-key (kbd "C-c C") #'hydra-global-org/body)
 (global-set-key (kbd "C-c d") #'dired-jump)
 (global-set-key (kbd "C-c D") 'ggtags-find-tag-dwim)
 (global-set-key (kbd "C-c e") #'helm-M-x)
@@ -233,6 +233,7 @@
 (global-set-key (kbd "C-c q") #'fill-paragraph)
 (global-set-key (kbd "C-c s") #'ag-regexp)
 (global-set-key (kbd "C-c t") #'transpose-chars)
+(global-set-key (kbd "C-c x") #'align-regexp)
 ;; this is not working for some reason.
 ;;(global-set-key (kbd "C-c x") #'er/expand-region)
 

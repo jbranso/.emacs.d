@@ -154,10 +154,17 @@ EXT is a list of the extensions of files to be included."
                                         ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
 (setq org-outline-path-complete-in-steps t)
 
+(setq org-todo-keywords
+  '((sequence "TODO" "|" "PAID" "DONE")))
 
-;; (setq org-todo-keywords
-;;       (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
-;;               (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)"))))
+;; none of these do anything
+;;  (setq org-todo-keywords
+;;        (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
+;;                (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)"))))
+
+;; (setq org-todo-keyword-faces
+;;       '(("TODO" . org-warning) ("STARTED" . "yellow")
+;;         ("CANCELED" . (:foreground "blue" :weight bold))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -263,5 +270,22 @@ EXT is a list of the extensions of files to be included."
      ;;(sqlite . t)
      )))
 
+;; still trying to figure out how to do this. not sure yet
+(autoload 'org-invoice-report "org-invoice")
+(autoload 'org-dblock-write:invoice "org-invoice")
+
+;; org can send me pop-ups for appointments! cool!
+(require 'org-notify)
+(org-notify-start)
+
+;; Example setup:
+;;
+ (org-notify-add 'appt
+                 '(:time "-1s" :period "20s" :duration 10
+                   :actions (-message -ding))
+                 '(:time "15m" :period "2m" :duration 100
+                   :actions -notify)
+                 '(:time "2h" :period "5m" :actions -message)
+                 '(:time "3d" :actions -email))
 
 (provide 'init-org)
