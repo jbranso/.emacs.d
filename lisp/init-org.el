@@ -86,14 +86,67 @@
 
 ;; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
 ;;(setq org-refile-targets (quote ((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5))))
-(setq org-agenda-files (quote ("~/programming/org/gtd/gtd.org"
-                               "~/programming/org/gtd/projects/get-close-to-God.org"
-                               "~/programming/org/gtd/projects/managing-my-monies.org"
-                               "/home/joshua/programming/org/gtd/projects/whatever-I-want.org"
-                               "/home/joshua/programming/org/gtd/projects/become-an-awesome-hacker.org"
-                               "~/programming/org/gtd/projects/working-for-waypoint.org"
-                               ;; I can add more files here!
-                               )))
+(setq org-refile-targets '(
+                           ;;(org-agenda-files :maxlevel . 5)
+                               ("~/programming/org/gtd/gtd.org")
+                               ("~/programming/org/gtd/projects/get-close-to-God.org")
+                          ))
+;;(setq org-refile-targets 'org-agenda-files)
+
+(setq org-agenda-files (my-org-set-agenda-files))
+(setq org-refile-targets (my-org-set-agenda-files))
+(setq org-refile-targets '((("~/programming/org/gtd/projects/working-for-waypoint.org") :maxlevel . 5)))
+
+
+(defun my-org-list-files (dirs ext)
+  "Function to create list of org files in multiple subdirectories.
+This can be called to generate a list of files for
+org-agenda-files or org-refile-targets.
+
+DIRS is a list of directories.
+
+EXT is a list of the extensions of files to be included."
+  (let ((dirs (if (listp dirs)
+                  dirs
+                (list dirs)))
+        (ext (if (listp ext)
+                 ext
+               (list ext)))
+        files)
+    (mapc
+     (lambda (x)
+       (mapc
+        (lambda (y)
+          (setq files
+                (append files
+                        (file-expand-wildcards
+                         (concat (file-name-as-directory x) "*" y)))))
+        ext))
+     dirs)
+    (mapc
+     (lambda (x)
+       (when (or (string-match "/.#" x)
+                 (string-match "#$" x))
+         (setq files (delete x files))))
+     files)
+    files))
+
+(defvar my-org-agenda-directories '("~/programming/org/")
+  "List of directories containing org files.")
+(defvar my-org-agenda-extensions '(".org")
+  "List of extensions of agenda files")
+
+(setq my-org-agenda-directories '("~/programming/org/" "~/programming/org/gtd/"
+                                  "~/programming/org/gtd/projects"))
+(setq my-org-agenda-extensions '(".org"))
+
+(defun my-org-set-agenda-files ()
+  (interactive)
+  (setq org-agenda-files (my-org-list-files
+                          my-org-agenda-directories
+                          my-org-agenda-extensions)))
+
+(my-org-set-agenda-files)
 
 
                                         ; Targets start with the file name - allows creating level 1 tasks
