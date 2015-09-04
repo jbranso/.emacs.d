@@ -227,7 +227,17 @@
 (global-set-key (kbd "C-c i") #'info-display-manual)
 (global-set-key (kbd "C-c l") #'eval-last-sexp)
 (global-set-key (kbd "C-c m") #'helm-mini)
-(global-set-key (kbd "C-c M") #'gnus-msg-mail)
+;; this command does not work, but oh well
+(global-set-key (kbd "C-c M i") #'(lambda ()
+                                    (emms-librefm-stream "librefm://globaltags/Classical")))
+(global-set-key (kbd "C-c M p") 'emms-previous)
+(global-set-key (kbd "C-c M n") 'emms-next)
+(global-set-key (kbd "C-c M P") 'emms-pause)
+(global-set-key (kbd "C-c M s") 'emms-show)
+(global-set-key (kbd "C-c M +") 'emms-volume-mode-plus)
+(global-set-key (kbd "C-c M -") 'emms-volume-mode-minus)
+
+
 ;;This does recursive find and replace.  But I think it only works when you are in a dired buffer
 (global-set-key (kbd "C-c R") #'find-name-dired)
 (global-set-key (kbd "C-c q") #'fill-paragraph)
