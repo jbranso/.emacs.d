@@ -37,8 +37,8 @@ _h_tml    ^ ^        _A_SCII:
          (hydra-org-template/body)
        (self-insert-command 1))))
 
-
-(defhydra hydra-global-org (:color blue
+;;a nice clock in clock out thing from hydra
+(defun hydra-global-org (:color blue
                             :hint nil)
   "
 Timer^^        ^Clock^         ^Capture^
@@ -61,6 +61,28 @@ _p_rint
   ("c" org-capture)
   ("l" org-capture-goto-last-stored))
 
+;; this is not working at the moment, but hopefully it will at some point
+(defun hydra-emms (:color blue
+                            :hint nil)
+  "
+Playlist^^        ^seeking^         ^Capture^
+--------------------------------------------------
+ _s_top        _>_ seek 10 seconds forward   _d_escribe song
+ _n_ext        _<_ seek 10 seconds barkward  _D_elete
+ _p_revious    _r_ random song
+ _P_uase
+"
+  ("s" emms-stop)
+  ("n" emms-next)
+  ("p" emms-previous)
+  ("P" emms-pause)
+  ;; Print timer value to buffer
+  (">" emms-seek-forward)
+  ("<" emms-seek-backward)
+  ("r" emms-random)
+  ;; Visit the clocked task from any buffer
+  ("d" emms-show)
+  ("D" emms-playlist-mode-kill-track))
 
 
 (provide 'init-hydra)

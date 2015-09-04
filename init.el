@@ -65,6 +65,7 @@
 (require 'init-helm)
 ;; projectile is not working, so why have it?
 ;;(require 'init-projectile)
+(require 'init-org)
 (require 'init-hydra)
 (require 'init-editing-utils)
 (require 'init-evil)
@@ -76,7 +77,7 @@
 
 (require 'init-lisp)
 (require 'init-javascript)
-(require 'init-org)
+
 (require 'init-html)
 ;;(require 'init-org2blog)
 ;;(require 'init-css)

@@ -84,19 +84,6 @@
       org-tags-column 80)
 
 
-;; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
-;;(setq org-refile-targets (quote ((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5))))
-(setq org-refile-targets '(
-                           ;;(org-agenda-files :maxlevel . 5)
-                               ("~/programming/org/gtd/gtd.org")
-                               ("~/programming/org/gtd/projects/get-close-to-God.org")
-                          ))
-;;(setq org-refile-targets 'org-agenda-files)
-
-(setq org-agenda-files (my-org-set-agenda-files))
-(setq org-refile-targets (my-org-set-agenda-files))
-(setq org-refile-targets '((("~/programming/org/gtd/projects/working-for-waypoint.org") :maxlevel . 5)))
-
 
 (defun my-org-list-files (dirs ext)
   "Function to create list of org files in multiple subdirectories.
@@ -147,6 +134,20 @@ EXT is a list of the extensions of files to be included."
                           my-org-agenda-extensions)))
 
 (my-org-set-agenda-files)
+
+;; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
+;;(setq org-refile-targets (quote ((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5))))
+(setq org-refile-targets '(
+                           ;;(org-agenda-files :maxlevel . 5)
+                               ("~/programming/org/gtd/gtd.org")
+                               ("~/programming/org/gtd/projects/get-close-to-God.org")
+                          ))
+;;(setq org-refile-targets 'org-agenda-files)
+
+(setq org-agenda-files (my-org-set-agenda-files))
+(setq org-refile-targets (my-org-set-agenda-files))
+(setq org-refile-targets '((("~/programming/org/gtd/projects/working-for-waypoint.org") :maxlevel . 5)))
+
 
 
                                         ; Targets start with the file name - allows creating level 1 tasks

@@ -1,8 +1,5 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: .click
-# key: .click
+# name: $(
+# key: $(
 # binding: direct-keybinding
 # --
-.click (function() {
-       $0
-});
