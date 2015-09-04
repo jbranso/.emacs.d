@@ -103,6 +103,10 @@
 (evil-set-initial-state 'dired-mode 'emacs)
 (evil-set-initial-state 'wdired-mode 'normal)
 (evil-set-initial-state 'git-timemachine-mode 'emacs)
+(evil-set-initial-state 'sx-compose-mode 'emacs)
+(evil-set-initial-state 'sx-question-mode 'emacs)
+(evil-set-initial-state 'sx-question-list-mode 'emacs)
+
 
 (provide 'init-evil)
 ;; ;;; evil-changes.el ends here

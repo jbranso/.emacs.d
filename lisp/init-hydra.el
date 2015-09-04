@@ -43,7 +43,7 @@ _h_tml    ^ ^        _A_SCII:
   "
 Timer^^        ^Clock^         ^Capture^
 --------------------------------------------------
-s_t_art        _w_ clock in    _c_apture
+s_t_art        _i_ clock in    _c_apture
  _s_top        _o_ clock out   _l_ast capture
 _r_eset        _j_ clock goto
 _p_rint
@@ -54,7 +54,7 @@ _p_rint
   ("r" org-timer-set-timer)
   ;; Print timer value to buffer
   ("p" org-timer)
-  ("w" (org-clock-in '(4)))
+  ("i" (org-clock-in '(4)))
   ("o" org-clock-out)
   ;; Visit the clocked task from any buffer
   ("j" org-clock-goto)
