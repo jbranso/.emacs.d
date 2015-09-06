@@ -52,7 +52,8 @@
 ;; Nicer naming of buffers for files with identical names
 ;; Instead of Makefile<1> and Makefile<2>, it will be
 ;; Makefile | tmp  Makefile | lisp
-(require 'init-uniquify)
+;; It's a nice mode, but I'm not sure that I use it
+;;(require 'init-uniquify)
 ;; this sets up paradox to use my private token to access public repos.
 (require 'init-paradox)
 (require 'init-recentf)
@@ -67,6 +68,7 @@
 ;;(require 'init-projectile)
 (require 'init-org)
 (require 'init-hydra)
+(require 'sx) ;;searching stack exchange via emacs!  C-c S
 (require 'init-editing-utils)
 (require 'init-evil)
 

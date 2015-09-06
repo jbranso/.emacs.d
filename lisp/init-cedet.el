@@ -54,7 +54,6 @@
 ;; (ede-enable-generic-projects)
 
 ;;setting up ac
-
 (require-package 'auto-complete)
 (require 'auto-complete-config)
 ;; I'm adding the next 3 lines from following this website
@@ -65,11 +64,9 @@
 ;;; activate, otherwise, auto-complete will
 (ac-set-trigger-key "TAB")
 (ac-set-trigger-key "<tab>")
-
 (global-auto-complete-mode t)
-
 ;;(setq-default ac-expand-on-auto-complete nil)
-(setq-default ac-expand-on-auto-complete t)
+;;(setq-default ac-expand-on-auto-complete t)
 ;;how long a word needs to be before auto-complete suggestions come up.
 (setq-default ac-auto-start 3)
 (setq-default ac-dwim t) ; To get pop-ups with docs even if a word is uniquely completed
@@ -83,7 +80,6 @@
 ;; Stop completion-at-point from popping up completion buffers so eagerly
 (setq completion-cycle-threshold 5)
 
-
 ;; make expand be tab
 (define-key ac-complete-mode-map "\t" #'ac-expand)
 ;; make complet by return
@@ -92,26 +88,26 @@
 (define-key ac-complete-mode-map "\C-n" #'ac-next)
 (define-key ac-complete-mode-map "\C-p" #'ac-previous)
 
-
 (set-default 'ac-sources
              '(
                ;;ac-source-imenu
-               ac-source-yasnippet
                ac-source-dictionary
                ac-source-words-in-buffer
-               ac-source-css-property
                ac-source-filename
                ;;useful for eshell
-               ac-source-files-in-current-dir
+               ;;ac-source-files-in-current-dir
                ))
 
 
 (dolist (mode '(
                 magit-log-edit-mode
-                log-edit-mode org-mode text-mode
+                log-edit-mode
+                org-mode
+                text-mode
                 git-commit-mode
                 ;; sass-mode espresso-mode
-                html-mode smarty-mode
+                smarty-mode
+                html-mode
                 ;; clojure-mode
                 lisp-mode
                 ;; textile-mode markdown-mode

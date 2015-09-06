@@ -1,9 +1,7 @@
-(define-key global-map (kbd "C-c a") 'org-agenda)
 
 ;; define what files org opens
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
 ;;(setq org-default-notes-file (concat org-directory "/notes.org"))
-(setq org-capture-directory (quote ~/programming/org/gtd/gtd))
 (setq org-capture-templates
       '(
         ("c" "Computers Anything")
@@ -67,23 +65,21 @@
         ("t" "TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "general todo")
          "* TODO %?\nEntered on %U\n  %i\n  %a")
         ))
-(define-key global-map "\C-cc" 'org-capture)
 
 
 ;; Various preferences
-(setq org-log-done t
-      org-edit-timestamp-down-means-later t
-      org-agenda-start-on-weekday nil
-      org-agenda-span 7
-      ;; using the diary really slows down the agenda view
-      ;;org-agenda-include-diary nil
-      org-agenda-window-setup 'current-window
-      org-fast-tag-selection-single-key 'expert
-      org-html-validation-link nil
-      org-export-kill-product-buffer-when-displayed t
-      org-tags-column 80)
-
-
+(setq
+ org-log-done t
+ org-edit-timestamp-down-means-later t
+ org-agenda-start-on-weekday nil
+ org-agenda-span 7
+ ;; using the diary really slows down the agenda view
+ ;;org-agenda-include-diary nil
+ org-agenda-window-setup 'current-window
+ org-fast-tag-selection-single-key 'expert
+ org-html-validation-link nil
+ org-export-kill-product-buffer-when-displayed t
+ org-tags-column 80)
 
 (defun my-org-list-files (dirs ext)
   "Function to create list of org files in multiple subdirectories.
@@ -274,6 +270,7 @@ EXT is a list of the extensions of files to be included."
 ;; still trying to figure out how to do this. not sure yet
 (autoload 'org-invoice-report "org-invoice")
 (autoload 'org-dblock-write:invoice "org-invoice")
+(require 'org-invoice)
 
 ;; org can send me pop-ups for appointments! cool!
 (require 'org-notify)

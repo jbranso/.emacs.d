@@ -22,11 +22,6 @@ stuff, to the current ERC buffer."
     (erc-send-message
      (concat "{Uptime} [" uname-output "]"))))
 
-;; This causes ERC to connect to the Freenode network upon hitting
-;; C-c e f.  Replace MYNICK with your IRC nick.
-(global-set-key (kbd "s-i") (lambda () (interactive)
-                           (erc :server "irc.freenode.net" :port "6667"
-                                :nick "jbranso")))
 
 ;; This causes ERC to connect to the IRC server on your own machine (if
 ;; you have one) upon hitting C-c e b.  Replace MYNICK with your IRC
@@ -46,7 +41,10 @@ stuff, to the current ERC buffer."
 ;;; Options
 
 ;; Join the #emacs and #erc channels whenever connecting to Freenode.
-(setq erc-autojoin-channels-alist '(("freenode.net" "#emacs")))
+(setq erc-autojoin-channels-alist '(
+                                    ("freenode.net" "#emacs")
+                                    ("freenode.net" "#org-mode")
+                                    ))
 
 ;; Rename server buffers to reflect the current network name instead
 ;; of SERVER:PORT. (e.g. "freenode" instead of "irc.freenode.net:6667"). This

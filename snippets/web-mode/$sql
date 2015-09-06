@@ -1,6 +1,6 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: $
-# key: $
+# name: $sql
+# key: $sql
 # binding: direct-keybinding
 # --
-$("$1")$0
+$sql = "$0";

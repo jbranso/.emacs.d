@@ -204,6 +204,10 @@
                                (save-some-buffers 1)))
 (global-set-key (kbd "s-g") #'magit-status)
 (global-set-key (kbd "s-h") #'mark-paragraph)
+;; This causes ERC to connect to the Freenode network upon hitting mod-i
+(global-set-key (kbd "s-i") (lambda () (interactive)
+                           (erc :server "irc.freenode.net" :port "6667"
+                                :nick "jbranso")))
 (global-set-key (kbd "C-c P") #'pwd)
 (global-set-key (kbd "s-u") #'my/uppercase-word)
 ;; this conflicts with my command for dired.
@@ -211,10 +215,15 @@
 (global-set-key (kbd "s-a") #'mark-whole-buffer)
 (global-unset-key (kbd "C-a"))
 (local-unset-key (kbd "C-a"))
+
 (global-set-key (kbd "C-c TAB") #'indent-whole-buffer)
 (global-set-key (kbd "C-c ;") #'comment-dwim)
+;;(define-key global-map (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c b") #'eval-buffer)
 (global-set-key (kbd "C-c B") #'browse-kill-ring)
+;;(define-key global-map "\C-cc" 'org-capture)
+(global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c C") #'hydra-global-org/body)
 (global-set-key (kbd "C-c d") #'dired-jump)
 (global-set-key (kbd "C-c D") 'ggtags-find-tag-dwim)
@@ -226,6 +235,10 @@
 (global-set-key (kbd "C-c h") #'helm-command-prefix)
 (global-set-key (kbd "C-c i") #'info-display-manual)
 (global-set-key (kbd "C-c l") #'eval-last-sexp)
+;;this lets you store an org link from pretty much any file
+;;then type C-c C-l in an org buffer and it'll put that link it
+(global-set-key (kbd "C-c L") #'org-store-link)
+(global-set-key (kbd "C-c I") #'org-insert-link)
 (global-set-key (kbd "C-c m") #'helm-mini)
 ;; this command does not work, but oh well
 (global-set-key (kbd "C-c M i") #'(lambda ()
@@ -241,7 +254,8 @@
 ;;This does recursive find and replace.  But I think it only works when you are in a dired buffer
 (global-set-key (kbd "C-c R") #'find-name-dired)
 (global-set-key (kbd "C-c q") #'fill-paragraph)
-(global-set-key (kbd "C-c s") #'ag-regexp)
+(global-set-key (kbd "C-c s") #'ag-project)
+(global-set-key (kbd "C-c S") #'sx-search)
 (global-set-key (kbd "C-c t") #'transpose-chars)
 (global-set-key (kbd "C-c x") #'align-regexp)
 ;; this is not working for some reason.

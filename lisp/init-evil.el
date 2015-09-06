@@ -106,6 +106,9 @@
 (evil-set-initial-state 'sx-compose-mode 'emacs)
 (evil-set-initial-state 'sx-question-mode 'emacs)
 (evil-set-initial-state 'sx-question-list-mode 'emacs)
+(evil-set-initial-state 'erc-mode 'emacs)
+(evil-set-initial-state 'paradox-menu-mode 'emacs)
+
 
 
 (provide 'init-evil)
