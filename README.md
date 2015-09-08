@@ -19,7 +19,11 @@ and css.  It offers no other major benefits to any other programming languages. 
 * evil-dvorak-mode (My own mode that restructures vim's keybindings to work bettor for a dvorak keyboard layout).
 * helm (because ido is not nearly as cool).
 * projectile (which I'm still trying to learn how to use, and it currently broken).
-
+* GGtags, which let you tag function, property, and macro definitions, then quickly open the file containing the definition
+* EMMS. Play and stream music via emacs, which is pretty awesome. Though currently the sound needs work.
+* emmet mode, which lets you write html blazingly fast.
+* auto-complete, which gives you suggestions to complete your current unfinished word.
+* yasnippet, which lets you expand abbreviations into predefined snippets.
 Flycheck is used to immediately highlight syntax errors in Javascript.
 
 ## Requirements
