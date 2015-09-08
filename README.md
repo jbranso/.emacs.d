@@ -2,28 +2,30 @@
 
 Not so long ago I forked Steve Purcell's emacs config.  You can find the original config here: https://github.com/purcell/emacs.d
 
-My emacs config is still structured like Steve Purcell's.  All of my code for my init.el is in my lisp/ folder. Mostly, I have
-removed some of the features that he added to his emacs config.  Most notably, I do not use mmm-mode (more than one major mode) to
-edit web pages. Instead, I use web-mode.el. This config also uses evil-mode with a dvorak keyboard.  *If you like the qwerty
-keyboard layout and the default non-modal behavior of emacs, then you probably should not use this config. One last important
-note: I am an amateur programmer lacking Mr. Purcell's elisp experience.  His emacs config has been known to work on windows and
-mac.  I do not try to support those OSes, and my config is no where near as stable as his.  Your computer won't crash if you use
-my config, but emacs might crash occasionally.*
+My emacs config is still structured like Steve Purcell's.  All of my code for my init.el is in my lisp/ folder.  This config uses
+uses evil-mode with friendly dvorak keybindings.  *If you like the qwerty keyboard layout and the default non-modal behavior of
+emacs, then you probably should not use this config. One last important note: I am an amateur programmer lacking Mr. Purcell's
+elisp experience.  His emacs config has been known to work on windows and mac.  I do not try to support those OSes, and my config
+is no where near as stable as his.  Your computer won't crash if you use my config, but emacs might crash occasionally.*
 
 Emacs itself comes with support for many programming languages. This config targets web programmers using php, javascript, html,
 and css.  It offers no other major benefits to any other programming languages. Though I am customizing org mode more as time goes on.
 
+Here are some cool modes that my config offers:
+
 * Javascript (via js2-mode, which highlights syntax errors as you type)!
 * PHP (web-mode.el).
 * evil-mode (vim like keybindings).
-* evil-dvorak-mode (My own mode that restructures vim's keybindings to work bettor for a dvorak keyboard layout).
+* evil-dvorak-mode (My original mode that restructures vim's keybindings to work better for a dvorak keyboard layout).
 * helm (because ido is not nearly as cool).
-* projectile (which I'm still trying to learn how to use, and it currently broken).
+* projectile (which I'm still trying to learn how to use it, and it is currently broken).
 * GGtags, which let you tag function, property, and macro definitions, then quickly open the file containing the definition
-* EMMS. Play and stream music via emacs, which is pretty awesome. Though currently the sound needs work.
+* EMMS. Play and stream music via emacs, which is pretty awesome. Though currently the sound quality, at least for me, is lacking.
 * emmet mode, which lets you write html blazingly fast.
 * auto-complete, which gives you suggestions to complete your current unfinished word.
 * yasnippet, which lets you expand abbreviations into predefined snippets.
+* gnus, which is emacs' own email reader, which I occasionally use.
+* powerline, which is an pretty looking mode line tool.
 Flycheck is used to immediately highlight syntax errors in Javascript.
 
 ## Requirements
@@ -31,6 +33,10 @@ Flycheck is used to immediately highlight syntax errors in Javascript.
 * Emacs 24.  I have not tested this config on emacs 23.  I've removed any of Purcell's hacks to support older versions of emacs.
 * To make the most of the programming language-specific support in this config, further programs will likely be required,
   particularly those that [flycheck](https://github.com/flycheck/flycheck) uses to provide on-the-fly syntax checking.
+* To use the silver searcher, one will have to install the silver searcher
+* To use ggtags, one will have to install gnu global.
+* To use many of the packages that I use, will require manual configuration.  For example to stream music, you will have to
+  edit provide your own configuration.  To use gnus, you'll have to edit the config file.  This is the case for a few other packages.
 
 ## Installation
 
@@ -60,6 +66,10 @@ Update the config with `git pull`. You'll probably also want/need to update
 the third-party packages regularly too:
 
 <kbd>M-x package-list-packages</kbd>, then <kbd>U</kbd> followed by <kbd>x</kbd>.
+
+Or if you want to be a cool emacs user, execute the following:
+
+<kbd>M-x paradox-list-packages</kbd>, then <kbd>U</kbd> followed by <kbd>x</kbd>.
 
 ## Default C-c <key> bindings
 
