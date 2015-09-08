@@ -31,7 +31,7 @@ _h_tml    ^ ^        _A_SCII:
 
 ;;I bind it for myself like this:
 
-(define-key org-mode-map "<"
+(define-key org-mode-map "C-c <"
   (lambda () (interactive)
      (if (looking-back "^")
          (hydra-org-template/body)

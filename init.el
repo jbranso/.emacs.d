@@ -40,7 +40,6 @@
 (require-package 'mwe-log-commands)
 (mwe:log-keyboard-commands)
 
-(require 'init-powerline-evil)
 (require 'init-gnus)
 (require 'init-vc)
 (require 'init-gui-frames)
@@ -49,13 +48,13 @@
 (require 'init-grep)
 (require 'init-erc)
 (require 'init-eshell)
+(require 'init-paradox)
 ;; Nicer naming of buffers for files with identical names
 ;; Instead of Makefile<1> and Makefile<2>, it will be
 ;; Makefile | tmp  Makefile | lisp
 ;; It's a nice mode, but I'm not sure that I use it
 ;;(require 'init-uniquify)
 ;; this sets up paradox to use my private token to access public repos.
-(require 'init-paradox)
 (require 'init-recentf)
 ;;yasnippet needs to be loaded before auto complete to let them play nicely together
 (require 'init-yasnippet)
@@ -85,8 +84,11 @@
 ;;(require 'init-css)
 ;;(require 'init-python-mode)
 (require 'init-defuns)
+(require 'init-emms)
 
 (require 'init-misc)
+;;powerline has to be loaded before the zenburn theme to work properly
+(require 'init-powerline-evil)
 
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface

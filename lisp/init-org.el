@@ -127,24 +127,24 @@ EXT is a list of the extensions of files to be included."
   (interactive)
   (setq org-agenda-files (my-org-list-files
                           my-org-agenda-directories
-                          my-org-agenda-extensions)))
+                          my-org-agenda-extensions)
+        org-refile-targets (my-org-list-files
+                            my-org-agenda-directories
+                            my-org-agenda-extensions)
+        ))
 
 (my-org-set-agenda-files)
 
 ;; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
 ;;(setq org-refile-targets (quote ((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5))))
-(setq org-refile-targets '(
-                           ;;(org-agenda-files :maxlevel . 5)
-                               ("~/programming/org/gtd/gtd.org")
-                               ("~/programming/org/gtd/projects/get-close-to-God.org")
-                          ))
+;; (setq org-refile-targets '(
+;;                            ;;(org-agenda-files :maxlevel . 5)
+;;                                ("~/programming/org/gtd/gtd.org")
+;;                                ("~/programming/org/gtd/projects/get-close-to-God.org")
+;;                           ))
 ;;(setq org-refile-targets 'org-agenda-files)
 
-(setq org-agenda-files (my-org-set-agenda-files))
-(setq org-refile-targets (my-org-set-agenda-files))
-(setq org-refile-targets '((("~/programming/org/gtd/projects/working-for-waypoint.org") :maxlevel . 5)))
-
-
+;; (setq org-refile-targets '((("~/programming/org/gtd/projects/working-for-waypoint.org") :maxlevel . 5)))
 
                                         ; Targets start with the file name - allows creating level 1 tasks
 (setq org-refile-use-outline-path (quote file))
@@ -152,7 +152,7 @@ EXT is a list of the extensions of files to be included."
 (setq org-outline-path-complete-in-steps t)
 
 (setq org-todo-keywords
-  '((sequence "TODO" "|" "PAID" "DONE")))
+      '((sequence "TODO" "|" "PAID" "DONE")))
 
 ;; none of these do anything
 ;;  (setq org-todo-keywords
@@ -199,59 +199,45 @@ EXT is a list of the extensions of files to be included."
   (define-key org-clock-mode-line-map [header-line mouse-2] #'org-clock-goto)
   (define-key org-clock-mode-line-map [header-line mouse-1] #'org-clock-menu))
 
-
+;;you can start clocking in on an event in the agenda buffer by pressing P
 (require-package 'org-pomodoro)
 (after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
 ;; make org mode start up with auto fill mode
 (add-hook 'org-mode-hook #'(lambda ()
-                            ;; (interactive)
-                            ;;(auto-fill-mode)
-                            ;; make the lines in the buffer wrap around the edges of the screen.
-                            ;;(visual-line-mode)
-                            ;;refill mode is pretty amazing. If you are getting tired of pressing M-q all
-                            ;;the time to fill paragraphs then turn on refill-mode.
-                            ;; Be warned though, auto-fill-mode, refill-mode, and probably visual line mode,
-                            ;; assume that the user follows the U.S. convention of using two spaces between
-                            ;; sentences. If you do not follow this convention, or you add this to your init
-                            ;; file...
-                            ;; (sentence-end-double-space nil)
-                            ;; bad things will happen. You have been warned.
-                            ;;https://www.gnu.org/software/emacs/manual/html_node/emacs/Auto-Fill.html
-                            ;;https://www.gnu.org /software/emacs/manual/html_node/emacs/Sentences.html
-                            ;; I would love it if refill-mode would actually work with org-mode, but sadly it does not...
-                            ;;(refill-mode)
-                            (push '(">=" . ?≥) prettify-symbols-alist)
-                            (push '("<=" . ?≤) prettify-symbols-alist)
-                            (push '("\\geq" . ?≥) prettify-symbols-alist)
-                            (push '("\\leq" . ?≤) prettify-symbols-alist)
-                            (push '("\\neg" . ?¬) prettify-symbols-alist)
-                            (push '("\\rightarrow" . ?→) prettify-symbols-alist)
-                            (push '("\\leftarrow" . ?←) prettify-symbols-alist)
-                            (push '("\\infty" . ?∞) prettify-symbols-alist)
-                            (push '("-->" . ?→) prettify-symbols-alist)
-                            (push '("<--" . ?←) prettify-symbols-alist)
-                            (push '("\\exists" . ?∃) prettify-symbols-alist)
-                            (push '("\\nexists" . ?∄) prettify-symbols-alist)
-                            (push '("\\forall" . ?∀) prettify-symbols-alist)
-                            (push '("\\or" . ?∨) prettify-symbols-alist)
-                            (push '("\\and" . ?∧) prettify-symbols-alist)
-                            (push '(":)" . ?☺) prettify-symbols-alist)
-                            (push '("):" . ?☹) prettify-symbols-alist)
-                            (push '(":D" . ?☺) prettify-symbols-alist)
-                            (push '("^_^" . ?☻) prettify-symbols-alist)
-
-                            ;; (let ((original-command (lookup-key org-mode-map [tab])))
-                              ;; `(lambda ()
-                                 ;; (setq yas-fallback-behavior
-                                       ;; '(apply ,original-command))
+                             ;; (interactive)
+                             ;; make the lines in the buffer wrap around the edges of the screen.
+                             (visual-line-mode)
+                             (push '(">=" . ?≥) prettify-symbols-alist)
+                             (push '("<=" . ?≤) prettify-symbols-alist)
+                             (push '("\\geq" . ?≥) prettify-symbols-alist)
+                             (push '("\\leq" . ?≤) prettify-symbols-alist)
+                             (push '("\\neg" . ?¬) prettify-symbols-alist)
+                             (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+                             (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+                             (push '("\\infty" . ?∞) prettify-symbols-alist)
+                             (push '("-->" . ?→) prettify-symbols-alist)
+                             (push '("<--" . ?←) prettify-symbols-alist)
+                             (push '("\\exists" . ?∃) prettify-symbols-alist)
+                             (push '("\\nexists" . ?∄) prettify-symbols-alist)
+                             (push '("\\forall" . ?∀) prettify-symbols-alist)
+                             (push '("\\or" . ?∨) prettify-symbols-alist)
+                             (push '("\\and" . ?∧) prettify-symbols-alist)
+                             (push '(":)" . ?☺) prettify-symbols-alist)
+                             (push '("):" . ?☹) prettify-symbols-alist)
+                             (push '(":D" . ?☺) prettify-symbols-alist)
+                             (push '("^_^" . ?☻) prettify-symbols-alist)
+                             ;; (let ((original-command (lookup-key org-mode-map [tab])))
+                             ;; `(lambda ()
+                             ;; (setq yas-fallback-behavior
+                             ;; '(apply ,original-command))
                              ;; (local-set-key [tab] 'yas-expand))))
                              ))
 
 ;; (after-load 'org
-  ;; (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element)
-  ;; (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element))
+;; (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element)
+;; (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element))
 
 ;; I don't use any of these yet, so don't use 'em
 (after-load 'org
@@ -265,9 +251,10 @@ EXT is a list of the extensions of files to be included."
      ;;(sh . t)
      ;;(sql . t)
      ;;(sqlite . t)
+     (gnuplot . t)
      )))
 
-;; still trying to figure out how to do this. not sure yet
+;; I've figured out how to do this! woo hoo!
 (autoload 'org-invoice-report "org-invoice")
 (autoload 'org-dblock-write:invoice "org-invoice")
 (require 'org-invoice)
@@ -278,12 +265,12 @@ EXT is a list of the extensions of files to be included."
 
 ;; Example setup:
 ;;
- (org-notify-add 'appt
-                 '(:time "-1s" :period "20s" :duration 10
-                   :actions (-message -ding))
-                 '(:time "15m" :period "2m" :duration 100
-                   :actions -notify)
-                 '(:time "2h" :period "5m" :actions -message)
-                 '(:time "3d" :actions -email))
+(org-notify-add 'appt
+                '(:time "-1s" :period "20s" :duration 10
+                        :actions (-message -ding))
+                '(:time "15m" :period "2m" :duration 100
+                        :actions -notify)
+                '(:time "2h" :period "5m" :actions -message)
+                '(:time "3d" :actions -email))
 
 (provide 'init-org)

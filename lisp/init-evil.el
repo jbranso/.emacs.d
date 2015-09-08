@@ -9,10 +9,6 @@
 ;;I don't know why this is not working.
 ;;(add-hook 'evil-mode-hook 'turn-on-surround-mode)
 
-(require 'powerline)
-(require 'powerline-evil)
-(powerline-evil-vim-theme)
-
 ;;Do not move the cursor back when exiting insert mode.
 (setq evil-move-cursor-back nil)
 ;; This macro allows me to insert a space with the spacebar.
@@ -25,13 +21,6 @@
         (kmacro-exec-ring-item
          (quote ("EBEyES<a href=\">" 0 "%d")) arg)))
 
-
-;; This macro will insert an org link.
-(fset 'org-link
-   [?i ?\[ ?\[ ?\C-x ?Q return ?\] ?\] backspace ?\[ ?\C-x ?Q return ?\] ?\]])
-
-(fset 'org-link
-      [?i ?\[ ?\[ ?\C-x ?Q return ?\] ?\] backspace ?\[ ?\C-x ?Q return ?\] ?\]])
 
 ;; (defun org-link ()
 
@@ -49,28 +38,21 @@
 (global-evil-dvorak-mode 1)
 
 (local-unset-key (kbd "TAB"))
-;;(define-key evil-normal-state-map (kbd "<return>") 'newline-and-indent)
-;; (define-key evil-normal-state-map (kbd "TAB") #'indent-for-tab-command)
-;; (define-key evil-normal-state-map (kbd "s-z") #'evil-emacs-state)
-;; (define-key evil-normal-state-map (kbd "s-l") #'org-link)
-;; (define-key evil-insert-state-map (kbd "s-z") #'evil-normal-state)
 ;; (define-key evil-normal-state-map (kbd "C-w h") #'windmove-down)
 ;; (define-key evil-normal-state-map (kbd "C-w t") #'windmove-up)
-;; (define-key evil-normal-state-map (kbd "b") #'(lambda ()
-;;   "Switch to the previous buffer"
-;;   (interactive)
-;;   (switch-to-buffer nil)))
-;; ;;(define-key evil-normal-state-map (kbd "Q") 'anzu-query-replace-regexp)
-;; ;; This for when I use visual line mode mode. Now visual line mode should work for basic
-;; ;; key movements
-;; ;; This is not working.
-;; (define-key evil-normal-state-map (kbd "h") #'next-line)
-;; (define-key evil-normal-state-map (kbd "t") #'previous-line)
-;; (define-key evil-normal-state-map (kbd "n") #'backward-char)
-;; (define-key evil-normal-state-map (kbd "l") #'forward-char)
-;;(define-key evil-insert-state-map (kbd "<return>") 'newline-and-indent)
 
 (define-key evil-emacs-state-map (kbd "s-z") #'evil-normal-state)
+
+;; make it easy to switch to various windows inside one emacs frame
+(define-key evil-emacs-state-map (kbd "C-w h") 'windmove-down)
+(define-key evil-emacs-state-map (kbd "C-w t") 'windmove-up)
+(define-key evil-emacs-state-map (kbd "C-w n") 'windmove-left)
+(define-key evil-emacs-state-map (kbd "C-w s") 'windmove-right)
+(define-key evil-normal-state-map (kbd "C-w h") 'windmove-down)
+(define-key evil-normal-state-map (kbd "C-w t") 'windmove-up)
+(define-key evil-normal-state-map (kbd "C-w n") 'windmove-left)
+(define-key evil-normal-state-map (kbd "C-w s") 'windmove-right)
+
 
 ;; Ask on IRC about this
 ;; I'm trying to make emacs treat the letter after O in the alphabet as ESC
@@ -108,6 +90,7 @@
 (evil-set-initial-state 'sx-question-list-mode 'emacs)
 (evil-set-initial-state 'erc-mode 'emacs)
 (evil-set-initial-state 'paradox-menu-mode 'emacs)
+(evil-set-initial-state 'woman-mode 'emacs)
 
 
 

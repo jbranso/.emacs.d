@@ -1,4 +1,5 @@
 (require 'powerline)
-(powerline-default-theme)
 (require 'powerline-evil)
 (provide 'init-powerline-evil)
+(powerline-default-theme)
+;;(powerline-evil-vim-theme)
