@@ -3,4 +3,4 @@
 # key: echo
 # binding: direct-keybinding
 # --
-echo "$0";
+echo "$0<br>";

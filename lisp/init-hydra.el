@@ -44,7 +44,7 @@ _h_tml    ^ ^        _A_SCII:
 Timer^^        ^Clock^         ^Capture^
 --------------------------------------------------
 s_t_art        _i_ clock in    _c_apture
- _s_top        _o_ clock out   _l_ast capture
+ _s_top        _w_ clock out   _l_ast capture
 _r_eset        _j_ clock goto
 _p_rint
 "
@@ -55,11 +55,16 @@ _p_rint
   ;; Print timer value to buffer
   ("p" org-timer)
   ("i" (org-clock-in '(4)))
-  ("o" org-clock-out)
+  ("w" org-clock-out)
   ;; Visit the clocked task from any buffer
   ("j" org-clock-goto)
   ("c" org-capture)
   ("l" org-capture-goto-last-stored))
+
+(defhydra hydra-org-timer (:color blue :hint nil)
+  "timer"
+  ("i" (org-clock-in '(4))    "clock in")
+  ("o" org-clock-out   "clock out"))
 
 ;; this is not working at the moment, but hopefully it will at some point
 (defun hydra-emms (:color blue

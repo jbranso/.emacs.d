@@ -201,7 +201,7 @@
 (global-set-key (kbd "C-c B") #'browse-kill-ring)
 ;;(define-key global-map "\C-cc" 'org-capture)
 (global-set-key (kbd "C-c c") 'org-capture)
-(global-set-key (kbd "C-c C") #'hydra-global-org/body)
+(global-set-key (kbd "C-c C") #'hydra-org-timer/body)
 ;;open up a new dired window for the current directory
 (global-set-key (kbd "C-c d") #'dired-jump)
 ;; find the current tag smart.  Just know what I mean.

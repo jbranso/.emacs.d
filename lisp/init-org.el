@@ -244,11 +244,15 @@ EXT is a list of the extensions of files to be included."
   (org-babel-do-load-languages
    'org-babel-load-languages
    '(
-     ;;(emacs-lisp . t)
+     (emacs-lisp . t)
      ;;(latex . t)
      ;;(ledger . t)
      ;;(python . t)
-     ;;(sh . t)
+     (awk . t)
+     (js . t)
+     (python . t)
+     (gnuplot . t)
+     (sh . t)
      ;;(sql . t)
      ;;(sqlite . t)
      (gnuplot . t)
