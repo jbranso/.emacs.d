@@ -229,7 +229,8 @@
 ;; emacs has a multimedia system. It lets you play multimedia via emacs.  Technically emacs uses other programs to play
 ;; the music, BUT one uses emacs to play, pause, and change the volume. (though no one would use emacs to change the volume, because
 ;; it's too easy to just press the "turn up the volume button on your keyboard")
-;; this command does not work, but oh well
+;; at some point, I might make all of these keys be bound to an evil mode key ie:
+;; M p  would me emms-previous.
 (global-set-key (kbd "C-c M i") #'(lambda ()
                                     (interactive)
                                     (emms-librefm-stream "librefm://globaltags/Classical")))
@@ -237,6 +238,8 @@
 (global-set-key (kbd "C-c M n") 'emms-next)
 (global-set-key (kbd "C-c M P") 'emms-pause)
 (global-set-key (kbd "C-c M s") 'emms-show)
+;; I think emms-kill when I press this
+(global-set-key (kbd "C-c M k") 'emms-stop)
 (global-set-key (kbd "C-c M +") 'emms-volume-mode-plus)
 (global-set-key (kbd "C-c M -") 'emms-volume-mode-minus)
 ;;print the working directory in the minibuffer
