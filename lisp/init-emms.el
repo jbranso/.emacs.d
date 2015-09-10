@@ -119,7 +119,7 @@
 ;;(setq
  ;; emms-librefm-scrobbler-username "<your libre.fm username>"
  ;; emms-librefm-scrobbler-password "<your libre.fm password>")
-;;(emms-librefm-stream "libre.fm/listen.php?tag=classical")
 
+;; eval this next line of code to run emms.  I need to put this into its own command.
 ;;(emms-librefm-stream "librefm://globaltags/Classical")
 (provide 'init-emms)
