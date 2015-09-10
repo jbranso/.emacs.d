@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: submit
+# key: .submit
+# binding: direct-keybinding
+# --
+.submit (function () {
+        $0
+});
