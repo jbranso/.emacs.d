@@ -3,6 +3,6 @@
 # key: foreach
 # binding: direct-keybinding
 # --
-foreach (\$${1:prepare->fetchAll()} as \$${2:row}) {
+foreach (\$${1:prepare->fetchAll()} as \$row) {
         $0
 }

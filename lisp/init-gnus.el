@@ -31,7 +31,8 @@
 ;; machine smtp.gmail.com login <USER> password <PASSWORD> port 587
 ;; If you don’t wish to store your password there, just omit the “password <PASSWORD>” altogether and Gnus will prompt you when it needs your password.
 
-;; When sending your first email from gnus, you might get a STARTTLS error. If you’re using homebrew in Mac OS X, you can install the necessary package with brew install gnutls.
+;; When sending your first email from gnus, you might get a STARTTLS error. If you’re using homebrew in Mac OS X, you can install
+;; the necessary package with brew install gnutls.
 
 ;; You can find more information in the following sections.
 
@@ -45,7 +46,7 @@
 	  user-full-name	"Joshua Branson"
       ;;make a default signature
       message-signature
-      "Joshua Branson\nPurdue University\nWeb Production Assistant\nweb.ics.purdue.edu/~jbranso\njbranso.me"
+      "Joshua Branson\nWayPoint\nWeb Developer\nweb.ics.purdue.edu/~jbranso\njbranso.me"
       ;; add a date to the default summare line format
       gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n"
       ;; use smiley's in gnus
@@ -57,7 +58,8 @@
       gnus-check-bogus-newsgroups nil
       ;; this file is often large. Why read it? What's it do?
       ;; the next two variables might be slowing it down
-      gnus-read-active-file nil
+      ;;setting the next line to nil will slow down gnus apparently [[info:gnus#The%20Active%20File][info:gnus#The Active File]]
+      ;;gnus-read-active-file nil
       ;; no need to recenter the summary buffer all the time
       gnus-auto-center-summary nil
       ;;entering the summary buffer faster
@@ -89,22 +91,44 @@
 
 ;; tell gnus to use my purdue email, and to enable searching my inbox
 ;; typing GG in the buffer group, lets me search the current group for a string
+;; you have to hit "t" when you first open gnus
+;; to get purdue working again uncomment this whole thing
+;; (setq gnus-select-method
+;;       '(nnimap "mymail.purdue.edu"
+;; 	      ;; (nnimap-address "mymail.purdue.edu")  ; it could also be imap.googlemail.com if that's your server.
+;; 	       (nnimap-server-port "993")
+;; 	       (nnimap-stream ssl)
+;;            (nnir-search-engine imap)
+;;            )
+;;       ;; The variable smtpmail-stream-type controls what form of connection the SMTP library uses. The default value is nil, which
+;;       ;; means to use a plain connection, but try to switch to a STARTTLS encrypted connection if the server supports it. Other
+;;       ;; possible values are: starttls to insist on STARTTLS; ssl to use TLS/SSL; and plain for encryption.
+;;       smtpmail-smtp-server "smtp.purdue.edu"
+;;       ;;smtpmail-default-smtp-server "smtp.purdue.edu"
+;;       send-mail-function (quote smtpmail-send-it)
+;;       smtpmail-stream-type 'ssl
+;;       smtpmail-smtp-service 465
+;;       )
+
+;; I'm trying to get gnus to work with gmail, but no dice so far
 (setq gnus-select-method
-      '(nnimap "mymail.purdue.edu"
-	      ;; (nnimap-address "mymail.purdue.edu")  ; it could also be imap.googlemail.com if that's your server.
-	       (nnimap-server-port "993")
-	       (nnimap-stream ssl)
-           (nnir-search-engine imap)
-           )
-      ;; The variable smtpmail-stream-type controls what form of connection the SMTP library uses. The default value is nil, which
-      ;; means to use a plain connection, but try to switch to a STARTTLS encrypted connection if the server supports it. Other
-      ;; possible values are: starttls to insist on STARTTLS; ssl to use TLS/SSL; and plain for encryption.
-      smtpmail-smtp-server "smtp.purdue.edu"
-      ;;smtpmail-default-smtp-server "smtp.purdue.edu"
-      send-mail-function (quote smtpmail-send-it)
-      smtpmail-stream-type 'ssl
-      smtpmail-smtp-service 465
+      '(nnimap "gmail"
+               (nnimap-address "imap.gmail.com")  ; it could also be imap.googlemail.com if that's your server.
+               (nnimap-server-port "993")
+               (nnimap-stream ssl))
       )
+
+(require 'smtpmail)
+(setq message-send-mail-function 'smtpmail-send-it
+      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+      smtpmail-auth-credentials '(("smtp.gmail.com" 587 "jbranson@setyourwaypoint.com" nil))
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587)
+
+(setq user-mail-address "jbranson@setyourwaypoint.com")
+(setq send-mail-function 'smtpmail-send-it)
+
 
 ;; make gnus load more than 1 email in the background
 ;; this seems to slow stuff down in the initial connection, and it doesn't seem all that fast once everything is opened.

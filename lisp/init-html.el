@@ -102,7 +102,8 @@
                            (push '("\\rightarrow" . ?→) prettify-symbols-alist)
                            (push '("\\leftarrow" . ?←) prettify-symbols-alist)
                            (push '("\\infty" . ?∞) prettify-symbols-alist)
-                           (push '("-->" . ?→) prettify-symbols-alist)
+                           ;; this would make a comment look really weird <--  right-arrow
+                           ;;(push '("-->" . ?→) prettify-symbols-alist)
                            (push '("<--" . ?←) prettify-symbols-alist)
                            (push '("\\exists" . ?∃) prettify-symbols-alist)
                            (push '("\\nexists" . ?∄) prettify-symbols-alist)
