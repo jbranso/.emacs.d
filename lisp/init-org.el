@@ -20,6 +20,9 @@
         ("cwil" "IBCA what I did last week" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
                                                                  "what I did last week")
          "* TODO %?\n  %i\n  %a")
+        ("cwiw" "what seems to be working" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
+                                                                 "what seems to be working")
+         "* TODO %?\n  %i\n  %a")
         ("cwif" "features the app should have" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
                                                                     "features the app should have")
          "* TODO %?\n  %i\n  %a")
