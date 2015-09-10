@@ -231,6 +231,7 @@
 ;; it's too easy to just press the "turn up the volume button on your keyboard")
 ;; this command does not work, but oh well
 (global-set-key (kbd "C-c M i") #'(lambda ()
+                                    (interactive)
                                     (emms-librefm-stream "librefm://globaltags/Classical")))
 (global-set-key (kbd "C-c M p") 'emms-previous)
 (global-set-key (kbd "C-c M n") 'emms-next)
