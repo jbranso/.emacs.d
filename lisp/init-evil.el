@@ -53,6 +53,16 @@
 (define-key evil-normal-state-map (kbd "C-w n") 'windmove-left)
 (define-key evil-normal-state-map (kbd "C-w s") 'windmove-right)
 
+;; M just moves the key to the center of the screen. Just a waste. Let's bind it to use emms!
+(define-key evil-normal-state-map (kbd "M i") #'(lambda ()
+                                                  (interactive)
+                                                  (emms-librefm-stream "librefm://globaltags/Classical")))
+(define-key evil-normal-state-map (kbd "M p") 'emms-previous)
+(define-key evil-normal-state-map (kbd "M n") 'emms-next)
+(define-key evil-normal-state-map (kbd "M P") 'emms-pause)
+(define-key evil-normal-state-map (kbd "M s") 'emms-show)
+(define-key evil-normal-state-map (kbd "M k") 'emms-stop)
+
 
 ;; Ask on IRC about this
 ;; I'm trying to make emacs treat the letter after O in the alphabet as ESC
