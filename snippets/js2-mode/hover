@@ -1,6 +1,8 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: <p
-# key: <p
+# name: hover
+# key: .hover
 # binding: direct-keybinding
 # --
-<p>$0</p>
+.hover (function () {
+       $0
+});

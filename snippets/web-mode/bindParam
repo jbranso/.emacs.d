@@ -1,6 +1,6 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: <link
-# key: <link
+# name: bindParam
+# key: bindParam
 # binding: direct-keybinding
 # --
-<link rel="stylesheet" type="text/css" href="$1"></link>$0
+bindParam(":$1", $2)$0

@@ -63,8 +63,7 @@
 ;; this file saves all open buffers. It is so useful!
 ;;(require 'init-sessions)
 (require 'init-helm)
-;; projectile is not working, so why have it?
-;;(require 'init-projectile)
+(require 'init-projectile)
 (require 'init-org)
 (require 'init-hydra)
 (require 'sx) ;;searching stack exchange via emacs!  C-c S
