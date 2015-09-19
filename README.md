@@ -48,7 +48,8 @@ git clone https://github.com/purcell/emacs.d.git ~/.emacs.d
 ```
 
 Upon starting up Emacs for the first time, further third-party
-packages will be automatically downloaded and installed.
+packages will be automatically downloaded and installed.  *At least that is what is supposed to happen.*  Currently this functionality
+is broken.  You can clone my config just fine, but when you try to start emacs, emacs'll will call say things like where is package X,Y, and Z?  I'm working on fixing these issues. Like right now.  Sept. 19, 2015.
 
 ## Important note about helm
 
