@@ -26,7 +26,10 @@
  ;; http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
  minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
  ;; this should turn off auto-saving the proper way.
- auto-save-default nil
+ auto-save-default nil  ;; this will stop making #auto-save# files
+ ;;make-backup-files nil  ;; this will stop making backup~ files
+ ;; make emacs save all backup~ files in this directory
+ backup-directory-alist '(("" . "~/.emacs.d/backups"))
  save-interprogram-paste-before-kill t
  scroll-preserve-screen-position 'always
  set-mark-command-repeat-pop t

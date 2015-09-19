@@ -1,6 +1,14 @@
 ;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
 
+;; I can define some emacs testing of variables.  This will hopefully help me spot errors. cool.
+;; (ert-deftest pp-test-quote ()
+;;   "Tests the rendering of `quote' symbols in `pp-to-string'."
+;;   (should (equal (pp-to-string '(quote quote)) "'quote"))
+;;   (should (equal (pp-to-string '((quote a) (quote b))) "('a 'b)\n"))
+;;   (should (equal (pp-to-string '('a 'b)) "('a 'b)\n")))
+
+
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 ;;(require 'init-benchmarking) ;; Measure startup time
 
