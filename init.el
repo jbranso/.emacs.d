@@ -36,8 +36,9 @@
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
 
-;;I can't get use-package to work.
-;;(require-package 'use-package)
+;;I can't get use-package to work. why?
+(require-package 'use-package)
+(require 'use-package)
 ;;(require-package 'wgrep)
 ;;(require-package 'project-local-variables)
 ;; this helps you minizize modeline clutter by hidding some modes on the mode line.
@@ -74,7 +75,9 @@
 (require 'init-projectile)
 (require 'init-org)
 (require 'init-hydra)
-(require 'sx) ;;searching stack exchange via emacs!  C-c S
+(use-package sx
+  :defer t
+  :ensure t) ;;searching stack exchange via emacs!  C-c S
 (require 'init-editing-utils)
 (require 'init-evil)
 

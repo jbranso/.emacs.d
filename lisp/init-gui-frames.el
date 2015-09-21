@@ -4,7 +4,8 @@
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
 
-(require-package 'golden-ratio)
+(use-package golden-ratio
+  :ensure t)
 (golden-ratio-mode 1)
 
 ;; scroll one line at a time (less "jumpy" than defaults)

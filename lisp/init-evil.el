@@ -1,7 +1,9 @@
-(require 'evil)
+(require-package 'evil)
+(use-package evil
+  :ensure t)
 (evil-mode 1)
 
-(require 'evil-surround)
+(require-package 'evil-surround)
 (global-evil-surround-mode 1)
 ;; I can add more surround pairs by doing this
 ;; (add-hook 'c++-mode-hook (lambda ()
@@ -34,7 +36,10 @@
 (setq evil-dvorak-funky-h-and-t 1)
 (setq evil-dvorak-use-for-web-mode 1)
 
-(require 'evil-dvorak)
+;;(require 'evil-dvorak)
+(use-package evil-dvorak
+  :ensure t)
+
 (global-evil-dvorak-mode 1)
 
 (local-unset-key (kbd "TAB"))

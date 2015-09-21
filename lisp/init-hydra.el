@@ -1,4 +1,5 @@
-(require 'hydra)
+(use-package hydra
+  :ensure t)
 ;; create a hydra for inserting cool stuff for emacs
 ;; (defhydra hydra-org-template (:color blue :hint nil)
 ;;   "

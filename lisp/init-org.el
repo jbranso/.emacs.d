@@ -206,7 +206,8 @@ EXT is a list of the extensions of files to be included."
   (define-key org-clock-mode-line-map [header-line mouse-1] #'org-clock-menu))
 
 ;;you can start clocking in on an event in the agenda buffer by pressing P
-(require-package 'org-pomodoro)
+(use-package org-pomodoro
+  :ensure t)
 (after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 

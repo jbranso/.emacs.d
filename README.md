@@ -57,13 +57,16 @@ To get these things fixed,  these need to be addressed.
 internet to know my primary email addressaddress.
 * paradox won't work, because I'm not including my init-paradox.el file, which has my github token in it, since I don't want the
 provide the internet with a means to mess with my github account.
-*
+* projectile doesn't work. I've no idea why.
+* My init-org.el required invoice.org, which is a small useful package for creating invoices, but it is not on melpa.
+* evil mode does not work, because my minor mode evil-dvorak mode is not working properly. grrr.
 
 ## Important note about helm
 
-I use helm-mode instead of ido, and you should too. Helm-swoop alone is super amazing (although swiper.el, is nice too).  This
-config uses "C-c h" as the default helm keybinding, "C-c C-h" call the traditional help package. Yeah, helm is better than emacs
-'help.
+I use helm-mode instead of ido, and you should too. Helm mode is an incremental completion framework that is completely superior
+to idomode. Helm-swoop alone is super amazing (although swiper.el, is nice too).  This config uses "C-c h" as the default helm
+keybinding, "C-c C-h" call the traditional help package. Yeah, helm is better than emacs 'help.  Check out what you can do with helm
+here: https://tuhdo.github.io/helm-intro.html
 
 ## Important note about projectile
 

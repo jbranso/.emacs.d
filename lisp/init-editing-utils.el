@@ -43,7 +43,8 @@
 ;;show the number of lines you are on
 (global-linum-mode 1)
 ;; this highlights search and replace as you type
-(require-package 'anzu)
+(use-package anzu
+  :ensure t)
 (global-anzu-mode +1)
 
 (global-auto-revert-mode)
@@ -294,8 +295,9 @@
 (global-set-key (kbd "C-x f")   #'helm-find-files)
 (global-set-key (kbd "C-c h o") #'helm-occur)
 (global-set-key (kbd "C-c h c") #'helm-calcul-expression)
-(require-package 'multiple-cursors)
-;; multiple-cursors, which does not work well with evil mode. switch to emacs state to use this command
+(use-package multiple-cursors
+;; multiple-cursors, which does not work well with evil mode. switch to emacs state to use these commands
+  :ensure t)
 (global-set-key (kbd "C-c <")   #'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c >")   #'mc/mark-next-like-this)
 (global-set-key (kbd "C-c C-<") #'mc/mark-all-like-this)
@@ -348,8 +350,7 @@
 
 ;; This package pops up a buffer, when a key prefix is hit, that shows what keys the user can now hit to use a command.
 (require-package 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-x n" "C-c p"
-                                     "C-c h" ))
+(setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-x n" "C-c p" "C-c h" ))
 (guide-key-mode 1)
 
 ;; delete any trailing whitespace any your buffer on save

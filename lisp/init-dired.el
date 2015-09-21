@@ -5,7 +5,9 @@
               dired-dwim-target t)
 
 (after-load 'dired
-  (require 'dired+)
+  (use-package dired+
+    :defer t
+    :ensure t)
   ;;This sorts files is dired. Just press "s" to see it in action.
   (require 'dired-sort)
   (when (fboundp 'global-dired-hide-details-mode)

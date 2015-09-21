@@ -90,7 +90,8 @@
 
 ;; set up search in GNUS
 ;; http://www.emacswiki.org/emacs/GnusGmail#toc21
-(require 'nnir)
+;;(require 'nnir)
+(use-package nnir)
 
 
 ;; tell gnus to use my purdue email, and to enable searching my inbox
@@ -147,7 +148,8 @@
 
 
 ;;have gnus alert you when a new mail arrives
-(require 'gnus-desktop-notify)
+(use-package gnus-desktop-notify
+  :ensure t)
 (gnus-desktop-notify-mode)
 (gnus-demon-add-scanmail)
 (gnus-demon-add-handler 'gnus-group-get-new-news 20 t)
@@ -162,7 +164,8 @@
 
 ;; get bbdb set up (insidious big brother database) it manages your mail contacts
 ;; http://bbdb.sourceforge.net/bbdb.html#SEC13
-(require 'bbdb)
+(use-package bbdb
+  :ensure t)
 ;; these string are needed to initial bbdb for gnus, message, and send mail
 ;;(bbdb-initialize 'gnus 'message 'sendmail 'w3)
 ;; if this doesn't work, use the obve code

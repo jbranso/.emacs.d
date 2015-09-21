@@ -1,4 +1,5 @@
-(require 'erc)
+(use-package erc
+  :defer t)
 
 ;; Load authentication info from an external source.  Put sensitive
 ;; passwords and the like in here.

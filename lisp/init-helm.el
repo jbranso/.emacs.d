@@ -1,5 +1,7 @@
-(require-package 'helm-core)
-(require-package 'helm)
+(use-package helm-core
+  :ensure t)
+(use-package helm
+  :ensure t)
 (require 'helm-config)
 ;; I've installed helm-ag, which might be cool.
 
