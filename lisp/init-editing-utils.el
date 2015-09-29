@@ -44,7 +44,8 @@
 (global-linum-mode 1)
 ;; this highlights search and replace as you type
 (use-package anzu
-  :ensure t)
+  :ensure t
+  :diminish anzu-mode)
 (global-anzu-mode +1)
 
 (global-auto-revert-mode)
@@ -127,7 +128,7 @@
 ;;----------------------------------------------------------------------------
 ;; The binding for this is listed below
 ;; this does not play well with evil
-;;(require-package 'expand-region)
+(use-package expand-region)
 
 ;;----------------------------------------------------------------------------
 ;; Don't disable case-change functions
@@ -285,7 +286,7 @@
 ;; By just pressing C-c x RET = RET
 (global-set-key (kbd "C-c x") #'align-regexp)
 ;; this is not working for some reason.
-;;(global-set-key (kbd "C-c x") #'er/expand-region)
+(global-set-key (kbd "C-c X") #'er/expand-region)
 
 (global-set-key (kbd "C-x C-.") #'pop-global-mark)
 ;; web-mode has a command C-c C-h that overrides this.
@@ -298,7 +299,7 @@
 (use-package multiple-cursors
 ;; multiple-cursors, which does not work well with evil mode. switch to emacs state to use these commands
   :ensure t)
-(global-set-key (kbd "C-c <")   #'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c <")   #'mc/mark-previous-like-this) ;
 (global-set-key (kbd "C-c >")   #'mc/mark-next-like-this)
 (global-set-key (kbd "C-c C-<") #'mc/mark-all-like-this)
 ;; From active region to multiple cursors:
@@ -316,7 +317,9 @@
 ;; Page break lines
 ;;----------------------------------------------------------------------------
 ;; this turn ^L into nice long lines.
-(require-package 'page-break-lines)
+(use-package page-break-lines
+  :ensure t
+  :diminish page-break-lines-mode)
 (global-page-break-lines-mode)
 
 ;;----------------------------------------------------------------------------
@@ -349,7 +352,9 @@
 
 
 ;; This package pops up a buffer, when a key prefix is hit, that shows what keys the user can now hit to use a command.
-(require-package 'guide-key)
+(use-package guide-key
+  :ensure t
+  :diminish guide-key-mode)
 (setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-x n" "C-c p" "C-c h" ))
 (guide-key-mode 1)
 

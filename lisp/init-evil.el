@@ -38,7 +38,8 @@
 
 ;;(require 'evil-dvorak)
 (use-package evil-dvorak
-  :ensure t)
+  :ensure t
+  :diminish undo-tree-mode)
 
 (global-evil-dvorak-mode 1)
 

@@ -37,8 +37,15 @@
 ;;----------------------------------------------------------------------------
 
 ;;I can't get use-package to work. why?
-(require-package 'use-package)
+;;(require-package 'use-package)
+(eval-when-compile
+  (require 'use-package))
+;; diminish hides packages from being on the modeline.  You can use use-package to do this
+(require 'diminish)
+;; to use :bind with use-package, require bind-key
+(require 'bind-key)
 (require 'use-package)
+;;(require 'use-package)
 ;;(require-package 'wgrep)
 ;;(require-package 'project-local-variables)
 ;; this helps you minizize modeline clutter by hidding some modes on the mode line.

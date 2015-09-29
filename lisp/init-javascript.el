@@ -1,8 +1,9 @@
 ;;(require-package 'json-mode)
-(maybe-require-package 'js2-mode)
+(use-package js2-mode
+  :ensure t)
 ;;(maybe-require-package 'ac-js2)
 ;;(maybe-require-package 'coffee-mode)
-(require-package 'js-comint)
+;;(require-package 'js-comint)
 
 (defcustom preferred-javascript-mode
   (first (remove-if-not #'fboundp '(js2-mode js-mode)))

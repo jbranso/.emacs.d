@@ -47,14 +47,15 @@ To install, clone this repo to `~/.emacs.d`, i.e. ensure that the
 git clone https://github.com/purcell/emacs.d.git ~/.emacs.d
 ```
 
-Upon starting up Emacs for the first time, further third-party
-packages will be automatically downloaded and installed.  *At least that is what is supposed to happen.*  Currently this functionality
-is broken.  You can clone my config just fine, but when you try to start emacs, emacs'll will call say things like where is package X,Y, and Z?  I'm working on fixing these issues. Like right now.  Sept. 19, 2015.
+Upon starting up Emacs for the first time, further third-party packages will be automatically downloaded and installed.  *At least
+that is what is supposed to happen.* **Currently this functionality is broken.** You can clone my config just fine, but when you
+try to start emacs, emacs'll will call say things like where is package X,Y, and Z?  I'm working on fixing these issues. Like
+right now.  Sept. 19, 2015.
 
 To get these things fixed,  these need to be addressed.
 
 * Currently, gnus will give you some errors, because I'm not including init-gnus-secret.el into my repo.  Because I don't want the
-internet to know my primary email addressaddress.
+internet to know my primary email addresses.
 * paradox won't work, because I'm not including my init-paradox.el file, which has my github token in it, since I don't want the
 provide the internet with a means to mess with my github account.
 * projectile doesn't work. I've no idea why.
@@ -63,7 +64,7 @@ provide the internet with a means to mess with my github account.
 
 ## Important note about helm
 
-I use helm-mode instead of ido, and you should too. Helm mode is an incremental completion framework that is completely superior
+I use helm-mode instead of ido, and you should too. Helm mode is an incremental completion framework that is superior
 to idomode. Helm-swoop alone is super amazing (although swiper.el, is nice too).  This config uses "C-c h" as the default helm
 keybinding, "C-c C-h" call the traditional help package. Yeah, helm is better than emacs 'help.  Check out what you can do with helm
 here: https://tuhdo.github.io/helm-intro.html

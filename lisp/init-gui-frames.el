@@ -5,7 +5,8 @@
   (tool-bar-mode -1))
 
 (use-package golden-ratio
-  :ensure t)
+  :ensure t
+  :diminish golden-ratio-mode)
 (golden-ratio-mode 1)
 
 ;; scroll one line at a time (less "jumpy" than defaults)

@@ -55,7 +55,8 @@
 
 ;;setting up ac
 (use-package auto-complete
-  :ensure t)
+  :ensure t
+  :diminish auto-complete-mode)
 (require 'auto-complete-config)
 ;; I'm adding the next 3 lines from following this website
 ;; https://truongtx.me/2013/01/06/config-yasnippet-and-autocomplete-on-emacs/

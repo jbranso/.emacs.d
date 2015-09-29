@@ -1,7 +1,8 @@
 (use-package helm-core
   :ensure t)
 (use-package helm
-  :ensure t)
+  :ensure t
+  :diminish helm-mode)
 (require 'helm-config)
 ;; I've installed helm-ag, which might be cool.
 

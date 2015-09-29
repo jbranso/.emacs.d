@@ -1,8 +1,6 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: .each
-# key: .each
+# name: include
+# key: include
 # binding: direct-keybinding
 # --
-.each (function (index, element) {
-      $0
-});
+include "$1";$0

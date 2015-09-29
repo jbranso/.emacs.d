@@ -42,7 +42,7 @@
 ;;establishing a connection
 
 ;; let's tell gnus who we are
-(require 'init-gnus-secret)
+;;(require 'init-gnus-secret)
 ;; init-gnus-secret looks like:
 ;; (setq
 ;;  user-mail-address	"<your email address>"
@@ -50,7 +50,7 @@
 (setq
  ;;make a default signature
  message-signature
- "Joshua Branson\nWayPoint\nWeb Developer\nweb.ics.purdue.edu/~jbranso\njbranso.me"
+ "Joshua Branson\nWayPoint\nWeb Developer\nweb.ics.purdue.edu/~jbranso\njbranso.me\nSent From Emacs"
  ;; add a date to the default summare line format
  gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n"
  ;; use smiley's in gnus
@@ -70,7 +70,6 @@
  gnus-nov-is-evil nil
  gnus-show-threads nil
  gnus-use-cross-reference nil
-
  ;; default encryption and signing of stuff
  ;;https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
  ;;sign and encrypt messages if you recognize the senders by default
@@ -80,11 +79,9 @@
  ;; https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
  gnus-message-replysign t
  gnus-message-replyencrypt t
-
  ;;message filters
  spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
- spam-use-blacklist t
- )
+ spam-use-blacklist t)
 
 (spam-initialize)
 
@@ -135,6 +132,29 @@
 
 ;; (setq user-mail-address "<your gmail address>")
 ;; (setq send-mail-function 'smtpmail-send-it)
+
+;;more attractive summary buffer
+;; http://groups.google.com/group/gnu.emacs.gnus/browse_thread/thread/a673a74356e7141f
+(when window-system
+  (setq gnus-sum-thread-tree-indent "  ")
+  (setq gnus-sum-thread-tree-root "") ;; "● ")
+  (setq gnus-sum-thread-tree-false-root "") ;; "◯ ")
+  (setq gnus-sum-thread-tree-single-indent "") ;; "◎ ")
+  (setq gnus-sum-thread-tree-vertical        "│")
+  (setq gnus-sum-thread-tree-leaf-with-other "├─► ")
+  (setq gnus-sum-thread-tree-single-leaf     "╰─► "))
+(setq gnus-summary-line-format
+      (concat
+       "%0{%U%R%z%}"
+       "%3{│%}" "%1{%d%}" "%3{│%}" ;; date
+       "  "
+       "%4{%-20,20f%}"               ;; name
+       "  "
+       "%3{│%}"
+       " "
+       "%1{%B%}"
+       "%s\n"))
+(setq gnus-summary-display-arrow t)
 
 
 ;; make gnus load more than 1 email in the background

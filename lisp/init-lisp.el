@@ -15,7 +15,8 @@
 ;; ----------------------------------------------------------------------------
 ;; show different parenthesis in different colors.  For example, the lambda's parenthesis, within a function will have a
 ;; color than the function's parenthesis.
-(require-package 'rainbow-delimiters)
+(use-package rainbow-delimiters
+  :ensure t)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 
 ;; automatically indent the text after certain commands are pressed!

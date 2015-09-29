@@ -1,17 +1,24 @@
 ;; TODO: link commits from vc-log to magit-show-commit
 ;; TODO: smerge-mode
 
-(require-package 'magit)
+(use-package magit
+  :ensure t)
 ;;(require-package 'git-blame)
-(require-package 'git-commit-mode)
-(require-package 'git-rebase-mode)
-(require-package 'gitignore-mode)
-(require-package 'gitconfig-mode)
-(require-package 'git-messenger)
+(use-package git-commit-mode
+  :ensure t)
+(use-package git-rebase-mode
+  :ensure t)
+(use-package gitignore-mode
+  :ensure t)
+(use-package gitconfig-mode
+  :ensure t)
+(use-package git-messenger
+  :ensure t)
 ;; Though see also vc-annotate's "n" & "p" bindings
 ;; this package is soooo cool! you execute git-timemachine, you can then press p and n to go to the
 ;; previous and next verions. w copies the git hash of the current buffer, and q quits the buffer
-(require-package 'git-timemachine)
+(use-package git-timemachine
+  :ensure t)
 ;; make git-timemachine's bindings over-ride evil normal mode's bindings
 ;; this code won't work, because I have evil-dvorak.el installed.
 ;; (eval-after-load 'git-timemachine
@@ -50,8 +57,8 @@
   ;; (diminish 'magit-wip-save-mode)
   )
 
-;; (after-load 'magit
-;;   (diminish 'magit-auto-revert-mode))
+(after-load 'magit
+   (diminish 'magit-auto-revert-mode))
 
 
 
