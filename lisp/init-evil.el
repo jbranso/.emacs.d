@@ -107,8 +107,9 @@
 (evil-set-initial-state 'erc-mode 'emacs)
 (evil-set-initial-state 'paradox-menu-mode 'emacs)
 (evil-set-initial-state 'woman-mode 'emacs)
-(evil-set-initial-state 'ggtags-mode 'emacs)
-(evil-set-initial-state 'ggtags-global-mode 'emacs)
+;; I think one of the two below this made evil mode open up a new buffer and set 'emacs state on
+;;(evil-set-initial-state 'ggtags-mode 'emacs)
+;;(evil-set-initial-state 'ggtags-global-mode 'emacs)
 (evil-set-initial-state 'ggtags-navigation-mode 'emacs)
 
 
