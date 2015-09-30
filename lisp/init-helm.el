@@ -22,7 +22,7 @@
  ;;make helm use the full frame. not needed.
  ;;helm-full-frame t
  ;; enable fuzzy mating in M-x
- helm-M-x-fuzzy-match t
+ ;;helm-M-x-fuzzy-match t
  ;;helm-recentf-fuzzy-match t
  ;;helm-apropos-fuzzy-match t
 ;;the more of these sources that I have, the slower helm will be
@@ -41,10 +41,10 @@
 
 (helm-mode 1)
 
-(define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
-(define-key helm-map (kbd "C-f") 'helm-execute-persistent-action)
+;;(define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
+;;(define-key helm-map (kbd "C-f") 'helm-execute-persistent-action)
 ;;(define-key helm-top-map (kbd "C-k") 'helm-kill-this-unruly-process)
-(define-key helm--minor-mode-map (kbd "C-f") 'helm-execute-persistent-action)
+;;(define-key helm--minor-mode-map (kbd "C-f") 'helm-execute-persistent-action)
 ;;I should define some cool helm mini commands
 
 ;; how do I get this to work?
