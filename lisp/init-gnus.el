@@ -116,13 +116,6 @@
 ;;       smtpmail-smtp-service 465
 ;;       )
 
-;; I'm trying to get gnus to work with gmail, but no dice so far
-(setq gnus-select-method
-      '(nnimap "gmail"
-               (nnimap-address "imap.gmail.com")  ; it could also be imap.googlemail.com if that's your server.
-               (nnimap-server-port "993")
-               (nnimap-stream ssl))
-      )
 
 (require 'init-gnus-secret-smtp)
 ;; init-gnus-secret-smtp looks like
