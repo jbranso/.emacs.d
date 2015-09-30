@@ -58,6 +58,7 @@
 
  ;; making gnus a little faster
  ;;make startup faster
+
  gnus-check-new-newsgroups nil
  gnus-check-bogus-newsgroups nil
  ;; this file is often large. Why read it? What's it do?
@@ -79,11 +80,14 @@
  ;; https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
  gnus-message-replysign t
  gnus-message-replyencrypt t
+
+
  ;;message filters
  spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
  spam-use-blacklist t)
 
 (spam-initialize)
+
 
 ;; set up search in GNUS
 ;; http://www.emacswiki.org/emacs/GnusGmail#toc21
@@ -170,6 +174,8 @@
 ;;have gnus alert you when a new mail arrives
 (use-package gnus-desktop-notify
   :ensure t)
+;;This is supposed to let me know when I get a new email, but not really
+;;http://www.thregr.org/~wavexx/software/gnus-desktop-notify.el/index.html
 (gnus-desktop-notify-mode)
 (gnus-demon-add-scanmail)
 (gnus-demon-add-handler 'gnus-group-get-new-news 20 t)

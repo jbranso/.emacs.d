@@ -107,7 +107,9 @@
 (evil-set-initial-state 'erc-mode 'emacs)
 (evil-set-initial-state 'paradox-menu-mode 'emacs)
 (evil-set-initial-state 'woman-mode 'emacs)
-
+(evil-set-initial-state 'ggtags-mode 'emacs)
+(evil-set-initial-state 'ggtags-global-mode 'emacs)
+(evil-set-initial-state 'ggtags-navigation-mode 'emacs)
 
 
 (provide 'init-evil)

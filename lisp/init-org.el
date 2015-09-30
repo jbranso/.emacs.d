@@ -15,6 +15,10 @@
          "* %?\nEntered on %U\n  %i\n  %a")
         ("cG" "Gimp Basics Reference" entry (file+headline "~/manuals/gimp.org" "Basic Concepts")
          "* %?\nEntered on %U\n  %i\n  %a")
+        ("cH" "The GNU HURD")
+        ("cHt" "Hurd" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org"
+                                                                       "Hurd")
+         "* TODO %?\n  %i\n  %a")
         ("cw" "Waypoint")
         ("cwi" "ibca Web App")
         ("cwib" "bugs that need fixed" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"

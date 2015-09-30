@@ -319,8 +319,8 @@
 ;; this turn ^L into nice long lines.
 (use-package page-break-lines
   :ensure t
-  :diminish page-break-lines-mode)
-(global-page-break-lines-mode)
+  :diminish page-break-lines-mode
+  :config (global-page-break-lines-mode))
 
 ;;----------------------------------------------------------------------------
 ;; Shift lines up and down with M-up and M-down. When paredit is enabled,
@@ -354,9 +354,11 @@
 ;; This package pops up a buffer, when a key prefix is hit, that shows what keys the user can now hit to use a command.
 (use-package guide-key
   :ensure t
-  :diminish guide-key-mode)
-(setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-x n" "C-c p" "C-c h" ))
-(guide-key-mode 1)
+  :diminish guide-key-mode
+  ;; init loads stuff before a package is loaded
+  :init (setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-x n" "C-c p" "C-c h" ))
+  ;; config does stuff after a package is loaded
+  :config (guide-key-mode 1))
 
 ;; delete any trailing whitespace any your buffer on save
 (add-hook 'before-save-hook

@@ -39,6 +39,7 @@
 (add-hook 'js2-mode-hook (lambda ()
                            (yas-minor-mode)
                            (yas-reload-all)
+                           (diminish 'yas-minor-mode)
                            (skewer-mode)
                            (ggtags-mode 1)
                            ;;this conflicts with the snippets, and it's seriously annoying
@@ -88,6 +89,7 @@
                            (ggtags-mode 1)
                            ;;emmet mode for html % css related things
                            (emmet-mode)
+                           (diminish 'emmet-mode)
                            (local-unset-key (kbd "C-<return>"))
                            (define-key web-mode-map (kbd "C-<return>") '(lambda ()
                                                                           (interactive)
@@ -111,7 +113,7 @@
                            (push '("\\or" . ?∨) prettify-symbols-alist)
                            (push '("\\and" . ?∧) prettify-symbols-alist)
                            (push '(":)" . ?☺) prettify-symbols-alist)
-                           (push '("):" . ?☹) prettify-symbols-alist)
+                           ;;(push '("):" . ?☹) prettify-symbols-alist)
                            (push '(":D" . ?☺) prettify-symbols-alist)
                            (push '("^_^" . ?☻) prettify-symbols-alist)
                            ;; I should not enable aggressive indent mode for soihub files.

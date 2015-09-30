@@ -2,7 +2,9 @@
   :ensure t)
 (use-package helm
   :ensure t
-  :diminish helm-mode)
+  ;; apperently this next line causes some serious errors
+  ;;:diminish helm-mode
+  )
 (require 'helm-config)
 ;; I've installed helm-ag, which might be cool.
 
