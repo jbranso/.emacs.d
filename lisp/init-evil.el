@@ -1,10 +1,11 @@
-(require-package 'evil)
 (use-package evil
-  :ensure t)
-(evil-mode 1)
+  :ensure t
+  :diminish undo-tree-mode
+  :config (evil-mode 1))
 
-(require-package 'evil-surround)
-(global-evil-surround-mode 1)
+(use-package evil-surround
+  :ensure t
+  :config (global-evil-surround-mode 1))
 ;; I can add more surround pairs by doing this
 ;; (add-hook 'c++-mode-hook (lambda ()
 ;;                            (push '(?< . ("< " . " >")) surround-pairs-alist)))
@@ -39,9 +40,8 @@
 ;;(require 'evil-dvorak)
 (use-package evil-dvorak
   :ensure t
-  :diminish undo-tree-mode)
+  :config (global-evil-dvorak-mode 1))
 
-(global-evil-dvorak-mode 1)
 
 (local-unset-key (kbd "TAB"))
 ;; (define-key evil-normal-state-map (kbd "C-w h") #'windmove-down)
