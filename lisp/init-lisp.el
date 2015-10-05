@@ -1,7 +1,8 @@
 ;; ----------------------------------------------------------------------------
 ;; Automatic byte compilation
 ;; ----------------------------------------------------------------------------
-(require-package 'auto-compile)
+(use-package auto-compile
+  :ensure t)
 (auto-compile-on-save-mode 1)
 (auto-compile-on-load-mode 1)
 

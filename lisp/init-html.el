@@ -42,6 +42,7 @@
                            (diminish 'yas-minor-mode)
                            (skewer-mode)
                            (ggtags-mode 1)
+                           (diminish 'ggtags-mode)
                            ;;this conflicts with the snippets, and it's seriously annoying
                            ;;(ac-js2-mode)
                            ;;set ac sources to nil for javascript that way it doesn't interfer with yasnippet
@@ -83,10 +84,12 @@
                            ;;yas mode for php stuff
                            (yas-minor-mode)
                            (yas-reload-all)
+                           (diminish 'yas-minor-mode)
                            ;; I've installed http://phpmd.org/ to check my php code using flycheck
                            ;;(flycheck-mode)
                            ;; BUT flycheck mode does NOT support web-mode
                            (ggtags-mode 1)
+                           (diminish 'ggtags-mode)
                            ;;emmet mode for html % css related things
                            (emmet-mode)
                            (diminish 'emmet-mode)

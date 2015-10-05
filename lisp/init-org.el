@@ -1,3 +1,62 @@
+;; I should really check this out at some point
+;; http://pragmaticemacs.com/emacs/wrap-text-in-an-org-mode-block/
+;; In my most recent post on org-mode, I talked about using blocks to mark text as being latex, or source code and so on. I
+;; mentioned using the shortcuts like <e then TAB on a new line to create an empty block. Sometimes it is handy to wrap existing
+;; text in a block, and the following function does that for the text you have selected.
+
+;; This has been in my config file for ages and I can’t remember where it came from – I know I didn’t write it! A bit of googleing
+;; suggests this could be the origin, but if anyone knows different, let me know.
+
+;; I bind the function to C-< because it reminds me of the < shortcuts to create the blocks, and I don’t use the
+;; org-cycle-agenda-files that is usually bound to that key combo.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; function to wrap blocks of text in org templates                       ;;
+;; e.g. latex or src etc                                                  ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun org-begin-template ()
+  "Make a template at point."
+  (interactive)
+  (if (org-at-table-p)
+      (call-interactively 'org-table-rotate-recalc-marks)
+    (let* ((choices '(("s" . "SRC")
+                      ("e" . "EXAMPLE")
+                      ("q" . "QUOTE")
+                      ("v" . "VERSE")
+                      ("c" . "CENTER")
+                      ("l" . "LaTeX")
+                      ("h" . "HTML")
+                      ("a" . "ASCII")))
+           (key
+            (key-description
+             (vector
+              (read-key
+               (concat (propertize "Template type: " 'face 'minibuffer-prompt)
+                       (mapconcat (lambda (choice)
+                                    (concat (propertize (car choice) 'face 'font-lock-type-face)
+                                            ": "
+                                            (cdr choice)))
+                                  choices
+                                  ", ")))))))
+      (let ((result (assoc key choices)))
+        (when result
+          (let ((choice (cdr result)))
+            (cond
+             ((region-active-p)
+              (let ((start (region-beginning))
+                    (end (region-end)))
+                (goto-char end)
+                (insert "#+END_" choice "\n")
+                (goto-char start)
+                (insert "#+BEGIN_" choice "\n")))
+             (t
+              (insert "#+BEGIN_" choice "\n")
+              (save-excursion (insert "#+END_" choice))))))))))
+
+;;bind to key
+;;(define-key org-mode-map (kbd "C-<") 'org-begin-template)
+
+
 
 ;; define what files org opens
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
@@ -84,12 +143,16 @@
  org-agenda-start-on-weekday nil
  org-agenda-span 7
  ;; using the diary really slows down the agenda view
- ;;org-agenda-include-diary nil
+ org-agenda-include-diary t
  org-agenda-window-setup 'current-window
  org-fast-tag-selection-single-key 'expert
  org-html-validation-link nil
  org-export-kill-product-buffer-when-displayed t
+ org-export-backends '(ascii beamer html texinfo latex)
+ ;;most of these modules let you store links to various stuff in org
+ org-modules '(org-bbdb org-gnus org-info invoice man toc)
  org-tags-column 80)
+
 
 (defun my-org-list-files (dirs ext)
   "Function to create list of org files in multiple subdirectories.
@@ -260,6 +323,7 @@ EXT is a list of the extensions of files to be included."
      ;;(ledger . t)
      ;;(python . t)
      (awk . t)
+     (C . t)
      (js . t)
      (python . t)
      (gnuplot . t)

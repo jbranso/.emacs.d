@@ -1,6 +1,8 @@
 (use-package evil
   :ensure t
-  :diminish undo-tree-mode
+  ;;If you diminish undo-tree mode, then you diminish evil-mode
+  ;; I see the evil thing in the mode line on an org buffer, BUT not in an emacs lisp buffer
+  ;;  :diminish undo-tree-mode
   :config (evil-mode 1))
 
 (use-package evil-surround
@@ -37,10 +39,11 @@
 (setq evil-dvorak-funky-h-and-t 1)
 (setq evil-dvorak-use-for-web-mode 1)
 
-;;(require 'evil-dvorak)
 (use-package evil-dvorak
   :ensure t
-  :config (global-evil-dvorak-mode 1))
+  :config (global-evil-dvorak-mode 1)
+  :diminish evil-dvorak-mode)
+
 
 
 (local-unset-key (kbd "TAB"))
