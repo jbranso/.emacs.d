@@ -140,6 +140,7 @@
 (setq
  org-log-done t
  org-edit-timestamp-down-means-later t
+ ;; don't make the agenda only show saturday and Sunday if today is saturday. Make it show 7 days
  org-agenda-start-on-weekday nil
  org-agenda-span 7
  ;; using the diary really slows down the agenda view
@@ -152,6 +153,9 @@
  ;;most of these modules let you store links to various stuff in org
  org-modules '(org-bbdb org-gnus org-info invoice man toc)
  org-tags-column 80)
+
+;;a visual hint to let you know what line you are in in org-mode agenda
+(add-hook 'org-agenda-finalize-hook (lambda () (hl-line-mode)))
 
 
 (defun my-org-list-files (dirs ext)

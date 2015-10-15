@@ -42,7 +42,7 @@
 ;;establishing a connection
 
 ;; let's tell gnus who we are
-;;(require 'init-gnus-secret)
+(require 'init-gnus-secret)
 ;; init-gnus-secret looks like:
 ;; (setq
 ;;  user-mail-address	"<your email address>"
