@@ -57,7 +57,6 @@
 ;;(define-key org-mode-map (kbd "C-<") 'org-begin-template)
 
 
-
 ;; define what files org opens
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
 ;;(setq org-default-notes-file (concat org-directory "/notes.org"))
@@ -78,25 +77,26 @@
         ("cHt" "Hurd" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org"
                                                                        "Hurd")
          "* TODO %?\n  %i\n  %a")
+        ("ct" "General Computer TODO"
+         entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "General TODO")
+         "* todo %?\n  %i\n  %a")
         ("cw" "Waypoint")
         ("cwi" "ibca Web App")
-        ("cwib" "bugs that need fixed" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
-                                                                       "bugs that need fixed")
+        ("cwib" "bugs that need fixin'" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
+                                                                       "bugs that need fixin'")
          "* TODO %?\n  %i\n  %a")
         ("cwic" "core features that must be done" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
                                                                        "core features that must be done")
          "* TODO %?\n  %i\n  %a")
         ("cwif" "features the app should have" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
-                                                                    "features the app should have")
-         "* TODO %?\n  %i\n  %a")
-        ("cwil" "ibca what i did last week" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
-                                                                 "what i did last week")
+                                                                    "features the app should have") "* TODO %?\n  %i\n  %a")
+        ("cwir" "IBCA Reference" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
+                                                      "IBCA Reference") "* %?\nEntered on %U\n  %i\n  %a")
+        ("cwiw" "what I have done" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
+                                                                 "what I have done") "* DONE %?\n  %i\n  %a")
+        ("ch" "high star todo"
+         entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "make high star an android app")
          "* todo %?\n  %i\n  %a")
-        ("cwiw" "what seems to be working" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
-                                                                 "what seems to be working")
-         "* TODO %?\n  %i\n  %a")
-        ("ch" "high star TODO" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "make high star an android app")
-         "* TODO %?\n  %i\n  %a")
         ("cl" "linux TODO" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-developer.org" "linux someday")
          "* TODO %?\n  %i\n  %a")
         ("cL" "Linux Reference" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-developer.org" "linux reference")
@@ -124,15 +124,16 @@
         ("er" "Good Movies Reference" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "Good Movies")
          "*  %i\n  %a")
         ("g" "getting close to God")
-        ("gg" "get a girlfriend" entry (file+headline "/home/joshua/programming/org/gtd/projects/get-close-to-God.org" "get a girl")
-         "* TODO %?\n  %i\n  %a")
-
+        ("gg" "get a close friend" entry (file+headline "/home/joshua/programming/org/gtd/projects/get-close-to-God.org"
+                                                        "get a close friend") "* TODO %?\n  %i\n  %a")
         ("p" "payless TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "shopping todo")
          "* TODO %?\n  %i\n  %a")
         ("r" "Reference" entry (file+headline "~/programming/org/gtd/gtd.org" "general reference")
          "* %?\nEntered on %U\n  %i\n  %a")
         ("t" "TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "general todo")
          "* TODO %?\nEntered on %U\n  %i\n  %a")
+        ("q" "Quotations" entry (file+headline "~/programming/org/quotes.org" "Quotations")
+         "* %?\nEntered on %U\n  %i\n  %a")
         ))
 
 
@@ -207,7 +208,8 @@ EXT is a list of the extensions of files to be included."
                           my-org-agenda-extensions)
         org-refile-targets (my-org-list-files
                             my-org-agenda-directories
-                            my-org-agenda-extensions)
+                            my-org-agenda-extensions
+                            )
         ))
 
 (my-org-set-agenda-files)
@@ -229,16 +231,16 @@ EXT is a list of the extensions of files to be included."
 (setq org-outline-path-complete-in-steps t)
 
 (setq org-todo-keywords
-      '((sequence "TODO" "|" "PAID" "DONE")))
+      '((sequence "TODO" "CHARGED" "|" "PAID" "DONE")))
 
 ;; none of these do anything
 ;;  (setq org-todo-keywords
 ;;        (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
 ;;                (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)"))))
 
-;; (setq org-todo-keyword-faces
-;;       '(("TODO" . org-warning) ("STARTED" . "yellow")
-;;         ("CANCELED" . (:foreground "blue" :weight bold))))
+;;(setq org-todo-keyword-faces
+  ;;     '(("TODO" . org-warning) ("STARTED" . "yellow")
+    ;;     ("CANCELED" . (:foreground "blue" :weight bold))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -312,6 +314,45 @@ EXT is a list of the extensions of files to be included."
                              ;; '(apply ,original-command))
                              ;; (local-set-key [tab] 'yas-expand))))
                              ))
+
+;; this is not working?
+;; we want to remember the org keyboard navigation commands eh?
+;; https://github.com/abo-abo/hydra/wiki/Emacs
+(defhydra hydra-outline (:color pink :hint nil)
+  "
+^Hide^             ^Show^           ^Move
+^^^^^^------------------------------------------------------
+_q_: sublevels     _a_: all         _u_: up
+_t_: body          _e_: entry       _n_: next visible
+_o_: other         _i_: children    _p_: previous visible
+_c_: entry         _k_: branches    _f_: forward same level
+_l_: leaves        _s_: subtree     _b_: backward same level
+_d_: subtree
+
+"
+  ;; Hide
+  ("q" hide-sublevels)    ; Hide everything but the top-level headings
+  ("t" hide-body)         ; Hide everything but headings (all body lines)
+  ("o" hide-other)        ; Hide other branches
+  ("c" hide-entry)        ; Hide this entry's body
+  ("l" hide-leaves)       ; Hide body lines in this entry and sub-entries
+  ("d" hide-subtree)      ; Hide everything in this entry and sub-entries
+  ;; Show
+  ("a" show-all)          ; Show (expand) everything
+  ("e" show-entry)        ; Show this heading's body
+  ("i" show-children)     ; Show this heading's immediate child sub-headings
+  ("k" show-branches)     ; Show all sub-headings under this heading
+  ("s" show-subtree)      ; Show (expand) everything in this heading & below
+  ;; Move
+  ("u" outline-up-heading)                ; Up
+  ("n" outline-next-visible-heading)      ; Next
+  ("p" outline-previous-visible-heading)  ; Previous
+  ("f" outline-forward-same-level)        ; Forward - same level
+  ("b" outline-backward-same-level)       ; Backward - same level
+  ("z" nil "leave"))
+
+(global-set-key (kbd "C-c #") 'hydra-outline/body) ; by example
+
 
 ;; (after-load 'org
 ;; (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element)

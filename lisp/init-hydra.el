@@ -39,8 +39,9 @@
 ;;        (self-insert-command 1))))
 
 ;;a nice clock in clock out thing from hydra
+;; https://github.com/abo-abo/hydra/wiki/orgmode
 (defun hydra-global-org (:color blue
-                            :hint nil)
+                                :hint nil)
   "
 Timer^^        ^Clock^         ^Capture^
 --------------------------------------------------
@@ -62,9 +63,45 @@ _p_rint
   ("c" org-capture)
   ("l" org-capture-goto-last-stored))
 
+
+;; This is the hydra that I use with C-c C to clock in and clock out all the time!
 (defhydra hydra-org-timer (:color blue :hint nil)
   "timer"
   ("i" (org-clock-in '(4))    "clock in")
   ("o" org-clock-out   "clock out"))
+
+(defhydra hydra-apropos (:color blue)
+  "Apropos"
+  ("a" apropos "apropos")
+  ("c" apropos-command "cmd")
+  ("d" apropos-documentation "doc")
+  ("e" apropos-value "val")
+  ("l" apropos-library "lib")
+  ("o" apropos-user-option "option")
+  ("u" apropos-user-option "option")
+  ("v" apropos-variable "var")
+  ("i" info-apropos "info")
+  ("t" tags-apropos "tags")
+  ("z" hydra-customize-apropos/body "customize"))
+
+(defhydra hydra-customize-apropos (:color blue)
+  "Apropos (customize)"
+  ("a" customize-apropos "apropos")
+  ("f" customize-apropos-faces "faces")
+  ("g" customize-apropos-groups "groups")
+  ("o" customize-apropos-options "options"))
+
+
+(defhydra hydra-transpose (:color red)
+  "Transpose"
+  ("c" transpose-chars "characters")
+  ("w" transpose-words "words")
+  ("o" org-transpose-words "Org mode words")
+  ("l" transpose-lines "lines")
+  ("s" transpose-sentences "sentences")
+  ("e" org-transpose-elements "Org mode elements")
+  ("p" transpose-paragraphs "paragraphs")
+  ("t" org-table-transpose-table-at-point "Org mode table")
+  ("q" nil "cancel" :color blue))
 
 (provide 'init-hydra)
