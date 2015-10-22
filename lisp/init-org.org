@@ -1,20 +1,21 @@
-;; I should really check this out at some point
-;; http://pragmaticemacs.com/emacs/wrap-text-in-an-org-mode-block/
-;; In my most recent post on org-mode, I talked about using blocks to mark text as being latex, or source code and so on. I
-;; mentioned using the shortcuts like <e then TAB on a new line to create an empty block. Sometimes it is handy to wrap existing
-;; text in a block, and the following function does that for the text you have selected.
+* A definition I found online org-begin-template
+  I should really check this out at some point http://pragmaticemacs.com/emacs/wrap-text-in-an-org-mode-block/ In my most recent
+  post on org-mode, I talked about using blocks to mark text as being latex, or source code and so on. I mentioned using the
+  shortcuts like <e then TAB on a new line to create an empty block. Sometimes it is handy to wrap existing text in a block, and
+  the following function does that for the text you have selected.
 
-;; This has been in my config file for ages and I can’t remember where it came from – I know I didn’t write it! A bit of googleing
-;; suggests this could be the origin, but if anyone knows different, let me know.
+  This has been in my config file for ages and I can’t remember where it came from – I know I didn’t write it! A bit of googleing
+  suggests this could be the origin, but if anyone knows different, let me know.
 
-;; I bind the function to C-< because it reminds me of the < shortcuts to create the blocks, and I don’t use the
-;; org-cycle-agenda-files that is usually bound to that key combo.
+  I bind the function to C-< because it reminds me of the < shortcuts to create the blocks, and I don’t use the
+  org-cycle-agenda-files that is usually bound to that key combo.
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; function to wrap blocks of text in org templates                       ;;
-;; e.g. latex or src etc                                                  ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun org-begin-template ()
+  #+BEGIN_SRC emacs-lisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; function to wrap blocks of text in org templates                       ;;
+  ;; e.g. latex or src etc                                                  ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (defun org-begin-template ()
   "Make a template at point."
   (interactive)
   (if (org-at-table-p)
@@ -56,11 +57,21 @@
 ;;bind to key
 ;;(define-key org-mode-map (kbd "C-<") 'org-begin-template)
 
+#+END_SRC
 
+* what files org-mode opens
+#+BEGIN_SRC emacs-lisp
 ;; define what files org opens
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
 ;;(setq org-default-notes-file (concat org-directory "/notes.org"))
-(setq org-capture-templates
+#+END_SRC
+
+* my org capure templates
+  This is SOOOO USEFUL!!!! Org capture lets you quickly jot down a thought that you have and place it in a file under
+  a heading that you specify.  I have captchas for shopping, for books to read, for things to do.
+
+  #+BEGIN_SRC emacs-lisp
+  (setq org-capture-templates
       '(
         ("c" "Computers Anything")
         ("cA" "Accrisoft Reference" entry (file+headline "~/programming/org/gtd/web.org" "Accrisoft reference")
@@ -146,9 +157,11 @@
         ("q" "Quotations" entry (file+headline "~/programming/org/quotes.org" "Quotations")
          "* %?\nEntered on %U\n  %i\n  %a")
         ))
+  #+END_SRC
 
+* My org-mode preferences
+  #+BEGIN_SRC emacs-lisp
 
-;; Various preferences
 (setq
  org-log-done t
  org-edit-timestamp-down-means-later t
@@ -168,7 +181,19 @@
 
 ;;a visual hint to let you know what line you are in in org-mode agenda
 (add-hook 'org-agenda-finalize-hook (lambda () (hl-line-mode)))
+  #+END_SRC
 
+* I generate my org-agenda-files and org-refile-targets
+  Org-agenda-files are a list of files where you store your TODOs.  These are your things that need to be done, scheduled items,
+  deadlines, recurring items, etc.  Then pressing "C-c a a" lets you build your agenda from all of your agenda files.  It is very
+  useful. But it would be a pain to have to manually enter all of your agenda files.  So I've got some code here that I found online
+  that lets me generate my agenda files.
+
+  Org-refile-targets are a list of files and possibly headings in any org file that you can at any time jump to move pits of an
+  org file to.  So let's say you're in weekly schedule.org, BUT you wish to quickly jump to shopping.org at the heading
+  "Groceries",  you can very easily do that.
+
+  #+BEGIN_SRC emacs-lisp
 
 (defun my-org-list-files (dirs ext)
   "Function to create list of org files in multiple subdirectories.
@@ -203,6 +228,7 @@ EXT is a list of the extensions of files to be included."
      files)
     files))
 
+
 (defvar my-org-agenda-directories '("~/programming/org/")
   "List of directories containing org files.")
 (defvar my-org-agenda-extensions '(".org")
@@ -225,7 +251,10 @@ EXT is a list of the extensions of files to be included."
 
 (my-org-set-agenda-files)
 
-;; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
+  #+END_SRC
+
+  Refile targets include this file and any file contributing to the agenda - up to 5 levels deep  But unfortunately, I cannot
+  get org-refile to work.
 ;;(setq org-refile-targets (quote ((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5))))
 ;; (setq org-refile-targets '(
 ;;                            ;;(org-agenda-files :maxlevel . 5)
@@ -236,6 +265,8 @@ EXT is a list of the extensions of files to be included."
 
 ;; (setq org-refile-targets '((("~/programming/org/gtd/projects/working-for-waypoint.org") :maxlevel . 5)))
 
+* I can make add words to the TODO and DONE keywords
+  #+BEGIN_SRC emacs-lisp
                                         ; Targets start with the file name - allows creating level 1 tasks
 (setq org-refile-use-outline-path (quote file))
                                         ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
@@ -252,11 +283,10 @@ EXT is a list of the extensions of files to be included."
 ;;(setq org-todo-keyword-faces
   ;;     '(("TODO" . org-warning) ("STARTED" . "yellow")
     ;;     ("CANCELED" . (:foreground "blue" :weight bold))))
+  #+END_SRC
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Org clock
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+* Org Clock Settings
+  #+BEGIN_SRC emacs-lisp
 
 ;; Save the running clock and all clock history when exiting Emacs, load it on startup
 (setq org-clock-persistence-insinuate t)
@@ -294,8 +324,12 @@ EXT is a list of the extensions of files to be included."
   :ensure t)
 (after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
+  #+END_SRC
 
-;; make org mode start up with auto fill mode
+* Org-mode-hook
+
+  #+BEGIN_SRC emacs-lisp
+
 (add-hook 'org-mode-hook #'(lambda ()
                              ;; (interactive)
                              ;; make the lines in the buffer wrap around the edges of the screen.
@@ -325,10 +359,14 @@ EXT is a list of the extensions of files to be included."
                              ;; '(apply ,original-command))
                              ;; (local-set-key [tab] 'yas-expand))))
                              ))
+  #+END_SRC
 
-;; this is not working?
-;; we want to remember the org keyboard navigation commands eh?
-;; https://github.com/abo-abo/hydra/wiki/Emacs
+* a hydra that I found online that lets you easily remember some of the org commands
+  this is not working?
+  we want to remember the org keyboard navigation commands eh?
+  https://github.com/abo-abo/hydra/wiki/Emacs
+  #+BEGIN_SRC emacs-lisp
+
 (defhydra hydra-outline (:color pink :hint nil)
   "
 ^Hide^             ^Show^           ^Move
@@ -363,13 +401,19 @@ _d_: subtree
   ("z" nil "leave"))
 
 (global-set-key (kbd "C-c #") 'hydra-outline/body) ; by example
+  #+END_SRC
 
+* more cruft that probably could be deleted
+  #+BEGIN_SRC emacs-lisp
 
 ;; (after-load 'org
 ;; (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element)
 ;; (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element))
+  #+END_SRC
 
-;; I don't use any of these yet, so don't use 'em
+* org babel
+  #+BEGIN_SRC emacs-lisp
+
 (after-load 'org
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -388,24 +432,34 @@ _d_: subtree
      ;;(sqlite . t)
      (gnuplot . t)
      )))
+  #+END_SRC
 
-;; I've figured out how to do this! woo hoo!
-(autoload 'org-invoice-report "org-invoice")
-(autoload 'org-dblock-write:invoice "org-invoice")
-(require 'org-invoice)
+* org invoice
+  This lests you manage invoices with org-mode.  It is pretty cool!
+  #+BEGIN_SRC emacs-lisp
 
-;; org can send me pop-ups for appointments! cool!
-(require 'org-notify)
-(org-notify-start)
+  (autoload 'org-invoice-report "org-invoice")
+  (autoload 'org-dblock-write:invoice "org-invoice")
+  (require 'org-invoice)
+  #+END_SRC
 
-;; Example setup:
-;;
-(org-notify-add 'appt
-                '(:time "-1s" :period "20s" :duration 10
-                        :actions (-message -ding))
-                '(:time "15m" :period "2m" :duration 100
-                        :actions -notify)
-                '(:time "2h" :period "5m" :actions -message)
-                '(:time "3d" :actions -email))
+* org-notify lets you know when you have upcoming appointments
+  I would like to get this set up so that it shows pop-ups using a lua script
+  #+BEGIN_SRC emacs-lisp
 
-(provide 'init-org)
+    (require 'org-notify)
+    (org-notify-start)
+
+    (org-notify-add 'appt
+                    '(:time "-1s" :period "20s" :duration 10
+                            :actions (-message -ding))
+                    '(:time "15m" :period "2m" :duration 100
+                            :actions -notify)
+                    '(:time "2h" :period "5m" :actions -message)
+                    '(:time "3d" :actions -email))
+  #+END_SRC
+
+* provide this file
+  #+BEGIN_SRC emacs-lisp
+    (provide 'init-org)
+  #+END_SRC
