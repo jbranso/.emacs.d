@@ -1,0 +1,16 @@
+* Check section "Subscribe groups" for details. After subscribing the group INBOX, the INBOX could still be invisible if INBOX does not contain unread emails. That makes no sense for an email client (It does make sense for a stone age news reader)! Anyway, the solution is simple, `C-u 5 gnus-group-list-all-groups` will get desired result. I assigned hotkey "o" to it. Here is my elisp code you could paste into your .emacs. See the Gnus Manual on Listing Groups for more details.
+
+  #+BEGIN_SRC emacs-lisp
+    (defun my-gnus-group-list-subscribed-groups ()
+          "List all subscribed groups with or without un-read messages"
+          (interactive)
+          (gnus-group-list-all-groups 5)
+          )
+         (add-hook 'gnus-group-mode-hook
+                   ;; list all the subscribed groups even they contain zero un-read messages
+                   (lambda () (local-set-key "o" 'my-gnus-group-list-subscribed-groups ))
+                   )
+  #+END_SRC
+
+* pressing RET on a folder will show you "smart messages" that gnus thinks are important
+  pressing C-u RET will show you all messages

@@ -1,3 +1,10 @@
+# this is the title of the document
+#+TITLE: My Org Initialization
+# this says that org mode will export up to the 4th level heading
+#+OPTIONS: H:4
+* to load this file do org-babel-load-file and it'll pop up helm and you'll have to say that you want
+  to load this file.  All the scripts in this file will be exported and saved into init-org.el.  Then
+  that file will be loaded.
 * A definition I found online org-begin-template
   I should really check this out at some point http://pragmaticemacs.com/emacs/wrap-text-in-an-org-mode-block/ In my most recent
   post on org-mode, I talked about using blocks to mark text as being latex, or source code and so on. I mentioned using the
@@ -66,6 +73,45 @@
 ;;(setq org-default-notes-file (concat org-directory "/notes.org"))
 #+END_SRC
 
+* org-crypt, encrypting text under a heading in org
+  [[info:org#org-crypt][info:org#org-crypt]]
+   Any text below a headline that has a `:crypt:' tag will be
+automatically be encrypted when the file is saved.  If you want to use
+a different tag just customize the `org-crypt-tag-matcher' setting.
+
+   To use org-crypt it is suggested that you have the following in your
+`.emacs':
+
+  #+BEGIN_SRC emacs-lisp
+    (require 'org-crypt)
+    (org-crypt-use-before-save-magic)
+    (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+  #+END_SRC
+
+  #+RESULTS:
+  | crypt |
+
+  GPG key to use for encryption
+  Either the Key ID or set to nil to use symmetric encryption.
+  #+BEGIN_SRC emacs-lisp
+     (setq org-crypt-key '1CADFCE802C95561)
+     (setq org-crypt-key 'u)
+  #+END_SRC
+
+  #+RESULTS:
+  Auto-saving does not cooperate with org-crypt.el: so you need to turn it off if you plan to use org-crypt.el quite often.
+  Otherwise, you'll get an (annoying) message each time you start Org.
+  To turn it off only locally, you can insert this:
+  # -*- buffer-auto-save-file-name: nil; -*-
+  #+BEGIN_SRC emacs-lisp
+    (setq auto-save-default nil)
+  #+END_SRC
+
+  #+RESULTS:
+
+** this text underneith me should be encrypted :crypt:
+   The brown dog jumped over the fence.
+
 * my org capure templates
   This is SOOOO USEFUL!!!! Org capture lets you quickly jot down a thought that you have and place it in a file under
   a heading that you specify.  I have captchas for shopping, for books to read, for things to do.
@@ -73,9 +119,12 @@
   #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
       '(
-        ("c" "Computers Anything")
-        ("cA" "Accrisoft Reference" entry (file+headline "~/programming/org/gtd/web.org" "Accrisoft reference")
+
+        ("B" "Things I want to buy" entry (file+headline
+        "~/programming/org/gtd/projects/managing-my-monies.org" "things I want to buy")
          "* %?\nEntered on %U\n  %i\n  %a")
+
+        ("c" "Computers Anything")
         ("ca" "Awesome WM" entry (file+headline "~/programming/org/gtd/gtd.org" "awesome WM someday")
          "* TODO %?\nEntered on %U\n  %i\n  %a")
         ("ce" "emacs Todo" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "emacs someday")
@@ -117,13 +166,26 @@
         ("cf" "Free the world" entry (file+headline "~/programming/org/gtd/gtd.org" "free the world free content")
          "* %?\nEntered on %U\n  %i\n  %a")
 
-        ("cW" "Web reference" entry (file+headline "~/programming/org/gtd/web.org" "Web reference")
+         ("cW" "Web")
+
+        ("cWA" "Accrisoft Reference" entry (file+headline "~/programming/org/gtd/web.org" "Accrisoft reference")
          "* %?\nEntered on %U\n  %i\n  %a")
+
+         ("cWB" "Bootstrap Reference" entry (file+headline "~/programming/org/gtd/web.org" "Bootstrap reference")
+         "* %?\nEntered on %U\n  %i\n  %a")
+
+         ("cWS" "Shoppify Reference" entry (file+headline "~/programming/org/gtd/web.org" "Shoppify reference")
+         "* %?\nEntered on %U\n  %i\n  %a")
+
+        ("cWW" "Web reference" entry (file+headline "~/programming/org/gtd/web.org" "Web reference")
+         "* %?\nEntered on %U\n  %i\n  %a")
+
 
         ("C" "Community")
         ("Cc" "community TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "community someday")
          "* TODO %?\n  %i\n  %a")
-        ("Cn" "nice things to say" entry (file+headline "~/programming/org/gtd/gtd.org" "nice things to say to people")
+        ("Cn" "nice things to say" entry (file+headline "~/programming/org/gtd/projects/get-close-to-God.org"
+        "nice things to say")
          "* TODO %?\nEntered on %U\n  %i\n  %a")
         ("Cs" "Social Skills Notes" entry (file+headline "~/programming/org/gtd/being-social.org" "Social Skills Notes")
          "* %?\nEntered on %U\n  %i\n  %a")
@@ -243,10 +305,10 @@ EXT is a list of the extensions of files to be included."
   (setq org-agenda-files (my-org-list-files
                           my-org-agenda-directories
                           my-org-agenda-extensions)
-        org-refile-targets (my-org-list-files
-                            my-org-agenda-directories
-                            my-org-agenda-extensions
-                            )
+        ;;org-refile-targets (my-org-list-files
+          ;;                  my-org-agenda-directories
+            ;;                my-org-agenda-extensions
+                          ;;  )
         ))
 
 (my-org-set-agenda-files)
@@ -327,38 +389,54 @@ EXT is a list of the extensions of files to be included."
   #+END_SRC
 
 * Org-mode-hook
+  Org-mode does not play well with yasnippet.  So this function that I got here [[info:org#Conflicts][info:org#Conflicts]] should help
+  with making yasnippet play well with org-mode.  It seems to 1st make TAB try to do any org expanding, then it'll
+  try to expand a yasnippet.
 
   #+BEGIN_SRC emacs-lisp
+    (defun yas/org-very-safe-expand ()
+      (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+  #+END_SRC
 
-(add-hook 'org-mode-hook #'(lambda ()
-                             ;; (interactive)
-                             ;; make the lines in the buffer wrap around the edges of the screen.
-                             (visual-line-mode)
-                             (push '(">=" . ?≥) prettify-symbols-alist)
-                             (push '("<=" . ?≤) prettify-symbols-alist)
-                             (push '("\\geq" . ?≥) prettify-symbols-alist)
-                             (push '("\\leq" . ?≤) prettify-symbols-alist)
-                             (push '("\\neg" . ?¬) prettify-symbols-alist)
-                             (push '("\\rightarrow" . ?→) prettify-symbols-alist)
-                             (push '("\\leftarrow" . ?←) prettify-symbols-alist)
-                             (push '("\\infty" . ?∞) prettify-symbols-alist)
-                             (push '("-->" . ?→) prettify-symbols-alist)
-                             (push '("<--" . ?←) prettify-symbols-alist)
-                             (push '("\\exists" . ?∃) prettify-symbols-alist)
-                             (push '("\\nexists" . ?∄) prettify-symbols-alist)
-                             (push '("\\forall" . ?∀) prettify-symbols-alist)
-                             (push '("\\or" . ?∨) prettify-symbols-alist)
-                             (push '("\\and" . ?∧) prettify-symbols-alist)
-                             (push '(":)" . ?☺) prettify-symbols-alist)
-                             (push '("):" . ?☹) prettify-symbols-alist)
-                             (push '(":D" . ?☺) prettify-symbols-alist)
-                             (push '("^_^" . ?☻) prettify-symbols-alist)
-                             ;; (let ((original-command (lookup-key org-mode-map [tab])))
-                             ;; `(lambda ()
-                             ;; (setq yas-fallback-behavior
-                             ;; '(apply ,original-command))
-                             ;; (local-set-key [tab] 'yas-expand))))
-                             ))
+  #+RESULTS:
+  : yas/org-very-safe-expand
+
+  #+BEGIN_SRC emacs-lisp
+    (add-hook 'org-mode-hook #'(lambda ()
+                                 (make-variable-buffer-local 'yas/trigger-key)
+                                 (setq yas/trigger-key [tab])
+                                 (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+                                 (define-key yas/keymap [tab] 'yas/next-field)
+                                 (yas-minor-mode)
+                                 (yas-reload-all)
+                                 ;; (interactive)
+                                 ;; make the lines in the buffer wrap around the edges of the screen.
+                                 (visual-line-mode)
+                                 (push '(">=" . ?≥) prettify-symbols-alist)
+                                 (push '("<=" . ?≤) prettify-symbols-alist)
+                                 (push '("\\geq" . ?≥) prettify-symbols-alist)
+                                 (push '("\\leq" . ?≤) prettify-symbols-alist)
+                                 (push '("\\neg" . ?¬) prettify-symbols-alist)
+                                 (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+                                 (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+                                 (push '("\\infty" . ?∞) prettify-symbols-alist)
+                                 (push '("-->" . ?→) prettify-symbols-alist)
+                                 (push '("<--" . ?←) prettify-symbols-alist)
+                                 (push '("\\exists" . ?∃) prettify-symbols-alist)
+                                 (push '("\\nexists" . ?∄) prettify-symbols-alist)
+                                 (push '("\\forall" . ?∀) prettify-symbols-alist)
+                                 (push '("\\or" . ?∨) prettify-symbols-alist)
+                                 (push '("\\and" . ?∧) prettify-symbols-alist)
+                                 (push '(":)" . ?☺) prettify-symbols-alist)
+                                 (push '("):" . ?☹) prettify-symbols-alist)
+                                 (push '(":D" . ?☺) prettify-symbols-alist)
+                                 (push '("^_^" . ?☻) prettify-symbols-alist)))
+                                 ;; this was how I originally got yas to work, but org-mode has another tip to get yas to work
+                                 ;; (let ((original-command (lookup-key org-mode-map [tab])))
+                                 ;; `(lambda ()
+                                 ;; (setq yas-fallback-behavior
+                                 ;; '(apply ,original-command))
+                                 ;; (local-set-key [tab] 'yas-expand))))
   #+END_SRC
 
 * a hydra that I found online that lets you easily remember some of the org commands
@@ -434,15 +512,97 @@ _d_: subtree
      )))
   #+END_SRC
 
-* org invoice
-  This lests you manage invoices with org-mode.  It is pretty cool!
-  #+BEGIN_SRC emacs-lisp
+  #+RESULTS:
+  : ((emacs-lisp . t) (awk . t) (C . t) (js . t) (python . t) (gnuplot . t) (sh . t) (gnuplot . t))
 
-  (autoload 'org-invoice-report "org-invoice")
-  (autoload 'org-dblock-write:invoice "org-invoice")
-  (require 'org-invoice)
+  Type C-c C-v e  org-babel-execute-maybe to see what this plot produces
+  #+BEGIN_SRC gnuplot
+    plot 'data' with boxes, sin(x) with lines
   #+END_SRC
 
+  #+RESULTS:
+
+* org invoice
+  This lests you manage invoices with org-mode.  It is pretty cool!
+  You can create invoices with the following format.  And just call org-invoice-report on the
+  begin invoice.  Be careful NOT to put an inactive time stamp anywhere in the tree unless you want that
+  parent to show up in the invoice.  ie: If you create a notes heading, don't have an inactive time stamp like
+  <2015-09-02 Sat> because when you generate that invoice, Notes will show up in the invoice even though it
+  has no time associated with it
+
+ * Working for Waypoint
+
+ #+BEGIN: invoice
+
+  | Task / Date                   |  Time |  Price |
+  |-------------------------------+-------+--------|
+  | Wednesday, September 02, 2015 |  9:57 | 149.25 |
+  | PCN HTML Design               |  9:57 | 149.25 |
+  |-------------------------------+-------+--------|
+  | Tuesday, August 18, 2015      |  3:19 |  49.75 |
+  |                               |  3:19 |  49.75 |
+  |-------------------------------+-------+--------|
+  | Total:                        | 13:16 | 199.00 |
+ #+END:
+
+ ** PCN HTML Design
+   :PROPERTIES:
+   :RATE: 15
+   :END:
+   :LOGBOOK:
+   CLOCK: [2015-10-16 Fri 14:49]--[2015-10-16 Fri 14:51] =>  0:02
+   CLOCK: [2015-10-16 Fri 09:47]--[2015-10-16 Fri 12:34] =>  2:47
+   CLOCK: [2015-10-15 Thu 17:32]--[2015-10-15 Thu 18:03] =>  0:31
+   CLOCK: [2015-10-15 Thu 17:14]--[2015-10-15 Thu 17:26] =>  0:12
+   CLOCK: [2015-10-15 Thu 16:24]--[2015-10-15 Thu 16:37] =>  0:13
+   CLOCK: [2015-10-15 Thu 15:42]--[2015-10-15 Thu 15:57] =>  0:15
+   CLOCK: [2015-10-15 Thu 14:47]--[2015-10-15 Thu 15:26] =>  0:39
+   CLOCK: [2015-10-15 Thu 14:34]--[2015-10-15 Thu 14:42] =>  0:08
+   CLOCK: [2015-10-15 Thu 13:26]--[2015-10-15 Thu 14:09] =>  0:43
+   CLOCK: [2015-10-15 Thu 13:09]--[2015-10-15 Thu 13:17] =>  0:08
+   CLOCK: [2015-10-15 Thu 11:16]--[2015-10-15 Thu 11:59] =>  0:43
+   CLOCK: [2015-10-15 Thu 11:10]--[2015-10-15 Thu 11:12] =>  0:02
+   CLOCK: [2015-10-14 Wed 14:49]--[2015-10-14 Wed 15:06] =>  0:17
+   CLOCK: [2015-10-14 Wed 14:38]--[2015-10-14 Wed 14:49] =>  0:11
+   CLOCK: [2015-10-14 Wed 11:39]--[2015-10-14 Wed 11:55] =>  0:16
+   CLOCK: [2015-10-14 Wed 09:59]--[2015-10-14 Wed 10:01] =>  0:02
+   CLOCK: [2015-10-14 Wed 09:05]--[2015-10-14 Wed 09:59] =>  0:54
+   CLOCK: [2015-10-06 Tue 13:22]--[2015-10-06 Tue 13:50] =>  0:28
+   CLOCK: [2015-10-06 Tue 11:34]--[2015-10-06 Tue 11:41] =>  0:07
+   CLOCK: [2015-10-02 Fri 15:53]--[2015-10-02 Fri 16:20] =>  0:27
+   CLOCK: [2015-10-02 Fri 13:21]--[2015-10-02 Fri 13:50] =>  0:29
+   CLOCK: [2015-09-17 Thu 17:06]--[2015-09-17 Thu 17:29] =>  0:23
+   :END:
+   <2015-09-02 Sat>
+ ** Client Bar (Jan 01 - Jan 15)
+   :PROPERTIES:
+   :RATE: 15
+   :END:
+   :LOGBOOK:
+   CLOCK: [2015-10-16 Fri 14:49]--[2015-10-16 Fri 14:51] =>  0:02
+   CLOCK: [2015-10-16 Fri 09:47]--[2015-10-16 Fri 12:34] =>  2:47
+   CLOCK: [2015-10-15 Thu 17:32]--[2015-10-15 Thu 18:03] =>  0:31
+   CLOCK: [2015-10-15 Thu 17:14]--[2015-10-15 Thu 17:26] =>  0:12
+   CLOCK: [2015-10-15 Thu 16:24]--[2015-10-15 Thu 16:37] =>  0:13
+   CLOCK: [2015-10-15 Thu 15:42]--[2015-10-15 Thu 15:57] =>  0:15
+   CLOCK: [2015-10-15 Thu 14:47]--[2015-10-15 Thu 15:26] =>  0:39
+   CLOCK: [2015-10-15 Thu 14:34]--[2015-10-15 Thu 14:42] =>  0:08
+   CLOCK: [2015-10-15 Thu 13:26]--[2015-10-15 Thu 14:09] =>  0:43
+   CLOCK: [2015-10-15 Thu 13:09]--[2015-10-15 Thu 13:17] =>  0:08
+   CLOCK: [2015-10-15 Thu 11:16]--[2015-10-15 Thu 11:59] =>  0:43
+   CLOCK: [2015-10-15 Thu 11:10]--[2015-10-15 Thu 11:12] =>  0:02
+   CLOCK: [2015-10-14 Wed 14:49]--[2015-10-14 Wed 15:06] =>  0:17
+   CLOCK: [2015-10-14 Wed 14:38]--[2015-10-14 Wed 14:49] =>  0:11
+   CLOCK: [2015-10-14 Wed 11:39]--[2015-10-14 Wed 11:55] =>  0:16
+   CLOCK: [2015-10-14 Wed 09:59]--[2015-10-14 Wed 10:01] =>  0:02
+   CLOCK: [2015-10-14 Wed 09:05]--[2015-10-14 Wed 09:59] =>  0:54
+   CLOCK: [2015-10-06 Tue 13:22]--[2015-10-06 Tue 13:50] =>  0:28
+   CLOCK: [2015-10-06 Tue 11:34]--[2015-10-06 Tue 11:41] =>  0:07
+   CLOCK: [2015-10-02 Fri 15:53]--[2015-10-02 Fri 16:20] =>  0:27
+   CLOCK: [2015-10-02 Fri 13:21]--[2015-10-02 Fri 13:50] =>  0:29
+   CLOCK: [2015-09-17 Thu 17:06]--[2015-09-17 Thu 17:29] =>  0:23
+   :END:
+   <2015-09-02 Sat>
 * org-notify lets you know when you have upcoming appointments
   I would like to get this set up so that it shows pop-ups using a lua script
   #+BEGIN_SRC emacs-lisp

@@ -28,7 +28,8 @@
 ;; Example - you may want to add hooks for your own modes.
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.php?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
+;; when I open a css file use css-mode that way I can set up flychech with it!
+;;(add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-mode))
 (setq web-mode-extra-auto-pairs
       '(("erb"  . (("beg" "end")))
@@ -86,8 +87,9 @@
                            (yas-reload-all)
                            (diminish 'yas-minor-mode)
                            ;; I've installed http://phpmd.org/ to check my php code using flycheck
-                           ;;(flycheck-mode)
                            ;; BUT flycheck mode does NOT support web-mode
+                           ;; so flycheck-mode WILL NOT work in php buffers where the major mode is web-mode
+                           ;;(flycheck-mode)
                            (ggtags-mode 1)
                            (diminish 'ggtags-mode)
                            ;;emmet mode for html % css related things
@@ -124,6 +126,10 @@
                            ;; unset web mode's C-c C-h command, because I want to use that for 'help
                            (local-unset-key (kbd "C-c C-h"))
                            (global-set-key (kbd "C-c C-h") 'help)))
+
+;; use flycheck in css buffers.  this'll only work if those buffers use css-mode and NOT web-mode
+;; because flycheck does not support web-mode
+(add-hook 'css-mode-hook (lambda () (flycheck-mode)))
 
 
 

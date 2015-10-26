@@ -356,7 +356,23 @@
   :ensure t
   :diminish guide-key-mode
   ;; init loads stuff before a package is loaded
-  :init (setq guide-key/guide-key-sequence '("C-x" "C-c" "C-x 4" "C-x 5" "C-x n" "C-c p" "C-c h" ))
+  :init (setq guide-key/guide-key-sequence '("C-x"
+                                             ;; this is for my personal keybindings
+                                             "C-c"
+                                             "C-x 4"
+                                             ;; this is for creating frames
+                                             "C-x 5"
+                                             ;; this is for narrowing commands
+                                             "C-x n"
+                                             ;; this is for projectile keys
+                                             "C-c p"
+                                             ;;this is for helm keys
+                                             "C-c h"
+                                             ;; this is for register commands
+                                             "C-x r"
+                                             ;; this is for org-babel commands
+                                             "C-c C-v"
+                                             ))
   ;; config does stuff after a package is loaded
   :config (guide-key-mode 1))
 

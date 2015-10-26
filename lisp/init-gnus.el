@@ -2,6 +2,14 @@
 ;;http://www.mostlymaths.net/2010/12/emacs-30-day-challenge-glimpse-of-bbdb.html
 ;; http://www.mostlymaths.net/2010/12/emacs-30-day-challenge-using-gnus-to.html
 ;; set up gnus to use Purdue IMAP
+;; practical gnus tutorial
+;; http://blog.binchen.org/posts/notes-on-using-gnus.html#sec-1
+;; http://sachachua.com/blog/2008/05/emacs-gnus-searching-mail/
+;; using mime in gnus http://orgmode.org/worg/org-contrib/org-mime.html
+;; When you first start gnus you need to type "t".  Not sure why, but you do.
+;; You also need to type j (jump) to a particular folder
+;; also sometimes your inboxes won't sure up (if they are contain no unread mail mail) so
+;; to see all inbex
 
 ;; You can find the following guide here: http://www.emacswiki.org/emacs/GnusGmail#toc1
 ;; Quickstart
@@ -183,26 +191,38 @@
 
 ;; get bbdb set up (insidious big brother database) it manages your mail contacts
 ;; http://bbdb.sourceforge.net/bbdb.html#SEC13
+;; When you are about to email someone you can easily start typing their name then press tab
+;; to try to complete the email address
+
+
+;;Now you should be ready to go.  Say ‘M-x bbdb RET RET’ to open
+;;a bbdb buffer showing all entries.  Say ‘c’ to create a new
+;;entry, ‘b’ to search your BBDB and ‘C-o’ to add a new field to an
+;; entry.  If you want to add a sender to the BBDB you can also just
+;; hit ‘:’ on the posting in the summary buffer and you are done.
+;; When you now compose a new mail, hit ‘TAB’ to cycle through know
+;; recipients.
+
 (use-package bbdb
   :ensure t)
 ;; these string are needed to initial bbdb for gnus, message, and send mail
 ;;(bbdb-initialize 'gnus 'message 'sendmail 'w3)
 ;; if this doesn't work, use the obve code
-(bbdb-initialize 'gnus 'message 'w3)
-
-;;initialize bbdb for gnus
-(add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+;; http://www.mostlymaths.net/2010/12/emacs-30-day-challenge-glimpse-of-bbdb.html
+(require 'bbdb)
+(bbdb-initialize 'gnus 'message)
 
 ;; use bbdb in message mode
 (bbdb-insinuate-message)
 
-;; this is not working right now.
-;; (add-hook 'message-mode-hook
-;;           '(lambda ()
-;;              (local-set-key "s-<TAB>" 'bbdb-complete-name)))
+;;initialize bbdb for gnus
+(add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+
 
 ;;allow bbdb records to allow the inclusion of URLs
 ;;(bbdb-insinuate-w3)
+
+;; [[info:gnus#FAQ%205-7][info:gnus#FAQ 5-7]]  how to use bbdb with gnus
 
 (setq bbdb/gnus-summary-prefer-real-names t
       bbdb-file "~/.emacs.d/bbdb"
@@ -210,20 +230,20 @@
       ;; make gnus auto create records for the email that I read
       ;; this is a bad idea, because I get junk mail
       ;; bbdb/news-auto-create-p t
-      bbdb-user-mail-names "jbranso@purdue.edu"
+      ;;bbdb-user-mail-names "jbranso@purdue.edu"
+      bbdb-user-mail-names "jbranson@setyourwaypoint.com"
       ;; make bbdb pop up when you are using it in gnus
       bbdb-use-pop-up t
       ;; make bbdb save the database without asking
-      bbdb-offer-save  1
+      bbdb-offer-save 1
       bbdb-update-records-p t
       ;; gnus will recognize these email addresses as mine
       bbdb-user-mail-address-re
       (regexp-opt
-       '("jbranso@purdue.edu" "bransoj@hotmail.com"))
+       '("jbranso@purdue.edu" "bransoj@hotmail.com" "jbranson@setyourwaypoint.com"))
       message-dont-reply-to-names bbdb-user-mail-address-re
       gnus-ignored-from-addresses bbdb-user-mail-address-re)
 
-(bbdb-initialize 'gnus 'message)
 (bbdb-mua-auto-update-init 'message)
 
 

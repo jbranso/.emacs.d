@@ -65,6 +65,7 @@
 (require 'init-erc)
 (require 'init-eshell)
 (require 'init-paradox)
+(require 'init-bash)
 ;; Nicer naming of buffers for files with identical names
 ;; Instead of Makefile<1> and Makefile<2>, it will be
 ;; Makefile | tmp  Makefile | lisp
@@ -80,6 +81,9 @@
 ;;(require 'init-sessions)
 (require 'init-helm)
 (require 'init-projectile)
+;;(org-babel-load-file "init-org.org")
+;;(org-babel-load-file (concat user-emacs-directory "init-org.org"))
+;;https://github.com/danielmai/.emacs.d/blob/master/init.el
 (require 'init-org)
 (require 'init-hydra)
 (use-package sx
