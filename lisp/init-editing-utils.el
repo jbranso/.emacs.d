@@ -179,6 +179,7 @@
 ;; C-x C-l lowercase region
 ;; C-x C-u uppercase region
 ;; my modkey <letter> commands
+(global-set-key (kbd "s-;") #'web-mode-comment-or-uncomment)
 (global-set-key (kbd "s-a") #'mark-whole-buffer)
 (global-set-key (kbd "s-d") #'my/downcase-word)
 (global-set-key (kbd "s-g") #'magit-status)
