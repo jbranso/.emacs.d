@@ -27,10 +27,14 @@
 (setq web-mode-enable-auto-pairing t)
 ;; Example - you may want to add hooks for your own modes.
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.php?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.phtml?\\'" . web-mode))
+;; I want to enable the next line at some point.
+;; BUT I need to enable the yasnippets for php mode AND fix phpcs, which I have a capture for somewhere
+(add-to-list 'auto-mode-alist '("\\.php?\\'"  . php-mode))
 ;; when I open a css file use css-mode that way I can set up flychech with it!
 ;;(add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.css?\\'" . css-mode))
 (setq web-mode-extra-auto-pairs
       '(("erb"  . (("beg" "end")))
         ("php"  . (("beg" "end")
@@ -130,6 +134,38 @@
 ;; use flycheck in css buffers.  this'll only work if those buffers use css-mode and NOT web-mode
 ;; because flycheck does not support web-mode
 (add-hook 'css-mode-hook (lambda () (flycheck-mode)))
+
+;; use flycheck in php buffers as well. it's a real shame that flycheck doesn't support web-mode
+(add-hook 'php-mode-hook (lambda ()
+                           (define-key php-mode-map (kbd "C-<return>") '(lambda ()
+                                                                          (interactive)
+                                                                          (newline)
+                                                                          (evil-open-above 0)))
+                           (flycheck-mode)
+                           (push '("function" . ?𝆑) prettify-symbols-alist)
+                           (push '(">=" . ?≥) prettify-symbols-alist)
+                           (push '("<=" . ?≤) prettify-symbols-alist)
+                           (push '("\\geq" . ?≥) prettify-symbols-alist)
+                           (push '("\\leq" . ?≤) prettify-symbols-alist)
+                           (push '("\\neg" . ?¬) prettify-symbols-alist)
+                           (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+                           (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+                           (push '("\\infty" . ?∞) prettify-symbols-alist)
+                           ;; this would make a comment look really weird <--  right-arrow
+                           ;;(push '("-->" . ?→) prettify-symbols-alist)
+                           (push '("<--" . ?←) prettify-symbols-alist)
+                           (push '("\\exists" . ?∃) prettify-symbols-alist)
+                           (push '("\\nexists" . ?∄) prettify-symbols-alist)
+                           (push '("\\forall" . ?∀) prettify-symbols-alist)
+                           (push '("\\or" . ?∨) prettify-symbols-alist)
+                           (push '("\\and" . ?∧) prettify-symbols-alist)
+                           (push '(":)" . ?☺) prettify-symbols-alist)
+                           ;;(push '("):" . ?☹) prettify-symbols-alist)
+                           (push '(":D" . ?☺) prettify-symbols-alist)
+                           (push '("^_^" . ?☻) prettify-symbols-alist)
+                           (yas-minor-mode)
+                           (yas-reload-all)
+                           ))
 
 
 

@@ -18,7 +18,10 @@
 ;; color than the function's parenthesis.
 (use-package rainbow-delimiters
   :ensure t)
-(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'emacs-lisp-mode-hook '(lambda ()
+                                   (rainbow-delimiters-mode 1)
+                                   (flycheck-mode 1)
+                                   ))
 
 ;; automatically indent the text after certain commands are pressed!
 (when (fboundp 'aggressive-indent-mode)

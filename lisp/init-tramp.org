@@ -1,0 +1,39 @@
+#+TITLE: My TRAMP config
+* What is Tramp?
+  TRAMP is an emacs package that allows you to easily edit remote files without making the user (you), enter in a command like
+  ~ssh jbra44n@purdue.edu~ \\
+  Instead TRAMP lets you do the usual emacs method ("C-x C-f") to open a remote file with the following syntax either:
+
+  -   HOST:FILENAME
+  -   /USER@HOST:FILENAME
+  -   /USER@HOST#PORT:FILENAME
+  -   /METHOD:USER@HOST:FILENAME
+  -   /METHOD:USER@HOST#PORT:FILENAME
+
+  (setq tramp-default-method "ssh")
+
+  You can also specify different methods for certain user/host combinations, via the variable ‘tramp-default-method-alist’.  For
+example, the following two lines specify to use the ‘ssh’ method for all user names matching ‘john’ and the ‘rsync’ method for all
+host names matching ‘lily’.  The third line specifies to use the ‘su’ method for the user ‘root’ on the host ‘localhost’.
+
+     (add-to-list 'tramp-default-method-alist '("" "john" "ssh"))
+     (add-to-list 'tramp-default-method-alist '("lily" "" "rsync"))
+     (add-to-list 'tramp-default-method-alist
+                  '("\\`localhost\\'" "\\`root\\'" "su"))
+
+   You can also specify different users for certain method/host combinations, via the variable ‘tramp-default-user-alist’.  For
+example, if you always have to use the user ‘john’ in the domain ‘somewhere.else’, you can specify the following:
+
+
+     (add-to-list 'tramp-default-user-alist
+                  '("ssh" ".*\\.somewhere\\.else\\'" "john"))
+
+
+* My TRAMP config
+  I'm setting my default transfer files methods to scp. This method is apparently the most secure way to transfer files.
+  #+BEGIN_SRC emacs-lisp
+  (setq tramp-default-method "scp")
+  #+END_SRC
+
+  #+RESULTS:
+  : scp
