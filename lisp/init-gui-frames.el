@@ -9,6 +9,11 @@
   :ensure t
   :diminish golden-ratio-mode)
 (golden-ratio-mode 1)
+;; http://endlessparentheses.com/beacon-never-lose-your-cursor-again.html?source=rss
+;; whenever you jump a line down or jump a line up, beacon flashes a little but.  pretty cool.
+(beacon-mode 1)
+(setq beacon-push-mark 35)
+(setq beacon-color "#666600")
 
 ;; scroll one line at a time (less "jumpy" than defaults)
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time

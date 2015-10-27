@@ -506,7 +506,7 @@ _d_: subtree
      (python . t)
      (gnuplot . t)
      (sh . t)
-     ;;(sql . t)
+     (sql . t)
      ;;(sqlite . t)
      (gnuplot . t)
      )))

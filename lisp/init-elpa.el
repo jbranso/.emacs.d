@@ -3,14 +3,14 @@
 
 ;;; Standard package repositories
 
+;; don't use marmalade.  They are down all the time and not reliable
 ;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 
-(when (< emacs-major-version 24)
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 
 ;;; Also use Melpa for most packages
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-;; No one uses melpa stable apparently.
+;; No one uses melpa stable apparently according to the melpa maintainer Steve Purcell and original author of this config.
 ;;(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
 
@@ -43,18 +43,17 @@ locate PACKAGE."
 
 
 ;;; Fire up package.el
-
 (setq package-enable-at-startup nil)
 (package-initialize)
 
+
+
+;;(require-package 'fullframe)
+;;(fullframe list-packages quit-window)
 
 
-(require-package 'fullframe)
-(fullframe list-packages quit-window)
-
-
-(require-package 'cl-lib)
-(require 'cl-lib)
+;;(require-package 'cl-lib)
+;;(require 'cl-lib)
 
 (defun sanityinc/set-tabulated-list-column-width (col-name width)
   "Set any column with name COL-NAME to the given WIDTH."
@@ -72,16 +71,17 @@ locate PACKAGE."
 (add-hook 'package-menu-mode-hook 'sanityinc/maybe-widen-package-menu-columns)
 
 ;; This sets up el-get
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+;; but I don't use it so???
+;;(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
+;; (unless (require 'el-get nil 'noerror)
+;;   (with-current-buffer
+;;       (url-retrieve-synchronously
+;;        "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+;;     (goto-char (point-max))
+;;     (eval-print-last-sexp)))
 
-(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(el-get 'sync)
+;; (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+;; (el-get 'sync)
 
 (provide 'init-elpa)

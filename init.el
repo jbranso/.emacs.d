@@ -14,7 +14,7 @@
 
 ;; I don't use it, why have it?
 ;;(defconst *spell-check-support-enabled* t) ;; Enable with t if you prefer
-(defconst *is-a-mac* (eq system-type 'darwin))
+;;(defconst *is-a-mac* (eq system-type 'darwin))
 
 ;;----------------------------------------------------------------------------
 ;; Bootstrap config
