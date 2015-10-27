@@ -36,8 +36,6 @@
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
 
-;;I can't get use-package to work. why?
-;;(require-package 'use-package)
 (eval-when-compile
   (require 'use-package))
 ;; diminish hides packages from being on the modeline.  You can use use-package to do this
@@ -53,8 +51,9 @@
 
 ;; this will be cool to monitor my commands.
 ;; But I have to initialize it...It will not record commands by default.
-(require-package 'mwe-log-commands)
-(mwe:log-keyboard-commands)
+;; I don't really use this functionality.  I never see what commands I'm using.  So I'll ignore it for now.
+;;(require-package 'mwe-log-commands)
+;;(mwe:log-keyboard-commands)
 
 (require 'init-gnus)
 (require 'init-vc)
