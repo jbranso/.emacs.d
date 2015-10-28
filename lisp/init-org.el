@@ -48,8 +48,22 @@
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
 ;;(setq org-default-notes-file (concat org-directory "/notes.org"))
 
+(require 'org-crypt)
+(org-crypt-use-before-save-magic)
+(setq org-tags-exclude-from-inheritance (quote ("crypt")))
+
+(setq org-crypt-key '1CADFCE802C95561)
+(setq org-crypt-key 'u)
+
+(setq auto-save-default nil)
+
 (setq org-capture-templates
     '(
+
+      ("B" "Things I want to buy" entry (file+headline
+      "~/programming/org/gtd/projects/managing-my-monies.org" "things I want to buy")
+       "* %?\nEntered on %U\n  %i\n  %a")
+
       ("c" "Computers Anything")
       ("ca" "Awesome WM" entry (file+headline "~/programming/org/gtd/gtd.org" "awesome WM someday")
        "* TODO %?\nEntered on %U\n  %i\n  %a")
@@ -110,7 +124,8 @@
       ("C" "Community")
       ("Cc" "community TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "community someday")
        "* TODO %?\n  %i\n  %a")
-      ("Cn" "nice things to say" entry (file+headline "~/programming/org/gtd/gtd.org" "nice things to say to people")
+      ("Cn" "nice things to say" entry (file+headline "~/programming/org/gtd/projects/get-close-to-God.org"
+      "nice things to say")
        "* TODO %?\nEntered on %U\n  %i\n  %a")
       ("Cs" "Social Skills Notes" entry (file+headline "~/programming/org/gtd/being-social.org" "Social Skills Notes")
        "* %?\nEntered on %U\n  %i\n  %a")
@@ -275,7 +290,16 @@ EXT is a list of the extensions of files to be included."
 (after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
+(defun yas/org-very-safe-expand ()
+  (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+
 (add-hook 'org-mode-hook #'(lambda ()
+                             (make-variable-buffer-local 'yas/trigger-key)
+                             (setq yas/trigger-key [tab])
+                             (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+                             (define-key yas/keymap [tab] 'yas/next-field)
+                             (yas-minor-mode)
+                             (yas-reload-all)
                              ;; (interactive)
                              ;; make the lines in the buffer wrap around the edges of the screen.
                              (visual-line-mode)
@@ -297,13 +321,13 @@ EXT is a list of the extensions of files to be included."
                              (push '(":)" . ?☺) prettify-symbols-alist)
                              (push '("):" . ?☹) prettify-symbols-alist)
                              (push '(":D" . ?☺) prettify-symbols-alist)
-                             (push '("^_^" . ?☻) prettify-symbols-alist)
+                             (push '("^_^" . ?☻) prettify-symbols-alist)))
+                             ;; this was how I originally got yas to work, but org-mode has another tip to get yas to work
                              ;; (let ((original-command (lookup-key org-mode-map [tab])))
                              ;; `(lambda ()
                              ;; (setq yas-fallback-behavior
                              ;; '(apply ,original-command))
                              ;; (local-set-key [tab] 'yas-expand))))
-                             ))
 
 (defhydra hydra-outline (:color pink :hint nil)
   "
@@ -358,7 +382,7 @@ _d_: subtree
      (python . t)
      (gnuplot . t)
      (sh . t)
-     ;;(sql . t)
+     (sql . t)
      ;;(sqlite . t)
      (gnuplot . t)
      )))
