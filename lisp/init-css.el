@@ -6,17 +6,16 @@
 
 
 ;;; SASS and SCSS
-(require-package 'sass-mode)
-(require-package 'scss-mode)
+(use-package sass-mode)
+(use-package scss-mode)
 (setq-default scss-compile-at-save nil)
 
 
 
 ;;; LESS
-(require-package 'less-css-mode)
+(use-package less-css-mode)
 (when (featurep 'js2-mode)
-  (require-package 'skewer-less))
-
+  (use-package skewer-less))
 
 
 ;;; Auto-complete CSS keywords

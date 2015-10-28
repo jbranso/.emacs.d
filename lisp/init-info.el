@@ -1,0 +1,8 @@
+;;; Code:
+;;this lets you use the windmove commands inside an info buffer!!!! sooo cool!
+(define-key Info-mode-map (kbd "C-w h") 'windmove-down)
+(define-key Info-mode-map (kbd "C-w t") 'windmove-up)
+(define-key Info-mode-map (kbd "C-w n") 'windmove-left)
+(define-key Info-mode-map (kbd "C-w s") 'windmove-right)
+
+(provide 'init-info)

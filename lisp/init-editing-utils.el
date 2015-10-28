@@ -6,12 +6,12 @@
  ;; I want to open links from org-mode in chromium
  browse-url-browser-function (quote browse-url-chromium)
  bookmark-default-file (expand-file-name ".bookmarks.el" user-emacs-directory)
- buffers-menu-max-size 30
+ ;;original value was 30.  A large number slows down emacs a bit apparently
+ buffers-menu-max-size 20
  case-fold-search t
  default-tab-width 4
- ;; debug-on-error t
- ;;this lets you delete selected text as you start typing BUT evil mode does this for me. So this is not needed.
- ;;delete-selection-mode t
+ ;; I believe this sets up ediff to split the two windows horizontally AND to NOT show you all the commands
+ ;; you can use on the two buffers that you are comapring
  ediff-split-window-function 'split-window-horizontally
  ediff-window-setup-function 'ediff-setup-windows-plain
  fill-column 130
@@ -22,6 +22,7 @@
  inhibit-startup-echo-area-message t
  inhibit-startup-message t
  make-backup-files nil
+ initial-scratch-message nil
  ;; don't let the cursor go into minibuffer prompt
  ;; http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
  minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
@@ -35,14 +36,13 @@
  set-mark-command-repeat-pop t
  tooltip-delay 1.5
  truncate-lines nil
- truncate-partial-width-windows nil
- )
+ truncate-partial-width-windows nil)
 
 ;; some programming modes DO NOT want visual line mode enabled
 ;;(global-visual-line-mode 1)
 ;;show the number of lines you are on
 (global-linum-mode 1)
-;; this highlights search and replace as you type
+;; this highlights search and replacements as you type  VERY helpful for dired-do-replace-regexp and isearch-regexp
 (use-package anzu
   :ensure t
   :diminish anzu-mode)
@@ -97,12 +97,12 @@
 
 (global-set-key "\C-xQ" #'my-macro-query)
 
-;; put semantic is supposed to have that feature too.
+;; but semantic is supposed to have that feature too.
 ;;This mode highlights the current word under point! very cool!
-;; (require-package 'highlight-symbol)
+;;  (require-package 'highlight-symbol)
 ;; (dolist (hook '(prog-mode-hook html-mode-hook css-mode-hook))
 ;;   (add-hook hook 'highlight-symbol-mode)
-;;   (add-hook hook 'highlight-symbol-nav-mode))
+  ;; (add-hook hook 'highlight-symbol-nav-mode))
 ;; (eval-after-load 'highlight-symbol
 
 
@@ -122,13 +122,16 @@
 ;; Show matching parens
 ;;----------------------------------------------------------------------------
 (show-paren-mode 1)
+;; when you type an open parenthsis, electric pair mode types the second one for you,
+;; leaving point between them
 (electric-pair-mode t)
 ;;----------------------------------------------------------------------------
 ;; Expand region
 ;;----------------------------------------------------------------------------
 ;; The binding for this is listed below
 ;; this does not play well with evil
-(use-package expand-region)
+;; since I rarely use it, let's not include it
+;; (use-package expand-region)
 
 ;;----------------------------------------------------------------------------
 ;; Don't disable case-change functions
@@ -304,17 +307,16 @@
 (global-set-key (kbd "C-c >")   #'mc/mark-next-like-this)
 (global-set-key (kbd "C-c C-<") #'mc/mark-all-like-this)
 ;; From active region to multiple cursors:
-;;(global-set-key (kbd "C-c c r") #'set-rectangular-region-anchor)
 ;;(global-set-key (kbd "C-c c c") #'mc/edit-lines)
 ;;(global-set-key (kbd "C-c c e") #'mc/edit-ends-of-lines)
 ;;(global-set-key (kbd "C-c c a") #'mc/edit-beginnings-of-lines)
 
-;; To make myself use C-w h/t/n/s
+;; To make myself use C-w h/t/n/s when changing to other windows
 (global-set-key (kbd "C-x o") 'other-window)
 ;; make myself use "s-s"
 (global-unset-key (kbd "C-x C-s"))
 
-;;----------------------------------------------------------------------------
+
 ;; Page break lines
 ;;----------------------------------------------------------------------------
 ;; this turn ^L into nice long lines.
@@ -323,14 +325,14 @@
   :diminish page-break-lines-mode
   :config (global-page-break-lines-mode))
 
-;;----------------------------------------------------------------------------
+
 ;; Shift lines up and down with M-up and M-down. When paredit is enabled,
 ;; it will use those keybindings. For this reason, you might prefer to
 ;; use M-S-up and M-S-down, which will work even in lisp modes.
 ;;----------------------------------------------------------------------------
 (require-package 'move-dup)
-;; it would be nice if this worked, but life.
 (global-set-key (kbd "s-t") #'md/move-lines-up)
+;; this won't work because this is a command that feeds into awesome
 (global-set-key (kbd "s-h") #'md/move-lines-down)
 
 (global-set-key (kbd "s-p") 'md/duplicate-down)

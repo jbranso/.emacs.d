@@ -43,8 +43,7 @@
 ;; to use :bind with use-package, require bind-key
 (require 'bind-key)
 (require 'use-package)
-;;(require 'use-package)
-;;(require-package 'wgrep)
+(require 'init-wgrep)
 ;;(require-package 'project-local-variables)
 ;; this helps you minizize modeline clutter by hidding some modes on the mode line.
 ;; http://www.emacswiki.org/emacs/DiminishedModes
@@ -75,9 +74,6 @@
 ;;yasnippet needs to be loaded before auto complete to let them play nicely together
 (require 'init-yasnippet)
 (require 'init-cedet)
-;; since I don't use it... why enable it?
-;; this file saves all open buffers. It is so useful!
-;;(require 'init-sessions)
 (require 'init-helm)
 ;; I haven't used projectile commands in a while.  I'll try turing them off and seenig what happens.
 ;;(require 'init-projectile)
@@ -86,11 +82,14 @@
 ;;https://github.com/danielmai/.emacs.d/blob/master/init.el
 (require 'init-org)
 (require 'init-hydra)
-(use-package sx
-  :defer t
-  :ensure t) ;;searching stack exchange via emacs!  C-c S
+;; I also hardly ever use this sx package, which is an amazing package!
+;; (use-package sx
+;;   :defer t
+;;   :ensure t) ;;searching stack exchange via emacs!  C-c S
 (require 'init-editing-utils)
 (require 'init-evil)
+;; set up info to use the windmove commands!
+(require 'init-info)
 
 ;; http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html
 ;;(require 'init-darcs)
@@ -102,7 +101,7 @@
 
 (require 'init-html)
 ;;(require 'init-org2blog)
-;;(require 'init-css)
+(require 'init-css)
 ;;(require 'init-python-mode)
 (require 'init-defuns)
 (require 'init-emms)
@@ -127,3 +126,4 @@
 ;; coding: utf-8
 ;; no-byte-compile: t
 ;; End:
+;;; init.el ends here

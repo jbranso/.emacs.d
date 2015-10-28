@@ -8,34 +8,15 @@
 (use-package evil-surround
   :ensure t
   :config (global-evil-surround-mode 1))
-;; I can add more surround pairs by doing this
-;; (add-hook 'c++-mode-hook (lambda ()
-;;                            (push '(?< . ("< " . " >")) surround-pairs-alist)))
-;;I don't know why this is not working.
-;;(add-hook 'evil-mode-hook 'turn-on-surround-mode)
 
 ;;Do not move the cursor back when exiting insert mode.
 (setq evil-move-cursor-back nil)
 ;; This macro allows me to insert a space with the spacebar.
 (fset 'viper-space "\C-z \C-z")
-;; this macro will turn a WORD into a proper html link
-(fset 'makeHref
-      (lambda (&optional arg)
-        "Keyboard macro."
-        (interactive "p")
-        (kmacro-exec-ring-item
-         (quote ("EBEyES<a href=\">" 0 "%d")) arg)))
-
-
-;; (defun org-link ()
-
-;;   )
 
 ;; Make evil-insert-mode allow emacs keybindings
 (setcdr evil-insert-state-map nil)
 
-;; I have no idea why this is not working. It should be!
-;; this a file that will hopefully soon become and emacs package.
 (setq evil-dvorak-funky-h-and-t 1)
 (setq evil-dvorak-use-for-web-mode 1)
 
@@ -44,11 +25,7 @@
   :config (global-evil-dvorak-mode 1)
   :diminish evil-dvorak-mode)
 
-
-
 (local-unset-key (kbd "TAB"))
-;; (define-key evil-normal-state-map (kbd "C-w h") #'windmove-down)
-;; (define-key evil-normal-state-map (kbd "C-w t") #'windmove-up)
 
 (define-key evil-emacs-state-map (kbd "s-z") #'evil-normal-state)
 
