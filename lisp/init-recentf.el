@@ -1,5 +1,5 @@
 (recentf-mode 1)
-(setq recentf-max-saved-items 2000
+(setq recentf-max-saved-items 1000
       recentf-exclude '("/tmp/"
 			"^.*autoloads.*$"
             "^.*TAGS.*$"

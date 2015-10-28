@@ -61,17 +61,17 @@
 (require 'init-recentf)
 (require 'init-dired)
 (require 'init-grep)
-(require 'init-erc)
+;; I don't really ever use erc in emacs.  It's kind of annoying, and it occasionally changes the buffer to
+;; erc buffers randomly.  Not a fan at the moment.
+;;(require 'init-erc)
 (require 'init-eshell)
+;; this sets up paradox to use my private token to access public repos.
 (require 'init-paradox)
 (require 'init-bash)
 ;; Nicer naming of buffers for files with identical names
 ;; Instead of Makefile<1> and Makefile<2>, it will be
 ;; Makefile | tmp  Makefile | lisp
-;; It's a nice mode, but I'm not sure that I use it
-;;(require 'init-uniquify)
-;; this sets up paradox to use my private token to access public repos.
-(require 'init-recentf)
+(require 'init-uniquify)
 ;;yasnippet needs to be loaded before auto complete to let them play nicely together
 (require 'init-yasnippet)
 (require 'init-cedet)
@@ -79,7 +79,8 @@
 ;; this file saves all open buffers. It is so useful!
 ;;(require 'init-sessions)
 (require 'init-helm)
-(require 'init-projectile)
+;; I haven't used projectile commands in a while.  I'll try turing them off and seenig what happens.
+;;(require 'init-projectile)
 ;;(org-babel-load-file "init-org.org")
 ;;(org-babel-load-file (concat user-emacs-directory "init-org.org"))
 ;;https://github.com/danielmai/.emacs.d/blob/master/init.el

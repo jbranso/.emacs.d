@@ -72,6 +72,7 @@
 ;;how long a word needs to be before auto-complete suggestions come up.
 (setq-default ac-auto-start 3)
 (setq-default ac-dwim t) ; To get pop-ups with docs even if a word is uniquely completed
+;; to get fuzzy matches with things.  Very helpful
 (setq-default ac-use-fuzzy t)
 
 ;;----------------------------------------------------------------------------
@@ -84,7 +85,7 @@
 
 ;; make expand be tab
 (define-key ac-complete-mode-map "\t" #'ac-expand)
-;; make complet by return
+;; make complete by return
 (define-key ac-complete-mode-map "\C-m" #'ac-complete)
 ;; I was going to make every up and down be t and h but too annoying
 (define-key ac-complete-mode-map "\C-n" #'ac-next)
@@ -108,7 +109,7 @@
                 text-mode
                 git-commit-mode
                 ;; sass-mode espresso-mode
-                smarty-mode
+                ;; smarty-mode
                 html-mode
                 ;; clojure-mode
                 lisp-mode
@@ -116,9 +117,9 @@
                 ;;js3-mode
                 css-mode
                 ;; less-css-mode
-                sql-mode
+                ;; sql-mode
                 eshell-mode
-                sql-interactive-mode
+                ;; sql-interactive-mode
                 inferior-emacs-lisp-mode))
   (add-to-list 'ac-modes mode))
 
@@ -126,6 +127,5 @@
 ;; Exclude very large buffers from dabbrev
 (defun sanityinc/dabbrev-friend-buffer (other-buffer)
   (< (buffer-size other-buffer) (* 1 1024 1024)))
-
 
 (provide 'init-cedet)

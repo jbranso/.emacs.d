@@ -9,7 +9,7 @@
 ;; I've installed helm-ag, which might be cool.
 
 (setq
- ;;don't let helm guess what you want to search for on helm swoop... It is normally wrong.
+ ;;don't let helm swoop guess what you want to search... It is normally wrong and annoying.
  helm-swoop-pre-input-function #'(lambda () (interactive))
  ;; tell helm to use recentf-list to look for files instead of file-name-history
  helm-ff-file-name-history-use-recentf t
@@ -20,7 +20,7 @@
  ;; don't let helm index weird output files from converting .tex files to pdf for example
  helm-ff-skip-boring-files t
  ;;make helm use the full frame. not needed.
- ;;helm-full-frame t
+ ;; helm-full-frame t
  ;; enable fuzzy mating in M-x
  ;;helm-M-x-fuzzy-match t
  ;;helm-recentf-fuzzy-match t
@@ -30,7 +30,7 @@
                                  helm-source-buffers-list
                                  helm-source-recentf
                                  ;;helm-source-bookmarks
-                                 ;;helm-source-file-cache
+                                 helm-source-file-cache
                                  helm-source-files-in-current-dir
                                  ;;helm-source-locate
                                  ;;helm-source-projectile-files-in-all-projects-list

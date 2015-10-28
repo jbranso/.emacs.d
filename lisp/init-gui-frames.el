@@ -2,6 +2,7 @@
 ;; Window size and features
 ;;----------------------------------------------------------------------------
 
+;;; Code:
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
 
@@ -16,12 +17,10 @@
 (setq beacon-color "#666600")
 
 ;; scroll one line at a time (less "jumpy" than defaults)
+;; this lets you scroll the emacs buffer rather smoothly
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 
 ;; this is SOOO useful!
