@@ -89,7 +89,7 @@
 (require 'init-editing-utils)
 (require 'init-evil)
 ;; set up info to use the windmove commands!
-(require 'init-info)
+;;(require 'init-info)
 
 ;; http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html
 ;;(require 'init-darcs)

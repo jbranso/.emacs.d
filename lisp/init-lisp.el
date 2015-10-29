@@ -29,6 +29,13 @@
 
 ;; show documentation of the current elisp function in the minibuffer as you write it.
 ;; whoever made this mode is amazing!
-(turn-on-eldoc-mode)
+
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(use-package paredit
+  :ensure t)
+
+(defun turn-on-paredit ()
+  (paredit-mode +1))
+(add-hook 'emacs-lisp-mode-hook 'turn-on-paredit)
 
 (provide 'init-lisp)

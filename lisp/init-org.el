@@ -161,20 +161,28 @@
       ))
 
 (setq
+ ;; make org-mode record the date when you finish a task
  org-log-done t
+ ;; when you press S-down, org changes the timestamp under point
  org-edit-timestamp-down-means-later t
- ;; don't make the agenda only show saturday and Sunday if today is saturday. Make it show 7 days
+ ;; make the agenda start on today not wednesday
  org-agenda-start-on-weekday nil
+ ;; don't make the agenda only show saturday and Sunday if today is saturday. Make it show 7 days
  org-agenda-span 7
- ;; using the diary really slows down the agenda view
+ ;; using the diary slows down the agenda view
+ ;; but it also shows you upcoming calendar events
  org-agenda-include-diary t
+ ;; this tells the agenda to take up the whole window and hide all other buffers
  org-agenda-window-setup 'current-window
- org-fast-tag-selection-single-key 'expert
+ ;; this tells org-mode to only quit selecting tags for things when you tell it that you are done with it
+ org-fast-tag-selection-single-key nil
  org-html-validation-link nil
  org-export-kill-product-buffer-when-displayed t
+ ;; are there more backends that I can use?
  org-export-backends '(ascii beamer html texinfo latex)
  ;;most of these modules let you store links to various stuff in org
  org-modules '(org-bbdb org-gnus org-info invoice man toc)
+ ;; where to put the :action: or :work: tag after a heading.  80 colums over
  org-tags-column 80)
 
 ;;a visual hint to let you know what line you are in in org-mode agenda
@@ -242,9 +250,8 @@ EXT is a list of the extensions of files to be included."
 (setq org-outline-path-complete-in-steps t)
 
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "CHARGED(c)" "|" "PAID(p)" "DONE(d)")))
+      '((sequence "STARTED(s) TODO(t)" "CHARGED(c)" "|" "PAID(p)" "DONE(d)")))
 
-;; none of these do anything
 ;;  (setq org-todo-keywords
 ;;        (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
 ;;                (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)"))))
@@ -259,7 +266,7 @@ EXT is a list of the extensions of files to be included."
 (setq org-clock-in-resume t)
 
 ;; Change task state to STARTED when clocking in
-;;(setq org-clock-in-switch-to-state "STARTED")
+(setq org-clock-in-switch-to-state "STARTED")
 ;; Save clock data and notes in the LOGBOOK drawer
 (setq org-clock-into-drawer t)
 ;; Removes clocked tasks with 0:00 duration
@@ -303,6 +310,7 @@ EXT is a list of the extensions of files to be included."
                              ;; (interactive)
                              ;; make the lines in the buffer wrap around the edges of the screen.
                              (visual-line-mode)
+                             ;;make ">=" look like >=, etc.
                              (push '(">=" . ?≥) prettify-symbols-alist)
                              (push '("<=" . ?≤) prettify-symbols-alist)
                              (push '("\\geq" . ?≥) prettify-symbols-alist)
@@ -322,12 +330,6 @@ EXT is a list of the extensions of files to be included."
                              (push '("):" . ?☹) prettify-symbols-alist)
                              (push '(":D" . ?☺) prettify-symbols-alist)
                              (push '("^_^" . ?☻) prettify-symbols-alist)))
-                             ;; this was how I originally got yas to work, but org-mode has another tip to get yas to work
-                             ;; (let ((original-command (lookup-key org-mode-map [tab])))
-                             ;; `(lambda ()
-                             ;; (setq yas-fallback-behavior
-                             ;; '(apply ,original-command))
-                             ;; (local-set-key [tab] 'yas-expand))))
 
 (defhydra hydra-outline (:color pink :hint nil)
   "
@@ -363,10 +365,6 @@ _d_: subtree
   ("z" nil "leave"))
 
 (global-set-key (kbd "C-c #") 'hydra-outline/body) ; by example
-
-;; (after-load 'org
-;; (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element)
-;; (define-key org-mode-map (kbd "C-M-<up>") #'org-up-element))
 
 (after-load 'org
   (org-babel-do-load-languages

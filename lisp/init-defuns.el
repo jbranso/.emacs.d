@@ -74,5 +74,18 @@
   ;;to the server, pwd is still ~/programming/soihub
   (write-file "/home/joshua/programming/soihub/"))
 
+(defun waypoint-save-this-buffer-to-dev-server ()
+  "Write this buffer to soihub"
+  (interactive)
+  ;; this when statement probably doesn't need to be here.
+  (print buffer-file-name)
+  (when (string-match "_[-a-z_A-Z0-9]*\\.php\\|[-a-z_A-Z0-9]*\\.php" buffer-file-name)
+    (setq php-file-name (match-string 0 buffer-file-name) ))
+  ;; Take the current file and save it on the live server
+  (write-file "/ssh:setyourwaypoint@setyourwaypoint.com:/public_html/ihsb/")
+  ;;Take the current file and save it locally, that way, after I'm done saying the local file
+  ;;to the server, pwd is still ~/programming/soihub
+  (write-file "/home/joshua/programming/waypoint/ihca/"))
+
 
 (provide 'init-defuns)

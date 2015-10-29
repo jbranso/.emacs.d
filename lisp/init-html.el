@@ -70,6 +70,7 @@
                    ac-source-abbrev
                    ac-source-html-bootstrap+
                    ;;no need for yasnippet in html emmet mode is sooo much better
+                   ;; also auto complete and yasnippet do NOT play well together
                    ;;ac-source-yasnippet
                    ac-source-emmet-html-aliases
                    ac-source-emmet-html-snippets
@@ -79,7 +80,13 @@
                    ))
         ("php" . (
                   ac-source-words-in-buffer
-                  ac-source-yasnippet
+                  ;; DO NOT SET ac-source yasnippet. autocomplete does NOT play nicely with ac-source yasnippet
+                  ;; ac-source-yasnippet
+                  ;; Here are some pages that talk about getting yas and autocomplete to play nicely together
+                  ;; http://sethlakowske.com/why-i-use-emacs/fix-yasnippet-and-autocomplete-tab-key-collision/
+                  ;; https://stackoverflow.com/questions/19900949/how-to-make-auto-complete-work-with-yasnippet-and-abbrev
+                  ;; https://github.com/capitaomorte/yasnippet/issues/336
+                  ;; https://emacs.stackexchange.com/questions/9670/yasnippet-not-working-with-auto-complete-mode
                   ac-source-filename
                   ac-source-php
                   ))))
