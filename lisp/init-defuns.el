@@ -79,10 +79,19 @@
   (interactive)
   ;; this when statement probably doesn't need to be here.
   (print buffer-file-name)
-  (when (string-match "_[-a-z_A-Z0-9]*\\.php\\|[-a-z_A-Z0-9]*\\.php" buffer-file-name)
-    (setq php-file-name (match-string 0 buffer-file-name) ))
+  (setq remote-dir "/ssh:setyourwaypoint@setyourwaypoint.com:/public_html/ihsb/")
+  (cond
+   ;; when the buffer's name has an "includes" in the name, then set the remote dir to /includes/
+   ((string-match "includes" buffer-file-name)
+         (setq remote-dir (concat remote-dir "/includes/")))
+   ;; when the buffer's name has an "php" in middle of the file name, then set the remote dir to /php/
+   ((string-match "/php/+$" buffer-file-name)
+    (setq remote-dir (concat remote-dir "/php/")))
+   ;; if this is a javascript file, then save it in the javascript dir
+   ((string-match "js$" buffer-file-name)
+    (setq remote-dir (concat remote-dir "/js/"))))
   ;; Take the current file and save it on the live server
-  (write-file "/ssh:setyourwaypoint@setyourwaypoint.com:/public_html/ihsb/")
+  (write-file remote-dir)
   ;;Take the current file and save it locally, that way, after I'm done saying the local file
   ;;to the server, pwd is still ~/programming/soihub
   (write-file "/home/joshua/programming/waypoint/ihca/"))

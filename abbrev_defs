@@ -47,6 +47,10 @@
 
 (define-abbrev-table 'conf-xdefaults-mode-abbrev-table '())
 
+(define-abbrev-table 'css-mode-abbrev-table '())
+
+(define-abbrev-table 'debugger-mode-abbrev-table '())
+
 (define-abbrev-table 'diary-fancy-display-mode-abbrev-table '())
 
 (define-abbrev-table 'diary-mode-abbrev-table '())
@@ -77,6 +81,10 @@
 
 (define-abbrev-table 'fundamental-mode-abbrev-table '())
 
+(define-abbrev-table 'ggtags-global-mode-abbrev-table '())
+
+(define-abbrev-table 'ggtags-view-search-history-mode-abbrev-table '())
+
 (define-abbrev-table 'git-commit-mode-abbrev-table '())
 
 (define-abbrev-table 'git-rebase-mode-abbrev-table '())
@@ -87,7 +95,137 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("teh" "the" nil 2)
+    ("Caribbean" "Carribean" nil 0)
+    ("a lot" "alot" nil 0)
+    ("absence" "absance" nil 0)
+    ("acceptable" "acceptible" nil 0)
+    ("accidentally" "accidentaly" nil 0)
+    ("achieve" "acheive" nil 0)
+    ("acquit" "aquit" nil 0)
+    ("address" "adress" nil 0)
+    ("adultery" "adultary" nil 0)
+    ("affect" "effect" nil 0)
+    ("aggression" "agression" nil 0)
+    ("aggressive" "agressive" nil 0)
+    ("almost" "allmost" nil 0)
+    ("arctic" "artic" nil 0)
+    ("argument" "arguement" nil 0)
+    ("atheist" "athiest" nil 0)
+    ("because" "becuase" nil 0)
+    ("becoming" "becomeing" nil 0)
+    ("beginning" "begining" nil 0)
+    ("believe" "beleive" nil 0)
+    ("bellwether" "bellweather" nil 0)
+    ("business" "buisness" nil 0)
+    ("calendar" "calender" nil 0)
+    ("capitol" "capital" nil 0)
+    ("category" "catagory" nil 0)
+    ("cemetery" "cemetary" (\, nil) 0)
+    ("changeable" "changable" nil 0)
+    ("chief" "cheif" nil 0)
+    ("collectible" "collectable" nil 0)
+    ("column" "colum" nil 0)
+    ("coming" "comming" nil 0)
+    ("concede" "conceed" nil 0)
+    ("congratulate" "congradulate" nil 0)
+    ("conscientious" "consciencious" nil 0)
+    ("consensus" "concensus" nil 0)
+    ("controversy" "contraversy" nil 0)
+    ("coolly" "cooly" nil 0)
+    ("deceive" "decieve" nil 0)
+    ("definite" "definate" (\, nil) 0)
+    ("definitely" "definitly" (\, nil) 0)
+    ("desperate" "desparate" nil 0)
+    ("difference" "diffrence" nil 0)
+    ("dilemma" "dilema" nil 0)
+    ("disappoint" "disapoint" nil 0)
+    ("disastrous" "disasterous" nil 0)
+    ("drunkenness" "drunkeness" nil 0)
+    ("dumbbell" "dumbell" nil 0)
+    ("embarrass" "embarass" nil 0)
+    ("equipment" "equiptment" nil 0)
+    ("exceed" "excede" nil 0)
+    ("exhilarate" "exilerate" nil 0)
+    ("existence" "existance" nil 0)
+    ("experience" "experiance" nil 0)
+    ("extreme" "extreem" nil 0)
+    ("fascinating" "facinating" nil 0)
+    ("fiery" "firey" nil 0)
+    ("fluorescent" "flourescent" nil 0)
+    ("foreign" "foriegn" nil 0)
+    ("friend" "freind" nil 0)
+    ("fulfill" "fullfil" nil 0)
+    ("gauge" "guage" nil 0)
+    ("guidance" "guidence" nil 0)
+    ("harass" "harrass" nil 0)
+    ("hierarchy" "heirarchy" nil 0)
+    ("humorous" "humerous" nil 0)
+    ("ignorance" "ignorence" nil 0)
+    ("imitate" "immitate" nil 0)
+    ("immediately" "imediately" nil 0)
+    ("independent" "independant" nil 0)
+    ("indispensable" "indispensible" nil 0)
+    ("inoculate" "innoculate" nil 0)
+    ("jewelry" "jewelery" nil 0)
+    ("judgment" "judgement" nil 0)
+    ("kernel" "kernal" nil 0)
+    ("leisure" "liesure" nil 0)
+    ("liaison" "liason" nil 0)
+    ("license" "lisence" nil 0)
+    ("lightning" "lightening" nil 0)
+    ("lose" "loose" nil 0)
+    ("memento" "momento" nil 0)
+    ("miniature" "miniture" nil 0)
+    ("minuscule" "miniscule" nil 0)
+    ("neighbor" "nieghbor" nil 0)
+    ("niece" "neice" nil 0)
+    ("noticeable" "noticable" nil 0)
+    ("occasion" "occassion" nil 0)
+    ("occurred" "occured" nil 0)
+    ("original" "orignal" nil 0)
+    ("outrageous" "outragous" nil 0)
+    ("parliament" "parliment" nil 0)
+    ("perceive" "percieve" nil 0)
+    ("perseverance" "perseverence" nil 0)
+    ("plagiarize" "plagerize" nil 0)
+    ("potatoes" "potatos" nil 0)
+    ("precede" "preceed" nil 0)
+    ("presence" "presance" nil 0)
+    ("principle" "principal" nil 0)
+    ("professor" "professer" nil 0)
+    ("promise" "promiss" nil 0)
+    ("pronunciation" "pronounciation" nil 0)
+    ("proof" "prufe" nil 0)
+    ("publicly" "publically" nil 0)
+    ("quarantine" "quarentine" nil 0)
+    ("queue" "que" nil 0)
+    ("readable" "readible" nil 0)
+    ("really" "realy" nil 0)
+    ("receipt" "reciept" nil 0)
+    ("receive" "recieve" nil 0)
+    ("referred" "refered" nil 0)
+    ("repetition" "repitition" nil 0)
+    ("seize" "sieze" nil 0)
+    ("separate" "seperate" nil 0)
+    ("sergeant" "sargent" nil 0)
+    ("similar" "similer" nil 0)
+    ("supersede" "supercede" nil 0)
+    ("teh" "the" nil 4)
+    ("tomatoes" "tomatos" nil 0)
+    ("tomorrow" "tommorrow" nil 0)
+    ("twelfth" "twelth" nil 0)
+    ("tyranny" "tyrany" nil 0)
+    ("underrate" "underate" nil 0)
+    ("until" "untill" nil 0)
+    ("upholstery" "upholstry" nil 0)
+    ("usable" / "eable" 0)
+    ("vehicle" "vehical" nil 0)
+    ("vicious" "visious" nil 0)
+    ("weather" "wether" nil 0)
+    ("weird" "wierd" nil 0)
+    ("whether" "wether" nil 0)
+    ("wilfull" "wilful" nil 0)
+    ("withhold" "withold" nil 0)
    ))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
@@ -123,6 +261,8 @@
 (define-abbrev-table 'js-mode-abbrev-table '())
 
 (define-abbrev-table 'js2-mode-abbrev-table '())
+
+(define-abbrev-table 'less-css-mode-abbrev-table '())
 
 (define-abbrev-table 'lisp-mode-abbrev-table '())
 
@@ -170,6 +310,8 @@
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
+(define-abbrev-table 'php-mode-abbrev-table '())
+
 (define-abbrev-table 'pike-mode-abbrev-table
   '(
    ))
@@ -184,11 +326,17 @@
   '(
    ))
 
+(define-abbrev-table 'scss-mode-abbrev-table '())
+
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
 
 (define-abbrev-table 'sh-mode-abbrev-table '())
 
 (define-abbrev-table 'shell-mode-abbrev-table '())
+
+(define-abbrev-table 'skewer-clients-mode-abbrev-table '())
+
+(define-abbrev-table 'skewer-error-mode-abbrev-table '())
 
 (define-abbrev-table 'smime-mode-abbrev-table '())
 
@@ -196,11 +344,15 @@
 
 (define-abbrev-table 'special-mode-abbrev-table '())
 
+(define-abbrev-table 'speedbar-mode-abbrev-table '())
+
 (define-abbrev-table 'sql-mode-abbrev-table
   '(
    ))
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
+
+(define-abbrev-table 'tar-mode-abbrev-table '())
 
 (define-abbrev-table 'text-mode-abbrev-table '())
 
@@ -213,3 +365,5 @@
 (define-abbrev-table 'vc-git-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-svn-log-view-mode-abbrev-table '())
+
+(define-abbrev-table 'web-mode-abbrev-table '())

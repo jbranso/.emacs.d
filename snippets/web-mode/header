@@ -3,4 +3,5 @@
 # key: header
 # binding: direct-keybinding
 # --
-header ("Location: $0");
+header ("Location: $1");
+exit ();$0

@@ -183,8 +183,10 @@
  ;;most of these modules let you store links to various stuff in org
  org-modules '(org-bbdb org-gnus org-info invoice man toc)
  ;; where to put the :action: or :work: tag after a heading.  80 colums over
- org-tags-column 80)
-
+ org-tags-column 80
+ ;; don't ask me if I want to run an babel code block.  I know what I'm doing
+ org-confirm-babel-evaluate nil)
+ 
 ;;a visual hint to let you know what line you are in in org-mode agenda
 (add-hook 'org-agenda-finalize-hook (lambda () (hl-line-mode)))
 

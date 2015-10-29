@@ -88,7 +88,9 @@
                   ;; https://github.com/capitaomorte/yasnippet/issues/336
                   ;; https://emacs.stackexchange.com/questions/9670/yasnippet-not-working-with-auto-complete-mode
                   ac-source-filename
-                  ac-source-php
+                  ;;I'm being more and more annoyed with ac-php
+                  ;; https://github.com/xcwen/ac-php/
+                  ;;ac-source-php
                   ))))
 
 

@@ -3,4 +3,4 @@
 # key: $prepare->bind
 # binding: direct-keybinding
 # --
-$prepare->bindParam (":$1", \$$0);
+$prepare->bindParam (":${1:name}", \$$1)$0

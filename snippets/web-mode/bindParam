@@ -3,4 +3,4 @@
 # key: bindParam
 # binding: direct-keybinding
 # --
-bindParam(":$1", $2)$0
+bindParam(":${1:name}", \$${1})$0
