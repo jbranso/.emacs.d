@@ -13,6 +13,10 @@
 ;; No one uses melpa stable apparently according to the melpa maintainer Steve Purcell and original author of this config.
 ;;(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
+;; I am adding this repo to install sun-rise commander
+;; It expands upon dired and lets you manage copying files from one directory to another
+;; You can use it to copy files remotely.  Very cool.
+;; (add-to-list 'package-archives '("SC" . "http://joseito.republika.pl/sunrise-commander/"))
 
 ;;; On-demand installation of packages
 

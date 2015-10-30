@@ -185,7 +185,9 @@
  ;; where to put the :action: or :work: tag after a heading.  80 colums over
  org-tags-column 80
  ;; don't ask me if I want to run an babel code block.  I know what I'm doing
- org-confirm-babel-evaluate nil)
+ org-confirm-babel-evaluate nil
+ ;; activate org speed commands
+ org-use-speed-commands t)
  
 ;;a visual hint to let you know what line you are in in org-mode agenda
 (add-hook 'org-agenda-finalize-hook (lambda () (hl-line-mode)))
@@ -372,10 +374,11 @@ _d_: subtree
   (org-babel-do-load-languages
    'org-babel-load-languages
    '(
+     (awk . t)
      (emacs-lisp . t)
-     ;;(latex . t)
+     (latex . t)
      ;;(ledger . t)
-     ;;(python . t)
+     (python . t)
      (awk . t)
      (C . t)
      (js . t)
