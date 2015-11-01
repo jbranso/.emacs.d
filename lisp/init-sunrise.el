@@ -1,6 +1,5 @@
-(use-package sunrise)
-
-;; disable mouse
+(require 'sunrise)
+  ;; disable mouse
 (setq sr-cursor-follows-mouse nil)
 ;; I want to be able to open a file on mouse click right?
 ;;(define-key sr-mode-map [mouse-1] nil)
@@ -27,5 +26,6 @@
   (jump-to-frame-config-register)
   )
 (advice-add 'sr-quit :after #'bjm-sc-restore-frame)
+
 
 (provide 'init-sunrise)

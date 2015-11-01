@@ -44,6 +44,7 @@
 (require 'bind-key)
 (require 'use-package)
 (require 'init-wgrep)
+;; I have some global abbreviations.  So I should turn on abbrev mode
 ;;(require-package 'project-local-variables)
 ;; this helps you minizize modeline clutter by hidding some modes on the mode line.
 ;; http://www.emacswiki.org/emacs/DiminishedModes
@@ -54,12 +55,13 @@
 ;;(require-package 'mwe-log-commands)
 ;;(mwe:log-keyboard-commands)
 
+(require 'init-forecast)
 (require 'init-gnus)
 (require 'init-vc)
 (require 'init-gui-frames)
 (require 'init-recentf)
 (require 'init-dired)
-(require 'init-sunrise)
+;;(require 'init-sunrise)
 (require 'init-grep)
 ;; I don't really ever use erc in emacs.  It's kind of annoying, and it occasionally changes the buffer to
 ;; erc buffers randomly.  Not a fan at the moment.

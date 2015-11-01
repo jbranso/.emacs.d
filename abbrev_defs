@@ -9,7 +9,7 @@
 
 (define-abbrev-table 'awk-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'bbdb-mode-abbrev-table '())
 
@@ -19,11 +19,11 @@
 
 (define-abbrev-table 'c++-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'c-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'calendar-mode-abbrev-table '())
 
@@ -94,22 +94,21 @@
 (define-abbrev-table 'gitignore-mode-abbrev-table '())
 
 (define-abbrev-table 'global-abbrev-table
-  '(
-    ("Caribbean" "Carribean" nil 0)
-    ("a lot" "alot" nil 0)
+  '(("Caribbean" "Carribean" nil 0)
+    ("alot" "a lot" nil 0)
+    ("w/" "with" nil 0)
     ("absence" "absance" nil 0)
     ("acceptable" "acceptible" nil 0)
     ("accidentally" "accidentaly" nil 0)
     ("achieve" "acheive" nil 0)
     ("acquit" "aquit" nil 0)
-    ("address" "adress" nil 0)
+    ("adress" "address" nil 0)
     ("adultery" "adultary" nil 0)
-    ("affect" "effect" nil 0)
     ("aggression" "agression" nil 0)
     ("aggressive" "agressive" nil 0)
-    ("almost" "allmost" nil 0)
-    ("arctic" "artic" nil 0)
-    ("argument" "arguement" nil 0)
+    ("allmost" "almost" nil 0)
+    ("artic" "arctic" nil 0)
+    ("arguement" "argument" nil 0)
     ("atheist" "athiest" nil 0)
     ("because" "becuase" nil 0)
     ("becoming" "becomeing" nil 0)
@@ -120,21 +119,21 @@
     ("calendar" "calender" nil 0)
     ("capitol" "capital" nil 0)
     ("category" "catagory" nil 0)
-    ("cemetery" "cemetary" (\, nil) 0)
+    ("cemetery" "cemetary" nil 0)
     ("changeable" "changable" nil 0)
-    ("chief" "cheif" nil 0)
+    ("cheif" "chief" nil 0)
     ("collectible" "collectable" nil 0)
-    ("column" "colum" nil 0)
-    ("coming" "comming" nil 0)
+    ("colum" "column" nil 0)
+    ("comming" "coming" nil 0)
     ("concede" "conceed" nil 0)
     ("congratulate" "congradulate" nil 0)
     ("conscientious" "consciencious" nil 0)
-    ("consensus" "concensus" nil 0)
+    ("concensus" "consensus" nil 0)
     ("controversy" "contraversy" nil 0)
     ("coolly" "cooly" nil 0)
     ("deceive" "decieve" nil 0)
-    ("definite" "definate" (\, nil) 0)
-    ("definitely" "definitly" (\, nil) 0)
+    ("definite" "definate" nil 0)
+    ("definitely" "definitly" nil 0)
     ("desperate" "desparate" nil 0)
     ("difference" "diffrence" nil 0)
     ("dilemma" "dilema" nil 0)
@@ -210,7 +209,7 @@
     ("sergeant" "sargent" nil 0)
     ("similar" "similer" nil 0)
     ("supersede" "supercede" nil 0)
-    ("teh" "the" nil 4)
+    ("teh" "the" nil 5)
     ("tomatoes" "tomatos" nil 0)
     ("tomorrow" "tommorrow" nil 0)
     ("twelfth" "twelth" nil 0)
@@ -218,15 +217,13 @@
     ("underrate" "underate" nil 0)
     ("until" "untill" nil 0)
     ("upholstery" "upholstry" nil 0)
-    ("usable" / "eable" 0)
     ("vehicle" "vehical" nil 0)
     ("vicious" "visious" nil 0)
     ("weather" "wether" nil 0)
     ("weird" "wierd" nil 0)
     ("whether" "wether" nil 0)
     ("wilfull" "wilful" nil 0)
-    ("withhold" "withold" nil 0)
-   ))
+    ("withhold" "withold" nil 0)))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
 
@@ -256,7 +253,7 @@
 
 (define-abbrev-table 'java-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'js-mode-abbrev-table '())
 
@@ -298,7 +295,7 @@
 
 (define-abbrev-table 'objc-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -314,7 +311,7 @@
 
 (define-abbrev-table 'pike-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
@@ -324,7 +321,7 @@
 
 (define-abbrev-table 'python-mode-skeleton-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'scss-mode-abbrev-table '())
 
@@ -348,7 +345,7 @@
 
 (define-abbrev-table 'sql-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
 

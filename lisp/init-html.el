@@ -41,22 +41,6 @@
                    ("beg" "end")))
         ))
 
-(add-hook 'js2-mode-hook (lambda ()
-                           (yas-minor-mode)
-                           (yas-reload-all)
-                           (diminish 'yas-minor-mode)
-                           (skewer-mode)
-                           (ggtags-mode 1)
-                           (diminish 'ggtags-mode)
-                           ;;this conflicts with the snippets, and it's seriously annoying
-                           ;;(ac-js2-mode)
-                           ;;set ac sources to nil for javascript that way it doesn't interfer with yasnippet
-                           (setq ac-sources
-                                 '(
-                                   ac-source-filename
-                                   ac-source-dictionary
-                                   ))
-                           ))
 
 
 (setq web-mode-engines-alist
@@ -104,6 +88,7 @@
                            ;; so flycheck-mode WILL NOT work in php buffers where the major mode is web-mode
                            ;;(flycheck-mode)
                            (ggtags-mode 1)
+                           (abbrev-mode 1)
                            (diminish 'ggtags-mode)
                            ;;emmet mode for html % css related things
                            (emmet-mode)
@@ -142,10 +127,13 @@
 
 ;; use flycheck in css buffers.  this'll only work if those buffers use css-mode and NOT web-mode
 ;; because flycheck does not support web-mode
-(add-hook 'css-mode-hook (lambda () (flycheck-mode)))
+(add-hook 'css-mode-hook (lambda ()
+                           (abbrev-mode 1)
+                           (flycheck-mode)))
 
 ;; use flycheck in php buffers as well. it's a real shame that flycheck doesn't support web-mode
 (add-hook 'php-mode-hook (lambda ()
+                           (abbrev-mode 1)
                            (define-key php-mode-map (kbd "C-<return>") '(lambda ()
                                                                           (interactive)
                                                                           (newline)
@@ -178,15 +166,18 @@
 
 
 
-;; js2 customizations
+
 (add-hook 'js2-mode-hook (lambda ()
                            (yas-minor-mode)
                            (yas-reload-all)
+                           (abbrev-mode 1)
+                           (diminish 'yas-minor-mode)
                            (skewer-mode)
                            (ggtags-mode 1)
                            (push '("function" . ?𝆑) prettify-symbols-alist)
                            (push '(">=" . ?≥) prettify-symbols-alist)
                            (push '("<=" . ?≤) prettify-symbols-alist)
+                           (diminish 'ggtags-mode)
                            ;;this conflicts with the snippets, and it's seriously annoying
                            ;;(ac-js2-mode)
                            ;;set ac sources to nil for javascript that way it doesn't interfer with yasnippet
@@ -196,7 +187,6 @@
                                    ac-source-dictionary
                                    ))
                            ))
-
 
 
 (provide 'init-html)
