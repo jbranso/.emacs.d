@@ -29,15 +29,6 @@
 
 (define-key evil-emacs-state-map (kbd "s-z") #'evil-normal-state)
 
-;; make it easy to switch to various windows inside one emacs frame
-(define-key evil-emacs-state-map (kbd "C-w h") 'windmove-down)
-(define-key evil-emacs-state-map (kbd "C-w t") 'windmove-up)
-(define-key evil-emacs-state-map (kbd "C-w n") 'windmove-left)
-(define-key evil-emacs-state-map (kbd "C-w s") 'windmove-right)
-(define-key evil-normal-state-map (kbd "C-w h") 'windmove-down)
-(define-key evil-normal-state-map (kbd "C-w t") 'windmove-up)
-(define-key evil-normal-state-map (kbd "C-w n") 'windmove-left)
-(define-key evil-normal-state-map (kbd "C-w s") 'windmove-right)
 
 ;; M just moves the key to the center of the screen. Just a waste. Let's bind it to use emms!
 (define-key evil-normal-state-map (kbd "M i") #'(lambda ()

@@ -227,6 +227,9 @@ a different tag just customize the `org-crypt-tag-matcher' setting.
   #+BEGIN_SRC emacs-lisp
 
 (setq
+ ;; don't let me accidentally delete text without realizing it in org.  ie: point is buried in a subtree, but you only
+ ;; see the heading and you accidentally kill a line without knowing it.
+ org-catch-invisible-edits 'show-and-error
  ;; whenever I change state from TODO to DONE org will log that timestamp. Let's put that in a drawer
  org-log-into-drawer t
  ;; make org-mode record the date when you finish a task

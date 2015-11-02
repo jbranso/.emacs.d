@@ -16,6 +16,21 @@
 (setq beacon-push-mark 35)
 (setq beacon-color "#666600")
 
+;; make it easy to switch to various windows inside one emacs frames using windmove
+(add-hook 'evil-mode-hook '( lambda ()
+          (define-key evil-emacs-state-map (kbd "C-w h") 'windmove-down)
+          (define-key evil-emacs-state-map (kbd "C-w t") 'windmove-up)
+          (define-key evil-emacs-state-map (kbd "C-w n") 'windmove-left)
+          (define-key evil-emacs-state-map (kbd "C-w s") 'windmove-right)
+          (define-key evil-normal-state-map (kbd "C-w h") 'windmove-down)
+          (define-key evil-normal-state-map (kbd "C-w t") 'windmove-up)
+          (define-key evil-normal-state-map (kbd "C-w n") 'windmove-left)
+          (define-key evil-normal-state-map (kbd "C-w s") 'windmove-right)))
+(define-key Info-mode-map (kbd "C-w h") 'windmove-down)
+(define-key Info-mode-map (kbd "C-w t") 'windmove-up)
+(define-key Info-mode-map (kbd "C-w n") 'windmove-left)
+(define-key Info-mode-map (kbd "C-w s") 'windmove-right)
+
 ;; scroll one line at a time (less "jumpy" than defaults)
 ;; this lets you scroll the emacs buffer rather smoothly
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
@@ -37,15 +52,5 @@
   ("s" desktop-save "save")
   ("r" desktop-revert "revert")
   ("d" desktop-change-dir "dir"))
-;; this is not working at all.
-;; (require 'hydra)
-;; (setq hydra-is-helpful t)
-;; (local-unset-key "C-w" )
-;; (defhydra window-navigate (global-map "C-w")
-;;   "window navigate"
-;;   ("h" windmove-down)
-;;   ("t" windmove-up)
-;;   ("n" windmove-left)
-;;   ("s" windmove-right))
 
 (provide 'init-gui-frames)
