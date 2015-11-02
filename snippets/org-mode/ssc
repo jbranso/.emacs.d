@@ -1,8 +1,8 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: csc
-# key: csc
+# name: ssc
+# key: ssc
 # binding: direct-keybinding
 # --
-#+BEGIN_SRC C
+#+BEGIN_SRC sh
 $0
 #+END_SRC

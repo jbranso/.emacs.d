@@ -77,6 +77,7 @@
 ;;yasnippet needs to be loaded before auto complete to let them play nicely together
 (require 'init-yasnippet)
 (require 'init-cedet)
+(require 'init-flycheck)
 (require 'init-helm)
 ;; I haven't used projectile commands in a while.  I'll try turing them off and seenig what happens.
 ;;(require 'init-projectile)

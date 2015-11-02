@@ -97,6 +97,7 @@
   '(("Caribbean" "Carribean" nil 0)
     ("alot" "a lot" nil 0)
     ("w/" "with" nil 0)
+    ("w/o" "without" nil 0)
     ("absence" "absance" nil 0)
     ("acceptable" "acceptible" nil 0)
     ("accidentally" "accidentaly" nil 0)

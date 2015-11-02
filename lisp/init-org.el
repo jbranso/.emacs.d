@@ -161,8 +161,10 @@
       ))
 
 (setq
+ ;; whenever I change state from TODO to DONE org will log that timestamp. Let's put that in a drawer
+ org-log-into-drawer t
  ;; make org-mode record the date when you finish a task
- org-log-done t
+ org-log-done 'time
  ;; when you press S-down, org changes the timestamp under point
  org-edit-timestamp-down-means-later t
  ;; make the agenda start on today not wednesday
@@ -181,7 +183,7 @@
  ;; are there more backends that I can use?
  org-export-backends '(ascii beamer html texinfo latex)
  ;;most of these modules let you store links to various stuff in org
- org-modules '(org-bbdb org-gnus org-info invoice man toc)
+ org-modules '(org-bbdb org-gnus org-info invoice man toc habits)
  ;; where to put the :action: or :work: tag after a heading.  80 colums over
  org-tags-column 80
  ;; don't ask me if I want to run an babel code block.  I know what I'm doing
@@ -254,7 +256,20 @@ EXT is a list of the extensions of files to be included."
 (setq org-outline-path-complete-in-steps t)
 
 (setq org-todo-keywords
-      '((sequence "STARTED(s) TODO(t)" "CHARGED(c)" "|" "PAID(p)" "DONE(d)")))
+'((sequence "STARTED(s!)" "TODO(t!)" "DELEGATED(e!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
+
+      ;; I'm not sure how to globally set tags.  I would like to know how to do that, so I won't have to specify all the tags
+      ;; the top of each agenda document
+;; I can apparently also specify org-tag-faces which will make certain tags look certain colors!
+;; why is this big hunk of setq not working?
+;; (setq org-tag-alist '(("waiting(w)" . ?w)
+;; ("action(a)" . ?a) ("career" . ?r) ("community" . ?m) ("gnu" . ?g)
+;; ("someday" . ?o) ("project" . ?p) ("reference" . ?e) ("reward" . ?d))
+
+;; org-tag-faces '(("waiting(w)" . org-warning) ("action(a)" . org-warning)
+;;  ("career" . "green") ("community" . "green") ("gnu" . "green") ("someday" . "yellow")
+;;  ("project" . "blue") ("reference" . "green") ("reward" . "green")))
+
 
 ;;  (setq org-todo-keywords
 ;;        (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
@@ -375,6 +390,7 @@ _d_: subtree
    'org-babel-load-languages
    '(
      (awk . t)
+     (calc .t)
      (emacs-lisp . t)
      (latex . t)
      ;;(ledger . t)
@@ -389,6 +405,8 @@ _d_: subtree
      ;;(sqlite . t)
      (gnuplot . t)
      )))
+
+(require 'org-invoice)
 
 (require 'org-notify)
 (org-notify-start)

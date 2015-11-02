@@ -85,8 +85,6 @@
                            (diminish 'yas-minor-mode)
                            ;; I've installed http://phpmd.org/ to check my php code using flycheck
                            ;; BUT flycheck mode does NOT support web-mode
-                           ;; so flycheck-mode WILL NOT work in php buffers where the major mode is web-mode
-                           ;;(flycheck-mode)
                            (ggtags-mode 1)
                            (abbrev-mode 1)
                            (diminish 'ggtags-mode)
@@ -125,11 +123,7 @@
                            (local-unset-key (kbd "C-c C-h"))
                            (global-set-key (kbd "C-c C-h") 'help)))
 
-;; use flycheck in css buffers.  this'll only work if those buffers use css-mode and NOT web-mode
-;; because flycheck does not support web-mode
-(add-hook 'css-mode-hook (lambda ()
-                           (abbrev-mode 1)
-                           (flycheck-mode)))
+(add-hook 'css-mode-hook (lambda () (abbrev-mode 1)))
 
 ;; use flycheck in php buffers as well. it's a real shame that flycheck doesn't support web-mode
 (add-hook 'php-mode-hook (lambda ()
@@ -138,7 +132,6 @@
                                                                           (interactive)
                                                                           (newline)
                                                                           (evil-open-above 0)))
-                           (flycheck-mode)
                            (push '("function" . ?𝆑) prettify-symbols-alist)
                            (push '(">=" . ?≥) prettify-symbols-alist)
                            (push '("<=" . ?≤) prettify-symbols-alist)
