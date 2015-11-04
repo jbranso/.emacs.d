@@ -61,6 +61,7 @@
 (require 'init-gui-frames)
 (require 'init-recentf)
 (require 'init-dired)
+(require 'init-avy)
 ;;(require 'init-sunrise)
 (require 'init-grep)
 ;; I don't really ever use erc in emacs.  It's kind of annoying, and it occasionally changes the buffer to

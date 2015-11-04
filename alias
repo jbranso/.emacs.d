@@ -1,0 +1,25 @@
+alias .. cd ..
+alias ... cd ../../
+alias pac sudo pacmatic -Syu; sudo paccache -r; sudo paccache -ruk0;
+alias pacs sudo pacmatic -S
+alias ll ls -l
+alias emac emacs -nw
+alias semacs sudo emacs
+alias programmin cd ~/programming
+alias manuals cd ~/manuals
+alias cheat cd ~/cheatsheats
+alias videos cd ~/videos
+alias downloads cd ~/downloads
+alias efstab sudo emacs -nw /etc/fstab
+alias ebashrc sudo emacs -nw ~/.bashrc
+alias ebashprofile sudo emacs -nw ~/.bash_profile
+alias grubmkconfig sudo grub-mkconfig -o /boot/grub/grub.cfg
+alias egrub semacs -nw /etc/default/grub
+alias emirrorlist sudo emacs -nw /etc/pacman.d/mirrorlist
+alias evconsole sudo emacs -nw /etc/vconsole.conf
+alias eawesome sudo emacs -nw /home/joshua/.config/awesome
+alias emkinitcpio sudo emacs -nw /etc/mkinitcpio.conf
+alias mkinitcpio sudo mkinitcpio -p linux
+alias wifi nmtui
+alias cdrom sudo mount /dev/sr0 /mnt/cdrom
+alias dvd sudo mount /dev/sr0 /mnt/dvd; vlc

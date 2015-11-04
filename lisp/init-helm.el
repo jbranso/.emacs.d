@@ -1,10 +1,11 @@
-(use-package helm-core
-  :ensure t)
-(use-package helm
-  :ensure t
-  ;; apperently this next line causes some serious errors
-  ;;  :diminish helm-mode
-  )
+;; (use-package helm-core
+;;   :ensure t)
+;; (use-package helm
+;;   :ensure t
+;;   ;; apperently this next line causes some serious errors
+;;   ;;  :diminish helm-mode
+;;   )
+;; according to the github repo this next line is all that I need to install helm
 (require 'helm-config)
 ;; I've installed helm-ag, which might be cool.
 

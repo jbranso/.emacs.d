@@ -80,9 +80,9 @@
 
 (add-hook 'web-mode-hook (lambda ()
                            ;;yas mode for php stuff
-                           (yas-minor-mode)
-                           (yas-reload-all)
-                           (diminish 'yas-minor-mode)
+                           ;; (yas-minor-mode)
+                           ;; (yas-reload-all)
+                           ;; (diminish 'yas-minor-mode)
                            ;; I've installed http://phpmd.org/ to check my php code using flycheck
                            ;; BUT flycheck mode does NOT support web-mode
                            (ggtags-mode 1)
@@ -153,18 +153,18 @@
                            ;;(push '("):" . ?☹) prettify-symbols-alist)
                            (push '(":D" . ?☺) prettify-symbols-alist)
                            (push '("^_^" . ?☻) prettify-symbols-alist)
-                           (yas-minor-mode)
-                           (yas-reload-all)
+                           ;; (yas-minor-mode)
+                           ;; (yas-reload-all)
                            ))
 
 
 
 
 (add-hook 'js2-mode-hook (lambda ()
-                           (yas-minor-mode)
-                           (yas-reload-all)
+                           ;; (yas-minor-mode)
+                           ;; (yas-reload-all)
                            (abbrev-mode 1)
-                           (diminish 'yas-minor-mode)
+                           ;; (diminish 'yas-minor-mode)
                            (skewer-mode)
                            (ggtags-mode 1)
                            (push '("function" . ?𝆑) prettify-symbols-alist)

@@ -1,0 +1,979 @@
+* Helm Generic Help
+
+`helm' is an Emacs incremental completion and selection narrowing framework.
+
+Narrow the list by typing some pattern,
+Multiple patterns are allowed by separating with a space.
+Select with natural Emacs operations, choose with RET.
+
+** Help
+
+C-h m		Run this generic help for helm.
+
+** Basic Operations
+
+These are the default key bindings:
+
+| Key     | Alternative Keys | Command                                                   |
+|---------+------------------+-----------------------------------------------------------|
+| C-p     | Up               | Previous Line                                             |
+| C-n     | Down             | Next Line                                                 |
+| M-v     | PageUp           | Previous Page                                             |
+| C-v     | PageDown         | Next Page                                                 |
+| Enter   |                  | Execute first (default) action / Select                   |
+| M-<     |                  | First Line                                                |
+| M->     |                  | Last Line                                                 |
+| C-M-S-v | M-PageUp, C-M-y  | Previous Page (other-window)                              |
+| C-M-v   | M-PageDown       | Next Page (other-window)                                  |
+| Tab     | C-i              | Show action list                                          |
+| Left    |                  | Previous Source                                           |
+| Right   | C-o              | Next Source                                               |
+| C-k     |                  | Delete pattern (with prefix arg delete from point to end) |
+| C-j     | C-z              | Persistent Action (Execute and keep helm session)         |
+
+** Shortcuts For nth Action
+
+f1-12: Execute nth 1 to 12 Action(s).
+
+** Visible Marks
+
+Visible marks store candidate. Some actions uses marked candidates.
+
+** Miscellaneous Commands
+
+C-t		Toggle vertical/horizontal split on first hit and swap helm window on second hit.
+C-x C-f		Drop into `helm-find-files'.
+C-c C-d		Delete selected item (visually).
+C-c C-k		Kill display value of candidate and quit (with prefix arg kill the real value).
+C-c C-y		Yank selection into pattern.
+C-c C-f		Toggle automatical execution of persistent action.
+<C-down>	Run persistent action and goto next line.
+<C-up>		Run persistent action and goto previous line.
+C-c C-u		Recalculate and redisplay candidates.
+C-!		Suspend/reenable update.
+ 
+** Global Commands
+
+C-c h b revives last `helm' session.
+It is very useful, so you should bind any key.
+
+** Helm Map
+key             binding
+---             -------
+
+C-@             helm-toggle-visible-mark
+C-c             Prefix Command
+C-g             helm-keyboard-quit
+C-h             Prefix Command
+TAB             helm-select-action
+C-j             helm-execute-persistent-action
+C-k             helm-delete-minibuffer-contents
+C-l             helm-recenter-top-bottom-other-window
+RET             helm-maybe-exit-minibuffer
+C-n             helm-next-line
+C-o             helm-next-source
+C-p             helm-previous-line
+C-t             helm-toggle-resplit-and-swap-windows
+C-v             helm-next-page
+C-w             helm-yank-text-at-point
+C-x             Prefix Command
+C-z             helm-execute-persistent-action
+ESC             Prefix Command
+C-SPC           helm-toggle-visible-mark
+C-!             helm-toggle-suspend-update
+C-{             helm-enlarge-window
+C-}             helm-narrow-window
+<C-M-down>      helm-scroll-other-window
+<C-M-up>        helm-scroll-other-window-down
+<C-down>        helm-follow-action-forward
+<C-up>          helm-follow-action-backward
+<M-next>        helm-scroll-other-window
+<M-prior>       helm-scroll-other-window-down
+<XF86Back>      previous-history-element
+<XF86Forward>   next-history-element
+<down>          helm-next-line
+<f1>            ??
+<f10>           ??
+<f11>           ??
+<f12>           ??
+<f13>           ??
+<f2>            ??
+<f3>            ??
+<f4>            ??
+<f5>            ??
+<f6>            ??
+<f7>            ??
+<f8>            ??
+<f9>            ??
+<help>          Prefix Command
+<left>          helm-previous-source
+<next>          helm-next-page
+<prior>         helm-previous-page
+<right>         helm-next-source
+<up>            helm-previous-line
+
+<help> m        helm-help
+
+C-h C-d         helm-enable-or-switch-to-debug
+C-h m           helm-help
+
+C-c C-d         helm-delete-current-selection
+C-c C-f         helm-follow-mode
+C-c TAB         helm-copy-to-buffer
+C-c C-k         helm-kill-selection-and-quit
+C-c C-u         helm-refresh
+C-c C-y         helm-yank-selection
+C-c -           helm-swap-windows
+C-c >           helm-toggle-truncate-line
+C-c ?           helm-help
+
+C-x C-b         helm-resume-list-buffers-after-quit
+C-x C-f         helm-quit-and-find-file
+C-x b           helm-resume-previous-session-after-quit
+
+C-M-a           helm-show-all-in-this-source-only
+C-M-e           helm-display-all-sources
+C-M-l           helm-reposition-window-other-window
+C-M-v           helm-scroll-other-window
+C-M-y           helm-scroll-other-window-down
+M-SPC           helm-toggle-visible-mark
+M-(             helm-prev-visible-mark
+M-)             helm-next-visible-mark
+M-<             helm-beginning-of-buffer
+M->             helm-end-of-buffer
+M-a             helm-mark-all
+M-m             helm-toggle-all-marks
+M-n             next-history-element
+M-p             previous-history-element
+M-u             helm-unmark-all
+M-v             helm-previous-page
+C-M-S-v         helm-scroll-other-window-down
+
+M-r             previous-matching-history-element
+M-s             next-matching-history-element
+  (that binding is currently shadowed by another mode)
+
+
+
+* Helm Buffer
+
+** Tips
+
+*** Completion
+
+**** Major-mode
+
+You can enter a partial name of major-mode (e.g. lisp, sh) to narrow down buffers.
+To specify the major-mode, prefix it with "*" e.g. "*lisp".
+If you want to match all buffers but the ones with a specific major-mode (negation),
+prefix the major-mode with "!" e.g. "*!lisp".
+If you want to specify more than one major-mode, separate them with ",",
+e.g. "*!lisp,!sh,!fun" will list all buffers but the ones in lisp-mode, sh-mode and
+fundamental-mode.
+
+Enter then a space and a pattern to narrow down to buffers matching this pattern.
+
+**** Search inside buffers
+
+If you enter a space and a pattern prefixed by "@" helm will search for text matching
+this pattern INSIDE the buffer (i.e not in the name of buffer).
+NOTE that if you enter your pattern prefixed with "@" but escaped, helm will search a buffer
+matching "@pattern" but will not search inside.
+
+**** Search by directory name
+
+If you prefix the beginning of pattern with "/" the match will occur on directory name
+of buffer, it is interesting to narrow down to one directory for example, subsequent string
+entered after a space will match on buffer-name only.
+Note that negation is not supported for matching on buffer-file-name.
+You can specify more than one directory starting from helm v1.6.8
+ 
+**** Fuzzy matching
+
+Note that if `helm-buffers-fuzzy-matching' is non--nil you will have
+fuzzy matching on buffer names (not on directory name matching and major-mode though).
+A pattern starting with "^" will disable fuzzy matching and will match by exact regexp.
+
+**** Examples
+
+if I enter in pattern prompt:
+
+    "*lisp ^helm @moc"
+
+helm will narrow down the list by selecting only buffers that are in lisp mode, start by helm
+and match "moc" in their contents.
+
+if I enter in pattern prompt:
+
+    "*lisp ^helm moc"
+
+Notice there is no "@" this time
+helm will look for lisp mode buffers starting by "helm" and have "moc" in their name.
+
+if I enter in pattern prompt:
+
+    "*!lisp !helm"
+
+helm will narrow down to buffers that are not in "lisp" mode and that do not match "helm"
+
+if I enter in pattern prompt:
+
+    /helm/ w3
+
+helm will narrow down to buffers that are in any "helm" subdirectory and matching w3.
+
+*** Creating buffers
+
+When creating a new buffer use C-u to choose a mode for your buffer in a list.
+This list is customizable, see `helm-buffers-favorite-modes'.
+
+*** Killing buffers
+
+You have a command to kill buffer(s) and quit emacs and a command to kill buffers one by one
+(no marked) without quitting helm.
+
+You can run this persistent kill buffer command either with the regular
+`helm-execute-persistent-action' called with a prefix arg (C-u C-j) or with its specific command
+`helm-buffer-run-kill-persistent' see binding below.
+
+*** Meaning of colors and prefixes for buffers
+
+Remote buffers are prefixed with '@'.
+Red        => Buffer have its file modified on disk by an external process.
+Indianred2 => Buffer exists but its file have been deleted.
+Orange     => Buffer is modified and its file not saved to disk.
+Italic     => A non--file buffer.
+
+** Commands
+
+M-g s		Grep Buffer(s) works as zgrep too (C-u grep all buffers but non--file buffers).
+C-s		Multi Occur buffer or marked buffers. (C-u toggle force searching current-buffer).
+C-c o		Switch other window.
+C-c C-o		Switch other frame.
+C-M-%		Query replace regexp in marked buffers.
+M-%		Query replace in marked buffers.
+C-c =		Ediff current buffer with candidate.  If two marked buffers ediff those buffers.
+M-=		Ediff merge current buffer with candidate.  If two marked buffers ediff merge those buffers.
+C-=		Toggle Diff buffer with saved file without quitting.
+M-U		Revert buffer without quitting.
+C-x C-s		Save buffer without quitting.
+M-D		Delete marked buffers and quit.
+C-c d		Delete buffer without quitting helm.
+M-m		Toggle all marks.
+M-a		Mark all.
+C-]		Toggle details.
+C-c a		Show hidden buffers.
+C-M-SPC		Mark all buffers with same type (color) than current.
+
+* Helm Find Files
+
+** Tips
+
+*** Navigation summary
+
+For a better experience you can enable auto completion by setting
+`helm-ff-auto-update-initial-value' to non-nil in your init file.
+It is not enabled by default to not confuse new users.
+
+**** Use `C-j' (persistent action) on a directory to go down one level
+
+On a symlinked directory a prefix arg will allow expanding to its true name.
+
+**** Use `C-l' on a directory to go up one level
+
+**** Use `C-r' to walk back the resulting tree of all the `C-l' you did
+
+Note: The tree is reinitialized each time you enter a new tree with `C-j'
+or by entering some pattern in prompt.
+
+*** Find file at point
+
+Helm is using `ffap' partially or completely to find file at point
+depending on value of `helm-ff-guess-ffap-filenames'.
+You can use full `ffap' by setting this to non-nil (annoying).
+Default value is nil which make `ffap' working partially.
+
+**** Find file at number line
+
+With something like this at point:
+
+    ~/elisp/helm/helm.el:1234
+
+Helm will find this file at line number 1234.
+
+**** Find url at point
+
+When an url is found at point, helm expand to that url only.
+Pressing RET jump to that url using `browse-url-browser-function'.
+
+**** Find mail at point
+
+When a mail address is found at point helm expand to this email address
+prefixed by "mailto:". Pressing RET open a message buffer with this mail
+address.
+
+*** Quick pattern expansion
+
+**** Enter `~/' at end of pattern to quickly reach home directory
+
+**** Enter `/' at end of pattern to quickly reach root of your file system
+
+**** Enter `./' at end of pattern to quickly reach `default-directory' (initial start of session)
+
+If you are already in `default-directory' this will move cursor on top.
+
+**** Enter `../' at end of pattern will reach upper directory, moving cursor on top
+
+NOTE: This is different to using `C-l' in that `C-l' don't move cursor on top but stay on previous
+subdir name.
+
+**** Enter any environment var (e.g. `$HOME') at end of pattern, it will be expanded
+
+**** You can yank any valid filename after pattern, it will be expanded
+
+*** Helm find files is fuzzy matching (start on third char entered)
+
+e.g. "fob" or "fbr" will complete "foobar"
+but "fb" will wait for a third char for completing.
+
+*** Use `C-u C-j' to watch an image or `C-<down>'
+
+*** `C-j' on a filename will expand in helm-buffer to this filename
+
+Second hit on `C-j' will display buffer filename.
+Third hit on `C-j' will kill buffer filename.
+NOTE: `C-u C-j' will display buffer directly.
+
+*** To browse images directories turn on `helm-follow-mode' and navigate with arrow keys
+
+You can also use `helm-follow-action-forward' and `helm-follow-action-backward'
+(`C-<down' and `C-<left>').
+
+*** You can turn off/on (toggle) autoupdate completion at any moment with `C-DEL'
+
+It is useful when auto completion is enabled and when trying to create a new file
+or directory you want to prevent helm trying to complete what you are writing.
+NOTE: On a terminal C-<backspace> may not work, use in this case C-c <backspace>.
+
+*** You can create a new directory and a new file at the same time
+
+Just write the path in prompt and press `<RET>'.
+e.g. You can create "~/new/newnew/newnewnew/my_newfile.txt".
+
+*** To create a new directory, add a "/" at end of new name and press <RET>
+
+*** To create a new file just write the filename not ending with "/"
+
+*** Recursive search from helm find files
+
+**** You can use helm browse project (see binding below)
+
+- With no prefix arg
+  If your current directory is under version control
+  with one of git or hg and you have installed helm-ls-git and/or helm-ls-hg
+  https://github.com/emacs-helm/helm-ls-git.git
+  https://github.com/emacs-helm/helm-ls-hg
+  you will see all your files under version control, otherwise
+  you will be back to helm-find-files.
+- With one prefix arg
+  You will see all the files under this directory
+  and other subdirectories (recursion) and this list of files will be cached.
+- With two prefix args
+  same but the cache will be refreshed.
+
+**** You can start a recursive search with Locate of Find (See commands below)
+
+With Locate you can use a local db with a prefix arg. If the localdb doesn't already
+exists, you will be prompted for its creation, if it exists and you want to refresh it,
+give two prefix args.
+
+*** Insert filename at point or complete filename at point
+
+On insertion (no completion, i.e nothing at point):
+
+- `C-c i'         => insert absolute file name.
+- `C-u C-c i'     => insert abbreviate file name.
+- `C-u C-u C-c i' => insert relative file name.
+
+On completion:
+
+- target starts by ~/           => insert abbreviate file name.
+- target starts by / or [a-z]:/ => insert full path.
+- otherwise                     => insert relative file name.
+
+*** Using wildcard to select multiple files
+
+Use of wilcard is supported to give a set of files to an action:
+
+e.g. You can copy all the files with ".el" extension by using "*.el"
+and then run your copy action.
+
+You can do the same but with "**.el" (note the two stars),
+this will select recursively all ".el" files under current directory.
+
+NOTE: When using an action that involve an external backend (e.g. grep), using "**"
+is not advised (even if it works fine) because it will be slower to select all your files,
+you have better time letting the backend doing it, it will be faster.
+However, if you know you have not many files it is reasonable to use this,
+also using not recursive wilcard (e.g. "*.el") is perfectly fine for this.
+
+This feature ("**") is activated by default with the option `helm-file-globstar'.
+The directory selection with "**foo/" like bash shopt globstar option is not supported yet.
+
+*** Copying renaming asynchronously
+
+If you use async library (if you have installed helm from MELPA you do) you can enable
+async for copying/renaming etc... your files by enabling `dired-async-mode'.
+
+Note that even when async is enabled, running a copy/rename action with a prefix arg
+will execute action synchronously, it will follow also the first file of the marked files
+in its destination directory.
+
+*** Bookmark your `helm-find-files' session
+
+You can bookmark your `helm-find-files' session with `C-x r m'.
+You can retrieve later these bookmarks easily by using M-x helm-filtered-bookmarks
+or from the current `helm-find-files' session just hitting `C-x r b'.
+
+*** Run Gid from `helm-find-files'
+
+You can navigate to a project containing an ID file created with the `mkid'
+command from id-utils, and run the `gid' command which will use the symbol at point
+in `helm-current-buffer' as default.
+
+** Commands
+
+C-x C-f		Run Locate (C-u to specify locate db, M-n insert basename of candidate)
+C-x C-d		Browse project (`C-u' recurse, `C-u C-u' recurse and refresh db)
+C-c /		Run Find shell command from this directory.
+C-s		Run Grep (C-u Recursive).
+M-g p		Run Pdfgrep on marked files.
+M-g z		Run zgrep (C-u Recursive).
+M-g a		Run AG grep on current directory.
+M-g g		Run git-grep on current directory.
+C-c g		Run gid (id-utils).
+M-.		Run Etags (C-u use thing-at-point `C-u C-u' reload cache)
+M-R		Rename File (C-u Follow).
+M-%		Query replace on marked files.
+M-C		Copy File (C-u Follow).
+M-B		Byte Compile File (C-u Load).
+M-L		Load File.
+M-S		Symlink File.
+M-H		Hardlink file.
+M-D		Delete File.
+M-K		Kill buffer candidate without quitting.
+C-c d		Delete file without quitting.
+M-e		Switch to Eshell.
+M-!		Eshell command on file (C-u Apply on marked files, otherwise treat them sequentially).
+C-c =		Ediff file.
+M-=		Ediff merge file.
+C-c i		Complete file name at point.
+C-c o		Switch other window.
+C-c C-o		Switch other frame.
+C-c C-x		Open file with external program (C-u to choose).
+C-c X		Open file externally with default tool.
+M-l		Rotate Image Left.
+M-r		Rotate Image Right.
+C-l		Go down precedent directory.
+M-p		Switch to last visited directories history.
+C-c h		Switch to file name history.
+M-i		Show file properties in a tooltip.
+M-a		Mark all visibles candidates.
+C-c DEL		Toggle auto expansion of directories.
+M-u		Unmark all candidates, visibles and invisibles.
+C-c C-a		Gnus attach files to message buffer.
+C-c p		Print file, (C-u to refresh printers list).
+C-{		Enlarge helm window.
+C-}		Narrow helm window.
+C-]		Toggle basename/fullpath.
+C-c r		Find file as root.
+C-x C-v		Find alternate file.
+C-c @		Insert org link.
+
+* Helm read file name
+
+** Tips
+
+If you are here, you are probably using a vanilla command like `find-file'
+helmized by `helm-mode', this is cool, but it is even better for your file
+navigation to use `helm-find-files' which is fully featured.
+
+*** Navigation
+
+**** Enter `~/' at end of pattern to quickly reach home directory
+
+**** Enter `/' at end of pattern to quickly reach root of your file system
+
+**** Enter `./' at end of pattern to quickly reach `default-directory' (initial start of session)
+
+If you are in `default-directory' move cursor on top.
+
+**** Enter `../' at end of pattern will reach upper directory, moving cursor on top
+
+NOTE: This different to using `C-l' in that `C-l' don't move cursor on top but stay on previous
+subdir name.
+
+**** You can complete with partial basename (start on third char entered)
+
+E.g. "fob" or "fbr" will complete "foobar"
+but "fb" will wait for a third char for completing.
+
+*** Persistent actions
+
+By default `helm-read-file-name' use the persistent actions of `helm-find-files'
+
+**** Use `C-u C-j' to watch an image
+
+**** `C-j' on a filename will expand in helm-buffer to this filename
+
+Second hit on `C-j' will display buffer filename.
+Third hit on `C-j' will kill buffer filename.
+NOTE: `C-u C-j' will display buffer directly.
+
+**** To browse images directories turn on `helm-follow-mode' and navigate with arrow keys
+
+*** Delete characters backward
+
+When you want to delete backward characters, e.g. to create a new file or directory,
+autoupdate may keep updating to an existent directory preventing you from doing so.
+In this case, type C-<backspace> and then <backspace>.
+This should not be needed when copying/renaming files because autoupdate is disabled
+by default in that case.
+NOTE: On a terminal C-<backspace> may not work, use in this case C-c <backspace>.
+
+*** Create new directory and files
+
+**** Create a new directory and a new file at the same time
+
+You can create a new directory and a new file at the same time, 
+just write the path in prompt and press <RET>.
+E.g. You can create "~/new/newnew/newnewnew/my_newfile.txt".
+
+**** To create a new directory, add a "/" at end of new name and press <RET>
+
+**** To create a new file just write the filename not ending with "/"
+
+_NOTE_: File and directory creation work only in some commands (e.g `find-file')
+and will not work in other commands where it is not intended to return a file or a directory
+(e.g `list-directory').
+
+** Commands
+
+C-l		Go down precedent directory.
+C-c DEL		Toggle auto expansion of directories.
+C-]		Toggle basename.
+C-c h		File name history.
+C/M-RET		Maybe return empty string (unless `must-match').
+C-o		Goto next source.
+<M-left>		Goto previous source.
+
+* Helm Generic files
+
+** Tips
+
+*** Locate
+
+You can add after writing search pattern any of the locate command line options.
+e.g. -b, -e, -n <number>...etc.
+See Man locate for more infos.
+
+Some other sources (at the moment recentf and file in current directory sources)
+support the -b flag for compatibility with locate when they are used with it.
+
+*** Browse project
+
+When your directory is not under version control,
+don't forget to refresh your cache when files have been added/removed in your directory.
+
+*** Find command
+
+Recursively search files using "find" shell command.
+
+Candidates are all filenames that match all given globbing patterns.
+This respects the options `helm-case-fold-search' and
+`helm-findutils-search-full-path'.
+
+You can pass arbitrary options directly to find after a "*" separator.
+For example, this would find all files matching "book" that are larger
+than 1 megabyte:
+
+    book * -size +1M
+
+** Commands
+
+C-]		Toggle basename.
+C-s		Run grep (C-u recurse).
+M-g z		Run zgrep.
+C-c g		Run gid (id-utils).
+M-g p		Run Pdfgrep on marked files.
+M-C		Copy file(s)
+M-R		Rename file(s).
+M-S		Symlink file(s).
+M-H		Hardlink file(s).
+M-D		Delete file(s).
+M-B		Byte compile file(s) (C-u load) (elisp).
+M-L		Load file(s) (elisp).
+C-=		Ediff file.
+C-c =		Ediff merge file.
+C-c o		Switch other window.
+M-i		Show file properties.
+M-.		Run etags (C-u use tap, C-u C-u reload DB).
+C-w		Yank text at point.
+C-c C-x		Open file with external program (C-u to choose).
+C-c X		Open file externally with default tool.
+C-c @		Insert org link.
+
+* Helm Grep
+
+** Tips
+
+*** You can start grep with a prefix arg to recurse in subdirectories
+
+*** You can use wild card when selecting files (e.g. *.el)
+
+*** You can grep in many differents directories by marking files or wild cards
+
+*** You can save your results in a `helm-grep-mode' buffer, see commands below
+
+Once in this buffer you can use emacs-wgrep to edit your changes.
+
+*** Important
+
+Grepping on remote file will work only with grep, not ack-grep, but it is
+anyway bad supported as tramp doesn't support multiple process running in a
+short delay (less than 5s actually) among other things,
+so I strongly advice hitting `C-!' (i.e suspend process)
+before entering anything in pattern, and hit again `C-!' when
+your regexp is ready to send to remote process, even if helm is handling
+this by delaying each process at 5s. 
+Or even better don't use tramp at all and mount your remote file system on SSHFS.
+
+* Helm Gid
+
+** Tips
+
+Helm gid read the database created with the `mkid' command from id-utils.
+The name of the database file can be customized with `helm-gid-db-file-name', it
+is usually "ID".
+Helm Gid use the symbol at point as default-input.
+You have access to this command also from `helm-find-files' which allow you to
+navigate to another directory to consult its database.
+
+* Helm AG
+
+** Tips
+
+Helm AG is different from grep or ack-grep in that it works on a directory and not
+a list of files.
+You can ignore files and directories by using a ".agignore" file, local to directory
+or global when placed in home directory (See AG man page for more infos).
+This file supports same entries as what you will find in `helm-grep-ignored-files' and
+`helm-grep-ignored-directories'.
+As always you can access helm AG from `helm-find-files'.
+
+** Commands
+
+<M-down>		Next File.
+<M-up>		Precedent File.
+C-w		Yank Text at point in minibuffer.
+C-c o		Jump other window.
+C-c C-o		Jump other frame.
+<left>		Run default action (Same as RET).
+C-x C-s		Save to a `helm-grep-mode' enabled buffer.
+
+* Helm PdfGrep Map
+
+** Commands
+
+<M-down>		Next File.
+<M-up>		Precedent File.
+C-w		Yank Text at point in minibuffer.
+
+* Helm Etags Map
+
+** Commands
+
+<M-down>		Next File.
+<M-up>		Precedent File.
+C-w		Yank Text at point in minibuffer.
+
+* Helm Ucs
+
+** Tips
+
+Use commands below to insert unicode characters
+in current-buffer without quitting helm.
+
+** Commands
+
+Uses keymap `helm-ucs-map', which is not currently defined.
+
+M-x helm-ucs-persistent-insert		Insert char.
+M-x helm-ucs-persistent-forward		Forward char.
+M-x helm-ucs-persistent-backward		Backward char.
+M-x helm-ucs-persistent-delete		Delete char backward.
+
+* Helm bookmark name
+
+** Commands
+
+C-c o		Jump other window.
+C-d		Delete bookmark.
+M-e		Edit bookmark.
+C-]		Toggle bookmark location visibility.
+
+* Helm eshell on file
+
+** Tips
+
+*** Passing extra args after filename
+
+Normally your command or alias will be called with file as argument. E.g.,
+
+    <command> 'candidate_file'
+
+But you can also pass an argument or more after 'candidate_file' like this:
+
+    <command> %s [extra_args]
+
+'candidate_file' will be added at '%s' and your command will look at this:
+
+    <command> 'candidate_file' [extra_args]
+
+*** Specify many files as args (marked files)
+
+E.g. <command> file1 file2 ...
+
+Call `helm-find-files-eshell-command-on-file' with one prefix-arg
+Otherwise you can pass one prefix-arg from the command selection buffer.
+NOTE: This is not working on remote files.
+
+With two prefix-arg before starting or from the command selection buffer
+the output is printed to your `current-buffer'.
+
+Note that with no prefix-arg or a prefix-arg value of '(16) (C-u C-u)
+the command is called once for each file like this:
+
+    <command> file1 <command> file2 etc...
+
+** Commands
+
+Uses keymap `helm-esh-on-file-map', which is not currently defined.
+
+
+* Helm ido virtual buffers
+
+** Commands
+
+C-c o		Switch other window.
+C-c C-o		Switch other frame.
+M-g s		Grep file.
+M-g z		Zgrep file.
+M-D		Delete file.
+C-c C-x		Open file externally.
+
+* Helm Moccur
+
+** Tips
+
+*** Matching
+
+Multiple regexp matching is allowed, just enter a space to separate your regexps.
+
+Matching empty lines is supported with the regexp "^$", you will get the results
+with only the buffer-name and the line number, you can of course save and edit these
+results (i.e add text to the empty line) .
+
+*** Automatically matching symbol at point
+
+You can match automatically the symbol at point, but keeping
+the minibuffer empty ready to write into.
+This is disabled by default, to enable this you have to add `helm-source-occur'
+and `helm-source-moccur' to `helm-sources-using-default-as-input'.
+
+*** Jump to the corresponding line in the searched buffer
+
+You can do this with `C-j' (persistent-action), to do it repetitively
+you can use `C-<up>' and `C-<down>' or enable `helm-follow-mode' with `C-c C-f'.
+
+*** Saving results
+
+Same as with helm-grep, you can save the results with `C-x C-s'.
+Of course if you don't save your results, you can get back your session
+with `helm-resume'.
+
+*** Refreshing the resumed session.
+
+When the buffer(s) where you ran helm-(m)occur have been modified, you will be
+warned of this with the buffer flashing to red, you can refresh the buffer by running
+`C-c C-u'.
+This can be done automatically by customizing `helm-moccur-auto-update-on-resume'.
+
+*** Refreshing a saved buffer
+
+Type `g' to update your buffer.
+
+*** Edit a saved buffer
+
+First, install wgrep https://github.com/mhayashi1120/Emacs-wgrep
+and then:
+
+1) C-c C-p to edit the buffer(s).
+2) C-x C-s to save your changes.
+
+Tip: Use the excellent iedit https://github.com/tsdh/iedit
+to modify occurences in your buffer.
+
+** Commands
+
+<M-down>		Next Buffer.
+<M-up>		Precedent Buffer.
+C-w		Yank Text at point in minibuffer.
+C-c o		Goto line in other window.
+C-c C-o		Goto line in new frame.
+
+* Helm Top
+
+** Tips
+
+** Commands
+
+Uses keymap `helm-top-map', which is not currently defined.
+
+M-x helm-top-run-sort-by-com		Sort by commands.
+M-x helm-top-run-sort-by-cpu		Sort by cpu usage.
+M-x helm-top-run-sort-by-user		Sort alphabetically by user.
+M-x helm-top-run-sort-by-mem		Sort by memory.
+
+* Helm Apt
+
+** Tips
+
+** Commands
+
+Uses keymap `helm-apt-map', which is not currently defined.
+
+M-x helm-apt-show-all		Show all packages.
+M-x helm-apt-show-only-installed		Show installed packages only.
+M-x helm-apt-show-only-not-installed		Show not installed packages only.
+M-x helm-apt-show-only-deinstalled		Show deinstalled (not purged yet) packages only.>
+
+* Helm elisp package
+
+** Tips
+
+*** Compile all your packages asynchronously
+
+When using async (if you have installed from MELPA you do), only helm, helm-core,
+and magit are compiled asynchronously, if you want all your packages compiled async,
+add to your init file:
+    
+     (setq async-bytecomp-allowed-packages '(all))
+    
+*** Upgrade elisp packages
+
+On initial start (when emacs is fetching packages on remote), if helm find
+package to upgrade it will start in the upgradables packages view showing the packages
+availables to upgrade.
+On further starts, you will have to refresh the list with `C-c C-u', if helm find upgrades
+you will have a message telling you some packages are available for upgrade, you can switch to
+upgrade view (see below) to see what packages are available for upgrade or just hit `C-c U'.
+to upgrade all.
+
+To see upgradables packages hit <M-U>.
+
+Then you can install all upgradables packages with the upgrade all action (`C-c C-u'),
+or upgrade only the specific packages by marking them (the new ones) and running
+the upgrade action (visible only when there is upgradables packages).
+Of course you can upgrade a single package by just running the upgrade action
+without marking it (`C-c u' or RET) .
+
+*WARNING* You are strongly advised to RESTART emacs after UPGRADING packages.
+
+*** Meaning of flags prefixing packages (Emacs-25)
+
+- The flag "S" that prefix package names mean that this package is one of `package-selected-packages'.
+This feature is only available with emacs-25.
+
+- The flag "U" that prefix package names mean that this package is no more needed.
+This feature is only available with emacs-25.
+
+** Commands
+
+Uses keymap `helm-el-package-map', which is not currently defined.
+
+M-x helm-el-package-show-all		Show all packages.
+M-x helm-el-package-show-installed		Show installed packages only.
+M-x helm-el-package-show-uninstalled		Show not installed packages only.
+M-x helm-el-package-show-upgrade		Show upgradable packages only.
+M-x helm-el-run-package-install		Install package(s).
+M-x helm-el-run-package-reinstall		Reinstall package(s).
+M-x helm-el-run-package-uninstall		Uninstall package(s).
+M-x helm-el-run-package-upgrade		Upgrade package(s).
+M-x helm-el-run-package-upgrade-all		Upgrade all packages upgradables.
+M-x helm-el-run-visit-homepage		Visit package homepage.
+
+* Helm M-x
+
+** Tips
+
+*** You can get help on any command with persistent action (C-j)
+
+*** Prefix Args
+
+All the prefix args passed BEFORE running `helm-M-x' are ignored,
+you should get an error message if you do so.
+When you want to pass prefix args, pass them AFTER starting `helm-M-x',
+you will see a prefix arg counter appearing in mode-line notifying you
+the number of prefix args entered.
+
+* Helm imenu
+
+** Tips
+
+** Commands
+
+Uses keymap `helm-imenu-map', which is not currently defined.
+
+M-x helm-imenu-next-section		Go to next section.
+M-x helm-imenu-previous-section		Go to previous section.
+
+* Helm colors
+
+** Commands
+
+Uses keymap `helm-color-map', which is not currently defined.
+
+M-x helm-color-run-insert-name		Insert the entry'name.
+M-x helm-color-run-kill-name		Kill the entry's name.
+M-x helm-color-run-insert-rgb		Insert entry in RGB format.
+M-x helm-color-run-kill-rgb		Kill entry in RGB format.
+
+* Helm semantic
+
+** Tips
+
+** Commands
+
+Uses keymap `helm-semantic-map', which is not currently defined.
+
+
+* Helm kmacro
+
+** Tips
+
+- Start recording some keys with `f3'
+- Record new kmacro with `f4'
+- Start `helm-execute-kmacro' to list all your macros.
+
+Use persistent action to run your kmacro as many time as needed,
+you can change of kmacro with `helm-next-line' `helm-previous-line'.
+
+NOTE: You can't record keys running helm commands except `helm-M-x' unless
+you don't choose from there a command using helm completion.
+
+** Commands
+
+Uses keymap `helm-kmacro-map', which is not currently defined.
+
+

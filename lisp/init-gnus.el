@@ -58,7 +58,7 @@
 (setq
  ;;make a default signature
  message-signature
- "Joshua Branson\nWayPoint\nWeb Developer\nweb.ics.purdue.edu/~jbranso\njbranso.me\nSent From Emacs"
+ "Joshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\nhttps://www.gnu.org/software/emacs/"
  ;; add a date to the default summare line format
  gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n"
  ;; use smiley's in gnus

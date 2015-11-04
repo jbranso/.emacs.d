@@ -52,8 +52,7 @@
 (org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 
-(setq org-crypt-key '1CADFCE802C95561)
-(setq org-crypt-key 'u)
+(setq org-crypt-key "E99C48112E969A17")
 
 (setq auto-save-default nil)
 
@@ -97,9 +96,9 @@
       ("ch" "high star todo"
        entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "make high star an android app")
        "* todo %?\n  %i\n  %a")
-      ("cl" "linux TODO" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-developer.org" "linux someday")
+      ("cl" "linux TODO" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "linux someday")
        "* TODO %?\n  %i\n  %a")
-      ("cL" "Linux Reference" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-developer.org" "linux reference")
+      ("cL" "Linux Reference" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "linux reference")
        "* %?\nEntered on %U\n  %i\n  %a")
       ("co" "organ TODO" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "make organ an android app")
        "* TODO %?\n  %i\n  %a")
@@ -161,6 +160,15 @@
       ))
 
 (setq
+ ;;seeing the ... that org mode does to how you that the heading continues in the text beneith it is kind of boring
+ ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
+ ;; Other interesting characters are ↴, ⬎, ⤷, and ⋱.
+ org-ellipsis " ↴"
+ ;;org-ellipsis "⬎"
+ ;; org-ellipsis "⤵"
+ ;; don't let me accidentally delete text without realizing it in org.  ie: point is buried in a subtree, but you only
+ ;; see the heading and you accidentally kill a line without knowing it.
+ org-catch-invisible-edits 'show-and-error
  ;; whenever I change state from TODO to DONE org will log that timestamp. Let's put that in a drawer
  org-log-into-drawer t
  ;; make org-mode record the date when you finish a task
@@ -190,9 +198,18 @@
  org-confirm-babel-evaluate nil
  ;; activate org speed commands
  org-use-speed-commands t)
- 
+
 ;;a visual hint to let you know what line you are in in org-mode agenda
 (add-hook 'org-agenda-finalize-hook (lambda () (hl-line-mode)))
+
+(setq org-agenda-category-icon-alist '(
+                                  ("hacker"      "/home/joshua/pictures/org-icons/gnu-linux-icon.png" nil nil nil nil)
+                                  ("MAKING CASH"   "/home/joshua/pictures/org-icons/money.png" nil nil nil nil)
+                                  ("SEEKING GOD" "/home/joshua/pictures/org-icons/god.png" nil nil nil nil)
+                                  ("BILLS"    "/home/joshua/pictures/org-icons/bills.png" nil nil nil nil)
+                                  ("emacs"       "/home/joshua/pictures/org-icons/emacs.png" nil nil nil nil)
+                                  ("WORK"       "/home/joshua/pictures/org-icons/work.png" nil nil nil nil)
+                                  ))
 
 (defun my-org-list-files (dirs ext)
   "Function to create list of org files in multiple subdirectories.
@@ -256,7 +273,7 @@ EXT is a list of the extensions of files to be included."
 (setq org-outline-path-complete-in-steps t)
 
 (setq org-todo-keywords
-'((sequence "STARTED(s!)" "TODO(t!)" "DELEGATED(e!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
+'((sequence "PROJECT(r) STARTED(s!)" "TODO(t!)" "DELEGATED(e!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
 
       ;; I'm not sure how to globally set tags.  I would like to know how to do that, so I won't have to specify all the tags
       ;; the top of each agenda document
@@ -320,13 +337,12 @@ EXT is a list of the extensions of files to be included."
   (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
 (add-hook 'org-mode-hook #'(lambda ()
+                             ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
+                             ;;(org-eldoc-hook-setup)
                              (make-variable-buffer-local 'yas/trigger-key)
                              (setq yas/trigger-key [tab])
                              (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
                              (define-key yas/keymap [tab] 'yas/next-field)
-                             (yas-minor-mode)
-                             (yas-reload-all)
-                             ;; (interactive)
                              ;; make the lines in the buffer wrap around the edges of the screen.
                              (visual-line-mode)
                              ;;make ">=" look like >=, etc.
@@ -418,5 +434,7 @@ _d_: subtree
                         :actions -notify)
                 '(:time "2h" :period "5m" :actions -message)
                 '(:time "3d" :actions -email))
+
+(setq org-stuck-projects '("PROJECT" ("TODO NEXT") ("action") "\\<IGNORE\\>" ))
 
 (provide 'init-org)

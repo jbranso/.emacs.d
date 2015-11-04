@@ -95,12 +95,13 @@ a different tag just customize the `org-crypt-tag-matcher' setting.
 
   GPG key to use for encryption
   Either the Key ID or set to nil to use symmetric encryption.
+  This is my jbranson@setyourwaypoint.com key
   #+BEGIN_SRC emacs-lisp
-     (setq org-crypt-key '1CADFCE802C95561)
-     (setq org-crypt-key 'u)
+     (setq org-crypt-key "E99C48112E969A17")
   #+END_SRC
 
   #+RESULTS:
+  : E99C48112E969A17
   Auto-saving does not cooperate with org-crypt.el: so you need to turn it off if you plan to use org-crypt.el quite often.
   Otherwise, you'll get an (annoying) message each time you start Org.
   To turn it off only locally, you can insert this:
@@ -111,8 +112,26 @@ a different tag just customize the `org-crypt-tag-matcher' setting.
 
   #+RESULTS:
 
-** this text underneith me should be encrypted :crypt:
-   The brown dog jumped over the fence.
+** this text underneith me should be encrypted                                  :crypt:
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v2
+
+hQIMA3KIGUMT8te7AQ//c+pDpNuuhlrDwmLZ3fHevmIRdUyDxNZStoO5kQnyswp9
+VXuwj7vt41IFE9+iX++mM63pIbbaZoQ3mvmN7BMio42dZnzvsxF4B3gZ1k1zwaZd
+CgNVmQY18Mwh8netuUocztRWfWjDhdeG1Rv/a1FBc/gSm2Vitn7u9QeQE4o/VQJP
+Jbk8golcayH9CjieOpgdksRJHySRkmcyMwPu9Ys9cpqhoarmOQyvl4gGZcvzkiTK
+qNjADXylUTOjMxNOSG3ripOBeFza7bWVaRbq9h0ceQT/p58TB92V3aqce0lgNjxH
+Ysqkd+EwGbK/iRwpd4yXtb6VxUpq0ubEd+PcmNJNdp0zPGiOs/IhNn3f2H7k3lBK
+MO9hagFcpoRkd0JidqQn0Hn6K1PUEX4Asbd/01DpLSWbUHB6Mn9LuPGPuhf1qlg1
+nHQRRIyXoJfm7J1MS9Jz35TbAxd/+VibLXPZNz1YiwGGRlSjOLdsf0/UDx4ksp3r
+FlDhPcrWiu7nkBOztq4oO1ux619LW9CLDpkGgsyyBIPyGDF1x0/69gGCdKIS3csO
+IY+Dkkuh7u0/QvYCQatFEngzolDN1jE8YNB5QTDU25yCS+0tVUmlgaJK58ziqlNi
+H5Be7hktedrzDvj5LGHjcR1dIA+/fmHYVM0oAs62/0qsRZt3fQuoVUYrImw3QnjS
+YwEgP0GluWXAXjE/qknI8iiuLiIu0UgDHx4xbyVFqr77HSnVhPPaWBbIIDyrL2HO
+WSqZcerDCPtUIMoi4GwG0uZYw0B/+8e3bswJ7rXzOpYOUg6YqTqTKCPmc4vprK8E
+UCa5AQ==
+=cEEg
+-----END PGP MESSAGE-----
 
 * my org capure templates
   This is SOOOO USEFUL!!!! Org capture lets you quickly jot down a thought that you have and place it in a file under
@@ -159,9 +178,9 @@ a different tag just customize the `org-crypt-tag-matcher' setting.
         ("ch" "high star todo"
          entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "make high star an android app")
          "* todo %?\n  %i\n  %a")
-        ("cl" "linux TODO" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-developer.org" "linux someday")
+        ("cl" "linux TODO" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "linux someday")
          "* TODO %?\n  %i\n  %a")
-        ("cL" "Linux Reference" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-developer.org" "linux reference")
+        ("cL" "Linux Reference" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "linux reference")
          "* %?\nEntered on %U\n  %i\n  %a")
         ("co" "organ TODO" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "make organ an android app")
          "* TODO %?\n  %i\n  %a")
@@ -226,44 +245,64 @@ a different tag just customize the `org-crypt-tag-matcher' setting.
 * My org-mode preferences
   #+BEGIN_SRC emacs-lisp
 
-(setq
- ;; don't let me accidentally delete text without realizing it in org.  ie: point is buried in a subtree, but you only
- ;; see the heading and you accidentally kill a line without knowing it.
- org-catch-invisible-edits 'show-and-error
- ;; whenever I change state from TODO to DONE org will log that timestamp. Let's put that in a drawer
- org-log-into-drawer t
- ;; make org-mode record the date when you finish a task
- org-log-done 'time
- ;; when you press S-down, org changes the timestamp under point
- org-edit-timestamp-down-means-later t
- ;; make the agenda start on today not wednesday
- org-agenda-start-on-weekday nil
- ;; don't make the agenda only show saturday and Sunday if today is saturday. Make it show 7 days
- org-agenda-span 7
- ;; using the diary slows down the agenda view
- ;; but it also shows you upcoming calendar events
- org-agenda-include-diary t
- ;; this tells the agenda to take up the whole window and hide all other buffers
- org-agenda-window-setup 'current-window
- ;; this tells org-mode to only quit selecting tags for things when you tell it that you are done with it
- org-fast-tag-selection-single-key nil
- org-html-validation-link nil
- org-export-kill-product-buffer-when-displayed t
- ;; are there more backends that I can use?
- org-export-backends '(ascii beamer html texinfo latex)
- ;;most of these modules let you store links to various stuff in org
- org-modules '(org-bbdb org-gnus org-info invoice man toc habits)
- ;; where to put the :action: or :work: tag after a heading.  80 colums over
- org-tags-column 80
- ;; don't ask me if I want to run an babel code block.  I know what I'm doing
- org-confirm-babel-evaluate nil
- ;; activate org speed commands
- org-use-speed-commands t)
- 
-;;a visual hint to let you know what line you are in in org-mode agenda
-(add-hook 'org-agenda-finalize-hook (lambda () (hl-line-mode)))
+    (setq
+     ;;seeing the ... that org mode does to how you that the heading continues in the text beneith it is kind of boring
+     ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
+     ;; Other interesting characters are ↴, ⬎, ⤷, and ⋱.
+     org-ellipsis " ↴"
+     ;;org-ellipsis "⬎"
+     ;; org-ellipsis "⤵"
+     ;; don't let me accidentally delete text without realizing it in org.  ie: point is buried in a subtree, but you only
+     ;; see the heading and you accidentally kill a line without knowing it.
+     org-catch-invisible-edits 'show-and-error
+     ;; whenever I change state from TODO to DONE org will log that timestamp. Let's put that in a drawer
+     org-log-into-drawer t
+     ;; make org-mode record the date when you finish a task
+     org-log-done 'time
+     ;; when you press S-down, org changes the timestamp under point
+     org-edit-timestamp-down-means-later t
+     ;; make the agenda start on today not wednesday
+     org-agenda-start-on-weekday nil
+     ;; don't make the agenda only show saturday and Sunday if today is saturday. Make it show 7 days
+     org-agenda-span 7
+     ;; using the diary slows down the agenda view
+     ;; but it also shows you upcoming calendar events
+     org-agenda-include-diary t
+     ;; this tells the agenda to take up the whole window and hide all other buffers
+     org-agenda-window-setup 'current-window
+     ;; this tells org-mode to only quit selecting tags for things when you tell it that you are done with it
+     org-fast-tag-selection-single-key nil
+     org-html-validation-link nil
+     org-export-kill-product-buffer-when-displayed t
+     ;; are there more backends that I can use?
+     org-export-backends '(ascii beamer html texinfo latex)
+     ;;most of these modules let you store links to various stuff in org
+     org-modules '(org-bbdb org-gnus org-info invoice man toc habits)
+     ;; where to put the :action: or :work: tag after a heading.  80 colums over
+     org-tags-column 80
+     ;; don't ask me if I want to run an babel code block.  I know what I'm doing
+     org-confirm-babel-evaluate nil
+     ;; activate org speed commands
+     org-use-speed-commands t)
+
+    ;;a visual hint to let you know what line you are in in org-mode agenda
+    (add-hook 'org-agenda-finalize-hook (lambda () (hl-line-mode)))
   #+END_SRC
 
+* Agenda Configuration
+** Agenda icons via Category
+   You can easily create custom icons to show up in your agenda next to your specific tasks. My icons are all about
+   30 by 30 px.
+   #+BEGIN_SRC emacs-lisp
+    (setq org-agenda-category-icon-alist '(
+                                      ("hacker"      "/home/joshua/pictures/org-icons/gnu-linux-icon.png" nil nil nil nil)
+                                      ("MAKING CASH"   "/home/joshua/pictures/org-icons/money.png" nil nil nil nil)
+                                      ("SEEKING GOD" "/home/joshua/pictures/org-icons/god.png" nil nil nil nil)
+                                      ("BILLS"    "/home/joshua/pictures/org-icons/bills.png" nil nil nil nil)
+                                      ("emacs"       "/home/joshua/pictures/org-icons/emacs.png" nil nil nil nil)
+                                      ("WORK"       "/home/joshua/pictures/org-icons/work.png" nil nil nil nil)
+                                      ))
+   #+END_SRC
 * I generate my org-agenda-files and org-refile-targets
   Org-agenda-files are a list of files where you store your TODOs.  These are your things that need to be done, scheduled items,
   deadlines, recurring items, etc.  Then pressing "C-c a a" lets you build your agenda from all of your agenda files.  It is very
@@ -354,7 +393,7 @@ EXT is a list of the extensions of files to be included."
     (setq org-outline-path-complete-in-steps t)
 
     (setq org-todo-keywords
-    '((sequence "STARTED(s!)" "TODO(t!)" "DELEGATED(e!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
+    '((sequence "PROJECT(r) STARTED(s!)" "TODO(t!)" "DELEGATED(e!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
 
           ;; I'm not sure how to globally set tags.  I would like to know how to do that, so I won't have to specify all the tags
           ;; the top of each agenda document
@@ -419,6 +458,7 @@ EXT is a list of the extensions of files to be included."
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
   #+END_SRC
 
+* customizing stuck projects
 * Org-mode-hook
   Org-mode does not play well with yasnippet.  So this function that I got here [[info:org#Conflicts][info:org#Conflicts]] should help
   with making yasnippet play well with org-mode.  It seems to 1st make TAB try to do any org expanding, then it'll
@@ -434,13 +474,12 @@ EXT is a list of the extensions of files to be included."
 
   #+BEGIN_SRC emacs-lisp
     (add-hook 'org-mode-hook #'(lambda ()
+                                 ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
+                                 ;;(org-eldoc-hook-setup)
                                  (make-variable-buffer-local 'yas/trigger-key)
                                  (setq yas/trigger-key [tab])
                                  (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
                                  (define-key yas/keymap [tab] 'yas/next-field)
-                                 (yas-minor-mode)
-                                 (yas-reload-all)
-                                 ;; (interactive)
                                  ;; make the lines in the buffer wrap around the edges of the screen.
                                  (visual-line-mode)
                                  ;;make ">=" look like >=, etc.
@@ -644,8 +683,27 @@ _d_: subtree
                     '(:time "2h" :period "5m" :actions -message)
                     '(:time "3d" :actions -email))
   #+END_SRC
+* customize org-stuck projects
+  C-c a # will list all of your stuck projects.  According to David Allen's Getting Things Done productivity system,
+  a stuck project [fn:1] is one where the next action is not defined.  That is, your project does not have any next actions.  No one
+  knows what the next step to do is for the project.
+
+  Anyway, org-stuck-projects helps you to identify where your projects are.   It is a list with 4 entries:
+  - A tags/todo/propery that identifies this heading as a project
+  - A list of todo keywords that show that this project is NOT stuck.  If any of these todo keywords show up under the projects'
+    tree, then that project is not stuck
+  - A list of tags identifying non-stuck projects
+  - A regexp matching non-stuck projects
+
+  #+BEGIN_SRC emacs-lisp
+  (setq org-stuck-projects '("PROJECT" ("TODO NEXT") ("action") "\\<IGNORE\\>" ))
+  #+END_SRC
 
 * provide this file
   #+BEGIN_SRC emacs-lisp
     (provide 'init-org)
   #+END_SRC
+
+* Footnotes
+
+[fn:1]  A project is an action that has multiple sequential steps.

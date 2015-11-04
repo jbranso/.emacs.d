@@ -104,4 +104,14 @@ _p_rint
   ("t" org-table-transpose-table-at-point "Org mode table")
   ("q" nil "cancel" :color blue))
 
+
+(global-set-key
+ (kbd "C-x w")
+ (defhydra hydra-windows
+   (:body-pre (next-line))
+   "move"
+   (">" (enlarge-window-horizontally 5))
+   ("<" (shrink-window-horizontally 5))
+   ("^" (enlarge-window 5))))
+
 (provide 'init-hydra)
