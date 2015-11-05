@@ -42,8 +42,12 @@
 
 (helm-mode 1)
 
-;;(define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
-;;(define-key helm-map (kbd "C-f") 'helm-execute-persistent-action)
+;; (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
+;; the next command will add another C-j command for helm
+(define-key helm-map (kbd "C-f") 'helm-execute-persistent-action)
+;; I am removing C-t which toggles where on the screen helm pops up when I do this next line
+;;(define-key helm-map (kbd "C-t") 'helm-execute-persistent-action)
+;;(define-key helm-map (kbd "s-t") 'helm-execute-persistent-action)
 ;;(define-key helm-top-map (kbd "C-k") 'helm-kill-this-unruly-process)
 ;;(define-key helm--minor-mode-map (kbd "C-f") 'helm-execute-persistent-action)
 ;;I should define some cool helm mini commands

@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: session
+# key: session
+# binding: direct-keybinding
+# --
+$_SESSION['$1']$0

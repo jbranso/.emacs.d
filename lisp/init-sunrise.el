@@ -14,7 +14,7 @@
                       :background "black"))
 
 ;;advise sunrise to save frame arrangement
-;;requires frame-cmds package
+;;requires frame-cmds packagee
 (defun bjm-sc-save-frame ()
   "Save frame configuration and then maximise frame for sunrise commander."
   (save-frame-config)

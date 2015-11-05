@@ -244,7 +244,6 @@ UCa5AQ==
 
 * My org-mode preferences
   #+BEGIN_SRC emacs-lisp
-
     (setq
      ;;seeing the ... that org mode does to how you that the heading continues in the text beneith it is kind of boring
      ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
@@ -259,6 +258,7 @@ UCa5AQ==
      org-log-into-drawer t
      ;; make org-mode record the date when you finish a task
      org-log-done 'time
+     ;;org-log-done 'nil
      ;; when you press S-down, org changes the timestamp under point
      org-edit-timestamp-down-means-later t
      ;; make the agenda start on today not wednesday
@@ -387,13 +387,12 @@ EXT is a list of the extensions of files to be included."
 
 * I can make add words to the TODO and DONE keywords
   #+BEGIN_SRC emacs-lisp
-                                            ; Targets start with the file name - allows creating level 1 tasks
+  ; Targets start with the file name - allows creating level 1 tasks
     (setq org-refile-use-outline-path (quote file))
-                                            ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
+    ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
     (setq org-outline-path-complete-in-steps t)
-
     (setq org-todo-keywords
-    '((sequence "PROJECT(r) STARTED(s!)" "TODO(t!)" "DELEGATED(e!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
+    '((sequence "PROJECT(r)" "STARTED(s!)" "TODO(t!)" "DELEGATED(e!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
 
           ;; I'm not sure how to globally set tags.  I would like to know how to do that, so I won't have to specify all the tags
           ;; the top of each agenda document
@@ -544,6 +543,18 @@ _d_: subtree
   ("z" nil "leave"))
 
 (global-set-key (kbd "C-c #") 'hydra-outline/body) ; by example
+  #+END_SRC
+
+* org mime
+
+  http://orgmode.org/worg/org-contrib/org-mime.html
+  I want to figure out how to install this, because I could then write html emails trivially with gnus
+  #+BEGIN_SRC emacs-lisp
+  ;;(require 'org-mime)
+  #+END_SRC
+
+  #+BEGIN_SRC emacs-lisp
+  ;; (setq org-mime-library 'mml)
   #+END_SRC
 
 * org babel

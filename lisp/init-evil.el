@@ -40,7 +40,6 @@
 (define-key evil-normal-state-map (kbd "M s") 'emms-show)
 (define-key evil-normal-state-map (kbd "M k") 'emms-stop)
 
-
 ;; Ask on IRC about this
 ;; I'm trying to make emacs treat the letter after O in the alphabet as ESC
 ;; (add-hook evil-normal-state-entry-hook 'lambda ()

@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: get
+# key: get
+# binding: direct-keybinding
+# --
+$_GET['$0']

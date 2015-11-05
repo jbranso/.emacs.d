@@ -153,6 +153,11 @@
                            ;;(push '("):" . ?☹) prettify-symbols-alist)
                            (push '(":D" . ?☺) prettify-symbols-alist)
                            (push '("^_^" . ?☻) prettify-symbols-alist)
+                           (setq ac-sources '(
+                                              ac-source-filename
+                                              ;;  ac-source-dictionary
+                                              ac-source-words-in-buffer
+                                              ))
                            ;; (yas-minor-mode)
                            ;; (yas-reload-all)
                            ))

@@ -44,6 +44,7 @@
 (require 'bind-key)
 (require 'use-package)
 (require 'init-wgrep)
+(require 'init-abbrev)
 ;; I have some global abbreviations.  So I should turn on abbrev mode
 ;;(require-package 'project-local-variables)
 ;; this helps you minizize modeline clutter by hidding some modes on the mode line.
@@ -81,7 +82,7 @@
 (require 'init-flycheck)
 (require 'init-helm)
 ;; I haven't used projectile commands in a while.  I'll try turing them off and seenig what happens.
-;;(require 'init-projectile)
+(require 'init-projectile)
 ;;(org-babel-load-file "init-org.org")
 ;;(org-babel-load-file (concat user-emacs-directory "init-org.org"))
 ;;https://github.com/danielmai/.emacs.d/blob/master/init.el
