@@ -76,9 +76,10 @@
    bbdb-default-area-code 765
    bbdb-user-mail-names "jbranson@setyourwaypoint.com")
 
-bbdb-use-pop-up t
-bbdb-offer-save 1
-bbdb-update-records-p t
+(setq
+ bbdb-use-pop-up t
+ bbdb-offer-save 1
+ bbdb-update-records-p t)
 
 (setq
 bbdb-user-mail-address-re

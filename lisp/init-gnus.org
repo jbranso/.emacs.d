@@ -303,9 +303,10 @@ init-gnus-secret-smtp looks like
    gnus is saving a new record of that email address. Also make bbdb-save records without asking, because this is really nice.
 
    #+BEGIN_SRC emacs-lisp
+     (setq
       bbdb-use-pop-up t
       bbdb-offer-save 1
-      bbdb-update-records-p t
+      bbdb-update-records-p t)
    #+END_SRC
 
    Gnus will recognize these email addresses as mine.
