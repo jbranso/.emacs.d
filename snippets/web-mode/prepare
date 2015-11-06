@@ -9,7 +9,7 @@ $prepare->bindParam(":${2:name}", \$$2);
 $prepare->execute ();
 if ($prepare->rowCount ()) {
         foreach ($prepare->fetchAll() as $row) {
-            ${3:$name} = $row['$3'];
+            \$${3:name} = $row['$3'];
         }
 } else {
        $0

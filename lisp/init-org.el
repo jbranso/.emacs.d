@@ -1,3 +1,6 @@
+(use-package org
+:ensure org-plus-contrib)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; function to wrap blocks of text in org templates                       ;;
   ;; e.g. latex or src etc                                                  ;;
@@ -160,6 +163,8 @@
       ))
 
 (setq
+ ;; hide the leading stars in my org files
+ org-hide-leading-stars t
  ;;seeing the ... that org mode does to how you that the heading continues in the text beneith it is kind of boring
  ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
  ;; Other interesting characters are ↴, ⬎, ⤷, and ⋱.
@@ -192,7 +197,9 @@
  ;; are there more backends that I can use?
  org-export-backends '(ascii beamer html texinfo latex)
  ;;most of these modules let you store links to various stuff in org
- org-modules '(org-bbdb org-gnus org-info invoice man toc habits)
+ org-modules '(org-bbdb org-gnus org-info invoice man toc habits org-mime org-bullets)
+ ;; load in the org-modules
+ ;;org-load-modules-maybe t
  ;; where to put the :action: or :work: tag after a heading.  80 colums over
  org-tags-column 80
  ;; don't ask me if I want to run an babel code block.  I know what I'm doing
@@ -345,6 +352,7 @@ EXT is a list of the extensions of files to be included."
                              (define-key yas/keymap [tab] 'yas/next-field)
                              ;; make the lines in the buffer wrap around the edges of the screen.
                              (visual-line-mode)
+                             (org-bullets-mode 1)
                              ;;make ">=" look like >=, etc.
                              (push '(">=" . ?≥) prettify-symbols-alist)
                              (push '("<=" . ?≤) prettify-symbols-alist)
@@ -401,9 +409,9 @@ _d_: subtree
 
 (global-set-key (kbd "C-c #") 'hydra-outline/body) ; by example
 
-;;(require 'org-mime)
+(require 'org-mime)
 
-;; (setq org-mime-library 'mml)
+(setq org-mime-library 'mml)
 
 (after-load 'org
   (org-babel-do-load-languages
@@ -425,8 +433,6 @@ _d_: subtree
      ;;(sqlite . t)
      (gnuplot . t)
      )))
-
-(require 'org-invoice)
 
 (require 'org-notify)
 (org-notify-start)

@@ -6,6 +6,11 @@
 * to load this file do org-babel-load-file and it'll pop up helm and you'll have to say that you want
   to load this file.  All the scripts in this file will be exported and saved into init-org.el.  Then
   that file will be loaded.
+* My org use-package declaration
+  #+BEGIN_SRC emacs-lisp
+  (use-package org
+  :ensure org-plus-contrib)
+  #+END_SRC
 * A definition I found online org-begin-template
   I should really check this out at some point http://pragmaticemacs.com/emacs/wrap-text-in-an-org-mode-block/ In my most recent
   post on org-mode, I talked about using blocks to mark text as being latex, or source code and so on. I mentioned using the
@@ -245,6 +250,8 @@ UCa5AQ==
 * My org-mode preferences
   #+BEGIN_SRC emacs-lisp
     (setq
+     ;; hide the leading stars in my org files
+     org-hide-leading-stars t
      ;;seeing the ... that org mode does to how you that the heading continues in the text beneith it is kind of boring
      ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
      ;; Other interesting characters are ↴, ⬎, ⤷, and ⋱.
@@ -277,7 +284,9 @@ UCa5AQ==
      ;; are there more backends that I can use?
      org-export-backends '(ascii beamer html texinfo latex)
      ;;most of these modules let you store links to various stuff in org
-     org-modules '(org-bbdb org-gnus org-info invoice man toc habits)
+     org-modules '(org-bbdb org-gnus org-info invoice man toc habits org-mime org-bullets)
+     ;; load in the org-modules
+     ;;org-load-modules-maybe t
      ;; where to put the :action: or :work: tag after a heading.  80 colums over
      org-tags-column 80
      ;; don't ask me if I want to run an babel code block.  I know what I'm doing
@@ -481,6 +490,7 @@ EXT is a list of the extensions of files to be included."
                                  (define-key yas/keymap [tab] 'yas/next-field)
                                  ;; make the lines in the buffer wrap around the edges of the screen.
                                  (visual-line-mode)
+                                 (org-bullets-mode 1)
                                  ;;make ">=" look like >=, etc.
                                  (push '(">=" . ?≥) prettify-symbols-alist)
                                  (push '("<=" . ?≤) prettify-symbols-alist)
@@ -550,11 +560,11 @@ _d_: subtree
   http://orgmode.org/worg/org-contrib/org-mime.html
   I want to figure out how to install this, because I could then write html emails trivially with gnus
   #+BEGIN_SRC emacs-lisp
-  ;;(require 'org-mime)
+  (require 'org-mime)
   #+END_SRC
 
   #+BEGIN_SRC emacs-lisp
-  ;; (setq org-mime-library 'mml)
+   (setq org-mime-library 'mml)
   #+END_SRC
 
 * org babel
@@ -592,13 +602,6 @@ _d_: subtree
   #+RESULTS:
 
 * org invoice
-  #+BEGIN_SRC emacs-lisp
-    (require 'org-invoice)
-  #+END_SRC
-
-  #+RESULTS:
-  : org-invoice
-
   This lests you manage invoices with org-mode.  It is pretty cool!
   You can create invoices with the following format.  And just call org-invoice-report on the
   begin invoice.  Be careful NOT to put an inactive time stamp anywhere in the tree unless you want that

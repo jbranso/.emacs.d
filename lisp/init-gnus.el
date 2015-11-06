@@ -1,145 +1,13 @@
-;; read these pages:
-;;http://www.mostlymaths.net/2010/12/emacs-30-day-challenge-glimpse-of-bbdb.html
-;; http://www.mostlymaths.net/2010/12/emacs-30-day-challenge-using-gnus-to.html
-;; set up gnus to use Purdue IMAP
-;; practical gnus tutorial
-;; http://blog.binchen.org/posts/notes-on-using-gnus.html#sec-1
-;; http://sachachua.com/blog/2008/05/emacs-gnus-searching-mail/
-;; using mime in gnus http://orgmode.org/worg/org-contrib/org-mime.html
-;; When you first start gnus you need to type "t".  Not sure why, but you do.
-;; You also need to type j (jump) to a particular folder
-;; also sometimes your inboxes won't sure up (if they are contain no unread mail mail) so
-;; to see all inbex
-
-;; You can find the following guide here: http://www.emacswiki.org/emacs/GnusGmail#toc1
-;; Quickstart
-;; Put the following in ~/.profile (I put it in .bash_profile) :
-
-;; export EMAIL="<EMAIL_ADDRESS>"
-;; export NAME="<FULL NAME>"
-;; export SMTPSERVER="smtp.gmail.com"
-;; For example, if your name is John Smith and your email address is johnsmith@gmail.com:
-
-;; export EMAIL="johnsmith@gmail.com"
-;; export NAME="John Smith"
-;; export SMTPSERVER="smtp.gmail.com"
-;; Now put the following in your ~/.gnus file:
-
-;; (setq gnus-select-method
-;;       '(nnimap "gmail"
-;; 	       (nnimap-address "imap.gmail.com")  ; it could also be imap.googlemail.com if that's your server.
-;; 	       (nnimap-server-port "imaps")
-;; 	       (nnimap-stream ssl)))
-
-;; (setq smtpmail-smtp-service 587
-;;       gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
-;; Put the following in your ~/.authinfo file, replacing <USER> with your email address and replacing <PASSWORD> with your password—or your application-specific password:
-
-;; machine imap.gmail.com login <USER> password <PASSWORD> port imaps
-;; machine smtp.gmail.com login <USER> password <PASSWORD> port 587
-;; If you don’t wish to store your password there, just omit the “password <PASSWORD>” altogether and Gnus will prompt you when it needs your password.
-
-;; When sending your first email from gnus, you might get a STARTTLS error. If you’re using homebrew in Mac OS X, you can install
-;; the necessary package with brew install gnutls.
-
-;; You can find more information in the following sections.
-
-;; Run ‘M-x gnus’ and enjoy.
-
-
-;;establishing a connection
-
-;; let's tell gnus who we are
 (require 'init-gnus-secret)
-;; init-gnus-secret looks like:
-;; (setq
-;;  user-mail-address	"<your email address>"
-;;  user-full-name	"<Your Full Name>")
+
 (setq
- ;;make a default signature
  message-signature
- "Joshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\nhttps://www.gnu.org/software/emacs/"
- ;; add a date to the default summare line format
- gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n"
- ;; use smiley's in gnus
- gnus-treat-display-smileys t
+ "Joshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\nhttps://www.gnu.org/software/emacs/")
 
- ;; making gnus a little faster
- ;;make startup faster
+(setq  gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n")
 
- gnus-check-new-newsgroups nil
- gnus-check-bogus-newsgroups nil
- ;; this file is often large. Why read it? What's it do?
- ;; the next two variables might be slowing it down
- ;;setting the next line to nil will slow down gnus apparently [[info:gnus#The%20Active%20File][info:gnus#The Active File]]
- ;;gnus-read-active-file nil
- ;; no need to recenter the summary buffer all the time
- gnus-auto-center-summary nil
- ;;entering the summary buffer faster
- gnus-nov-is-evil nil
- gnus-show-threads nil
- gnus-use-cross-reference nil
- ;; default encryption and signing of stuff
- ;;https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
- ;;sign and encrypt messages if you recognize the senders by default
- mm-verify-option "known"
- mm-decrypt-option "known"
- ;; reply and encrypt/sign messages if you know the user by default
- ;; https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
- gnus-message-replysign t
- gnus-message-replyencrypt t
+(setq gnus-treat-display-smileys t)
 
-
- ;;message filters
- spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
- spam-use-blacklist t)
-
-(spam-initialize)
-
-
-;; set up search in GNUS
-;; http://www.emacswiki.org/emacs/GnusGmail#toc21
-;;(require 'nnir)
-(use-package nnir)
-
-
-;; tell gnus to use my purdue email, and to enable searching my inbox
-;; typing GG in the buffer group, lets me search the current group for a string
-;; you have to hit "t" when you first open gnus
-;; to get purdue working again uncomment this whole thing
-;; (setq gnus-select-method
-;;       '(nnimap "mymail.purdue.edu"
-;; 	      ;; (nnimap-address "mymail.purdue.edu")  ; it could also be imap.googlemail.com if that's your server.
-;; 	       (nnimap-server-port "993")
-;; 	       (nnimap-stream ssl)
-;;            (nnir-search-engine imap)
-;;            )
-;;       ;; The variable smtpmail-stream-type controls what form of connection the SMTP library uses. The default value is nil, which
-;;       ;; means to use a plain connection, but try to switch to a STARTTLS encrypted connection if the server supports it. Other
-;;       ;; possible values are: starttls to insist on STARTTLS; ssl to use TLS/SSL; and plain for encryption.
-;;       smtpmail-smtp-server "smtp.purdue.edu"
-;;       ;;smtpmail-default-smtp-server "smtp.purdue.edu"
-;;       send-mail-function (quote smtpmail-send-it)
-;;       smtpmail-stream-type 'ssl
-;;       smtpmail-smtp-service 465
-;;       )
-
-
-(require 'init-gnus-secret-smtp)
-;; init-gnus-secret-smtp looks like
-;; (require 'smtpmail)
-;; (setq message-send-mail-function 'smtpmail-send-it
-;;       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-;;       smtpmail-auth-credentials '(("smtp.gmail.com" 587 "<your gmail address>" nil))
-;;       smtpmail-default-smtp-server "smtp.gmail.com"
-;;       smtpmail-smtp-server "smtp.gmail.com"
-;;       smtpmail-smtp-service 587)
-
-;; (setq user-mail-address "<your gmail address>")
-;; (setq send-mail-function 'smtpmail-send-it)
-
-;;more attractive summary buffer
-;; http://groups.google.com/group/gnu.emacs.gnus/browse_thread/thread/a673a74356e7141f
 (when window-system
   (setq gnus-sum-thread-tree-indent "  ")
   (setq gnus-sum-thread-tree-root "") ;; "● ")
@@ -161,91 +29,64 @@
        "%s\n"))
 (setq gnus-summary-display-arrow t)
 
+(setq gnus-check-new-newsgroups nil
+      gnus-check-bogus-newsgroups nil)
 
-;; make gnus load more than 1 email in the background
-;; this seems to slow stuff down in the initial connection, and it doesn't seem all that fast once everything is opened.
-;; (setq
-;;  gnus-asynchronous t
-;;  ;; fetch 15 messages by default
-;;  gnus-use-article-prefetch 15)
+(setq gnus-auto-center-summary nil)
 
+(setq gnus-nov-is-evil nil
+      gnus-show-threads nil
+      gnus-use-cross-reference nil)
 
-
+(setq mm-verify-option "known"
+ mm-decrypt-option "known")
 
-;;have gnus alert you when a new mail arrives
+(setq gnus-message-replysign t
+ gnus-message-replyencrypt t)
+
+(setq spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
+      spam-use-blacklist t)
+(spam-initialize)
+
+(use-package nnir)
+
+(require 'init-gnus-secret-smtp)
+
 (use-package gnus-desktop-notify
   :ensure t)
-;;This is supposed to let me know when I get a new email, but not really
-;;http://www.thregr.org/~wavexx/software/gnus-desktop-notify.el/index.html
+
 (gnus-desktop-notify-mode)
 (gnus-demon-add-scanmail)
 (gnus-demon-add-handler 'gnus-group-get-new-news 20 t)
-;;alledigeely this next line is not necessary
-;;(gnus-demon-init)
-
-;; change how the summary buffer looks
-;;(setq
-;; gnus-summary-line-format '(%U%R%z%I%(%[%4L: %-23,23f%]%) %s\n))
-
-
-
-;; get bbdb set up (insidious big brother database) it manages your mail contacts
-;; http://bbdb.sourceforge.net/bbdb.html#SEC13
-;; When you are about to email someone you can easily start typing their name then press tab
-;; to try to complete the email address
-
-
-;;Now you should be ready to go.  Say ‘M-x bbdb RET RET’ to open
-;;a bbdb buffer showing all entries.  Say ‘c’ to create a new
-;;entry, ‘b’ to search your BBDB and ‘C-o’ to add a new field to an
-;; entry.  If you want to add a sender to the BBDB you can also just
-;; hit ‘:’ on the posting in the summary buffer and you are done.
-;; When you now compose a new mail, hit ‘TAB’ to cycle through know
-;; recipients.
 
 (use-package bbdb
   :ensure t)
-;; these string are needed to initial bbdb for gnus, message, and send mail
-;;(bbdb-initialize 'gnus 'message 'sendmail 'w3)
-;; if this doesn't work, use the obve code
-;; http://www.mostlymaths.net/2010/12/emacs-30-day-challenge-glimpse-of-bbdb.html
+
+(bbdb-initialize 'gnus 'message )
+
 (require 'bbdb)
 (bbdb-initialize 'gnus 'message)
 
-;; use bbdb in message mode
 (bbdb-insinuate-message)
 
-;;initialize bbdb for gnus
 (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
 
-
-;;allow bbdb records to allow the inclusion of URLs
-;;(bbdb-insinuate-w3)
-
-;; [[info:gnus#FAQ%205-7][info:gnus#FAQ 5-7]]  how to use bbdb with gnus
-
 (setq bbdb/gnus-summary-prefer-real-names t
-      bbdb-file "~/.emacs.d/bbdb"
-      bbdb-default-area-code 765
-      ;; make gnus auto create records for the email that I read
-      ;; this is a bad idea, because I get junk mail
-      ;; bbdb/news-auto-create-p t
-      ;;bbdb-user-mail-names "jbranso@purdue.edu"
-      bbdb-user-mail-names "jbranson@setyourwaypoint.com"
-      ;; make bbdb pop up when you are using it in gnus
-      bbdb-use-pop-up t
-      ;; make bbdb save the database without asking
-      bbdb-offer-save 1
-      bbdb-update-records-p t
-      ;; gnus will recognize these email addresses as mine
-      bbdb-user-mail-address-re
-      (regexp-opt
-       '("jbranso@purdue.edu" "bransoj@hotmail.com" "jbranson@setyourwaypoint.com"))
-      message-dont-reply-to-names bbdb-user-mail-address-re
-      gnus-ignored-from-addresses bbdb-user-mail-address-re)
+   bbdb-file "~/.emacs.d/bbdb"
+   bbdb-default-area-code 765
+   bbdb-user-mail-names "jbranson@setyourwaypoint.com")
+
+bbdb-use-pop-up t
+bbdb-offer-save 1
+bbdb-update-records-p t
+
+(setq
+bbdb-user-mail-address-re
+(regexp-opt
+ '("jbranso@purdue.edu" "bransoj@hotmail.com" "jbranson@setyourwaypoint.com"))
+message-dont-reply-to-names bbdb-user-mail-address-re
+gnus-ignored-from-addresses bbdb-user-mail-address-re)
 
 (bbdb-mua-auto-update-init 'message)
-
-
 
 (provide 'init-gnus)
