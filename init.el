@@ -45,6 +45,7 @@
 (require 'use-package)
 (require 'init-wgrep)
 (require 'init-abbrev)
+(require 'init-edit-server)
 ;; I have some global abbreviations.  So I should turn on abbrev mode
 ;;(require-package 'project-local-variables)
 ;; this helps you minizize modeline clutter by hidding some modes on the mode line.

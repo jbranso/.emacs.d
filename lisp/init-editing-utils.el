@@ -369,6 +369,8 @@
                                              "C-x n"
                                              ;; this is for projectile keys
                                              "C-c p"
+                                             ;; this is also for projectile?
+                                             "C-c p s"
                                              ;;this is for helm keys
                                              "C-c h"
                                              ;; this is for register commands
