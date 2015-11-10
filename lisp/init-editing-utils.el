@@ -76,7 +76,7 @@
 
 
 (when (fboundp 'global-prettify-symbols-mode)
-  (global-prettify-symbols-mode))
+  (global-prettify-symbols-mode 1))
 
 
 ;; When you define a macro, you can type C-x Q to prompt the user for input.
@@ -373,6 +373,8 @@
                                              "C-c p s"
                                              ;;this is for helm keys
                                              "C-c h"
+                                             ;; this is for another helm info thing
+                                             "C-c h h"
                                              ;; this is for register commands
                                              "C-x r"
                                              ;; this is for org-babel commands

@@ -42,7 +42,10 @@
 ;; global-cedet-m3-minor-mode
 ;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-local-symbol-highlight-mode)
 
-;; (semantic-mode 1)
+;; I'm going to try out semantic mode again.  It will only be enabled in
+;; C, C++, Scheme, Javascript-mode, Java, HTML-mode, SRecode, Make, texinfo, python-mode files
+
+(semantic-mode 1)
 
 ;; integration with imenu
 ;; (defun my-semantic-hook ()

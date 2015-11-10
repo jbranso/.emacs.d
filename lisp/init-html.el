@@ -79,14 +79,11 @@
 
 
 (add-hook 'web-mode-hook (lambda ()
-                           ;;yas mode for php stuff
-                           ;; (yas-minor-mode)
-                           ;; (yas-reload-all)
-                           ;; (diminish 'yas-minor-mode)
                            ;; I've installed http://phpmd.org/ to check my php code using flycheck
                            ;; BUT flycheck mode does NOT support web-mode
                            (ggtags-mode 1)
-                           (abbrev-mode 1)
+                           ;; I have abbrev turned on for all prog-modes and all text modes.
+                           ;; (abbrev-mode 1)
                            (diminish 'ggtags-mode)
                            ;;emmet mode for html % css related things
                            (emmet-mode)
@@ -127,7 +124,8 @@
 
 ;; use flycheck in php buffers as well. it's a real shame that flycheck doesn't support web-mode
 (add-hook 'php-mode-hook (lambda ()
-                           (abbrev-mode 1)
+                           ;; I have abbrev mode turned on for all prog-modes and all text-modes
+                           ;; (abbrev-mode 1)
                            (define-key php-mode-map (kbd "C-<return>") '(lambda ()
                                                                           (interactive)
                                                                           (newline)
@@ -135,6 +133,8 @@
                            (push '("function" . ?𝆑) prettify-symbols-alist)
                            (push '(">=" . ?≥) prettify-symbols-alist)
                            (push '("<=" . ?≤) prettify-symbols-alist)
+                           (push '("->" . ?⟶) prettify-symbols-alist)
+                           (push '("=>" . ?⟹) prettify-symbols-alist)
                            (push '("\\geq" . ?≥) prettify-symbols-alist)
                            (push '("\\leq" . ?≤) prettify-symbols-alist)
                            (push '("\\neg" . ?¬) prettify-symbols-alist)
@@ -158,18 +158,14 @@
                                               ;;  ac-source-dictionary
                                               ac-source-words-in-buffer
                                               ))
-                           ;; (yas-minor-mode)
-                           ;; (yas-reload-all)
                            ))
 
 
 
 
 (add-hook 'js2-mode-hook (lambda ()
-                           ;; (yas-minor-mode)
-                           ;; (yas-reload-all)
-                           (abbrev-mode 1)
-                           ;; (diminish 'yas-minor-mode)
+                           ;; I have abbrev turned on for all prog and text modes
+                           ;; (abbrev-mode 1)
                            (skewer-mode)
                            (ggtags-mode 1)
                            (push '("function" . ?𝆑) prettify-symbols-alist)

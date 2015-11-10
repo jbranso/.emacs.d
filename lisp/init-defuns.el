@@ -83,12 +83,15 @@
   (cond
    ;; when the buffer's name has an "includes" in the name, then set the remote dir to /includes/
    ((string-match "includes" buffer-file-name)
+         (print "includes")
          (setq remote-dir (concat remote-dir "/includes/")))
    ;; when the buffer's name has an "php" in middle of the file name, then set the remote dir to /php/
    ((string-match "/php/+$" buffer-file-name)
+    (print "php")
     (setq remote-dir (concat remote-dir "/php/")))
    ;; if this is a javascript file, then save it in the javascript dir
    ((string-match "js$" buffer-file-name)
+    (print "js")
     (setq remote-dir (concat remote-dir "/js/"))))
   ;; Take the current file and save it on the live server
   (write-file remote-dir)

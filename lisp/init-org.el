@@ -434,6 +434,8 @@ _d_: subtree
      (gnuplot . t)
      )))
 
+(require 'org-invoice)
+
 (require 'org-notify)
 (org-notify-start)
 
