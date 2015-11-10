@@ -40,8 +40,11 @@
 
 ;; some programming modes DO NOT want visual line mode enabled
 ;;(global-visual-line-mode 1)
-;;show the number of lines you are on
-(global-linum-mode 1)
+;;show the number of lines you are on. nlinum is much better than linum mode.
+;; linum mode make emacs really SLOW when your files get to be past 1000 lines long
+(use-package nlinum
+  :ensure t
+  :init (global-nlinum-mode 1))
 ;; this highlights search and replacements as you type  VERY helpful for dired-do-replace-regexp and isearch-regexp
 (use-package anzu
   :ensure t
