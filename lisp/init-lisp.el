@@ -32,10 +32,61 @@
 
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (use-package paredit
-  :ensure t)
+  :ensure t
+  :init
+  (defun paredit-barf-all-the-way-backward ()
+    (interactive)
+    (paredit-split-sexp)
+    (paredit-backward-down)
+    (paredit-splice-sexp))
+  (defun paredit-barf-all-the-way-forward ()
+    (interactive)
+    (paredit-split-sexp)
+    (paredit-forward-down)
+    (paredit-splice-sexp)
+    (if (eolp) (delete-horizontal-space)))
+  (defun paredit-slurp-all-the-way-backward ()
+    (interactive)
+    (catch 'done
+      (while (not (bobp))
+        (save-excursion
+          (paredit-backward-up)
+          (if (eq (char-before) ?\()
+              (throw 'done t)))
+        (paredit-backward-slurp-sexp))))
+  (defun paredit-slurp-all-the-way-forward ()
+    (interactive)
+    (catch 'done
+      (while (not (eobp))
+        (save-excursion
+          (paredit-forward-up)
+          (if (eq (char-after) ?\))
+              (throw 'done t)))
+        (paredit-forward-slurp-sexp)))))
+
 
 (defun turn-on-paredit ()
+  (autoload 'enable-paredit-mode "paredit"
+  "Turn on pseudo-structural editing of Lisp code."
+  t)
+  (define-key emacs-lisp-mode-map (kbd "C-c 0") 'paredit-forward-slurp-sexp)
+  (define-key emacs-lisp-mode-map (kbd "C-c 9") 'paredit-backward-slurp-sexp)
+  (define-key emacs-lisp-mode-map (kbd "C-c ]") 'paredit-forward-barf-sexp)
+  (define-key emacs-lisp-mode-map (kbd "C-c [") 'paredit-backward-barf-sexp)
+
+  (define-key emacs-lisp-mode-map (kbd "C-c )") 'paredit-slurp-all-the-way-forward)
+  (define-key emacs-lisp-mode-map (kbd "C-c }") 'paredit-barf-all-the-way-forward)
+  (define-key emacs-lisp-mode-map (kbd "C-c (") 'paredit-slurp-all-the-way-backward)
+  (define-key emacs-lisp-mode-map (kbd "C-c {") 'paredit-barf-all-the-way-backward)
+  (evil-define-key 'normal evil-dvorak-mode-map (kbd "k") 'paredit-kill)
   (paredit-mode +1))
+
+(dolist (hook '(prog-mode-hook
+                text-mode-hook))
+  (add-hook hook (lambda ()
+                   (evil-define-key 'normal evil-dvorak-mode-map  "k" 'kill-line))))
+
 (add-hook 'emacs-lisp-mode-hook 'turn-on-paredit)
+
 
 (provide 'init-lisp)
