@@ -150,8 +150,9 @@ vUXAVsyOIEsH32nX9FGZiHjL99CVQLjwgILwxhFgD0Yc9FDcWA==
          (awk . t)
          (C . t)
          (js . t)
-         (python . t)
          (gnuplot . t)
+         ;; org-babel does not currently support php
+         ;;(php . t)
          (sh . t)
          (sql . t)
          ;;(sqlite . t)
@@ -275,7 +276,6 @@ vUXAVsyOIEsH32nX9FGZiHjL99CVQLjwgILwxhFgD0Yc9FDcWA==
    https://julien.danjou.info/projects/emacs-packages#google-weather
    (require 'org-google-weather)
 * My org-mode preferences
-
 ** A big setq
 
   #+BEGIN_SRC emacs-lisp
@@ -290,6 +290,7 @@ vUXAVsyOIEsH32nX9FGZiHjL99CVQLjwgILwxhFgD0Yc9FDcWA==
      ;; org-ellipsis "⤵"
      ;; don't let me accidentally delete text without realizing it in org.  ie: point is buried in a subtree, but you only
      ;; see the heading and you accidentally kill a line without knowing it.
+     ;; this might not be supported for evil-mode
      org-catch-invisible-edits 'show-and-error
      ;; whenever I change state from TODO to DONE org will log that timestamp. Let's put that in a drawer
      org-log-into-drawer t
@@ -393,7 +394,7 @@ vUXAVsyOIEsH32nX9FGZiHjL99CVQLjwgILwxhFgD0Yc9FDcWA==
          ("cWS" "Shoppify Reference" entry (file+headline "~/programming/org/gtd/web.org" "Shoppify reference")
          "* %?\nEntered on %U\n  %i\n  %a")
 
-        ("cWW" "Web reference" entry (file+headline "~/programming/org/gtd/web.org" "Web reference")
+         ("cWW" "Web reference" entry (file+headline "~/programming/org/gtd/web.org" "Web reference")
          "* %?\nEntered on %U\n  %i\n  %a")
 
 
@@ -410,9 +411,11 @@ vUXAVsyOIEsH32nX9FGZiHjL99CVQLjwgILwxhFgD0Yc9FDcWA==
          "* TODO %?\n  %i\n  %a")
 
         ("e" "entertainment")
-        ("ew" "movies to watch" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "movies to watch")
+        ("eb" "Books to Read" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "Books to Read")
          "*  %i\n  %a")
         ("er" "Good Movies Reference" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "Good Movies")
+         "*  %i\n  %a")
+        ("ew" "movies to watch" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "movies to watch")
          "*  %i\n  %a")
         ("g" "getting close to God")
         ("gg" "get a close friend" entry (file+headline "/home/joshua/programming/org/gtd/projects/get-close-to-God.org"
@@ -537,10 +540,46 @@ EXT is a list of the extensions of files to be included."
   #+BEGIN_SRC emacs-lisp
   ; Targets start with the file name - allows creating level 1 tasks
     (setq org-refile-use-outline-path (quote file))
+  #+END_SRC
+
+
+  I can specify that when I use org-refile that I want to be able to refile an entry by being shown an indirect buffer of an org-mode
+  file, that initially hides all of the sub headings.  I can refile by tabbing to various subtrees and then via pressing enter.
+  #+BEGIN_SRC emacs-lisp
     ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
     (setq org-outline-path-complete-in-steps t)
+  #+END_SRC
+
+  I want to make specific TODO states.  Anything after the "|" is marked completed and appears green.  Anything before it, shows
+  that the item is still actionable and it is red.
+
+  I should also point out, that most people will probably want TODO to be the first keyword.  Suppose that you have a recurring
+  task like the following:
+
+  #+BEGIN_SRC org
+    ,* TODO Brush my teeth
+      SCHEDULED: <2015-11-15 Sun +1d>
+      :LOGBOOK:
+      - State "TODO"       from              [2015-11-15 Sun 09:24]
+      :END:
+  #+END_SRC
+
+  Whenever you complete this task, and do a C-c C-t (org-todo), org will put a short message inside a drawer under the item.
+  Then, since this item is not properly DONE (since it still repeats), org-mode will try to find the proper TODO state to put in.
+  By default, org-mode uses the first keyword specified by org-todo-keywords.  So most users will probably want to make TODO
+  the first keyword.
+
+  Also the TODO(t!), means that "t" will be used as the quick key for this TODO entry in the todo pop up dialog.  The "!" means to
+  only record the time of the state change. You can also use a "@" instead of "!" to specify that you would like to enter a note
+  when you change the item's state.  So "DONE(d@)" means that you want to use d as the shortcut key, and you'd org-mode to prompt
+  you for a not when you do so.
+
+  You can also have syntax like "PROJECT(p@/!)", which means to record a note when you change an items TODO keyword to project,
+  and you'd like to only record a timestamp if that item's keyword ever changes to any other todo keyword.
+
+  #+BEGIN_SRC emacs-lisp
     (setq org-todo-keywords
-    '((sequence "PROJECT(r)" "STARTED(s!)" "TODO(t!)" "DELEGATED(e!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
+    '((sequence "TODO(t!)" "PROJECT(r)" "STARTED(s!)"  "DELEGATED(e!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
 
           ;; I'm not sure how to globally set tags.  I would like to know how to do that, so I won't have to specify all the tags
           ;; the top of each agenda document

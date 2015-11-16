@@ -15,6 +15,7 @@
   (use-package dired-sort
     :ensure t)
   (define-key dired-mode-map [mouse-2] 'dired-find-file)
+  (define-key dired-mode-map "/" 'helm-swoop)
   (add-hook 'dired-mode-hook
             (lambda ()
               (guide-key/add-local-guide-key-sequence "%")

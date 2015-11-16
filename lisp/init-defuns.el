@@ -93,11 +93,43 @@
    ((string-match "js$" buffer-file-name)
     (print "js")
     (setq remote-dir (concat remote-dir "/js/"))))
+  ;; set the remote file name
+  (setq remote-file
+        (concat remote-dir
+                ;; the file name without the path in front of it
+                (file-name-nondirectory buffer-file-name)))
   ;; Take the current file and save it on the live server
-  (write-file remote-dir)
+  (write-file remote-file)
   ;;Take the current file and save it locally, that way, after I'm done saying the local file
   ;;to the server, pwd is still ~/programming/soihub
   (write-file "/home/joshua/programming/waypoint/ihca/"))
 
+;; This function can be called from any org-babel sql block that has php and sql code mixed together
+(defun org-babel-strip-php-from-sql-block ()
+  "Cleans up a sql statement from
+   $sql  = 'SELECT * ';
+   $sql .= 'FROM USERS ';
+   $sql .= 'WHERE 1';
+   into
+   SELECT *
+   FROM USERS
+   WHERE 1 "
+  (interactive)
+  ;; let's first move to the top of the buffer
+  (beginning-of-buffer)
+  ;; now move point forward to the first char in the buffer
+  (while (re-search-forward "\";" nil t)
+    (replace-match ""))
+  (while (re-search-forward "\$sql.*=.*?" nil t)
+    (replace-match ""))
+  (while (re-search-forward "\$sql.*\.=.*?" nil t)
+    (replace-match ""))
+  (while (re-search-forward "\$sql.*=.*\"" nil t)
+    (replace-match "")))
+
+
+;; this is the defun I've been working on "\$sql.*\\(\\.\\|=\\).*?\""
+;; BUT this one seems to work
+;; "\$sql.*?=.+?\""
 
 (provide 'init-defuns)

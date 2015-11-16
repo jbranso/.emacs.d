@@ -114,4 +114,23 @@ _p_rint
    ("<" (shrink-window-horizontally 5))
    ("^" (enlarge-window 5))))
 
+(global-set-key
+ (kbd "C-x >")
+ (defhydra hydra-windows
+   (:body-pre (next-line))
+   "move"
+   (">" (scroll-right))
+   ("<" (scroll-left))))
+
+(global-set-key
+ (kbd "C-x <")
+ (defhydra hydra-windows
+   (:body-pre (next-line))
+   "move"
+   (">" (scroll-right))
+   ("<" (scroll-left))))
+
+
+
+
 (provide 'init-hydra)

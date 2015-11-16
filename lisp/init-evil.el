@@ -7,7 +7,10 @@
 
 (use-package evil-surround
   :ensure t
-  :config (global-evil-surround-mode 1))
+  :config
+  (global-evil-surround-mode 1)
+  (push '(?* . ("*" . "*")) evil-surround-pairs-alist)
+  (push '(?/ . ("/" . "/")) evil-surround-pairs-alist))
 
 ;;Do not move the cursor back when exiting insert mode.
 (setq evil-move-cursor-back nil)

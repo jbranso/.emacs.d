@@ -58,6 +58,8 @@ stuff, to the current ERC buffer."
 
 ;; Interpret mIRC-style color commands in IRC chats
 (setq erc-interpret-mirc-color t)
+;; don't let erc switch the active buffer when it connects to a new channel.
+(setq erc-join-buffer 'bury)
 
 ;; The following are commented out by default, but users of other
 ;; non-Emacs IRC clients might find them useful.

@@ -1,52 +1,6 @@
 (use-package org
 :ensure org-plus-contrib)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; function to wrap blocks of text in org templates                       ;;
-  ;; e.g. latex or src etc                                                  ;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (defun org-begin-template ()
-  "Make a template at point."
-  (interactive)
-  (if (org-at-table-p)
-      (call-interactively 'org-table-rotate-recalc-marks)
-    (let* ((choices '(("s" . "SRC")
-                      ("e" . "EXAMPLE")
-                      ("q" . "QUOTE")
-                      ("v" . "VERSE")
-                      ("c" . "CENTER")
-                      ("l" . "LaTeX")
-                      ("h" . "HTML")
-                      ("a" . "ASCII")))
-           (key
-            (key-description
-             (vector
-              (read-key
-               (concat (propertize "Template type: " 'face 'minibuffer-prompt)
-                       (mapconcat (lambda (choice)
-                                    (concat (propertize (car choice) 'face 'font-lock-type-face)
-                                            ": "
-                                            (cdr choice)))
-                                  choices
-                                  ", ")))))))
-      (let ((result (assoc key choices)))
-        (when result
-          (let ((choice (cdr result)))
-            (cond
-             ((region-active-p)
-              (let ((start (region-beginning))
-                    (end (region-end)))
-                (goto-char end)
-                (insert "#+END_" choice "\n")
-                (goto-char start)
-                (insert "#+BEGIN_" choice "\n")))
-             (t
-              (insert "#+BEGIN_" choice "\n")
-              (save-excursion (insert "#+END_" choice))))))))))
-
-;;bind to key
-;;(define-key org-mode-map (kbd "C-<") 'org-begin-template)
-
 ;; define what files org opens
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
 ;;(setq org-default-notes-file (concat org-directory "/notes.org"))
@@ -58,6 +12,94 @@
 (setq org-crypt-key "E99C48112E969A17")
 
 (setq auto-save-default nil)
+
+(require 'org-mime)
+
+(setq org-mime-library 'mml)
+
+(after-load 'org
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '(
+     (awk . t)
+     (calc .t)
+     (emacs-lisp . t)
+     (latex . t)
+     ;;(ledger . t)
+     (python . t)
+     (awk . t)
+     (C . t)
+     (js . t)
+     (gnuplot . t)
+     ;; org-babel does not currently support php
+     ;;(php . t)
+     (sh . t)
+     (sql . t)
+     ;;(sqlite . t)
+     (gnuplot . t)
+     )))
+
+(require 'org-invoice)
+
+(require 'org-notify)
+(org-notify-start)
+
+(org-notify-add 'appt
+                '(:time "-1s" :period "20s" :duration 10
+                        :actions (-message -ding))
+                '(:time "15m" :period "2m" :duration 100
+                        :actions -notify)
+                '(:time "2h" :period "5m" :actions -message)
+                '(:time "3d" :actions -email))
+
+(setq
+ ;; hide the leading stars in my org files
+ org-hide-leading-stars t
+ ;;seeing the ... that org mode does to how you that the heading continues in the text beneith it is kind of boring
+ ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
+ ;; Other interesting characters are ↴, ⬎, ⤷, and ⋱.
+ org-ellipsis " ↴"
+ ;;org-ellipsis "⬎"
+ ;; org-ellipsis "⤵"
+ ;; don't let me accidentally delete text without realizing it in org.  ie: point is buried in a subtree, but you only
+ ;; see the heading and you accidentally kill a line without knowing it.
+ ;; this might not be supported for evil-mode
+ org-catch-invisible-edits 'show-and-error
+ ;; whenever I change state from TODO to DONE org will log that timestamp. Let's put that in a drawer
+ org-log-into-drawer t
+ ;; make org-mode record the date when you finish a task
+ org-log-done 'time
+ ;;org-log-done 'nil
+ ;; when you press S-down, org changes the timestamp under point
+ org-edit-timestamp-down-means-later t
+ ;; make the agenda start on today not wednesday
+ org-agenda-start-on-weekday nil
+ ;; don't make the agenda only show saturday and Sunday if today is saturday. Make it show 7 days
+ org-agenda-span 7
+ ;; using the diary slows down the agenda view
+ ;; but it also shows you upcoming calendar events
+ org-agenda-include-diary t
+ ;; this tells the agenda to take up the whole window and hide all other buffers
+ org-agenda-window-setup 'current-window
+ ;; this tells org-mode to only quit selecting tags for things when you tell it that you are done with it
+ org-fast-tag-selection-single-key nil
+ org-html-validation-link nil
+ org-export-kill-product-buffer-when-displayed t
+ ;; are there more backends that I can use?
+ org-export-backends '(ascii beamer html texinfo latex)
+ ;;most of these modules let you store links to various stuff in org
+ org-modules '(org-bbdb org-gnus org-info invoice man toc habits org-mime org-bullets)
+ ;; load in the org-modules
+ ;;org-load-modules-maybe t
+ ;; where to put the :action: or :work: tag after a heading.  80 colums over
+ org-tags-column 80
+ ;; don't ask me if I want to run an babel code block.  I know what I'm doing
+ org-confirm-babel-evaluate nil
+ ;; activate org speed commands
+ org-use-speed-commands t)
+
+;;a visual hint to let you know what line you are in in org-mode agenda
+(add-hook 'org-agenda-finalize-hook (lambda () (hl-line-mode)))
 
 (setq org-capture-templates
     '(
@@ -119,7 +161,7 @@
        ("cWS" "Shoppify Reference" entry (file+headline "~/programming/org/gtd/web.org" "Shoppify reference")
        "* %?\nEntered on %U\n  %i\n  %a")
 
-      ("cWW" "Web reference" entry (file+headline "~/programming/org/gtd/web.org" "Web reference")
+       ("cWW" "Web reference" entry (file+headline "~/programming/org/gtd/web.org" "Web reference")
        "* %?\nEntered on %U\n  %i\n  %a")
 
 
@@ -136,9 +178,11 @@
        "* TODO %?\n  %i\n  %a")
 
       ("e" "entertainment")
-      ("ew" "movies to watch" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "movies to watch")
+      ("eb" "Books to Read" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "Books to Read")
        "*  %i\n  %a")
       ("er" "Good Movies Reference" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "Good Movies")
+       "*  %i\n  %a")
+      ("ew" "movies to watch" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "movies to watch")
        "*  %i\n  %a")
       ("g" "getting close to God")
       ("gg" "get a close friend" entry (file+headline "/home/joshua/programming/org/gtd/projects/get-close-to-God.org"
@@ -161,54 +205,6 @@
       ("q" "Quotations" entry (file+headline "~/programming/org/quotes.org" "Quotations")
        "* %?\nEntered on %U\n  %i\n  %a")
       ))
-
-(setq
- ;; hide the leading stars in my org files
- org-hide-leading-stars t
- ;;seeing the ... that org mode does to how you that the heading continues in the text beneith it is kind of boring
- ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
- ;; Other interesting characters are ↴, ⬎, ⤷, and ⋱.
- org-ellipsis " ↴"
- ;;org-ellipsis "⬎"
- ;; org-ellipsis "⤵"
- ;; don't let me accidentally delete text without realizing it in org.  ie: point is buried in a subtree, but you only
- ;; see the heading and you accidentally kill a line without knowing it.
- org-catch-invisible-edits 'show-and-error
- ;; whenever I change state from TODO to DONE org will log that timestamp. Let's put that in a drawer
- org-log-into-drawer t
- ;; make org-mode record the date when you finish a task
- org-log-done 'time
- ;;org-log-done 'nil
- ;; when you press S-down, org changes the timestamp under point
- org-edit-timestamp-down-means-later t
- ;; make the agenda start on today not wednesday
- org-agenda-start-on-weekday nil
- ;; don't make the agenda only show saturday and Sunday if today is saturday. Make it show 7 days
- org-agenda-span 7
- ;; using the diary slows down the agenda view
- ;; but it also shows you upcoming calendar events
- org-agenda-include-diary t
- ;; this tells the agenda to take up the whole window and hide all other buffers
- org-agenda-window-setup 'current-window
- ;; this tells org-mode to only quit selecting tags for things when you tell it that you are done with it
- org-fast-tag-selection-single-key nil
- org-html-validation-link nil
- org-export-kill-product-buffer-when-displayed t
- ;; are there more backends that I can use?
- org-export-backends '(ascii beamer html texinfo latex)
- ;;most of these modules let you store links to various stuff in org
- org-modules '(org-bbdb org-gnus org-info invoice man toc habits org-mime org-bullets)
- ;; load in the org-modules
- ;;org-load-modules-maybe t
- ;; where to put the :action: or :work: tag after a heading.  80 colums over
- org-tags-column 80
- ;; don't ask me if I want to run an babel code block.  I know what I'm doing
- org-confirm-babel-evaluate nil
- ;; activate org speed commands
- org-use-speed-commands t)
-
-;;a visual hint to let you know what line you are in in org-mode agenda
-(add-hook 'org-agenda-finalize-hook (lambda () (hl-line-mode)))
 
 (setq org-agenda-category-icon-alist '(
                                   ("hacker"      "/home/joshua/pictures/org-icons/gnu-linux-icon.png" nil nil nil nil)
@@ -280,7 +276,7 @@ EXT is a list of the extensions of files to be included."
   ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
   (setq org-outline-path-complete-in-steps t)
   (setq org-todo-keywords
-  '((sequence "PROJECT(r)" "STARTED(s!)" "TODO(t!)" "DELEGATED(e!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
+  '((sequence "TODO(t!)" "PROJECT(r)" "STARTED(s!)"  "DELEGATED(e!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
 
         ;; I'm not sure how to globally set tags.  I would like to know how to do that, so I won't have to specify all the tags
         ;; the top of each agenda document
@@ -372,7 +368,19 @@ EXT is a list of the extensions of files to be included."
                              (push '(":)" . ?☺) prettify-symbols-alist)
                              (push '("):" . ?☹) prettify-symbols-alist)
                              (push '(":D" . ?☺) prettify-symbols-alist)
+
+                             (push '("1/4" . ?¼) prettify-symbols-alist)
+                             (push '("1/2" . ?½) prettify-symbols-alist)
+                             (push '("3/4" . ?¾) prettify-symbols-alist)
+                             (push '("1/7" . ?⅐) prettify-symbols-alist)
+                             ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
+
+                             (push '("ae" . ?æ) prettify-symbols-alist)
+
+
                              (push '("^_^" . ?☻) prettify-symbols-alist)))
+
+(setq org-stuck-projects '("PROJECT" ("TODO NEXT") ("action") "\\<IGNORE\\>" ))
 
 (defhydra hydra-outline (:color pink :hint nil)
   "
@@ -409,44 +417,50 @@ _d_: subtree
 
 (global-set-key (kbd "C-c #") 'hydra-outline/body) ; by example
 
-(require 'org-mime)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; function to wrap blocks of text in org templates                       ;;
+  ;; e.g. latex or src etc                                                  ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (defun org-begin-template ()
+  "Make a template at point."
+  (interactive)
+  (if (org-at-table-p)
+      (call-interactively 'org-table-rotate-recalc-marks)
+    (let* ((choices '(("s" . "SRC")
+                      ("e" . "EXAMPLE")
+                      ("q" . "QUOTE")
+                      ("v" . "VERSE")
+                      ("c" . "CENTER")
+                      ("l" . "LaTeX")
+                      ("h" . "HTML")
+                      ("a" . "ASCII")))
+           (key
+            (key-description
+             (vector
+              (read-key
+               (concat (propertize "Template type: " 'face 'minibuffer-prompt)
+                       (mapconcat (lambda (choice)
+                                    (concat (propertize (car choice) 'face 'font-lock-type-face)
+                                            ": "
+                                            (cdr choice)))
+                                  choices
+                                  ", ")))))))
+      (let ((result (assoc key choices)))
+        (when result
+          (let ((choice (cdr result)))
+            (cond
+             ((region-active-p)
+              (let ((start (region-beginning))
+                    (end (region-end)))
+                (goto-char end)
+                (insert "#+END_" choice "\n")
+                (goto-char start)
+                (insert "#+BEGIN_" choice "\n")))
+             (t
+              (insert "#+BEGIN_" choice "\n")
+              (save-excursion (insert "#+END_" choice))))))))))
 
-(setq org-mime-library 'mml)
-
-(after-load 'org
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '(
-     (awk . t)
-     (calc .t)
-     (emacs-lisp . t)
-     (latex . t)
-     ;;(ledger . t)
-     (python . t)
-     (awk . t)
-     (C . t)
-     (js . t)
-     (python . t)
-     (gnuplot . t)
-     (sh . t)
-     (sql . t)
-     ;;(sqlite . t)
-     (gnuplot . t)
-     )))
-
-(require 'org-invoice)
-
-(require 'org-notify)
-(org-notify-start)
-
-(org-notify-add 'appt
-                '(:time "-1s" :period "20s" :duration 10
-                        :actions (-message -ding))
-                '(:time "15m" :period "2m" :duration 100
-                        :actions -notify)
-                '(:time "2h" :period "5m" :actions -message)
-                '(:time "3d" :actions -email))
-
-(setq org-stuck-projects '("PROJECT" ("TODO NEXT") ("action") "\\<IGNORE\\>" ))
+;;bind to key
+;;(define-key org-mode-map (kbd "C-<") 'org-begin-template)
 
 (provide 'init-org)

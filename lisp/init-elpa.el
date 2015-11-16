@@ -6,11 +6,43 @@
 ;; don't use marmalade.  They are down all the time and not reliable
 ;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+;; emacs should not be using http to download packages
+;; https://glyph.twistedmatrix.com/2015/11/editor-malware.html
+
+(add-to-list 'package-archives '("gnu"   . "http://elpa.gnu.org/packages/"))
 
 ;;; Also use Melpa for most packages
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+(add-to-list 'package-archives '("org"   . "http://orgmode.org/elpa/"))
+
+;;tell emacs where my certificates are
+;; (let ((trustfile
+;;        (replace-regexp-in-string
+;;         "\\\\" "/"
+;;         (replace-regexp-in-string
+;;          "\n" ""
+;;          (shell-command-to-string "python -m certifi")))))
+;;   (setq tls-program
+;;         (list
+;;          (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
+;;                  (if (eq window-system 'w32) ".exe" "") trustfile)))
+;;   (setq gnutls-verify-error t)
+;;   (setq gnutls-trustfiles (list trustfile)))
+
+;; This is some test code that if it gives you errors tells you that emacs is NOT using tls properly
+;; I'm getting errors so tls is not working right
+ ;; (if (condition-case e
+ ;;         (progn
+ ;;           (url-retrieve "https://wrong-host.badssl.com/"
+ ;;                         (lambda (retrieved) t))
+ ;;           (url-retrieve "https://self-signed.badssl.com/"
+ ;;                         (lambda (retrieved) t))
+ ;;           t)
+ ;;       ('error nil))
+ ;;     (error "tls misconfigured")
+ ;;   (url-retrieve "https://badssl.com"
+ ;;                 (lambda (retrieved) t)))
+
 ;; No one uses melpa stable apparently according to the melpa maintainer Steve Purcell and original author of this config.
 ;;(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
