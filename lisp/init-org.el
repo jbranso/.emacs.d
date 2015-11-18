@@ -123,7 +123,7 @@
        "* TODO %?\n  %i\n  %a")
       ("ct" "General Computer TODO"
        entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "General TODO")
-       "* todo %?\n  %i\n  %a")
+       "* TODO %?\n  %i\n  %a")
       ("cw" "Waypoint")
       ("cwi" "ibca Web App")
       ("cwib" "bugs that need fixin'" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"

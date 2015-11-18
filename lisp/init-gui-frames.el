@@ -59,6 +59,12 @@
 ;;the desktop also tries to save the frame and window configuration. To disable this, set desktop-restore-frames to nil. (See that
 ;;variable’s documentation for some related options that you can customize to fine-tune this behavior.)
 ;;(desktop-save-mode 1)
+
+;; http://whattheemacsd.com/init.el-03.html
+;; save the position that point was in during the last emacs session
+(require 'saveplace)
+(setq-default save-place t)
+(setq save-place-file (expand-file-name ".places" user-emacs-directory))
 ;; I found this hydra here
 ;; http://ericjmritz.name/2015/10/14/some-personal-hydras-for-gnu-emacs/
 (defhydra hydra-desktop (:color blue)

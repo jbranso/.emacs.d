@@ -16,6 +16,14 @@
     :ensure t)
   (define-key dired-mode-map [mouse-2] 'dired-find-file)
   (define-key dired-mode-map "/" 'helm-swoop)
+
+  ;; http://whattheemacsd.com/setup-dired.el-01.html
+  ;; I don't need dired to automatically show me all the details ie: all the permissions and stuff
+  ;; If I do want the details I can use ")" to show them and "(" to hide them again
+  (use-package dired-details
+    :ensure t)
+  (setq-default dired-details-hidden-string "--- ")
+  (dired-details-install)
   (add-hook 'dired-mode-hook
             (lambda ()
               (guide-key/add-local-guide-key-sequence "%")

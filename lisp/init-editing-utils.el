@@ -51,7 +51,9 @@
   :diminish anzu-mode)
 (global-anzu-mode +1)
 
+;;Auto revert scanes for files that have changed and then automagically updates 'em without you noticing
 (global-auto-revert-mode)
+;; This apparently also updates dired buffers too.
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose nil)
 
@@ -297,6 +299,11 @@
 
 (global-set-key (kbd "C-x C-.") #'pop-global-mark)
 ;; web-mode has a command C-c C-h that overrides this.
+
+;; Let's delete the current file eh?
+(global-set-key (kbd "C-x C-k") #'delete-this-file)
+(global-set-key (kbd "C-x C-r") #'rename-this-file-and-buffer)
+
 ;; I've modified the web-mode-hook to account for this.
 (global-set-key (kbd "C-c C-h") #'help)
 (global-set-key (kbd "C-c h k") #'helm-show-kill-ring)
