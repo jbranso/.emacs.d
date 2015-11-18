@@ -70,6 +70,7 @@
 ;; erc buffers randomly.  Not a fan at the moment.
 ;;(require 'init-erc)
 (require 'init-eshell)
+;;(require 'init-term)
 ;; this sets up paradox to use my private token to access public repos.
 (require 'init-paradox)
 (require 'init-bash)
@@ -96,7 +97,7 @@
 (require 'init-editing-utils)
 (require 'init-evil)
 ;; set up info to use the windmove commands!
-;;(require 'init-info)
+(require 'init-info)
 
 ;; http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html
 ;;(require 'init-darcs)

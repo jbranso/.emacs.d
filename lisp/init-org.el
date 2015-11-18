@@ -273,31 +273,33 @@ EXT is a list of the extensions of files to be included."
 
 ; Targets start with the file name - allows creating level 1 tasks
   (setq org-refile-use-outline-path (quote file))
-  ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
-  (setq org-outline-path-complete-in-steps t)
-  (setq org-todo-keywords
-  '((sequence "TODO(t!)" "PROJECT(r)" "STARTED(s!)"  "DELEGATED(e!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
 
-        ;; I'm not sure how to globally set tags.  I would like to know how to do that, so I won't have to specify all the tags
-        ;; the top of each agenda document
-  ;; I can apparently also specify org-tag-faces which will make certain tags look certain colors!
-  ;; why is this big hunk of setq not working?
-  ;; (setq org-tag-alist '(("waiting(w)" . ?w)
-  ;; ("action(a)" . ?a) ("career" . ?r) ("community" . ?m) ("gnu" . ?g)
-  ;; ("someday" . ?o) ("project" . ?p) ("reference" . ?e) ("reward" . ?d))
+; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
+(setq org-outline-path-complete-in-steps t)
 
-  ;; org-tag-faces '(("waiting(w)" . org-warning) ("action(a)" . org-warning)
-  ;;  ("career" . "green") ("community" . "green") ("gnu" . "green") ("someday" . "yellow")
-  ;;  ("project" . "blue") ("reference" . "green") ("reward" . "green")))
+(setq org-todo-keywords
+'((sequence "TODO(t!)" "PROJECT(r)" "STARTED(s!)"  "DELEGATED(e!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
+
+      ;; I'm not sure how to globally set tags.  I would like to know how to do that, so I won't have to specify all the tags
+      ;; the top of each agenda document
+;; I can apparently also specify org-tag-faces which will make certain tags look certain colors!
+;; why is this big hunk of setq not working?
+;; (setq org-tag-alist '(("waiting(w)" . ?w)
+;; ("action(a)" . ?a) ("career" . ?r) ("community" . ?m) ("gnu" . ?g)
+;; ("someday" . ?o) ("project" . ?p) ("reference" . ?e) ("reward" . ?d))
+
+;; org-tag-faces '(("waiting(w)" . org-warning) ("action(a)" . org-warning)
+;;  ("career" . "green") ("community" . "green") ("gnu" . "green") ("someday" . "yellow")
+;;  ("project" . "blue") ("reference" . "green") ("reward" . "green")))
 
 
-  ;;  (setq org-todo-keywords
-  ;;        (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
-  ;;                (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)"))))
+;;  (setq org-todo-keywords
+;;        (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
+;;                (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)"))))
 
-  ;;(setq org-todo-keyword-faces
-    ;;     '(("TODO" . org-warning) ("STARTED" . "yellow")
-      ;;     ("CANCELED" . (:foreground "blue" :weight bold))))
+;;(setq org-todo-keyword-faces
+  ;;     '(("TODO" . org-warning) ("STARTED" . "yellow")
+    ;;     ("CANCELED" . (:foreground "blue" :weight bold))))
 
 ;; Save the running clock and all clock history when exiting Emacs, load it on startup
 (setq org-clock-persistence-insinuate t)
@@ -368,16 +370,14 @@ EXT is a list of the extensions of files to be included."
                              (push '(":)" . ?☺) prettify-symbols-alist)
                              (push '("):" . ?☹) prettify-symbols-alist)
                              (push '(":D" . ?☺) prettify-symbols-alist)
-
+                             (push '("\\checkmark" . ?✓) prettify-symbols-alist)
+                             (push '("\\check" . ?✓) prettify-symbols-alist)
                              (push '("1/4" . ?¼) prettify-symbols-alist)
                              (push '("1/2" . ?½) prettify-symbols-alist)
                              (push '("3/4" . ?¾) prettify-symbols-alist)
                              (push '("1/7" . ?⅐) prettify-symbols-alist)
                              ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
-
                              (push '("ae" . ?æ) prettify-symbols-alist)
-
-
                              (push '("^_^" . ?☻) prettify-symbols-alist)))
 
 (setq org-stuck-projects '("PROJECT" ("TODO NEXT") ("action") "\\<IGNORE\\>" ))

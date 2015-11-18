@@ -21,6 +21,8 @@
 (add-hook 'emacs-lisp-mode-hook '(lambda ()
                                    (rainbow-delimiters-mode 1)
                                    (flycheck-mode 1)
+                                   ;; You want to enable evil-paredit mode for evil, because it's SOOO helpful.
+                                   (evil-paredit-mode 1)
                                    ))
 
 ;; automatically indent the text after certain commands are pressed!

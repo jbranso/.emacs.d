@@ -688,16 +688,14 @@ EXT is a list of the extensions of files to be included."
                                  (push '(":)" . ?☺) prettify-symbols-alist)
                                  (push '("):" . ?☹) prettify-symbols-alist)
                                  (push '(":D" . ?☺) prettify-symbols-alist)
-
+                                 (push '("\\checkmark" . ?✓) prettify-symbols-alist)
+                                 (push '("\\check" . ?✓) prettify-symbols-alist)
                                  (push '("1/4" . ?¼) prettify-symbols-alist)
                                  (push '("1/2" . ?½) prettify-symbols-alist)
                                  (push '("3/4" . ?¾) prettify-symbols-alist)
                                  (push '("1/7" . ?⅐) prettify-symbols-alist)
                                  ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
-
                                  (push '("ae" . ?æ) prettify-symbols-alist)
-
-
                                  (push '("^_^" . ?☻) prettify-symbols-alist)))
   #+END_SRC
 
