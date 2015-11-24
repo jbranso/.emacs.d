@@ -206,6 +206,12 @@ Run ‘M-x gnus’ and enjoy.
    (require 'init-gnus-secret-smtp)
    #+END_SRC
 
+   Apparently this will spell check my messages before I send them, which is quite nice.
+
+   #+BEGIN_SRC emacs-lisp
+   (add-hook 'mail-send-hook  'ispell-message)
+   #+END_SRC
+
 init-gnus-secret-smtp looks like
 (require 'smtpmail)
 (setq message-send-mail-function 'smtpmail-send-it

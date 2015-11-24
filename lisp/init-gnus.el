@@ -52,6 +52,8 @@
 
 (require 'init-gnus-secret-smtp)
 
+(add-hook 'mail-send-hook  'ispell-message)
+
 (use-package gnus-desktop-notify
   :ensure t)
 

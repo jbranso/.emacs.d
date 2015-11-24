@@ -83,8 +83,8 @@
   (cond
    ;; when the buffer's name has an "includes" in the name, then set the remote dir to /includes/
    ((string-match "includes" buffer-file-name)
-         (print "includes")
-         (setq remote-dir (concat remote-dir "/includes/")))
+    (print "includes")
+    (setq remote-dir (concat remote-dir "/includes/")))
    ;; when the buffer's name has an "php" in middle of the file name, then set the remote dir to /php/
    ((string-match "/php/+$" buffer-file-name)
     (print "php")
@@ -127,6 +127,27 @@
   (while (re-search-forward "\$sql.*=.*\"" nil t)
     (replace-match "")))
 
+
+(defun maybe-move-word-at-point ()
+  (if
+      ;;if ispell returns nil (word is correct)
+      (eq nil (ispell-word nil t nil))
+      ;; if ispell returns word was correct
+      (print "word was correct")
+    ;; if word was wrong, then move it
+    (move-word-at-point)))
+
+(defun move-word-at-point ()
+  (interactive)
+  "Move this word at point"
+  ;; move to the next word
+  (evil-forward-word-begin 2)
+  ;; kill it
+  (kill-word 1)
+  ;; and the next "
+  (delete-char 1)
+  (move-beginning-of-line 1)
+  )
 
 ;; this is the defun I've been working on "\$sql.*\\(\\.\\|=\\).*?\""
 ;; BUT this one seems to work

@@ -52,6 +52,8 @@
                 '(:time "2h" :period "5m" :actions -message)
                 '(:time "3d" :actions -email))
 
+(require 'org-inlinetask)
+
 (setq
  ;; hide the leading stars in my org files
  org-hide-leading-stars t
@@ -168,8 +170,8 @@
       ("C" "Community")
       ("Cc" "community TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "community someday")
        "* TODO %?\n  %i\n  %a")
-      ("Cn" "nice things to say" entry (file+headline "~/programming/org/gtd/projects/get-close-to-God.org"
-      "nice things to say")
+
+       ("Cn" "nice things to say" entry (file+headline "~/programming/org/gtd/projects/get-close-to-God.org" "nice things to say")
        "* TODO %?\nEntered on %U\n  %i\n  %a")
       ("Cs" "Social Skills Notes" entry (file+headline "~/programming/org/gtd/being-social.org" "Social Skills Notes")
        "* %?\nEntered on %U\n  %i\n  %a")
@@ -180,9 +182,9 @@
       ("e" "entertainment")
       ("eb" "Books to Read" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "Books to Read")
        "*  %i\n  %a")
-      ("er" "Good Movies Reference" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "Good Movies")
+      ("eM" "Good Movies Reference" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "Good Movies")
        "*  %i\n  %a")
-      ("ew" "movies to watch" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "movies to watch")
+      ("em" "movies to watch" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "movies to watch")
        "*  %i\n  %a")
       ("g" "getting close to God")
       ("gg" "get a close friend" entry (file+headline "/home/joshua/programming/org/gtd/projects/get-close-to-God.org"
@@ -270,6 +272,65 @@ EXT is a list of the extensions of files to be included."
         ))
 
 (my-org-set-agenda-files)
+
+(setq org-refile-targets '(
+                           (nil :maxlevel . 10)
+                           (org-agenda-files :maxlevel . 10)
+                           ))
+(setq org-refile-use-outline-path 'file)
+(setq org-outline-path-complete-in-steps nil)
+(setq org-completion-use-ido nil)
+(setq org-refile-allow-creating-parent-nodes t)
+
+(setq org-agenda-custom-commands
+      '(
+        ;; a global search for agenda entries planned this week/day
+        ("x" agenda)
+
+        ;; a global search for agenda entries planned this week/day, but
+        ;;only those with hour specifications
+        ("y" agenda*)
+
+        ;; a global searcher with "WAITING" as the TODO keywoard
+        ("w" todo "WAITING")
+
+        ;; the same search bit with searching for projects
+        ("P" todo "PROJECT")
+
+        ;; the same search but only in the current buffer and displaying the
+        ;; results as a sparse tree
+        ("W" todo-tree "WAITING")
+
+        ;; a global search for headlines marked :boss: bot not :urgent:
+        ("u" tags "+boss-urgent")
+
+        ;; The same search but limiting the search to items that are TODO items
+        ("v" tags-todo "+boss-urgent")
+
+        ;; the same search as C-c a u but only in the current buffer displaying
+        ;; the results in a sparse tree
+        ("U" tags-tree "+boss-urgent")
+
+        ;; Create a sparse tree in the current buffer with all entries containing
+        ;;the word FIXME
+        ("f" occur-tree "\\<FIXME\\>")
+
+        ;;
+        ;; ("h" . "HOME+Name tags searches") ; description for "h" prefix
+        ;; ("hl" tags "+home+Lisa")
+        ;; ("hp" tags "+home+Peter")
+        ;; ("hk" tags "+home+Kim")
+
+
+      ;; ("H" "Office and Home Lists"
+      ;; ((agenda)
+      ;; (tags-todo "OFFICE")
+      ;; (tags-todo "HOME")
+      ;; (tags-todo "COMPUTER")
+      ;; (tags-todo "DVD")
+      ;; (tags-todo "READING")))
+        )
+      )
 
 ; Targets start with the file name - allows creating level 1 tasks
   (setq org-refile-use-outline-path (quote file))
