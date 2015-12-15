@@ -52,7 +52,6 @@
       '(("css" . (ac-source-css-property ac-source-html-bootstrap+))
         ("html" . (ac-source-words-in-buffer
                    ac-source-abbrev
-                   ac-source-html-bootstrap+
                    ;;no need for yasnippet in html emmet mode is sooo much better
                    ;; also auto complete and yasnippet do NOT play well together
                    ;;ac-source-yasnippet

@@ -257,7 +257,8 @@ vUXAVsyOIEsH32nX9FGZiHjL99CVQLjwgILwxhFgD0Yc9FDcWA==
    :END:
    <2015-09-02 Sat>
 ** org-notify lets you know when you have upcoming appointments
-  I would like to get this set up so that it shows pop-ups using a lua script
+  I would like to get this set up so that it shows pop-ups using a lua script.
+  At the moment it only notifies you when you have approaching deadlines.
   #+BEGIN_SRC emacs-lisp
 
     (require 'org-notify)
@@ -310,8 +311,12 @@ vUXAVsyOIEsH32nX9FGZiHjL99CVQLjwgILwxhFgD0Yc9FDcWA==
            - [ ] call your momma
              Let her know she's a good Mom
    #+END_SRC
-
-
+** org-habit
+   Org habit is a nice way to let you know how well you are doing on your habits.  It shows you a nice
+   little color graph in your agenda view.  It is kind of cool.
+   #+BEGIN_SRC emacs-lisp
+   (require 'org-habit)
+   #+END_SRC
 * My org-mode preferences
 ** A big setq
 
@@ -352,7 +357,7 @@ vUXAVsyOIEsH32nX9FGZiHjL99CVQLjwgILwxhFgD0Yc9FDcWA==
      ;; are there more backends that I can use?
      org-export-backends '(ascii beamer html texinfo latex)
      ;;most of these modules let you store links to various stuff in org
-     org-modules '(org-bbdb org-gnus org-info invoice man toc habits org-mime org-bullets)
+     org-modules '(org-bbdb org-gnus org-info invoice man toc habit org-mime crypt org-bullets)
      ;; load in the org-modules
      ;;org-load-modules-maybe t
      ;; where to put the :action: or :work: tag after a heading.  80 colums over
@@ -577,6 +582,7 @@ EXT is a list of the extensions of files to be included."
     (setq org-refile-targets '(
                                (nil :maxlevel . 10)
                                (org-agenda-files :maxlevel . 10)
+                               (org-agenda-files :tag . "capture")
                                ))
     (setq org-refile-use-outline-path 'file)
     (setq org-outline-path-complete-in-steps nil)

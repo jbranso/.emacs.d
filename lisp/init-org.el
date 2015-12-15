@@ -90,7 +90,7 @@
  ;; are there more backends that I can use?
  org-export-backends '(ascii beamer html texinfo latex)
  ;;most of these modules let you store links to various stuff in org
- org-modules '(org-bbdb org-gnus org-info invoice man toc habits org-mime org-bullets)
+ org-modules '(org-bbdb org-gnus org-info invoice man toc habit org-mime org-bullets)
  ;; load in the org-modules
  ;;org-load-modules-maybe t
  ;; where to put the :action: or :work: tag after a heading.  80 colums over
@@ -276,6 +276,7 @@ EXT is a list of the extensions of files to be included."
 (setq org-refile-targets '(
                            (nil :maxlevel . 10)
                            (org-agenda-files :maxlevel . 10)
+                           (org-agenda-files :tag . "capture")
                            ))
 (setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
