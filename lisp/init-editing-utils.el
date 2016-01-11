@@ -283,6 +283,8 @@ already narrowed."
 (global-set-key (kbd "C-c L") #'org-store-link)
 (global-set-key (kbd "C-c I") #'org-insert-link)
 (global-set-key (kbd "C-c m") #'helm-mini)
+;; please delete this next line. It's not needed
+(global-set-key (kbd "C-x m") #'maybe-move-word-at-point)
 ;; emacs has a multimedia system. It lets you play multimedia via emacs.  Technically emacs uses other programs to play
 ;; the music, BUT one uses emacs to play, pause, and change the volume. (though no one would use emacs to change the volume, because
 ;; it's too easy to just press the "turn up the volume button on your keyboard")

@@ -8,7 +8,6 @@
 ;;   (should (equal (pp-to-string '((quote a) (quote b))) "('a 'b)\n"))
 ;;   (should (equal (pp-to-string '('a 'b)) "('a 'b)\n")))
 
-
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 ;;(require 'init-benchmarking) ;; Measure startup time
 
@@ -63,8 +62,8 @@
 (require 'init-gui-frames)
 (require 'init-recentf)
 (require 'init-dired)
-(require 'init-avy)
-(require 'init-sunrise)
+;;(require 'init-avy)
+;;(require 'init-sunrise)
 (require 'init-grep)
 ;; I don't really ever use erc in emacs.  It's kind of annoying, and it occasionally changes the buffer to
 ;; erc buffers randomly.  Not a fan at the moment.
@@ -112,7 +111,8 @@
 (require 'init-css)
 ;;(require 'init-python-mode)
 (require 'init-defuns)
-(require 'init-emms)
+;; this hasn't been working for a while. No reason to enable it.
+;;(require 'init-emms)
 
 (require 'init-misc)
 ;;powerline has to be loaded before the zenburn theme to work properly

@@ -128,14 +128,23 @@
     (replace-match "")))
 
 
-(defun maybe-move-word-at-point ()
-  (if
-      ;;if ispell returns nil (word is correct)
-      (eq nil (ispell-word nil t nil))
-      ;; if ispell returns word was correct
-      (print "word was correct")
-    ;; if word was wrong, then move it
-    (move-word-at-point)))
+(defun maybe-move-word-at-point (arg)
+  (interactive "P")
+  "maybe move word at point"
+  (print arg)
+  (while
+      (>= arg 0)
+      (if
+          ;;if ispell returns nil (word is correct)
+          (eq nil (ispell-word nil t nil))
+          ;; if ispell returns word was correct
+          ;; print word was correct and move to the next line
+          (progn
+            (print "word was correct")
+            (evil-next-line))
+
+        ;; if word was wrong, then move it
+        (move-word-at-point))))
 
 (defun move-word-at-point ()
   (interactive)
@@ -146,8 +155,19 @@
   (kill-word 1)
   ;; and the next "
   (delete-char 1)
-  (move-beginning-of-line 1)
+  (evil-first-non-blank)
+  (forward-char)
+  ;;insert a space
+  (insert-char #x020 )
+  (backward-char)
+  (yank)
+  (insert-char #x022)
+  (evil-first-non-blank)
+  (forward-char)
+  (forward-char)
+  (evil-next-line)
   )
+
 
 ;; this is the defun I've been working on "\$sql.*\\(\\.\\|=\\).*?\""
 ;; BUT this one seems to work
