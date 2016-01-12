@@ -35,6 +35,7 @@
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
 
+
 (eval-when-compile
   (require 'use-package))
 ;; diminish hides packages from being on the modeline.  You can use use-package to do this
@@ -44,7 +45,8 @@
 (require 'use-package)
 (require 'init-wgrep)
 (require 'init-abbrev)
-(require 'init-edit-server)
+;; this is for using emacs to edit stuff on the web, but emacsclient is no longer working for me
+;;(require 'init-edit-server)
 ;; I have some global abbreviations.  So I should turn on abbrev mode
 ;;(require-package 'project-local-variables)
 ;; this helps you minizize modeline clutter by hidding some modes on the mode line.
@@ -56,7 +58,8 @@
 ;;(require-package 'mwe-log-commands)
 ;;(mwe:log-keyboard-commands)
 
-(require 'init-forecast)
+;; the forecast is in Celcius.  Why do I even have this installed?
+;;(require 'init-forecast)
 (require 'init-gnus)
 (require 'init-vc)
 (require 'init-gui-frames)
@@ -72,7 +75,8 @@
 ;;(require 'init-term)
 ;; this sets up paradox to use my private token to access public repos.
 (require 'init-paradox)
-(require 'init-bash)
+;; I don't need init-bash, because flycheck is turned on globally
+;;(require 'init-bash)
 ;; Nicer naming of buffers for files with identical names
 ;; Instead of Makefile<1> and Makefile<2>, it will be
 ;; Makefile | tmp  Makefile | lisp

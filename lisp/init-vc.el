@@ -1,4 +1,5 @@
-;; This shows you in the fringes of the buffer (this is the grep column on the left side of your buffer)
+;;; Commentary:
+;; This shows you in the fringes of the buffer (this is the left column on the left side of your buffer)
 ;; whick text in a buffer has not yet been committed.
 (use-package diff-hl
   :ensure t)

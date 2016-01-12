@@ -1,7 +1,8 @@
 (require 'ispell)
 
-(when (maybe-require-package 'flycheck)
-  (add-hook 'after-init-hook #'global-flycheck-mode))
+(use-package flycheck)
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
   ;; Override default flycheck triggers
 

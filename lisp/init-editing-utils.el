@@ -301,6 +301,44 @@ already narrowed."
 (global-set-key (kbd "C-c M k") 'emms-stop)
 (global-set-key (kbd "C-c M +") 'emms-volume-mode-plus)
 (global-set-key (kbd "C-c M -") 'emms-volume-mode-minus)
+
+;; http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html
+;; I am not a fantastic typist. My speed is acceptable, but I make a great deal of mistakes. The following snippet has turned me into the Messi of keyboards.
+
+;; Whenever I make a typo:
+
+;; Hit C-x C-i, instead of erasing the mistake;
+;; Select the appropriate correction (thanks to Ispell);
+;; Sleep easier at night knowing I'll never see that mistake again (thanks to abbrev).
+(define-key ctl-x-map "\C-i"
+  #'endless/ispell-word-then-abbrev)
+
+(global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)
+
+(defun endless/ispell-word-then-abbrev (p)
+  "Call `ispell-word', then create an abbrev for it.
+With prefix P, create local abbrev. Otherwise it will
+be global."
+  (interactive "P")
+  (let (bef aft)
+    (save-excursion
+      (while (progn
+               (backward-word)
+               (and (setq bef (thing-at-point 'word))
+                    (not (ispell-word nil 'quiet)))))
+      (setq aft (thing-at-point 'word)))
+    (when (and aft bef (not (equal aft bef)))
+      (setq aft (downcase aft))
+      (setq bef (downcase bef))
+      (define-abbrev
+        (if p local-abbrev-table global-abbrev-table)
+        bef aft)
+      (message "\"%s\" now expands to \"%s\" %sally"
+               bef aft (if p "loc" "glob")))))
+
+(setq save-abbrevs 'silently)
+(setq-default abbrev-mode t)
+
 ;;print the working directory in the minibuffer
 ;; I should make these commands copy the output of pwd into the clipboard
 (global-set-key (kbd "C-c P") #'pwd)

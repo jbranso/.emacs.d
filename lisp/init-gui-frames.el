@@ -6,6 +6,7 @@
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
 
+;;; https://github.com/roman/golden-ratio.el
 (use-package golden-ratio
   :ensure t
   :config (setq golden-ratio-exclude-modes
@@ -18,7 +19,6 @@
 (setq beacon-push-mark 35)
 (setq beacon-color "#666600")
 
-;;
 ;; make it easy to switch to various windows inside one emacs frames using windmove
 (add-hook 'evil-mode-hook '( lambda ()
           (define-key evil-emacs-state-map (kbd "C-w h") 'windmove-down)
@@ -29,11 +29,6 @@
           (define-key evil-normal-state-map (kbd "C-w t") 'windmove-up)
           (define-key evil-normal-state-map (kbd "C-w n") 'windmove-left)
           (define-key evil-normal-state-map (kbd "C-w s") 'windmove-right)))
-
-;; (define-key Info-mode-map (kbd "C-w h") 'windmove-down)
-;; (define-key Info-mode-map (kbd "C-w t") 'windmove-up)
-;; (define-key Info-mode-map (kbd "C-w n") 'windmove-left)
-;; (define-key Info-mode-map (kbd "C-w s") 'windmove-right)
 
 ;; (add-hook 'debugger-mode-hook '( lambda ()
 ;;                                  (define-key debugger-mode-map (kbd "C-w h") 'windmove-down)
