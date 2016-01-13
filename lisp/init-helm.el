@@ -42,6 +42,9 @@
 
 (helm-mode 1)
 
+;; for whatever reason, helm is looking for files with "C-x f" and not "C-x C-f"
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+
 ;; (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
 ;; the next command will add another C-j command for helm
 (define-key helm-map (kbd "C-f") 'helm-execute-persistent-action)

@@ -23,3 +23,5 @@ alias mkinitcpio sudo mkinitcpio -p linux
 alias wifi nmtui
 alias cdrom sudo mount /dev/sr0 /mnt/cdrom
 alias dvd sudo mount /dev/sr0 /mnt/dvd; vlc
+alias stop-httpd sudo systemctl stop httpd
+alias start-httpd sudo systemctl start httpd

@@ -45,7 +45,7 @@
 ;; I'm going to try out semantic mode again.  It will only be enabled in
 ;; C, C++, Scheme, Javascript-mode, Java, HTML-mode, SRecode, Make, texinfo, python-mode files
 
-(semantic-mode 1)
+;;(semantic-mode 1)
 
 ;; integration with imenu
 ;; (defun my-semantic-hook ()

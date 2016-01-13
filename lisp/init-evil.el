@@ -23,6 +23,47 @@
 (setq evil-dvorak-funky-h-and-t 1)
 (setq evil-dvorak-use-for-web-mode 1)
 
+;; use % to go traverse code in most languages
+;; https://github.com/redguardtoo/evil-matchit
+;; da% deletes all of the stuff between matches
+;; va% selects all of it too
+;; this breaks webmode
+;; (use-package evil-matchit
+;;   :ensure t
+;;   :config (global-evil-matchit-mode 1))
+
+;; https://github.com/Dewdrops/evil-extra-operator/blob/master/evil-extra-operator.el
+;; This code here has GOOD code that explains how to make extra evil operators.  ie "g." makes it so you can
+;; translate text to english via google translate.  VERY cool!
+;; (require 'evil-extra-operator)
+;; (global-evil-extra-operator-mode 1)
+
+;; https://github.com/wcsmith/evil-args
+;; For example, cia transforms:
+
+;; function(ar|g1, arg2, arg3)
+;; function(|, arg2, arg3)
+
+;; daa transforms:
+
+;; function(ar|g1, arg2, arg3)
+;; function(|arg2, arg3)
+(use-package evil-args
+  :ensure t
+  :config
+  ;; bind evil-args text objects
+  (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
+  (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+
+  ;; bind evil-forward/backward-args
+  (define-key evil-normal-state-map "S" 'evil-forward-arg)
+  (define-key evil-normal-state-map "N" 'evil-backward-arg)
+  (define-key evil-motion-state-map "S" 'evil-forward-arg)
+  (define-key evil-motion-state-map "N" 'evil-backward-arg)
+
+  ;; bind evil-jump-out-args
+  (define-key evil-normal-state-map "K" 'evil-jump-out-args))
+
 (use-package evil-dvorak
   :ensure t
   :config (global-evil-dvorak-mode 1)

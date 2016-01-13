@@ -60,6 +60,18 @@
   (call-process-shell-command "soihub" nil nil)
   (message "soihub process finished."))
 
+;; stop httpd
+(defun stop-httpd ()
+  "This runs /home/joshua/programming/bash/stop-httpd"
+  (call-process-shell-command "stop-httpd" nil nil)
+  (message "httpd.service stopped."))
+
+;; start httpd
+(defun start-httpd ()
+  "This runs /home/joshua/programming/bash/start-httpd"
+  (call-process-shell-command "start-httpd" nil nil)
+  (message "httpd.service started."))
+
 
 ;; this writes the current file to the live soihub server
 (defun soihub-save-this-buffer-to-live-server ()
