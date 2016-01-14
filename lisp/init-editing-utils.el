@@ -119,7 +119,7 @@
 ;;  (require-package 'highlight-symbol)
 ;; (dolist (hook '(prog-mode-hook html-mode-hook css-mode-hook))
 ;;   (add-hook hook 'highlight-symbol-mode)
-  ;; (add-hook hook 'highlight-symbol-nav-mode))
+;; (add-hook hook 'highlight-symbol-nav-mode))
 ;; (eval-after-load 'highlight-symbol
 
 
@@ -396,7 +396,7 @@ be global."
 (global-set-key (kbd "C-c h o") #'helm-occur)
 (global-set-key (kbd "C-c h c") #'helm-calcul-expression)
 (use-package multiple-cursors
-;; multiple-cursors, which does not work well with evil mode. switch to emacs state to use these commands
+  ;; multiple-cursors, which does not work well with evil mode. switch to emacs state to use these commands
   :ensure t)
 (global-set-key (kbd "C-c <")   #'mc/mark-previous-like-this) ;
 (global-set-key (kbd "C-c >")   #'mc/mark-next-like-this)
