@@ -118,6 +118,7 @@
 ;; this hasn't been working for a while. No reason to enable it.
 ;;(require 'init-emms)
 
+;; load a zenburn
 (require 'init-misc)
 ;;powerline has to be loaded before the zenburn theme to work properly
 (require 'init-powerline-evil)

@@ -250,6 +250,8 @@ already narrowed."
 ;; "C-c <letter>" are the ONLY commands that are supposed to NOT be bound. These are user specific commands
 (global-set-key (kbd "C-c TAB") #'indent-whole-buffer)
 (global-set-key (kbd "C-c \\") #'delete-horizontal-space)
+;; some modes my default / in normal mode is NOT bound to helm-swoop, BUT I REALLY LIKE helm-swoop
+(global-set-key (kbd "C-c /") #'helm-swoop)
 (global-set-key (kbd "C-c SPC") #'just-one-space)
 (global-set-key (kbd "C-c ;") #'comment-dwim)
 ;;(define-key global-map (kbd "C-c a") 'org-agenda)
