@@ -81,6 +81,10 @@
 
 (define-abbrev-table 'epa-key-mode-abbrev-table '())
 
+(define-abbrev-table 'erc-list-menu-mode-abbrev-table '())
+
+(define-abbrev-table 'erc-mode-abbrev-table '())
+
 (define-abbrev-table 'eshell-mode-abbrev-table '())
 
 (define-abbrev-table 'evil-command-window-mode-abbrev-table '())
@@ -107,6 +111,7 @@
   '(
     ("Carribean" "Caribbean" nil 0)
     ("absance" "absence" nil 0)
+    ("acadamy" "academy" nil 1)
     ("acceptible" "acceptable" nil 0)
     ("accidentaly" "accidentally" nil 0)
     ("acheive" "achieve" nil 0)
@@ -326,11 +331,17 @@
 
 (define-abbrev-table 'occur-mode-abbrev-table '())
 
+(define-abbrev-table 'org-export-stack-mode-abbrev-table '())
+
 (define-abbrev-table 'org-mode-abbrev-table '())
 
 (define-abbrev-table 'outline-mode-abbrev-table '())
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
+
+(define-abbrev-table 'paradox-commit-list-mode-abbrev-table '())
+
+(define-abbrev-table 'paradox-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'php-mode-abbrev-table '())
 
