@@ -180,6 +180,13 @@
   (evil-next-line)
   )
 
+;; this lets you open a file as sudo
+(defun my-find-file-as-sudo ()
+  (interactive)
+  (let ((file-name (buffer-file-name)))
+    (when file-name
+      (find-alternate-file (concat "/sudo::" file-name)))))
+
 
 ;; this is the defun I've been working on "\$sql.*\\(\\.\\|=\\).*?\""
 ;; BUT this one seems to work

@@ -54,6 +54,8 @@
 
 (require 'org-inlinetask)
 
+(require 'org-habit)
+
 (setq
  ;; hide the leading stars in my org files
  org-hide-leading-stars t
@@ -90,7 +92,9 @@
  ;; are there more backends that I can use?
  org-export-backends '(ascii beamer html texinfo latex)
  ;;most of these modules let you store links to various stuff in org
- org-modules '(org-bbdb org-gnus org-info invoice man toc habit org-mime org-bullets)
+ org-bullets-bullet-list
+ '("◉" "◎" "♠" "○" "►" "◇")
+ org-modules '(org-bbdb org-gnus org-info org-invoice man org-toc org-habit org-mime org-crypt org-bullets)
  ;; load in the org-modules
  ;;org-load-modules-maybe t
  ;; where to put the :action: or :work: tag after a heading.  80 colums over
@@ -340,10 +344,10 @@ EXT is a list of the extensions of files to be included."
 (setq org-outline-path-complete-in-steps t)
 
 (setq org-todo-keywords
-'((sequence "TODO(t!)" "PROJECT(r)" "STARTED(s!)"  "DELEGATED(e!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
+'((sequence "☛ TODO(t!)" "♇ PROJECT(r)" "STARTED(s!)"  "⚑ DELEGATED(e!)" "☺ CHARGED(c!)" "|" "$ PAID(p!)" "✔ DONE(d!)")))
 
-      ;; I'm not sure how to globally set tags.  I would like to know how to do that, so I won't have to specify all the tags
-      ;; the top of each agenda document
+;; I'm not sure how to globally set tags.  I would like to know how to do that, so I won't have to specify all the tags
+;; the top of each agenda document
 ;; I can apparently also specify org-tag-faces which will make certain tags look certain colors!
 ;; why is this big hunk of setq not working?
 ;; (setq org-tag-alist '(("waiting(w)" . ?w)

@@ -64,6 +64,7 @@
 (require 'init-gnus)
 (require 'init-vc)
 (require 'init-gui-frames)
+(require 'init-utf8)
 (require 'init-recentf)
 (require 'init-dired)
 ;;(require 'init-avy)
