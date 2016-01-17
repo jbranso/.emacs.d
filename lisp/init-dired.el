@@ -4,15 +4,20 @@
 ;;; I've changed this whole file to start using use-package. It seems to be working so far.
 (use-package dired
   ;; before loading dired, set these variables
+  :defer t
   :init (setq-default diredp-hide-details-initially-flag nil
               dired-dwim-target t
               ;;omit boring auto save files in dired views
               dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$")
   :config ;; after loading dired, do this stuff
   (load "dired-x")
+
   (use-package dired+
-    :ensure t)
+    :ensure t
+    :defer t)
+
   (use-package dired-sort
+    :defer t
     :ensure t)
   (define-key dired-mode-map [mouse-2] 'dired-find-file)
   (define-key dired-mode-map "/" 'helm-swoop)

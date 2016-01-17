@@ -112,6 +112,7 @@ Run ‘M-x gnus’ and enjoy.
 ** Make gnus startup faster
    These two variables make gnus not check for any new newsgroups and stops gnus from trying to filter out
    outdated newsgroups.  After you've opened up gnus a couple of times, you don't need gnus to do these things.
+   But you can always subscribe to new groups by pressing "U" in the group buffer.
 
    #+BEGIN_SRC emacs-lisp
      (setq gnus-check-new-newsgroups nil
@@ -333,6 +334,13 @@ init-gnus-secret-smtp looks like
    (bbdb-mua-auto-update-init 'message)
    #+END_SRC
 
+** ranking groups
+
+   When you exit the summary buffer, increase the score of that group.  This makes that group a little
+   bit more important.
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'gnus-summary-exit-hook 'gnus-summary-bubble-group)
+   #+END_SRC
 
 ** Provide init-gnus
    #+BEGIN_SRC emacs-lisp

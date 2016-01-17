@@ -1,3 +1,25 @@
+
+
+;; I should really use these elisp libraries
+
+;; https://github.com/magnars/s.el
+(use-package s :ensure t :defer t)
+;; trim the string
+(s-trim " hello ")
+
+;; https://github.com/Fuco1/dash.el
+(use-package dash :ensure t :defer t)
+(-flatten '((1))) ;; => '(1)
+(-flatten '((1 (2 3) (((4 (5))))))) ;; => '(1 2 3 4 5)
+(-flatten '(1 2 (3 . 4))) ;; => '(1 2 (3 . 4))
+
+;; https://github.com/rejeep/f.el
+(use-package f :ensure t :defer t)
+(require 'f)
+
+(f-short "/home/joshua")
+(f-long "~/")
+
 ;;this function creates a hot-key M-x gtd that will open my gtd file
 (defun gtd ()
   "This command opens ~/things_to_do.org"

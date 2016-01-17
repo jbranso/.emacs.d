@@ -1,29 +1,8 @@
 ;;(require-package 'json-mode)
 (use-package js2-mode
-  :ensure t)
-;;(maybe-require-package 'ac-js2)
-;;(maybe-require-package 'coffee-mode)
-;;(require-package 'js-comint)
-
-(defcustom preferred-javascript-mode
-  (first (remove-if-not #'fboundp '(js2-mode js-mode)))
-  "Javascript mode to use for .js files."
-  :type 'symbol
-  :group 'programming
-  :options '(js2-mode js-mode))
-(defvar preferred-javascript-indent-level 2)
-
-;; Need to first remove from list if present, since elpa adds entries too, which
-;; may be in an arbitrary order
-(eval-when-compile (require 'cl))
-(setq auto-mode-alist (cons `("\\.js\\(\\.erb\\)?\\'" . ,preferred-javascript-mode)
-                            (loop for entry in auto-mode-alist
-                                  unless (eq preferred-javascript-mode (cdr entry))
-                                  collect entry)))
-
-
-;; js2-mode
-(after-load 'js2-mode
+  :ensure t
+  :defer t
+  :config (after-load 'js2-mode
   ;; Disable js2 mode's syntax error highlighting by default...
   (setq-default js2-mode-show-parse-errors nil
                 js2-mode-show-strict-warnings nil)
@@ -44,16 +23,37 @@
   (after-load 'js2-mode
     (js2-imenu-extras-setup)))
 
+  )
+;;(maybe-require-package 'ac-js2)
+;;(maybe-require-package 'coffee-mode)
+;;(require-package 'js-comint)
+
+(defcustom preferred-javascript-mode
+  (first (remove-if-not #'fboundp '(js2-mode js-mode)))
+  "Javascript mode to use for .js files."
+  :type 'symbol
+  :group 'programming
+  :options '(js2-mode js-mode))
+(defvar preferred-javascript-indent-level 2)
+
+;; Need to first remove from list if present, since elpa adds entries too, which
+;; may be in an arbitrary order
+(eval-when-compile (require 'cl))
+(setq auto-mode-alist (cons `("\\.js\\(\\.erb\\)?\\'" . ,preferred-javascript-mode)
+                            (loop for entry in auto-mode-alist
+                                  unless (eq preferred-javascript-mode (cdr entry))
+                                  collect entry)))
+
 ;; js-mode
 (setq-default js-indent-level preferred-javascript-indent-level)
-
 
 (add-to-list 'interpreter-mode-alist (cons "node" preferred-javascript-mode))
 
 
 ;; Javascript nests {} and () a lot, so I find this helpful
 
-(use-package rainbow-delimiters)
+(use-package rainbow-delimiters
+  :defer t)
 (dolist (hook '(js2-mode-hook js-mode-hook json-mode-hook))
   (add-hook hook 'rainbow-delimiters-mode))
 
@@ -61,8 +61,9 @@
 
 ;;; Coffeescript
 
-(after-load 'coffee-mode
-  (setq coffee-js-mode preferred-javascript-mode
+(use-package coffee-mode
+  :defer t
+  :config (setq coffee-js-mode preferred-javascript-mode
         coffee-tab-width preferred-javascript-indent-level))
 
 (when (fboundp 'coffee-mode)

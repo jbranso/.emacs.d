@@ -1,24 +1,18 @@
 ;; TODO: link commits from vc-log to magit-show-commit
 ;; TODO: smerge-mode
 
-(use-package magit
-  :ensure t)
+(use-package magit :defer t :ensure t)
 ;;(require-package 'git-blame)
-(use-package git-commit-mode
-  :ensure t)
-(use-package git-rebase-mode
-  :ensure t)
-(use-package gitignore-mode
-  :ensure t)
-(use-package gitconfig-mode
-  :ensure t)
-(use-package git-messenger
-  :ensure t)
+(use-package git-commit-mode :defer t :ensure t)
+(use-package git-rebase-mode :defer t :ensure t)
+(use-package gitignore-mode  :defer t :ensure t)
+(use-package gitconfig-mode  :defer t :ensure t)
+(use-package git-messenger   :defer t :ensure t)
 ;; Though see also vc-annotate's "n" & "p" bindings
 ;; this package is soooo cool! you execute git-timemachine, you can then press p and n to go to the
 ;; previous and next verions. w copies the git hash of the current buffer, and q quits the buffer
-(use-package git-timemachine
-  :ensure t)
+
+(use-package git-timemachine :ensure t :defer t)
 ;; make git-timemachine's bindings over-ride evil normal mode's bindings
 ;; this code won't work, because I have evil-dvorak.el installed.
 ;; (eval-after-load 'git-timemachine
@@ -66,7 +60,8 @@
 (global-set-key (kbd "C-x v f") 'vc-git-grep)
 
 
-(require-package 'git-messenger)
+(use-package git-messenger :defer t :ensure t)
+
 (global-set-key (kbd "C-x v p") #'git-messenger:popup-message)
 
 

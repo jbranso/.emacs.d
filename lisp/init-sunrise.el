@@ -1,6 +1,6 @@
 (use-package sunrise-commander
+  :defer t
   :config
-
   (setq sr-cursor-follows-mouse nil)
   ;; I want to be able to open a file on mouse click right?
   ;;(define-key sr-mode-map [mouse-1] nil)

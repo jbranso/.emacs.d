@@ -58,10 +58,12 @@
   :ensure t
   :init (global-nlinum-mode 1))
 ;; this highlights search and replacements as you type  VERY helpful for dired-do-replace-regexp and isearch-regexp
+
 (use-package anzu
   :ensure t
   :diminish anzu-mode)
 (global-anzu-mode +1)
+
 
 ;;Auto revert scanes for files that have changed and then automagically updates 'em without you noticing
 (global-auto-revert-mode)
@@ -397,7 +399,8 @@ be global."
 (global-set-key (kbd "C-c h c") #'helm-calcul-expression)
 (use-package multiple-cursors
   ;; multiple-cursors, which does not work well with evil mode. switch to emacs state to use these commands
-  :ensure t)
+  :ensure t
+  :defer t)
 (global-set-key (kbd "C-c <")   #'mc/mark-previous-like-this) ;
 (global-set-key (kbd "C-c >")   #'mc/mark-next-like-this)
 (global-set-key (kbd "C-c C-<") #'mc/mark-all-like-this)

@@ -141,7 +141,9 @@
     ("collectable" "collectible" nil 0)
     ("colum" "column" nil 0)
     ("comming" "coming" nil 0)
+    ("commiting" "committing" nil 1)
     ("conceed" "concede" nil 0)
+    ("confences" "conferences" nil 0)
     ("congradulate" "congratulate" nil 0)
     ("consciencious" "conscientious" nil 0)
     ("consensus" "concensus" nil 0)
@@ -223,11 +225,12 @@
     ("repitition" "repetition" nil 0)
     ("rtrn" "return" nil 0)
     ("sargent" "sergeant" nil 0)
+    ("seemlessly" "seamlessly" nil 0)
     ("seperate" "separate" nil 0)
     ("sieze" "seize" nil 0)
     ("similer" "similar" nil 0)
     ("supercede" "supersede" nil 0)
-    ("teh" "the" nil 6)
+    ("teh" "the" nil 7)
     ("thinsg" "things" nil 1)
     ("tomatos" "tomatoes" nil 0)
     ("tommorrow" "tomorrow" nil 0)
@@ -241,7 +244,7 @@
     ("visious" "vicious" nil 0)
     ("w/" "with" nil 0)
     ("w/o" "without" nil 0)
-    ("wether" "whether" nil 0)
+    ("wether" "whether" nil 1)
     ("wierd" "weird" nil 0)
     ("wilfull" "wilful" nil 0)
     ("withhold" "withold" nil 0)
@@ -262,6 +265,8 @@
 (define-abbrev-table 'gnus-sticky-article-mode-abbrev-table '())
 
 (define-abbrev-table 'grep-mode-abbrev-table '())
+
+(define-abbrev-table 'helm-ag-mode-abbrev-table '())
 
 (define-abbrev-table 'helm-grep-mode-abbrev-table '())
 
@@ -340,6 +345,8 @@
 (define-abbrev-table 'outline-mode-abbrev-table '())
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
+
+(define-abbrev-table 'pacmacs-mode-abbrev-table '())
 
 (define-abbrev-table 'paradox-commit-list-mode-abbrev-table '())
 
