@@ -1,5 +1,7 @@
 * Background information on Gnus
+
 read these pages:
+https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/gnus-guide-en.org
 http://www.mostlymaths.net/2010/12/emacs-30-day-challenge-glimpse-of-bbdb.html
 http://www.mostlymaths.net/2010/12/emacs-30-day-challenge-using-gnus-to.html
 set up gnus to use Purdue IMAP
@@ -338,10 +340,56 @@ init-gnus-secret-smtp looks like
 
    When you exit the summary buffer, increase the score of that group.  This makes that group a little
    bit more important.
+
    #+BEGIN_SRC emacs-lisp
      (add-hook 'gnus-summary-exit-hook 'gnus-summary-bubble-group)
    #+END_SRC
 
+** displaying your topics when you enter gnus
+
+   #+BEGIN_SRC emacs-lisp
+       (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+   #+END_SRC
+
+** splitting up my inboxes
+
+   #+BEGIN_SRC emacs-lisp
+     (eval-after-load 'gnus-topic
+          '(progn
+             (setq gnus-message-archive-group '((format-time-string "sent.%Y")))
+             (setq gnus-topic-topology '(("Gnus" visible)
+                                         (("misc" visible))
+                                         (("hotmail" visible nil nil))
+                                         (("gmail" visible nil nil))))
+
+             (setq gnus-topic-alist '(("hotmail" ; the key of topic
+                                       "nnimap+hotmail:Inbox"
+                                       "nnimap+hotmail:Drafts"
+                                       "nnimap+hotmail:Sent")
+                                      ("gmail" ; the key of topic
+                                       "INBOX"
+                                       "[Gmail]/Sent Mail"
+                                       "Drafts")
+                                      ("misc"  ; the key of topic
+                                       "nnfolder+archive:sent.2015-12"
+                                       "nnfolder+archive:sent.2016"
+                                       "nndraft:drafts")
+                                      ("Gnus")))))
+   #+END_SRC
+
+** read html mail
+   Install w3m and emacs-w3m.
+
+   Then insert below code into ~/.emacs,
+   #+BEGIN_SRC emacs-lisp
+   (setq mm-text-html-renderer 'w3m)
+   #+END_SRC
+
+** Delete mail immediately after it has been marked expired
+
+   #+BEGIN_SRC emacs-lisp
+   (setq nnmail-expiry-wait 'immediate)
+   #+END_SRC
 ** Provide init-gnus
    #+BEGIN_SRC emacs-lisp
      (provide 'init-gnus)

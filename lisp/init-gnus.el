@@ -87,12 +87,13 @@
 bbdb-user-mail-address-re
 (regexp-opt
  '("jbranso@purdue.edu" "bransoj@hotmail.com" "jbranson@setyourwaypoint.com"))
-
-;;message-dont-reply-to-names bbdb-user-mail-address-re
-;;gnus-ignored-from-addresses bbdb-user-mail-address-re
-;
-)
+message-dont-reply-to-names bbdb-user-mail-address-re
+gnus-ignored-from-addresses bbdb-user-mail-address-re)
 
 (bbdb-mua-auto-update-init 'message)
+
+(add-hook 'gnus-summary-exit-hook 'gnus-summary-bubble-group)
+
+(add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
 (provide 'init-gnus)
