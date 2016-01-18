@@ -96,4 +96,15 @@ gnus-ignored-from-addresses bbdb-user-mail-address-re)
 
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
+(setq nnmail-split-methods
+      '(("Accrisoft Support" "^From:.*support@accrisoft.com")
+        ("Basecamp" "^From:.*notifications@basecamp.com")
+        ("Arch" "^To:.*arch-general@archlinux.org")
+        ("bug-hurd" "^To:.*bug-hurd@gnu.org")
+        ("bug-hurd" "^Cc:.*bug-hurd@gnu.org")))
+
+(setq mm-text-html-renderer 'shr)
+
+(setq nnmail-expiry-wait 'immediate)
+
 (provide 'init-gnus)

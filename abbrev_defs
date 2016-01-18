@@ -147,6 +147,7 @@
     ("congradulate" "congratulate" nil 0)
     ("consciencious" "conscientious" nil 0)
     ("consensus" "concensus" nil 0)
+    ("consoltation" "consultation" nil 0)
     ("contraversy" "controversy" nil 0)
     ("cooly" "coolly" nil 0)
     ("costomize" "customize" nil 0)

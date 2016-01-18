@@ -353,36 +353,47 @@ init-gnus-secret-smtp looks like
 
 ** splitting up my inboxes
 
-   #+BEGIN_SRC emacs-lisp
-     (eval-after-load 'gnus-topic
-          '(progn
-             (setq gnus-message-archive-group '((format-time-string "sent.%Y")))
-             (setq gnus-topic-topology '(("Gnus" visible)
-                                         (("misc" visible))
-                                         (("hotmail" visible nil nil))
-                                         (("gmail" visible nil nil))))
+   This just creates topics but doesn't seem to support splitting of groups
 
-             (setq gnus-topic-alist '(("hotmail" ; the key of topic
-                                       "nnimap+hotmail:Inbox"
-                                       "nnimap+hotmail:Drafts"
-                                       "nnimap+hotmail:Sent")
-                                      ("gmail" ; the key of topic
-                                       "INBOX"
-                                       "[Gmail]/Sent Mail"
-                                       "Drafts")
-                                      ("misc"  ; the key of topic
-                                       "nnfolder+archive:sent.2015-12"
-                                       "nnfolder+archive:sent.2016"
-                                       "nndraft:drafts")
-                                      ("Gnus")))))
+     (eval-after-load 'gnus-topic
+       '(progn
+          (setq gnus-message-archive-group '((format-time-string "sent.%Y")))
+          (setq gnus-topic-topology '(("Gnus" visible)
+                                      (("misc" visible))
+                                      (("hotmail" visible nil nil))
+                                      (("gmail" visible nil nil))))
+
+          (setq gnus-topic-alist '(("Accrisoft Support")
+                                   ("Basecamp")
+                                   ("Arch")
+                                   ("bug-hurd")
+                                   ("hotmail" ; the key of topic
+                                    "nnimap+hotmail:Inbox"
+                                    "nnimap+hotmail:Drafts"
+                                    "nnimap+hotmail:Sent")
+                                   ("gmail" ; the key of topic
+                                    "INBOX"
+                                    "[Gmail]/Sent Mail"
+                                    "Drafts")
+                                   ("misc"  ; the key of topic
+                                    "nnfolder+archive:sent.2015-12"
+                                    "nnfolder+archive:sent.2016"
+                                    "nndraft:drafts")
+                                   ("Gnus")))))
+
+   #+BEGIN_SRC emacs-lisp
+     (setq nnmail-split-methods
+           '(("Accrisoft Support" "^From:.*support@accrisoft.com")
+             ("Basecamp" "^From:.*notifications@basecamp.com")
+             ("Arch" "^To:.*arch-general@archlinux.org")
+             ("bug-hurd" "^To:.*bug-hurd@gnu.org")
+             ("bug-hurd" "^Cc:.*bug-hurd@gnu.org")))
    #+END_SRC
 
 ** read html mail
-   Install w3m and emacs-w3m.
 
-   Then insert below code into ~/.emacs,
    #+BEGIN_SRC emacs-lisp
-   (setq mm-text-html-renderer 'w3m)
+   (setq mm-text-html-renderer 'shr)
    #+END_SRC
 
 ** Delete mail immediately after it has been marked expired
