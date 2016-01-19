@@ -46,6 +46,7 @@
 (require 'init-wgrep)
 (require 'init-abbrev)
 (require 'init-flyspell)
+(require 'init-async)
 ;; this is for using emacs to edit stuff on the web, but emacsclient is no longer working for me
 ;;(require 'init-edit-server)
 ;; I have some global abbreviations.  So I should turn on abbrev mode
