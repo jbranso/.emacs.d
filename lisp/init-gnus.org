@@ -78,10 +78,6 @@ Run ‘M-x gnus’ and enjoy.
      (setq  gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n")
    #+END_SRC
 
-   Let's see smiles in email, because that sure looks cool.
-   #+BEGIN_SRC emacs-lisp
-     (setq gnus-treat-display-smileys t)
-   #+END_SRC
 
 
 
@@ -151,6 +147,8 @@ Run ‘M-x gnus’ and enjoy.
  # default encryption and signing of stuff
  # https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
 *** sign and encrypt messages
+    [[info:gnus#Signing%20and%20encrypting][info:gnus#Signing and encrypting]]
+
     Let's go ahead and sign and encrypt messages if I recognize the senders by default
     #+BEGIN_SRC emacs-lisp
       (setq mm-verify-option "known"
@@ -158,7 +156,7 @@ Run ‘M-x gnus’ and enjoy.
     #+END_SRC
 
 *** On reply encrypt my email
-    Let's reply and encrypt/sign messages if you know the user by default.
+    Let's reply and encrypt/sign messages if you know the user by default and if that message is encrypted
     https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
     #+BEGIN_SRC emacs-lisp
       (setq gnus-message-replysign t
@@ -209,23 +207,45 @@ Run ‘M-x gnus’ and enjoy.
    (require 'init-gnus-secret-smtp)
    #+END_SRC
 
-   Apparently this will spell check my messages before I send them, which is quite nice.
-
-   #+BEGIN_SRC emacs-lisp
-   (add-hook 'mail-send-hook  'ispell-message)
-   #+END_SRC
-
-init-gnus-secret-smtp looks like
-(require 'smtpmail)
-(setq message-send-mail-function 'smtpmail-send-it
+  init-gnus-secret-smtp looks like
+  (require 'smtpmail)
+  (setq message-send-mail-function 'smtpmail-send-it
       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
       smtpmail-auth-credentials '(("smtp.gmail.com" 587 "<your gmail address>" nil))
       smtpmail-default-smtp-server "smtp.gmail.com"
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587)
 
-(setq user-mail-address "<your gmail address>")
-(setq send-mail-function 'smtpmail-send-it)
+  (setq user-mail-address "<your gmail address>")
+  (setq send-mail-function 'smtpmail-send-it)
+
+   Apparently this will spell check my messages before I send them, which is quite nice.
+
+   I used to have this set to mail-send-hook, but that apparently is just not the right thing to do,
+   because I get this error if that is what I have set:
+
+   #+BEGIN_LaTeX
+   Warning (mail): The default mail mode is now Message mode.
+   You have the following Mail mode variable customized:
+
+   mail-send-hook
+
+   To use Mail mode, set `mail-user-agent' to sendmail-user-agent.
+   To disable this warning, set `compose-mail-user-agent-warnings' to nil.
+   Warning (mail): The default mail mode is now Message mode.
+   You have the following Mail mode variable customized:
+
+   mail-send-hook
+
+   To use Mail mode, set `mail-user-agent' to sendmail-user-agent.
+   To disable this warning, set `compose-mail-user-agent-warnings' to nil.
+
+   #+END_LaTeX
+
+   #+BEGIN_SRC emacs-lisp
+   (add-hook 'message-send-hook  'ispell-message)
+   #+END_SRC
+
 
 ** Asynchronous Email
 
@@ -392,14 +412,49 @@ init-gnus-secret-smtp looks like
 
 ** read html mail
 
+   You have 2 main options here.  You can use the elisp shr for this or you can use gnus-w3m if you have w3m installed.
+   Shr is written in elisp.  w3m is written in C or C++.  So I'm guessing that w3m is faster.  So I'm going to use gnus-w3m.
+
+   I'm assuming that w3m is faster than the built in shr which is used by eww.
+
+   I can also use w3m, which uses the emacs-w3m, but I'm not sure how updated that is.
+
    #+BEGIN_SRC emacs-lisp
-   (setq mm-text-html-renderer 'shr)
+   (setq mm-text-html-renderer 'gnus-w3m)
    #+END_SRC
 
 ** Delete mail immediately after it has been marked expired
 
    #+BEGIN_SRC emacs-lisp
    (setq nnmail-expiry-wait 'immediate)
+   #+END_SRC
+** deleting boring headers from email
+   [[info:gnus#Hiding%20Headers][info:gnus#Hiding Headers]]
+   #+BEGIN_SRC emacs-lisp
+     (setq gnus-treat-hide-boring-headers 'head)
+
+   #+END_SRC
+** automatically configuring how my mail looks
+
+   The following variables can have the following values:
+   - nil   (don't do this treatment)
+   - t     (do this treatment on all parts of the message)
+   - head  (do this treatment on the headers of the message)
+   - first (do this treatment on the first body part)
+   - last  (do this on the last body part)
+
+     #+BEGIN_SRC emacs-lisp
+     (setq gnus-treat-strip-multiple-blank-lines t)
+     (setq gnus-treat-trailing-blank-lines t)
+     ;; let's see some smiles in gnus
+     (setq gnus-treat-display-smileys t)
+     (setq gnus-treat-emphasize 'head)
+     #+END_SRC
+** using gnus automatic scoring stuff
+
+   Make gnus rank which articles are important to you.
+   #+BEGIN_SRC emacs-lisp
+     (setq gnus-use-adaptive-scoring t)
    #+END_SRC
 ** Provide init-gnus
    #+BEGIN_SRC emacs-lisp

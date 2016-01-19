@@ -6,8 +6,6 @@
 
 (setq  gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n")
 
-(setq gnus-treat-display-smileys t)
-
 (when window-system
   (setq gnus-sum-thread-tree-indent "  ")
   (setq gnus-sum-thread-tree-root "") ;; "● ")
@@ -52,7 +50,7 @@
 
 (require 'init-gnus-secret-smtp)
 
-(add-hook 'mail-send-hook  'ispell-message)
+(add-hook 'message-send-hook  'ispell-message)
 
 (use-package gnus-desktop-notify
   :ensure t)
@@ -103,8 +101,18 @@ gnus-ignored-from-addresses bbdb-user-mail-address-re)
         ("bug-hurd" "^To:.*bug-hurd@gnu.org")
         ("bug-hurd" "^Cc:.*bug-hurd@gnu.org")))
 
-(setq mm-text-html-renderer 'shr)
+(setq mm-text-html-renderer 'gnus-w3m)
 
 (setq nnmail-expiry-wait 'immediate)
+
+(setq gnus-treat-hide-boring-headers 'head)
+
+(setq gnus-treat-strip-multiple-blank-lines t)
+(setq gnus-treat-trailing-blank-lines t)
+;; let's see some smiles in gnus
+(setq gnus-treat-display-smileys t)
+(setq gnus-treat-emphasize 'head)
+
+(setq gnus-use-adaptive-scoring t)
 
 (provide 'init-gnus)
