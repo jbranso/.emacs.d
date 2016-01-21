@@ -66,10 +66,11 @@ Run ‘M-x gnus’ and enjoy.
 
 ** My gnus signature
 
+
    #+BEGIN_SRC emacs-lisp
      (setq
       message-signature
-      "Joshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\nhttps://www.gnu.org/software/emacs/")
+      "<hr>\nJoshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\nhttps://www.gnu.org/software/emacs/")
    #+END_SRC
 
 ** Making Gnus prettier
@@ -242,9 +243,9 @@ Run ‘M-x gnus’ and enjoy.
 
    #+END_LaTeX
 
-   #+BEGIN_SRC emacs-lisp
+   I've used this is the past, but with html-mail, it doesn't work very well.
+
    (add-hook 'message-send-hook  'ispell-message)
-   #+END_SRC
 
 
 ** Asynchronous Email

@@ -23,7 +23,8 @@
                                    (flycheck-mode 1)
                                    ;; You want to enable evil-paredit mode for evil, because it's SOOO helpful.
                                    (evil-paredit-mode 1)
-                                   ))
+                                   (turn-on-paredit)
+                                   (eldoc-mode)))
 
 ;; automatically indent the text after certain commands are pressed!
 (when (fboundp 'aggressive-indent-mode)
@@ -32,9 +33,9 @@
 ;; show documentation of the current elisp function in the minibuffer as you write it.
 ;; whoever made this mode is amazing!
 
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (use-package paredit
   :ensure t
+  :defer t
   :init
   (defun paredit-barf-all-the-way-backward ()
     (interactive)
@@ -83,12 +84,12 @@
   (evil-define-key 'normal evil-dvorak-mode-map (kbd "k") 'paredit-kill)
   (paredit-mode +1))
 
+;; what is this here for?
 (dolist (hook '(prog-mode-hook
                 text-mode-hook))
   (add-hook hook (lambda ()
                    (evil-define-key 'normal evil-dvorak-mode-map  "k" 'kill-line))))
 
-(add-hook 'emacs-lisp-mode-hook 'turn-on-paredit)
 
 
 (provide 'init-lisp)

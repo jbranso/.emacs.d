@@ -2,7 +2,7 @@
 
 (setq
  message-signature
- "Joshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\nhttps://www.gnu.org/software/emacs/")
+ "Joshua Branson\n\nWayPoint\n\nWeb Developer\n\njbranso.me\n\nSent From Emacs\n\nhttps://www.gnu.org/software/emacs/")
 
 (setq  gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n")
 
@@ -49,8 +49,6 @@
 (use-package nnir)
 
 (require 'init-gnus-secret-smtp)
-
-(add-hook 'message-send-hook  'ispell-message)
 
 (use-package gnus-desktop-notify
   :ensure t)
