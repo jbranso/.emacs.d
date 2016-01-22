@@ -3,16 +3,10 @@
 ;;----------------------------------------------------------------------------
 
 ;;; Code:
+;; don't show the tool bar.  It's a waste of space
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
 
-;;; https://github.com/roman/golden-ratio.el
-(use-package golden-ratio
-  :ensure t
-  :config (setq golden-ratio-exclude-modes
-                '( "sr-mode" "ediff-mode" "gnus-summary-mode" ))
-  :diminish golden-ratio-mode)
-(golden-ratio-mode 1)
 ;; http://endlessparentheses.com/beacon-never-lose-your-cursor-again.html?source=rss
 ;; whenever you jump a line down or jump a line up, beacon flashes a little but.  pretty cool.
 (beacon-mode 1)
