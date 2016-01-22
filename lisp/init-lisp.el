@@ -24,6 +24,9 @@
                                    ;; You want to enable evil-paredit mode for evil, because it's SOOO helpful.
                                    (evil-paredit-mode 1)
                                    (turn-on-paredit)
+                                   ;; make >= look like ≥
+                                   (push '(">=" . ?≥) prettify-symbols-alist)
+                                   (push '("<=" . ?≤) prettify-symbols-alist)
                                    (eldoc-mode)))
 
 ;; automatically indent the text after certain commands are pressed!

@@ -2,7 +2,7 @@
 (use-package js2-mode
   :ensure t
   :defer t
-  :config (after-load 'js2-mode
+  :config
   ;; Disable js2 mode's syntax error highlighting by default...
   (setq-default js2-mode-show-parse-errors nil
                 js2-mode-show-strict-warnings nil)
@@ -19,11 +19,11 @@
   (setq-default
    js2-basic-offset preferred-javascript-indent-level
    js2-bounce-indent-p nil)
+  ;; make >= look like ≥
+  (push '(">=" . ?≥) prettify-symbols-alist)
+  (push '("<=" . ?≤) prettify-symbols-alist)
+  (js2-imenu-extras-setup))
 
-  (after-load 'js2-mode
-    (js2-imenu-extras-setup)))
-
-  )
 ;;(maybe-require-package 'ac-js2)
 ;;(maybe-require-package 'coffee-mode)
 ;;(require-package 'js-comint)

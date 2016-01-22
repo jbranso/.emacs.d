@@ -10,7 +10,7 @@
 (use-package golden-ratio
   :ensure t
   :config (setq golden-ratio-exclude-modes
-                '( "sr-mode" "ediff-mode" ))
+                '( "sr-mode" "ediff-mode" "gnus-summary-mode" ))
   :diminish golden-ratio-mode)
 (golden-ratio-mode 1)
 ;; http://endlessparentheses.com/beacon-never-lose-your-cursor-again.html?source=rss
