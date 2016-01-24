@@ -404,11 +404,14 @@ Run ‘M-x gnus’ and enjoy.
 
    #+BEGIN_SRC emacs-lisp
      (setq nnmail-split-methods
-           '(("Accrisoft Support" "^From:.*support@accrisoft.com")
-             ("Basecamp" "^From:.*notifications@basecamp.com")
-             ("Arch" "^To:.*arch-general@archlinux.org")
-             ("bug-hurd" "^To:.*bug-hurd@gnu.org")
-             ("bug-hurd" "^Cc:.*bug-hurd@gnu.org")))
+           '(("mail.Accrisoft Support" "^From:.*support@accrisoft.com")
+             ("mail.Basecamp" "^From:.*notifications@basecamp.com")
+             ("mail.arch" "^To:.*arch-general@archlinux.org")
+             ("mail.bug-hurd" "^To:.*bug-hurd@gnu.org")
+             ("mail.bug-hurd" "^Cc:.*bug-hurd@gnu.org")
+             ;; if an email comes from bransoj@hotmail.com, then we'll put it into testing, and see if this works
+             ("mail.testing" "^From:.*bransoj@hotmail.com.*$")
+             ("mail.bogus" "")))
    #+END_SRC
 
 ** read html mail

@@ -2,7 +2,7 @@
 
 (setq
  message-signature
- "Joshua Branson\n\nWayPoint\n\nWeb Developer\n\njbranso.me\n\nSent From Emacs\n\nhttps://www.gnu.org/software/emacs/")
+ "<hr>\nJoshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\nhttps://www.gnu.org/software/emacs/")
 
 (setq  gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n")
 
@@ -95,7 +95,7 @@ gnus-ignored-from-addresses bbdb-user-mail-address-re)
 (setq nnmail-split-methods
       '(("Accrisoft Support" "^From:.*support@accrisoft.com")
         ("Basecamp" "^From:.*notifications@basecamp.com")
-        ("Arch" "^To:.*arch-general@archlinux.org")
+        ("arch" "^To:.*arch-general@archlinux.org")
         ("bug-hurd" "^To:.*bug-hurd@gnu.org")
         ("bug-hurd" "^Cc:.*bug-hurd@gnu.org")))
 
