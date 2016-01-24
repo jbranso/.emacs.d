@@ -346,6 +346,7 @@ be global."
 ;;print the working directory in the minibuffer
 ;; I should make these commands copy the output of pwd into the clipboard
 (global-set-key (kbd "C-c P") #'pwd)
+(global-set-key (kbd "C-c p") #'hydra-projectile/body)
 ;; C-c p is for projectile.  C-c p F is still broken but C-c p h works
 ;;(global-set-key (kbd "C-c p") #'pwd)
 ;;This does recursive find and replace.  But I think it only works when you are in a dired buffer
@@ -465,8 +466,6 @@ be global."
                                              "C-x 5"
                                              ;; this is for narrowing commands
                                              "C-x n"
-                                             ;; this is for projectile keys
-                                             "C-c p"
                                              ;; this is also for projectile?
                                              "C-c p s"
                                              ;;this is for helm keys

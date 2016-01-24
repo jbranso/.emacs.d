@@ -1,18 +1,19 @@
 (require 'ispell)
 
-(use-package flycheck)
+(use-package flycheck
+  :config
 
-(add-hook 'after-init-hook #'global-flycheck-mode)
+  (add-hook 'after-init-hook #'(lambda ()
+                                 (global-flycheck-mode 1)))
 
-;; show flycheck errors in a popup
-(use-package flycheck-pos-tip
-  :ensure t
-  :defer t)
+  (with-eval-after-load 'flycheck
+    (flycheck-pos-tip-mode))
+  ;; show flycheck errors in a popup
+  (use-package flycheck-pos-tip
+    :ensure t
+    :defer t))
 
-(with-eval-after-load 'flycheck
-  (flycheck-pos-tip-mode)
-
-  ;; Override default flycheck triggers
+;; Override default flycheck triggers
 
 ;; (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled)
 ;;       flycheck-idle-change-delay 0.8)
