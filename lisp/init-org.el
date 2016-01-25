@@ -415,9 +415,9 @@ EXT is a list of the extensions of files to be included."
                              (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
                              (define-key yas/keymap [tab] 'yas/next-field)
                              ;; make the lines in the buffer wrap around the edges of the screen.
-                             (visual-line-mode)
-                             ;; YES!!!!! This mode auto-indents org-buffers as you type!  NO NEED FOR
+                             ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
                              ;; to press C-c q  or fill-paragraph ever again!
+                             (visual-line-mode)
                              (org-indent-mode)
                              (org-bullets-mode 1)
                              ;;make ">=" look like >=, etc.
