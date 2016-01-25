@@ -778,6 +778,9 @@ EXT is a list of the extensions of files to be included."
                                  (define-key yas/keymap [tab] 'yas/next-field)
                                  ;; make the lines in the buffer wrap around the edges of the screen.
                                  (visual-line-mode)
+                                 ;; YES!!!!! This mode auto-indents org-buffers as you type!  NO NEED FOR
+                                 ;; to press C-c q  or fill-paragraph ever again!
+                                 (org-indent-mode)
                                  (org-bullets-mode 1)
                                  ;;make ">=" look like >=, etc.
                                  (push '(">=" . ?≥) prettify-symbols-alist)
