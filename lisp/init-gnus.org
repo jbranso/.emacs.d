@@ -61,7 +61,7 @@ Run ‘M-x gnus’ and enjoy.
    I hope you don't mind that I'm not telling you my email address.  I'd rather that not be public info.
 
   #+BEGIN_SRC emacs-lisp
-    (require 'init-gnus-secret)
+    (use-package init-gnus-secret)
   #+END_SRC
 
 ** My gnus signature
@@ -205,7 +205,10 @@ Run ‘M-x gnus’ and enjoy.
 
 ** Sending email
    #+BEGIN_SRC emacs-lisp
-   (require 'init-gnus-secret-smtp)
+   ;; (require 'init-gnus-secret-smtp)
+   ;; I am trying to use use-package so that emacs won't start on an error if someone tries to clone
+   ;; my config
+   (use-package init-gnus-secret-smtp)
    #+END_SRC
 
   init-gnus-secret-smtp looks like
@@ -420,7 +423,7 @@ That way gnus exits properly, and you don't have to read the active file when yo
 
 (add-hook 'kill-emacs-hook #'(lambda ()
                                (interactive)
-                               (gnus-group-exit))
+                               (gnus-group-exit)))
 #+END_SRC
 ** read html mail
 

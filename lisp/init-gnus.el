@@ -1,4 +1,4 @@
-(require 'init-gnus-secret)
+(use-package init-gnus-secret)
 
 (setq
  message-signature
@@ -48,7 +48,10 @@
 
 (use-package nnir)
 
-(require 'init-gnus-secret-smtp)
+;; (require 'init-gnus-secret-smtp)
+;; I am trying to use use-package so that emacs won't start on an error if someone tries to clone
+;; my config
+(use-package init-gnus-secret-smtp)
 
 (use-package gnus-desktop-notify
   :ensure t)
@@ -104,7 +107,7 @@ gnus-ignored-from-addresses bbdb-user-mail-address-re)
 
 (add-hook 'kill-emacs-hook #'(lambda ()
                                (interactive)
-                               (gnus-group-exit))
+                               (gnus-group-exit)))
 
 (setq mm-text-html-renderer 'gnus-w3m)
 
