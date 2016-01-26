@@ -297,10 +297,19 @@ EXT is a list of the extensions of files to be included."
         ("y" agenda*)
 
         ;; a global searcher with "WAITING" as the TODO keywoard
-        ("w" todo "WAITING")
+        ;; but I don't use waiting as a keyword
+        ;; ("w" todo "WAITING")
+        ;; ("w" todo "WAITING")
+
+        ("d" todo "⚑ DELEGATED" )
 
         ;; the same search bit with searching for projects
-        ("P" todo "PROJECT")
+        ("p" todo "♇ PROJECT")
+
+
+        ("s" todo "STARTED" )
+
+        ("c" todo "☺ CHARGED")
 
         ;; the same search but only in the current buffer and displaying the
         ;; results as a sparse tree

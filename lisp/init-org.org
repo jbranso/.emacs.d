@@ -612,12 +612,13 @@ EXT is a list of the extensions of files to be included."
 
               ("d" todo "⚑ DELEGATED" )
 
-              ;; I saw the +<char> syntax here:
-              ;; http://thread.gmane.org/gmane.emacs.orgmode/523
-              ;; ("p" todo "+♇ PROJECT")
-
               ;; the same search bit with searching for projects
               ("p" todo "♇ PROJECT")
+
+
+              ("s" todo "STARTED" )
+
+              ("c" todo "☺ CHARGED")
 
               ;; the same search but only in the current buffer and displaying the
               ;; results as a sparse tree
