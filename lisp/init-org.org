@@ -606,10 +606,18 @@ EXT is a list of the extensions of files to be included."
               ("y" agenda*)
 
               ;; a global searcher with "WAITING" as the TODO keywoard
-              ("w" todo "WAITING")
+              ;; but I don't use waiting as a keyword
+              ;; ("w" todo "WAITING")
+              ;; ("w" todo "WAITING")
+
+              ("d" todo "⚑ DELEGATED" )
+
+              ;; I saw the +<char> syntax here:
+              ;; http://thread.gmane.org/gmane.emacs.orgmode/523
+              ;; ("p" todo "+♇ PROJECT")
 
               ;; the same search bit with searching for projects
-              ("P" todo "PROJECT")
+              ("p" todo "♇ PROJECT")
 
               ;; the same search but only in the current buffer and displaying the
               ;; results as a sparse tree
@@ -686,6 +694,8 @@ EXT is a list of the extensions of files to be included."
 
   You can also have syntax like "PROJECT(p@/!)", which means to record a note when you change an items TODO keyword to project,
   and you'd like to only record a timestamp if that item's keyword ever changes to any other todo keyword.
+
+  Apparently I can define a NEXTACTION keyword too. http://thread.gmane.org/gmane.emacs.orgmode/523
 
   #+BEGIN_SRC emacs-lisp
     (setq org-todo-keywords
