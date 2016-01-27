@@ -46,8 +46,11 @@
 ;; this was for our emacs meetup group
 ;;(require 'init-slack)
 (require 'init-wgrep)
+;; turn on abbrev mode.  it implements autocorrect
 (require 'init-abbrev)
+;; let's do spell checking
 (require 'init-flyspell)
+;; let's do async processing in emacs
 (require 'init-async)
 ;; this is for using emacs to edit stuff on the web, but emacsclient is no longer working for me
 ;;(require 'init-edit-server)
@@ -64,12 +67,16 @@
 
 ;; the forecast is in Celcius.  Why do I even have this installed?
 ;;(require 'init-forecast)
+;; emacs can read the mail
 (require 'init-gnus)
 (require 'init-vc)
 (require 'init-gui-frames)
+;; make the window that has focus have be the largest on the screen
 (require 'init-golden-ratio)
+;;we want utf8 chars in emacs
 (require 'init-utf8)
 (require 'init-recentf)
+;; emacs as a file manager
 (require 'init-dired)
 ;;(require 'init-avy)
 ;;(require 'init-sunrise)
@@ -79,6 +86,7 @@
 ;;(require 'init-erc)
 (require 'init-eshell)
 ;;(require 'init-term)
+;; paradox adds some nice features to emacs install packages
 ;; this sets up paradox to use my private token to access public repos.
 (require 'init-paradox)
 ;; Nicer naming of buffers for files with identical names
@@ -87,8 +95,11 @@
 (require 'init-uniquify)
 ;;yasnippet needs to be loaded before auto complete to let them play nicely together
 (require 'init-yasnippet)
+;; collection of IDE like features.  I can't get 'em to work
 (require 'init-cedet)
+;; let's check our code syntax of all program modes
 (require 'init-flycheck)
+;; id mode stinks, I'm so glad helm is here.
 (require 'init-helm)
 ;; I haven't used projectile commands in a while.  I'll try turing them off and seenig what happens.
 (require 'init-projectile)
@@ -96,12 +107,14 @@
 ;;(org-babel-load-file (concat user-emacs-directory "init-org.org"))
 ;;https://github.com/danielmai/.emacs.d/blob/master/init.el
 (require 'init-org)
+;; hydra's are awesome!  They let you easily remember keybindings
 (require 'init-hydra)
 ;; I also hardly ever use this sx package, which is an amazing package!
 ;; (use-package sx
 ;;   :defer t
 ;;   :ensure t) ;;searching stack exchange via emacs!  C-c S
 (require 'init-editing-utils)
+;; let's get modal keybinding working!
 (require 'init-evil)
 ;; set up info to use the windmove commands!
 (require 'init-info)
@@ -119,7 +132,7 @@
 (require 'init-css)
 ;;(require 'init-python-mode)
 (require 'init-defuns)
-;; this hasn't been working for a while. No reason to enable it.
+;; emacs can play music and stream it! (when streaming works)
 (require 'init-emms)
 
 ;; load a zenburn
