@@ -43,6 +43,8 @@
 ;; to use :bind with use-package, require bind-key
 (require 'bind-key)
 (require 'use-package)
+;; this was for our emacs meetup group
+;;(require 'init-slack)
 (require 'init-wgrep)
 (require 'init-abbrev)
 (require 'init-flyspell)
@@ -79,8 +81,6 @@
 ;;(require 'init-term)
 ;; this sets up paradox to use my private token to access public repos.
 (require 'init-paradox)
-;; I don't need init-bash, because flycheck is turned on globally
-;;(require 'init-bash)
 ;; Nicer naming of buffers for files with identical names
 ;; Instead of Makefile<1> and Makefile<2>, it will be
 ;; Makefile | tmp  Makefile | lisp
@@ -108,7 +108,6 @@
 
 ;; http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html
 ;;(require 'init-darcs)
-;; snthasnetuh sntha euz
 (require 'init-git)
 ;;(require 'init-github)
 

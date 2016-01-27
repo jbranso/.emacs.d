@@ -94,10 +94,12 @@
 
 
 
+;; this can probably be deleted.  this should be turned on by default
 (when (fboundp 'global-prettify-symbols-mode)
   (global-prettify-symbols-mode 1))
 
 
+
 ;; When you define a macro, you can type C-x Q to prompt the user for input.
 ;; Very helpful and cool!
 (defun my-macro-query (arg)
@@ -125,10 +127,44 @@
 ;; (eval-after-load 'highlight-symbol
 
 
+
 ;; save all buffers after saving the current buffer.
 (add-hook 'after-save-hook #'(lambda ()
                                (interactive)
                                (save-some-buffers 1)))
+
+
+
+(defhydra hydra-rectangle (:body-pre (rectangle-mark-mode 1)
+                           :color pink
+                           :post (deactivate-mark))
+  "
+  ^_t_^     _d_elete    str_i_ng
+_n_   _s_   _o_k        _y_ank
+  ^_h_^     _n_ew-copy  _r_eset
+^^^^        _e_xchange  _u_ndo
+^^^^        ^ ^         _p_aste
+"
+  ("n" backward-char nil)
+  ("s" forward-char nil)
+  ("t" previous-line nil)
+  ("h" next-line nil)
+  ("e" exchange-point-and-mark nil)
+  ("k" copy-rectangle-as-kill nil)
+  ("d" delete-rectangle nil)
+  ("r" (if (region-active-p)
+           (deactivate-mark)
+         (rectangle-mark-mode 1)) nil)
+  ("y" yank-rectangle nil)
+  ("u" undo nil)
+  ("i" string-rectangle nil)
+  ("p" kill-rectangle nil)
+  ("o" nil nil))
+
+(global-set-key (kbd "C-x SPC") 'hydra-rectangle/body)
+
+
+
 
 ;;----------------------------------------------------------------------------
 ;; Don't disable narrowing commands
@@ -193,6 +229,9 @@ already narrowed."
 ;; Handy key bindings
 ;;----------------------------------------------------------------------------
 
+
+;; I might not need these two defuns.  evil's viwU viwu do what these two do
+
 (defun my/uppercase-word ()
   "capitalize the current word."
   (interactive)
@@ -206,7 +245,7 @@ already narrowed."
   (forward-word)
   (backward-word)
   (downcase-word 1))
-
+
 
 (defun indent-whole-buffer ()
   "This indents the whole buffer"

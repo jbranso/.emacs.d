@@ -3,9 +3,9 @@
 ;; I really like it because I can stream music from libre.fm and hack at the same time, without leaving emacs.
 
 ;; simple setup taken from here
-;;https://www.gnu.org/software/emms/manual/Simple-Setup.html#Simple-Setup
+;; [[info:emms#Quickstart%20Guide][info:emms#Quickstart Guide]]
 (require 'emms-setup)
-(emms-standard)
+(emms-all)
 (emms-default-players)
 ;;https://www.gnu.org/software/emms/manual/GNU-FM-Streaming.html#GNU-FM-Streaming
 ;; set up streaming via librefm
@@ -113,6 +113,27 @@
 ;;      Return information about the streaming audio at the URL of the
 ;;      bookmark under point.  Note that this will only work if the
 ;;      'emms-stream-info' has already been loaded.
+
+
+(global-set-key
+ (kbd "C-x m")
+ (defhydra hydra-emms
+   (:body-pre (next-line))
+   "
+   move         bookmarks
+   _n_ext       _a_dd
+   _p_revious   _d_elete
+   _P_ause      _e_dit
+
+   "
+   ("n" (emms-next))
+   ("p" (emms-previous))
+   ("P" (emms-pause))
+
+   ("a" (emms-bookmarks-add))
+   ("d" (emms-bookmarks-clear))
+   ("e" (emms-stream-edit-bookmark))))
+
 
 (require 'init-emms-secret)
 ;; init-emms-secret looks like
