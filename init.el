@@ -108,6 +108,7 @@
 
 ;; http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html
 ;;(require 'init-darcs)
+;; snthasnetuh sntha euz
 (require 'init-git)
 ;;(require 'init-github)
 

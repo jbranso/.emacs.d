@@ -55,6 +55,20 @@
 ;;(define-key helm--minor-mode-map (kbd "C-f") 'helm-execute-persistent-action)
 ;;I should define some cool helm mini commands
 
+
+(global-set-key (kbd "C-c h")
+                (defhydra hydra-helm (:color pink)
+                  "helm"
+                  ("r" helm-resume)))
+
+(defhydra hydra-test (hint :nil)
+  ("r" helm-resume))
+
+(defhydra hydra-zoom (global-map "<f2>")
+  "zoom"
+  ("g" text-scale-increase "in")
+  ("l" text-scale-decrease "out"))
+
 ;; how do I get this to work?
 ;; (define-key helm-find-files-map (kbd "s-h") 'helm-next-line)
 
