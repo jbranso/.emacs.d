@@ -120,7 +120,7 @@
 ;;(require 'init-python-mode)
 (require 'init-defuns)
 ;; this hasn't been working for a while. No reason to enable it.
-;;(require 'init-emms)
+(require 'init-emms)
 
 ;; load a zenburn
 (require 'init-misc)

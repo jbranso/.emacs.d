@@ -301,13 +301,13 @@ EXT is a list of the extensions of files to be included."
         ;; ("w" todo "WAITING")
         ;; ("w" todo "WAITING")
 
-        ("d" todo "⚑ DELEGATED" )
+        ("D" todo "⚑ DELEGATED" )
 
         ;; the same search bit with searching for projects
-        ("p" todo "♇ PROJECT")
+        ("P" todo "♇ PROJECT")
 
 
-        ("s" todo "STARTED" )
+        ("S" todo "STARTED" )
 
         ("c" todo "☺ CHARGED")
 
@@ -493,7 +493,8 @@ _d_: subtree
   ("b" outline-backward-same-level)       ; Backward - same level
   ("z" nil "leave"))
 
-(global-set-key (kbd "C-c #") 'hydra-outline/body) ; by example
+(define-key org-mode-map (kbd "C-c #") 'hydra-outline/body) ; by example
+(global-set-key (kbd "C-c #") 'hydra-outline/body)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; function to wrap blocks of text in org templates                       ;;

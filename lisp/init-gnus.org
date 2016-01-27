@@ -66,11 +66,15 @@ Run ‘M-x gnus’ and enjoy.
 
 ** My gnus signature
 
+at the moment gnus org-mime-htmlize does not like this to be in my signature.  It won't let me send the mail.
 
+<a href=\"https://www.gnu.org/software/emacs/\"><img src=\"http://jbranso.me/images/Emacs-logo.svg\" style=\"width:100px\" ></a><br>
    #+BEGIN_SRC emacs-lisp
      (setq
       message-signature
-      "<hr>\nJoshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\nhttps://www.gnu.org/software/emacs/")
+      "<hr>\nJoshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\n
+      https://www.gnu.org/software/emacs/")
+
    #+END_SRC
 
 ** Making Gnus prettier
