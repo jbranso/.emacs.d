@@ -124,8 +124,9 @@
 
 ;; load a zenburn
 (require 'init-misc)
-;;powerline has to be loaded before the zenburn theme to work properly
-(require 'init-powerline-evil)
+;; smart-mode-line is awesome!
+;; woo hoo!
+(require 'init-smart-mode-line)
 
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
