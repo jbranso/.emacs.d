@@ -850,11 +850,11 @@ EXT is a list of the extensions of files to be included."
   "
 ^Hide^             ^Show^           ^Move
 ^^^^^^------------------------------------------------------
-_hs_: sublevels     _sa_: all         _mu_: up
-_hb_: body          _se_: entry       _mn_: next visible
-_ho_: other         _sc_: children    _mp_: previous visible
-_he_: entry         _sb_: branches    _mf_: forward same level
-_hl_: leaves        _st_: subtree     _mb_: backward same level
+_hs_: sublevels     _sa_: all         _u_: up
+_hb_: body          _se_: entry       _n_: next visible
+_ho_: other         _sc_: children    _p_: previous visible
+_he_: entry         _sb_: branches    _f_: forward same level
+_hl_: leaves        _st_: subtree     _b_: backward same level
 _ht_: subtree
 
 "
@@ -872,11 +872,11 @@ _ht_: subtree
   ("sb" show-branches)     ; Show all sub-headings under this heading
   ("st" show-subtree)      ; Show (expand) everything in this heading & below
   ;; Move
-  ("mu" outline-up-heading)                ; Up
-  ("mn" outline-next-visible-heading)      ; Next
-  ("mp" outline-previous-visible-heading)  ; Previous
-  ("mf" outline-forward-same-level)        ; Forward - same level
-  ("mb" outline-backward-same-level)       ; Backward - same level
+  ("u" outline-up-heading)                ; Up
+  ("n" outline-next-visible-heading)      ; Next
+  ("p" outline-previous-visible-heading)  ; Previous
+  ("f" outline-forward-same-level)        ; Forward - same level
+  ("b" outline-backward-same-level)       ; Backward - same level
 
   ("z" nil "leave"))
 
