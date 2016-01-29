@@ -40,6 +40,8 @@
 
 ;; diskspace is cheap and making emacs backup my files is probably a good idea
 ;; maybe this will work.
+;; https://www.reddit.com/r/emacs/comments/4398wl/this_is_driving_me_nuts_emacs_will_not_let_me/
+;; https://stackoverflow.com/questions/15302973/emacs-auto-save-why-are-files-not-stored-in-the-correct-folder
 (defvar my-auto-save-folder (concat "~/.emacs.d/auto-save"))  ; folder for auto-saves
 (setq auto-save-list-file-prefix "~/.emacs.d/auto-save/.saves-")  ; set prefix for auto-saves
 (setq auto-save-file-name-transforms `((".*", my-auto-save-folder t)))  ; location for all auto-save files
