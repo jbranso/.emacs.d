@@ -424,10 +424,10 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
 ** close gnus when you exit emacs.
 That way gnus exits properly, and you don't have to read the active file when you open gnus again.
 #+BEGIN_SRC emacs-lisp
-
-(add-hook 'kill-emacs-hook #'(lambda ()
-                               (interactive)
-                               (gnus-group-exit)))
+  (add-hook 'kill-emacs-hook #'(lambda ()
+                                 (interactive)
+                                 (when (eq nil (get-buffer "*Group*"))
+                                   (gnus-group-exit))))
 #+END_SRC
 ** read html mail
 

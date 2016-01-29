@@ -21,7 +21,7 @@
  inhibit-splash-screen t
  inhibit-startup-echo-area-message t
  inhibit-startup-message t
- make-backup-files nil
+ ;;make-backup-files nil
  initial-scratch-message nil
  ;; don't let the cursor go into minibuffer prompt
  ;; http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
@@ -30,13 +30,20 @@
  auto-save-default nil  ;; this will stop making #auto-save# files
  ;;make-backup-files nil  ;; this will stop making backup~ files
  ;; make emacs save all backup~ files in this directory
- backup-directory-alist '(("" . "~/.emacs.d/backups"))
+ ;;backup-directory-alist '(("" . "~/.emacs.d/backups"))
  save-interprogram-paste-before-kill t
  scroll-preserve-screen-position 'always
  set-mark-command-repeat-pop t
  tooltip-delay 1.5
  truncate-lines nil
  truncate-partial-width-windows nil)
+
+;; diskspace is cheap and making emacs backup my files is probably a good idea
+;; maybe this will work.
+(defvar my-auto-save-folder (concat "~/.emacs.d/auto-save"))  ; folder for auto-saves
+(setq auto-save-list-file-prefix "~/.emacs.d/auto-save/.saves-")  ; set prefix for auto-saves
+(setq auto-save-file-name-transforms `((".*", my-auto-save-folder t)))  ; location for all auto-save files
+(setq tramp-auto-save-directory my-auto-save-folder)  ; auto-save tramp files in local directory
 
 ;; make emacs completetion better
 ;;ignore came
@@ -499,7 +506,8 @@ be global."
   ;; init loads stuff before a package is loaded
   :init (setq guide-key/guide-key-sequence '("C-x"
                                              ;; this is for my personal keybindings
-                                             "C-c"
+                                             ;; guide-key is causing issues when I do this in org-mode
+                                             ;; "C-c"
                                              "C-x 4"
                                              ;; this is for creating frames
                                              "C-x 5"
@@ -514,8 +522,7 @@ be global."
                                              ;; this is for register commands
                                              "C-x r"
                                              ;; this is for org-babel commands
-                                             "C-c C-v"
-                                             ))
+                                             "C-c C-v"))
   ;; config does stuff after a package is loaded
   :config (guide-key-mode 1))
 

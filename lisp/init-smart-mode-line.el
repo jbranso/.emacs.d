@@ -10,12 +10,13 @@
 
 ;;(display-time-mode t)
 
-;; smart mode line apparently is more active and works w/ just about anything
-(use-package smart-mode-line :ensure t)
 ;; don't delete-package (powerline).  smart-mode-line-powerline-theme depends on it
 (use-package smart-mode-line-powerline-theme :ensure t)
-(setq sml/theme 'powerline)
-(sml/setup)
+;; smart mode line apparently is more active and works w/ just about anything
+(use-package smart-mode-line :ensure t
+  :init
+  (setq sml/theme 'powerline)
+  (sml/setup))
 
 
 ;;(setq powerline-evil-tag 'verbose)
