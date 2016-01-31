@@ -130,9 +130,27 @@ vUXAVsyOIEsH32nX9FGZiHjL99CVQLjwgILwxhFgD0Yc9FDcWA==
   (require 'org-mime)
   #+END_SRC
 
+
+   imported code from http://orgmode.org/worg/org-contrib/org-mime.html
+
+for those who use color themes with Dark backgrounds it is useful to set a dark background for all exported code blocks and example regions. This can be accomplished with the following:  And you should totally do this!  it looks SOO COOOL!
   #+BEGIN_SRC emacs-lisp
-   (setq org-mime-library 'mml)
+  (add-hook 'org-mime-html-hook
+          (lambda ()
+            (org-mime-change-element-style
+             "pre" (format "color: %s; background-color: %s; padding: 0.5em;"
+                           "#E6E1DC" "#232323"))))
   #+END_SRC
+
+  the following can be used to nicely offset block quotes in email bodies
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-mime-html-hook
+          (lambda ()
+            (org-mime-change-element-style
+             "blockquote" "border-left: 2px solid gray; padding-left: 4px;")))
+#+END_SRC
+
+end imported code
 
 ** org babel
   #+BEGIN_SRC emacs-lisp
@@ -507,6 +525,8 @@ vUXAVsyOIEsH32nX9FGZiHjL99CVQLjwgILwxhFgD0Yc9FDcWA==
   org file to.  So let's say you're in weekly schedule.org, BUT you wish to quickly jump to shopping.org at the heading
   "Groceries",  you can very easily do that.
 
+  EDIT:  I'm not really sure if this code is worth it.  The command org-agenda-files already stores your agenda files,  and I think that my custom.el file already keeps track of my agenda files.  Furthermore, (org-agenda-file-to-front) bound to "C-c [" is a nice way to keep track of agenda files.
+
   #+BEGIN_SRC emacs-lisp
 
 (defun my-org-list-files (dirs ext)
@@ -569,26 +589,23 @@ EXT is a list of the extensions of files to be included."
 
   Refile targets include this file and any file contributing to the agenda - up to 5 levels deep  But unfortunately, I cannot
   get org-refile to work.
-;;(setq org-refile-targets (quote ((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5))))
-;; (setq org-refile-targets '(
-;;                            ;;(org-agenda-files :maxlevel . 5)
-;;                                ("~/programming/org/gtd/gtd.org")
-;;                                ("~/programming/org/gtd/projects/get-close-to-God.org")
-;;                           ))
-;;(setq org-refile-targets 'org-agenda-files)
 
-;; (setq org-refile-targets '((("~/programming/org/gtd/projects/working-for-waypoint.org") :maxlevel . 5)))
+
+  You absolutely want org-refile targets!!! Trust me on this!!!  You can very quickly jot down your todo list in org,
+  in no particular order, then when your list is done, you can quickly refile your agenda files very quickly.  This works awesomeingly with helm-mode.
+
+
+  This was some crusty code that I'm not sure if I need to keep to get refile targets to work.
+
+  ;; (setq org-completion-use-ido nil)
+  ;; (setq org-refile-allow-creating-parent-nodes t)
 
   #+BEGIN_SRC emacs-lisp
-    (setq org-refile-targets '(
-                               (nil :maxlevel . 10)
-                               (org-agenda-files :maxlevel . 10)
+    (setq org-refile-targets '((nil :maxlevel . 2)
                                (org-agenda-files :tag . "capture")
-                               ))
-    (setq org-refile-use-outline-path 'file)
-    (setq org-outline-path-complete-in-steps nil)
-    (setq org-completion-use-ido nil)
-    (setq org-refile-allow-creating-parent-nodes t)
+                               (org-agenda-files :maxlevel . 2)))
+    (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
+    (setq org-refile-use-outline-path t)                  ; Show full paths for refiling
   #+END_SRC
 
 *** My custom agenda commands

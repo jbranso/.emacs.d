@@ -15,7 +15,16 @@
 
 (require 'org-mime)
 
-(setq org-mime-library 'mml)
+(add-hook 'org-mime-html-hook
+        (lambda ()
+          (org-mime-change-element-style
+           "pre" (format "color: %s; background-color: %s; padding: 0.5em;"
+                         "#E6E1DC" "#232323"))))
+
+(add-hook 'org-mime-html-hook
+          (lambda ()
+            (org-mime-change-element-style
+             "blockquote" "border-left: 2px solid gray; padding-left: 4px;")))
 
 (after-load 'org
   (org-babel-do-load-languages
@@ -277,15 +286,11 @@ EXT is a list of the extensions of files to be included."
 
 (my-org-set-agenda-files)
 
-(setq org-refile-targets '(
-                           (nil :maxlevel . 10)
-                           (org-agenda-files :maxlevel . 10)
+(setq org-refile-targets '((nil :maxlevel . 2)
                            (org-agenda-files :tag . "capture")
-                           ))
-(setq org-refile-use-outline-path 'file)
-(setq org-outline-path-complete-in-steps nil)
-(setq org-completion-use-ido nil)
-(setq org-refile-allow-creating-parent-nodes t)
+                           (org-agenda-files :maxlevel . 2)))
+(setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
+(setq org-refile-use-outline-path t)                  ; Show full paths for refiling
 
 (setq org-agenda-custom-commands
       '(
@@ -464,33 +469,34 @@ EXT is a list of the extensions of files to be included."
   "
 ^Hide^             ^Show^           ^Move
 ^^^^^^------------------------------------------------------
-_q_: sublevels     _a_: all         _u_: up
-_t_: body          _e_: entry       _n_: next visible
-_o_: other         _i_: children    _p_: previous visible
-_c_: entry         _k_: branches    _f_: forward same level
-_l_: leaves        _s_: subtree     _b_: backward same level
-_d_: subtree
+_hs_: sublevels     _sa_: all         _u_: up
+_hb_: body          _se_: entry       _n_: next visible
+_ho_: other         _sc_: children    _p_: previous visible
+_he_: entry         _sb_: branches    _f_: forward same level
+_hl_: leaves        _st_: subtree     _b_: backward same level
+_ht_: subtree
 
 "
   ;; Hide
-  ("q" hide-sublevels)    ; Hide everything but the top-level headings
-  ("t" hide-body)         ; Hide everything but headings (all body lines)
-  ("o" hide-other)        ; Hide other branches
-  ("c" hide-entry)        ; Hide this entry's body
-  ("l" hide-leaves)       ; Hide body lines in this entry and sub-entries
-  ("d" hide-subtree)      ; Hide everything in this entry and sub-entries
+  ("hs" hide-sublevels)    ; Hide everything but the top-level headings
+  ("hb" hide-body)         ; Hide everything but headings (all body lines)
+  ("ho" hide-other)        ; Hide other branches
+  ("he" hide-entry)        ; Hide this entry's body
+  ("hl" hide-leaves)       ; Hide body lines in this entry and sub-entries
+  ("ht" hide-subtree)      ; Hide everything in this entry and sub-entries
   ;; Show
-  ("a" show-all)          ; Show (expand) everything
-  ("e" show-entry)        ; Show this heading's body
-  ("i" show-children)     ; Show this heading's immediate child sub-headings
-  ("k" show-branches)     ; Show all sub-headings under this heading
-  ("s" show-subtree)      ; Show (expand) everything in this heading & below
+  ("sa" show-all)          ; Show (expand) everything
+  ("se" show-entry)        ; Show this heading's body
+  ("sc" show-children)     ; Show this heading's immediate child sub-headings
+  ("sb" show-branches)     ; Show all sub-headings under this heading
+  ("st" show-subtree)      ; Show (expand) everything in this heading & below
   ;; Move
   ("u" outline-up-heading)                ; Up
   ("n" outline-next-visible-heading)      ; Next
   ("p" outline-previous-visible-heading)  ; Previous
   ("f" outline-forward-same-level)        ; Forward - same level
   ("b" outline-backward-same-level)       ; Backward - same level
+
   ("z" nil "leave"))
 
 (define-key org-mode-map (kbd "C-c #") 'hydra-outline/body) ; by example
