@@ -409,16 +409,17 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
                                     "nndraft:drafts")
                                    ("Gnus")))))
 
+I used to have this say nnmail-split methods, but I'm not using the nnmail backend!  I'm using nnimap.  Maybe this will actually let gnus properly split my mail into proper topics.
+
    #+BEGIN_SRC emacs-lisp
-     (setq nnmail-split-methods
-           '(("mail.Accrisoft Support" "^From:.*support@accrisoft.com")
-             ("mail.Basecamp" "^From:.*notifications@basecamp.com")
-             ("mail.arch" "^To:.*arch-general@archlinux.org")
-             ("mail.bug-hurd" "^To:.*bug-hurd@gnu.org")
-             ("mail.bug-hurd" "^Cc:.*bug-hurd@gnu.org")
+     (setq nnimap-split-methods
+           '(("Accrisoft Support" "^From:.*support@accrisoft.com.*")
+             ("Basecamp" "^From:.*notifications@basecamp.com.*")
+             ("arch" "^To:.*arch-general@archlinux.org.*$")
+             ("bug-hurd" "^To:.*bug-hurd@gnu.org.*")
+             ("bug-hurd" "^Cc:.*bug-hurd@gnu.org.*")
              ;; if an email comes from bransoj@hotmail.com, then we'll put it into testing, and see if this works
-             ("mail.testing" "^From:.*bransoj@hotmail.com.*$")
-             ("mail.bogus" "")))
+             ("mail.testing" "^From:.*bransoj@hotmail.com.*$")))
    #+END_SRC
 
 ** close gnus when you exit emacs.
@@ -438,8 +439,11 @@ That way gnus exits properly, and you don't have to read the active file when yo
 
    I can also use w3m, which uses the emacs-w3m, but I'm not sure how updated that is.
 
+
+
    #+BEGIN_SRC emacs-lisp
-   (setq mm-text-html-renderer 'gnus-w3m)
+   (use-package w3m :ensure t)
+   (setq mm-text-html-renderer 'w3m)
    #+END_SRC
 
 ** Delete mail immediately after it has been marked expired

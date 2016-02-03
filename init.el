@@ -26,6 +26,11 @@
 (require 'init-elpa)      ;; Machinery for installing required packages
 ;;(require 'init-exec-path) ;; Set up $PATH
 
+;; reduce the frequency of garbage collection by making it happen on
+;; each 50MB of allocated data (the default is on every 0.76MB)
+;; this might help improve performance
+;;(setq gc-cons-threshold 50000000)
+
 ;;----------------------------------------------------------------------------
 ;; Allow users to provide an optional "init-preload-local.el"
 ;;----------------------------------------------------------------------------
@@ -73,6 +78,10 @@
 (require 'init-gui-frames)
 ;; make the window that has focus have be the largest on the screen
 (require 'init-golden-ratio)
+
+;; until I get autocorrect on melpa, I'll have to manually turn on abbrev mode
+(abbrev-mode 1)
+
 ;;we want utf8 chars in emacs
 (require 'init-utf8)
 (require 'init-recentf)

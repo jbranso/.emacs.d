@@ -96,21 +96,22 @@ gnus-ignored-from-addresses bbdb-user-mail-address-re)
 
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
-(setq nnmail-split-methods
-      '(("mail.Accrisoft Support" "^From:.*support@accrisoft.com")
-        ("mail.Basecamp" "^From:.*notifications@basecamp.com")
-        ("mail.arch" "^To:.*arch-general@archlinux.org")
-        ("mail.bug-hurd" "^To:.*bug-hurd@gnu.org")
-        ("mail.bug-hurd" "^Cc:.*bug-hurd@gnu.org")
+(setq nnimap-split-methods
+      '(("Accrisoft Support" "^From:.*support@accrisoft.com.*")
+        ("Basecamp" "^From:.*notifications@basecamp.com.*")
+        ("arch" "^To:.*arch-general@archlinux.org.*$")
+        ("bug-hurd" "^To:.*bug-hurd@gnu.org.*")
+        ("bug-hurd" "^Cc:.*bug-hurd@gnu.org.*")
         ;; if an email comes from bransoj@hotmail.com, then we'll put it into testing, and see if this works
-        ("mail.testing" "^From:.*bransoj@hotmail.com.*$")
-        ("mail.bogus" "")))
+        ("mail.testing" "^From:.*bransoj@hotmail.com.*$")))
 
 (add-hook 'kill-emacs-hook #'(lambda ()
                                (interactive)
-                               (gnus-group-exit)))
+                               (when (eq nil (get-buffer "*Group*"))
+                                 (gnus-group-exit))))
 
-(setq mm-text-html-renderer 'gnus-w3m)
+(use-package w3m :ensure t)
+(setq mm-text-html-renderer 'w3m)
 
 (setq nnmail-expiry-wait 'immediate)
 

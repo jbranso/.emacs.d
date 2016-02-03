@@ -63,4 +63,7 @@
   ("r" desktop-revert "revert")
   ("d" desktop-change-dir "dir"))
 
+;; show a nice highlight where-ever your cursor is
+(global-hl-line-mode 1)
+
 (provide 'init-gui-frames)
