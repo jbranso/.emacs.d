@@ -8,6 +8,9 @@
 
   (with-eval-after-load 'flycheck
     (flycheck-pos-tip-mode))
+
+  (eval-after-load 'flycheck
+    '(flycheck-package-setup))
   ;; show flycheck errors in a popup
   (use-package flycheck-pos-tip
     :ensure t

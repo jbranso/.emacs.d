@@ -211,6 +211,10 @@
       ("gbs" "Boundaries To Enforce" entry (file+headline "~/programming/org/gtd/projects/get-close-to-God.org" "Setting Boundaries")
        "* TODO %?\n  %i\n  %a")
 
+
+
+      ("M" "Math")
+      ("Mf" "fun math problems" entry (file+headline "/home/joshua/programming/org/gtd/projects/math.org" "fun math problems") "* TODO %?\n  %i\n  %a")
       ("p" "payless TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "shopping todo")
        "* TODO %?\n  %i\n  %a")
       ("r" "Reference" entry (file+headline "~/programming/org/gtd/gtd.org" "general reference")
@@ -421,7 +425,8 @@ EXT is a list of the extensions of files to be included."
 (defun yas/org-very-safe-expand ()
   (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
-(add-hook 'org-mode-hook #'(lambda ()
+(add-hook 'org-mode-hook '(lambda ()
+
                              ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
                              ;;(org-eldoc-hook-setup)
                              (make-variable-buffer-local 'yas/trigger-key)
@@ -433,6 +438,8 @@ EXT is a list of the extensions of files to be included."
                              ;; to press C-c q  or fill-paragraph ever again!
                              (visual-line-mode)
                              (org-indent-mode)
+                             ;; apparently this does the same thing as the above combined modes
+                             ;; (toggle-word-wrap)
                              (org-bullets-mode 1)
                              ;;make ">=" look like >=, etc.
                              (push '(">=" . ?≥) prettify-symbols-alist)

@@ -40,7 +40,6 @@
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
 
-
 (eval-when-compile
   (require 'use-package))
 ;; diminish hides packages from being on the modeline.  You can use use-package to do this
@@ -57,6 +56,10 @@
 (require 'init-flyspell)
 ;; let's do async processing in emacs
 (require 'init-async)
+;; hydra's are awesome!  They let you easily remember keybindings.  it needs to be towards the top of the file
+;; so that other packages can use hydras
+(require 'init-hydra)
+(require 'init-bookmark)
 ;; this is for using emacs to edit stuff on the web, but emacsclient is no longer working for me
 ;;(require 'init-edit-server)
 ;; I have some global abbreviations.  So I should turn on abbrev mode
@@ -76,11 +79,13 @@
 (require 'init-gnus)
 (require 'init-vc)
 (require 'init-gui-frames)
+
 ;; make the window that has focus have be the largest on the screen
 (require 'init-golden-ratio)
 
+;;(require 'init-autocomplete)
 ;; until I get autocorrect on melpa, I'll have to manually turn on abbrev mode
-(abbrev-mode 1)
+;;(abbrev-mode 1)
 
 ;;we want utf8 chars in emacs
 (require 'init-utf8)
@@ -116,8 +121,6 @@
 ;;(org-babel-load-file (concat user-emacs-directory "init-org.org"))
 ;;https://github.com/danielmai/.emacs.d/blob/master/init.el
 (require 'init-org)
-;; hydra's are awesome!  They let you easily remember keybindings
-(require 'init-hydra)
 ;; I also hardly ever use this sx package, which is an amazing package!
 ;; (use-package sx
 ;;   :defer t

@@ -28,7 +28,7 @@
  minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
  ;; this should turn off auto-saving the proper way.
  auto-save-default nil  ;; this will stop making #auto-save# files
- ;;make-backup-files nil  ;; this will stop making backup~ files
+ make-backup-files nil  ;; this will stop making backup~ files
  ;; make emacs save all backup~ files in this directory
  ;;backup-directory-alist '(("" . "~/.emacs.d/backups"))
  save-interprogram-paste-before-kill t
@@ -42,10 +42,10 @@
 ;; maybe this will work.
 ;; https://www.reddit.com/r/emacs/comments/4398wl/this_is_driving_me_nuts_emacs_will_not_let_me/
 ;; https://stackoverflow.com/questions/15302973/emacs-auto-save-why-are-files-not-stored-in-the-correct-folder
-(defvar my-auto-save-folder (concat "~/.emacs.d/auto-save"))  ; folder for auto-saves
-(setq auto-save-list-file-prefix "~/.emacs.d/auto-save/.saves-")  ; set prefix for auto-saves
-(setq auto-save-file-name-transforms `((".*", my-auto-save-folder t)))  ; location for all auto-save files
-(setq tramp-auto-save-directory my-auto-save-folder)  ; auto-save tramp files in local directory
+;; (defvar my-auto-save-folder (concat "~/.emacs.d/auto-save"))  ; folder for auto-saves
+;; (setq auto-save-list-file-prefix "~/.emacs.d/auto-save/.saves-")  ; set prefix for auto-saves
+;; (setq auto-save-file-name-transforms `((".*", my-auto-save-folder t)))  ; location for all auto-save files
+;; (setq tramp-auto-save-directory my-auto-save-folder)  ; auto-save tramp files in local directory
 
 ;; make emacs completetion better
 ;;ignore came
@@ -63,9 +63,10 @@
 ;;(global-visual-line-mode 1)
 ;;show the number of lines you are on. nlinum is much better than linum mode.
 ;; linum mode make emacs really SLOW when your files get to be past 1000 lines long
-(use-package nlinum
-  :ensure t
-  :init (global-nlinum-mode 1))
+;; nlinum is faster than linum mode, BUT it will not let me open a new frame
+;; (use-package nlinum
+;;   :ensure t
+;;   :init (global-nlinum-mode 1))
 ;; this highlights search and replacements as you type  VERY helpful for dired-do-replace-regexp and isearch-regexp
 
 (use-package anzu

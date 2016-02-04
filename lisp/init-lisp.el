@@ -33,6 +33,13 @@
 (when (fboundp 'aggressive-indent-mode)
   (aggressive-indent-mode))
 
+;; emacs regexp are cumbersome
+;; "\b" in most regexp engines means word end
+;; but when one is programming in emacs-lisp you have to write "\\b"
+;; easy escape is light prettify-mode and changes \\ --> one highlighted \
+(use-package easy-escape :ensure t
+  :config (add-hook 'emacs-lisp-mode-hook #'easy-escape-minor-mode))
+
 ;; show documentation of the current elisp function in the minibuffer as you write it.
 ;; whoever made this mode is amazing!
 

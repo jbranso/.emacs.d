@@ -786,6 +786,27 @@ EXT is a list of the extensions of files to be included."
   #+END_SRC
 
 ** customizing stuck projects
+** COMMENT easy templates
+Easy templates are a way that org mode allows you to define templates.  For example
+
+=<c= expands into
+
+#+BEGIN_SRC org
+  ,#+BEGIN_CENTER
+
+  ,#+END_CENTER
+#+END_SRC
+
+But I want to be able to customize this list to include all of the org babel languages.
+ie: but this is not currently working
+
+#+BEGIN_SRC emacs-lisp
+ ;; (add-to-list org-structure-template-alist '(("js" "#+BEGIN_SRC js\n?\n ,#+END_SRC")))
+#+END_SRC
+
+
+(print org-structure-template-alist )
+
 * My Org-mode-hook
   Org-mode does not play well with yasnippet.  So this function that I got here [[info:org#Conflicts][info:org#Conflicts]] should help
   with making yasnippet play well with org-mode.  It seems to 1st make TAB try to do any org expanding, then it'll

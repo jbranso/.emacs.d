@@ -1,3 +1,37 @@
+;; here is a nice web-mode element hydra
+
+(defhydra hydra-webmode (:color pink :hint nil)
+  "
+^Hide/Kill^              ^Move
+^^^^^^--------------------------------------------
+_f_: _f_old element       _b_: element _b_eginning
+_k_: kill _e_lement       _e_: element _e_nd
+_v_: element vanish       _n_: _n_ext element
+                          _p_: _p_revious element
+                          _t_: _t_ranspose element
+                          _w_: element _w_rap
+                          _p_: _P_arent element
+
+"
+  ;; Hide
+  ("f" web-mode-fold-or-unfold)    ; Hide everything but the top-level headings
+  ("k" web-mode-element-kill)         ; Hide everything but headings (all body lines)
+  ("v" web-mode-element-vanish)        ; Hide other branches
+  ;; Move
+  ("b" web-mode-element-beginning)                ; Up
+  ("e" web-mode-element-end)      ; Next
+  ("n" web-mode-element-next)  ; Previous
+  ("p" web-mode-element-previous)        ; Forward - same level
+  ("t" web-mode-element-transpose)       ; Backward - same level
+  ("w" web-mode-element-wrap)       ; Backward - same level
+  ("P" web-mode-element-parent)       ; Backward - same level
+
+  ("z" nil "leave"))
+
+;; I'll have to enable this at some point too.
+;; (define-key org-mode-map (kbd "C-c #") 'hydra-outline/body) ; by example
+;; (global-set-key (kbd "C-c #") 'hydra-outline/body)
+
 
 ;; This will probably come in handy.
 (defun my-setup-indent (n)
