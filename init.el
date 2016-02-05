@@ -56,10 +56,11 @@
 (require 'init-flyspell)
 ;; let's do async processing in emacs
 (require 'init-async)
+;; I'd like to use nlinum mode, but it is NOT letting me create a new frame.  it's a bug
+(require 'init-linum)
 ;; hydra's are awesome!  They let you easily remember keybindings.  it needs to be towards the top of the file
 ;; so that other packages can use hydras
 (require 'init-hydra)
-
 (require 'init-bookmark)
 ;; this is for using emacs to edit stuff on the web, but emacsclient is no longer working for me
 ;;(require 'init-edit-server)
