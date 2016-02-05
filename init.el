@@ -79,7 +79,6 @@
 (require 'init-gnus)
 (require 'init-vc)
 (require 'init-gui-frames)
-
 ;; make the window that has focus have be the largest on the screen
 (require 'init-golden-ratio)
 
