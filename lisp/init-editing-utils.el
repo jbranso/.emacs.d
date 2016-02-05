@@ -1,6 +1,7 @@
 ;;----------------------------------------------------------------------------
 ;;  Some basic preferences
 ;;----------------------------------------------------------------------------
+(add-to-list 'default-frame-alist '(font. "Hack Regular"))
 (setq-default
  ;;blink-cursor-interval 0.4
  ;; I want to open links from org-mode in chromium
@@ -300,10 +301,12 @@ already narrowed."
 ;;all of my "C-c [letter]" commands
 ;; "C-c <letter>" are the ONLY commands that are supposed to NOT be bound. These are user specific commands
 (global-set-key (kbd "C-c TAB") #'indent-whole-buffer)
+;; when point is between two words, delete the space between them
 (global-set-key (kbd "C-c \\") #'delete-horizontal-space)
+(define-key org-mode-map (kbd "C-c \\") #'delete-horizontal-space)
+(global-set-key (kbd "C-c SPC") #'just-one-space)
 ;; some modes my default / in normal mode is NOT bound to helm-swoop, BUT I REALLY LIKE helm-swoop
 (global-set-key (kbd "C-c /") #'helm-swoop)
-(global-set-key (kbd "C-c SPC") #'just-one-space)
 (global-set-key (kbd "C-c ;") #'comment-dwim)
 ;;(define-key global-map (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c a") 'org-agenda)

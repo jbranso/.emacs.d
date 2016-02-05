@@ -20,7 +20,15 @@ _r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
 
   ("z" nil "leave"))
 
-(define-key org-mode-map (kbd "C-c C-b") 'hydra-bookmark/body) ; by example
+
+;; I want to set this hydra to a keybinding.  So I don't have to remember all of the keybindings
 (global-set-key (kbd "C-c C-b") 'hydra-bookmark/body)
+;; a ton of other modes try to set C-c C-b to a keybinding.  I am overriding them.
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
+(with-eval-after-load 'web-mode
+  (define-key web-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
+(with-eval-after-load 'php-mode
+  (define-key php-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
 
 (provide 'init-bookmark)
