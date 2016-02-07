@@ -103,12 +103,11 @@
 _s_: forward          _0_: slurp forward           _S._: splice sexp
 _n_: backward         _9_: slurp backward          _Ss_: splice forward
 _t_: up               _]_: barf forward            _Sn_: splice backward
-_h_: down             _[_: barf backward           _\^_:  split sexp
+_h_: down             _[_: barf backward           _\^_: split sexp
                       _\)_: slurp all forward
                       _\(_: slurp all backward
                       _\}_: barf all forward
                       _\{_: barf all backward
-
 "
   ;; Moving
   ("s" paredit-forward)                ; Up
@@ -117,27 +116,27 @@ _h_: down             _[_: barf backward           _\^_:  split sexp
   ("h" paredit-backward-up)                ; Up
 
   ;; Barfing/Slurping
-  ("0" paredit-forward-slurp-sexp)          ; Show (expand) everything
-  ("9" paredit-backward-slurp-sexp)          ; Show (expand) everything
-  ("]" paredit-forward-barf-sexp)          ; Show (expand) everything
-  ("[" paredit-backward-barf-sexp)          ; Show (expand) everything
-  (")" paredit-slurp-all-the-way-forward)          ; Show (expand) everything
-  ("(" paredit-slurp-all-the-way-backward)          ; Show (expand) everything
-  ("}" paredit-barf-all-the-way-forward)          ; Show (expand) everything
-  ("{" paredit-barf-all-the-way-backward)          ; Show (expand) everything
+  ("0" paredit-forward-slurp-sexp)
+  ("9" paredit-backward-slurp-sexp)
+  ("]" paredit-forward-barf-sexp)
+  ("[" paredit-backward-barf-sexp)
+  (")" paredit-slurp-all-the-way-forward)
+  ("(" paredit-slurp-all-the-way-backward)
+  ("}" paredit-barf-all-the-way-forward)
+  ("{" paredit-barf-all-the-way-backward)
 
-  ("S." paredit-splice-sexp)    ; Hide everything but the top-level headings
-  ("Ss" paredit-splice-killing-forward)    ; Hide everything but the top-level headings
-  ("Sn" paredit-splice-killing-backward)    ; Hide everything but the top-level headings
-  ("^"  paredit-split-sexp)    ; Hide everything but the top-level headings
-  ("j" paredit-join-sexp)    ; Hide everything but the top-level headings
+  ;; Splice
+  ("S." paredit-splice-sexp)
+  ("Ss" paredit-splice-killing-forward)
+  ("Sn" paredit-splice-killing-backward)
+  ("^"  paredit-split-sexp)
+  ("j" paredit-join-sexp)
+  (";" paredit-semicolan)
 
   ("g" nil "leave"))
 
-
 ;; I want to set this hydra to a keybinding.  So I don't have to remember all of the keybindings
 (define-key emacs-lisp-mode-map (kbd "C-c C-p") 'hydra-paredit/body)
-;; a ton of other modes try to set C-c C-b to a keybinding.  I am overriding them.
 
 
 ;; what is this here for?
