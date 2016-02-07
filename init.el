@@ -52,6 +52,7 @@
 (require 'init-wgrep)
 ;; turn on abbrev mode.  it implements autocorrect
 (require 'init-abbrev)
+(require 'init-avy)
 ;; let's do spell checking
 (require 'init-flyspell)
 ;; let's do async processing in emacs
@@ -62,6 +63,8 @@
 ;; so that other packages can use hydras
 (require 'init-hydra)
 (require 'init-bookmark)
+;; set up a hydra for my register commands
+;;(require 'init-register)
 ;; this is for using emacs to edit stuff on the web, but emacsclient is no longer working for me
 ;;(require 'init-edit-server)
 ;; I have some global abbreviations.  So I should turn on abbrev mode
@@ -160,6 +163,7 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
+
 
 ;;----------------------------------------------------------------------------
 ;; Locales (setting them earlier in this file doesn't work in X)
