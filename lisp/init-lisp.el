@@ -77,7 +77,6 @@
               (throw 'done t)))
         (paredit-forward-slurp-sexp)))))
 
-
 (defun turn-on-paredit ()
   (autoload 'enable-paredit-mode "paredit"
   "Turn on pseudo-structural editing of Lisp code."
@@ -96,25 +95,20 @@
 
 
 
+;; I don't use the motion commands in there at all, because it's just easier to use the evil motion
 (defhydra hydra-paredit (:color pink :hint nil)
   "
-^Moving^              ^Barfing/Slurping^           ^Splice^
-^^^^^^-------------------------------------------------------------------
-_s_: forward          _0_: slurp forward           _S._: splice sexp
-_n_: backward         _9_: slurp backward          _Ss_: splice forward
-_t_: up               _]_: barf forward            _Sn_: splice backward
-_h_: down             _[_: barf backward           _\^_: split sexp
-                      _\)_: slurp all forward
-                      _\(_: slurp all backward
-                      _\}_: barf all forward
-                      _\{_: barf all backward
+ ^Barfing/Slurping^           ^Splice^
+^^^^^^^^^^^^^^^^^^------------------------------------------------
+_0_: slurp forward           _S._: splice sexp
+_9_: slurp backward          _Ss_: splice forward
+_]_: barf forward            _Sn_: splice backward
+_[_: barf backward           _\^_: raise sexp
+_\)_: slurp all forward
+_\(_: slurp all backward
+_\}_: barf all forward
+_\{_: barf all backward
 "
-  ;; Moving
-  ("s" paredit-forward)                ; Up
-  ("n" paredit-backward)               ; Up
-  ("t" paredit-forward-down)                ; Up
-  ("h" paredit-backward-up)                ; Up
-
   ;; Barfing/Slurping
   ("0" paredit-forward-slurp-sexp)
   ("9" paredit-backward-slurp-sexp)
@@ -129,7 +123,8 @@ _h_: down             _[_: barf backward           _\^_: split sexp
   ("S." paredit-splice-sexp)
   ("Ss" paredit-splice-killing-forward)
   ("Sn" paredit-splice-killing-backward)
-  ("^"  paredit-split-sexp)
+  ("^"  paredit-raise-sexp)
+  ("\\" paredit-split-sexp)
   ("j" paredit-join-sexp)
   (";" paredit-semicolan)
 

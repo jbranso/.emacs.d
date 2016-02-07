@@ -681,14 +681,6 @@ EXT is a list of the extensions of files to be included."
     (setq org-refile-use-outline-path (quote file))
   #+END_SRC
 
-
-  I can specify that when I use org-refile that I want to be able to refile an entry by being shown an indirect buffer of an org-mode
-  file, that initially hides all of the sub headings.  I can refile by tabbing to various subtrees and then via pressing enter.
-  #+BEGIN_SRC emacs-lisp
-    ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
-    (setq org-outline-path-complete-in-steps t)
-  #+END_SRC
-
   I want to make specific TODO states.  Anything after the "|" is marked completed and appears green.  Anything before it, shows
   that the item is still actionable and it is red.
 
@@ -885,7 +877,6 @@ try to expand a yasnippet.
   #+END_SRC
 
 * misc
-  A lot of this is code that I didn't wrote and don't use. But I keep it because I might one day.
 ** a hydra that I found online that lets you easily remember some of the org commands
   this is not working?
   we want to remember the org keyboard navigation commands eh?
@@ -991,7 +982,7 @@ _ht_: subtree
 
 #+END_SRC
 
-** to load this file do org-babel-load-file and it'll pop up helm and you'll have to say that you want
+** to load this file do =M-x org-babel-load-file= and it'll pop up helm and you'll have to say that you want
   to load this file.  All the scripts in this file will be exported and saved into init-org.el.  Then
   that file will be loaded.
 

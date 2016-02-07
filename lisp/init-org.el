@@ -359,7 +359,7 @@ EXT is a list of the extensions of files to be included."
   (setq org-refile-use-outline-path (quote file))
 
 ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
-(setq org-outline-path-complete-in-steps t)
+;;(setq org-outline-path-complete-in-steps t)
 
 (setq org-todo-keywords
 '((sequence "☛ TODO(t!)" "♇ PROJECT(r)" "STARTED(s!)"  "⚑ DELEGATED(e!)" "☺ CHARGED(c!)" "|" "$ PAID(p!)" "✔ DONE(d!)")))
@@ -423,52 +423,53 @@ EXT is a list of the extensions of files to be included."
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
 (defun yas/org-very-safe-expand ()
-  (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+    (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
 (add-hook 'org-mode-hook '(lambda ()
 
-                             ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
-                             ;;(org-eldoc-hook-setup)
-                             (make-variable-buffer-local 'yas/trigger-key)
-                             (setq yas/trigger-key [tab])
-                             (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-                             (define-key yas/keymap [tab] 'yas/next-field)
-                             ;; make the lines in the buffer wrap around the edges of the screen.
-                             ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
-                             ;; to press C-c q  or fill-paragraph ever again!
-                             (visual-line-mode)
-                             (org-indent-mode)
-                             ;; apparently this does the same thing as the above combined modes
-                             ;; (toggle-word-wrap)
-                             (org-bullets-mode 1)
-                             ;;make ">=" look like >=, etc.
-                             (push '(">=" . ?≥) prettify-symbols-alist)
-                             (push '("<=" . ?≤) prettify-symbols-alist)
-                             (push '("\\geq" . ?≥) prettify-symbols-alist)
-                             (push '("\\leq" . ?≤) prettify-symbols-alist)
-                             (push '("\\neg" . ?¬) prettify-symbols-alist)
-                             (push '("\\rightarrow" . ?→) prettify-symbols-alist)
-                             (push '("\\leftarrow" . ?←) prettify-symbols-alist)
-                             (push '("\\infty" . ?∞) prettify-symbols-alist)
-                             (push '("-->" . ?→) prettify-symbols-alist)
-                             (push '("<--" . ?←) prettify-symbols-alist)
-                             (push '("\\exists" . ?∃) prettify-symbols-alist)
-                             (push '("\\nexists" . ?∄) prettify-symbols-alist)
-                             (push '("\\forall" . ?∀) prettify-symbols-alist)
-                             (push '("\\or" . ?∨) prettify-symbols-alist)
-                             (push '("\\and" . ?∧) prettify-symbols-alist)
-                             (push '(":)" . ?☺) prettify-symbols-alist)
-                             (push '("):" . ?☹) prettify-symbols-alist)
-                             (push '(":D" . ?☺) prettify-symbols-alist)
-                             (push '("\\checkmark" . ?✓) prettify-symbols-alist)
-                             (push '("\\check" . ?✓) prettify-symbols-alist)
-                             (push '("1/4" . ?¼) prettify-symbols-alist)
-                             (push '("1/2" . ?½) prettify-symbols-alist)
-                             (push '("3/4" . ?¾) prettify-symbols-alist)
-                             (push '("1/7" . ?⅐) prettify-symbols-alist)
-                             ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
-                             (push '("ae" . ?æ) prettify-symbols-alist)
-                             (push '("^_^" . ?☻) prettify-symbols-alist)))
+                                ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
+                                (require 'org-eldoc)
+                                ;;(org-eldoc-load)
+                                (make-variable-buffer-local 'yas/trigger-key)
+                                (setq yas/trigger-key [tab])
+                                (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+                                (define-key yas/keymap [tab] 'yas/next-field)
+                                ;; make the lines in the buffer wrap around the edges of the screen.
+                                ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
+                                ;; to press C-c q  or fill-paragraph ever again!
+                                (visual-line-mode)
+                                (org-indent-mode)
+                                ;; apparently this does the same thing as the above combined modes
+                                ;; (toggle-word-wrap)
+                                (org-bullets-mode 1)
+                                ;;make ">=" look like >=, etc.
+                                (push '(">=" . ?≥) prettify-symbols-alist)
+                                (push '("<=" . ?≤) prettify-symbols-alist)
+                                (push '("\\geq" . ?≥) prettify-symbols-alist)
+                                (push '("\\leq" . ?≤) prettify-symbols-alist)
+                                (push '("\\neg" . ?¬) prettify-symbols-alist)
+                                (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+                                (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+                                (push '("\\infty" . ?∞) prettify-symbols-alist)
+                                (push '("-->" . ?→) prettify-symbols-alist)
+                                (push '("<--" . ?←) prettify-symbols-alist)
+                                (push '("\\exists" . ?∃) prettify-symbols-alist)
+                                (push '("\\nexists" . ?∄) prettify-symbols-alist)
+                                (push '("\\forall" . ?∀) prettify-symbols-alist)
+                                (push '("\\or" . ?∨) prettify-symbols-alist)
+                                (push '("\\and" . ?∧) prettify-symbols-alist)
+                                (push '(":)" . ?☺) prettify-symbols-alist)
+                                (push '("):" . ?☹) prettify-symbols-alist)
+                                (push '(":D" . ?☺) prettify-symbols-alist)
+                                (push '("\\checkmark" . ?✓) prettify-symbols-alist)
+                                (push '("\\check" . ?✓) prettify-symbols-alist)
+                                (push '("1/4" . ?¼) prettify-symbols-alist)
+                                (push '("1/2" . ?½) prettify-symbols-alist)
+                                (push '("3/4" . ?¾) prettify-symbols-alist)
+                                (push '("1/7" . ?⅐) prettify-symbols-alist)
+                                ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
+                                (push '("ae" . ?æ) prettify-symbols-alist)
+                                (push '("^_^" . ?☻) prettify-symbols-alist)))
 
 (setq org-stuck-projects '("PROJECT" ("TODO NEXT") ("action") "\\<IGNORE\\>" ))
 

@@ -18,10 +18,13 @@
 ^Store^                  ^Insert^                       ^Increase^
 ^^^^^^----------------------------------------------------------------------
 _n_umber to register     _i_nsert number register       _I_ncrease the register
-                         C-x r i R                      C-u number C-x r + r
+insert _N_umbers left    C-x r i R                      C-u number C-x r + r
+  of Rectangle
+  C-x r N
 "
   ;; Store
   ("n" my/number-to-register)
+  ("N" rectangle-number-lines)
 
   ;; Insert
   ("i" my/insert-register)          ; Show (expand) everything
