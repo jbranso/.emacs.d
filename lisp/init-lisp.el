@@ -38,7 +38,8 @@
 ;; but when one is programming in emacs-lisp you have to write "\\b"
 ;; easy escape is light prettify-mode and changes \\ --> one highlighted \
 (use-package easy-escape :ensure t
-  :config (add-hook 'emacs-lisp-mode-hook #'easy-escape-minor-mode))
+  :config (add-hook 'emacs-lisp-mode-hook #'easy-escape-minor-mode)
+  :diminish easy-escape-minor-mode)
 
 ;; show documentation of the current elisp function in the minibuffer as you write it.
 ;; whoever made this mode is amazing!

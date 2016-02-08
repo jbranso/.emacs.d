@@ -111,7 +111,8 @@ gnus-ignored-from-addresses bbdb-user-mail-address-re)
                                  (gnus-group-exit))))
 
 (use-package w3m :ensure t)
-(setq mm-text-html-renderer 'w3m)
+;;(setq mm-text-html-renderer 'w3m)
+(setq mm-text-html-renderer 'shr)
 
 (setq nnmail-expiry-wait 'immediate)
 
