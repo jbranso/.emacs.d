@@ -52,6 +52,7 @@
 (require 'init-wgrep)
 ;; turn on abbrev mode.  it implements autocorrect
 (require 'init-abbrev)
+(require 'init-aggressive-indent)
 (require 'init-avy)
 (require 'init-bug-hunter)
 ;; let's do spell checking

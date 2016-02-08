@@ -20,7 +20,6 @@ _r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
 
   ("z" nil "leave"))
 
-
 ;; I want to set this hydra to a keybinding.  So I don't have to remember all of the keybindings
 (global-set-key (kbd "C-c C-b") 'hydra-bookmark/body)
 ;; a ton of other modes try to set C-c C-b to a keybinding.  I am overriding them.
