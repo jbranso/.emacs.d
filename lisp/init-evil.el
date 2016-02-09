@@ -123,6 +123,7 @@
 (evil-set-initial-state 'erc-mode 'emacs)
 (evil-set-initial-state 'paradox-menu-mode 'emacs)
 (evil-set-initial-state 'woman-mode 'emacs)
+(evil-set-initial-state 'pdf-view-mode 'emacs)
 ;; I'll have to try out each one at a time and see which one works, if one does work
 ;;(evil-set-initial-state 'ggtags-navigation-mode 'normal)
 ;;(evil-set-initial-state 'ggtags-tags-mode 'normal)

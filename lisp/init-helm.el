@@ -5,6 +5,10 @@
 ;;   ;; apperently this next line causes some serious errors
 ;;   ;;  :diminish helm-mode
 ;;   )
+;; Before we load any helm things, need to load helm-flx so it uses flx instead of helm's fuzzy matching.
+(use-package helm-flx
+  :ensure t
+  :init (helm-flx-mode +1))
 ;; according to the github repo this next line is all that I need to install helm
 (require 'helm-config)
 ;; I've installed helm-ag, which might be cool.

@@ -1,3 +1,7 @@
+
+;; First, Emacs doesn't handle less well, so use cat instead for the shell pager:
+(setenv "PAGER" "cat")
+
 (add-hook 'eshell-mode-hook (lambda ()
                               (setq ac-sources
                                     '(

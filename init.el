@@ -49,6 +49,7 @@
 (require 'use-package)
 ;; this was for our emacs meetup group
 ;;(require 'init-slack)
+(require 'init-pdf-tools)
 (require 'init-wgrep)
 ;; turn on abbrev mode.  it implements autocorrect
 (require 'init-abbrev)

@@ -3,6 +3,9 @@
 ;;----------------------------------------------------------------------------
 (add-to-list 'default-frame-alist '(font. "Hack Regular"))
 (setq-default
+ ;; It's much easier to move around lines based on how they are displayed, rather than the actual line. This helps a ton with long
+ ;; log file lines that may be wrapped:
+ line-move-visual t
  ;;blink-cursor-interval 0.4
  ;; I want to open links from org-mode in chromium
  browse-url-browser-function (quote browse-url-chromium)
@@ -70,6 +73,12 @@
 ;;   :init (global-nlinum-mode 1))
 ;; this highlights search and replacements as you type  VERY helpful for dired-do-replace-regexp and isearch-regexp
 
+;; if a file has changed on disk, then automatically revert the buffer and don't complain about it
+(global-auto-revert-mode 1)
+;; be quiet about reverting files
+(setq auto-revert-verbose nil)
+
+
 (use-package anzu
   :ensure t
   :diminish anzu-mode)
@@ -81,6 +90,12 @@
 ;; This apparently also updates dired buffers too.
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose nil)
+
+
+;;I don't need to know line numbers and column numbers in my mode line
+;;but this is not turning off those things?
+(line-number-mode 1)
+(column-number-mode 1)
 
 
 ;;; Whitespace
