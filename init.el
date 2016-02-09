@@ -135,6 +135,8 @@
 (require 'init-editing-utils)
 ;; let's get modal keybinding working!
 (require 'init-evil)
+;; Make my evil keybindings work pretty much everywhere
+(require 'init-evil-rebellion-clone)
 ;; set up info to use the windmove commands!
 (require 'init-info)
 

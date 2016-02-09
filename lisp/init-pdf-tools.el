@@ -1,5 +1,5 @@
 
-
+;; https://github.com/politza/pdf-tools
 ;; pdf-tools is sooo fast at opening pds
 ;; it works!!!!! wWOWOWOWOW!!!
 (use-package pdf-tools

@@ -98,37 +98,6 @@
 
 ;; set this key to be the projectile prefix.
 ;;(define-key evil-normal-state-map (kbd "C-c p") 'web-mode-tag-attributes-sort)
-(evil-set-initial-state 'snake-mode 'emacs)
-(evil-set-initial-state 'comint-mode 'normal)
-(evil-set-initial-state 'eshell-mode 'emacs)
-(evil-set-initial-state 'shell-mode 'emacs)
-(evil-set-initial-state 'git-commit-mode 'emacs)
-(evil-set-initial-state 'git-rebase-mode 'emacs)
-(evil-set-initial-state 'git-timemachine-mode 'emacs)
-(evil-set-initial-state 'term-mode 'emacs)
-;; why is this not working?
-;;(evil-set-initial-state 'info-mode 'emacs)
-(evil-set-initial-state 'help-mode 'emacs)
-(evil-set-initial-state 'helm-grep-mode 'emacs)
-(evil-set-initial-state 'grep-mode 'emacs)
-(evil-set-initial-state 'bc-menu-mode 'emacs)
-(evil-set-initial-state 'magit-branch-manager-mode 'emacs)
-(evil-set-initial-state 'rdictcc-buffer-mode 'emacs)
-(evil-set-initial-state 'dired-mode 'emacs)
-(evil-set-initial-state 'wdired-mode 'normal)
-(evil-set-initial-state 'git-timemachine-mode 'emacs)
-(evil-set-initial-state 'sx-compose-mode 'emacs)
-(evil-set-initial-state 'sx-question-mode 'emacs)
-(evil-set-initial-state 'sx-question-list-mode 'emacs)
-(evil-set-initial-state 'erc-mode 'emacs)
-(evil-set-initial-state 'paradox-menu-mode 'emacs)
-(evil-set-initial-state 'woman-mode 'emacs)
-(evil-set-initial-state 'pdf-view-mode 'emacs)
-;; I'll have to try out each one at a time and see which one works, if one does work
-;;(evil-set-initial-state 'ggtags-navigation-mode 'normal)
-;;(evil-set-initial-state 'ggtags-tags-mode 'normal)
-;; setting this to emacs makes opening up any new buffer set the evil state to emacs
-(evil-set-initial-state 'ggtags-global-mode 'emacs)
 
 (provide 'init-evil)
 ;; ;;; evil-changes.el ends here
