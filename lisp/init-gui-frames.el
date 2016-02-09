@@ -47,7 +47,7 @@
 ;;their file names, major modes, buffer positions, and so on—then subsequent Emacs sessions reload the saved desktop. By default,
 ;;the desktop also tries to save the frame and window configuration. To disable this, set desktop-restore-frames to nil. (See that
 ;;variable’s documentation for some related options that you can customize to fine-tune this behavior.)
-;;(desktop-save-mode 1)
+(desktop-save-mode 1)
 
 ;; http://whattheemacsd.com/init.el-03.html
 ;; save the position that point was in during the last emacs session

@@ -41,11 +41,20 @@
 
 ;; h is bound to magit-key-mode-popup-diff-options
 ;; H is bound to magit-diff-toggle-refine-hunk
-(define-key magit-mode-map (kbd "h") #'magit-goto-next-section)
-(define-key magit-mode-map (kbd "t") #'magit-goto-previous-section)
+(define-key magit-status-mode-map (kbd "h") #'magit-goto-next-section)
+(define-key magit-status-mode-map (kbd "t") #'magit-goto-previous-section)
 
-(define-key magit-mode-map (kbd "H") #'magit-key-mode-popup-diff-options)
-(define-key magit-mode-map (kbd "T") #'magit-key-mode-popup-tagging)
+(define-key magit-status-mode-map (kbd "H") #'magit-key-mode-popup-diff-options)
+(define-key magit-status-mode-map (kbd "T") #'magit-key-mode-popup-tagging)
+
+
+;; this defines the up and down keys for gnus
+;; BUT both need to define T,H to do what N and P do
+(define-key gnus-group-mode-map (kbd "t") #'gnus-group-prev-unread-group)
+(define-key gnus-group-mode-map (kbd "h") #'gnus-group-next-unread-group)
+
+(define-key gnus-summary-mode-map (kbd "t") #'gnus-summary-prev-unread-article)
+(define-key gnus-summary-mode-map (kbd "h") #'gnus-summary-next-unread-article)
 
 ;; I'll have to try out each one at a time and see which one works, if one does work
 ;;(evil-set-initial-state 'ggtags-navigation-mode 'normal)
