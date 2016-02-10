@@ -41,11 +41,12 @@
 
 ;; h is bound to magit-key-mode-popup-diff-options
 ;; H is bound to magit-diff-toggle-refine-hunk
-(define-key magit-status-mode-map (kbd "h") #'magit-goto-next-section)
-(define-key magit-status-mode-map (kbd "t") #'magit-goto-previous-section)
+(with-eval-after-load 'magit
+  (define-key magit-status-mode-map (kbd "h") #'magit-goto-next-section)
+  (define-key magit-status-mode-map (kbd "t") #'magit-goto-previous-section)
 
-(define-key magit-status-mode-map (kbd "H") #'magit-key-mode-popup-diff-options)
-(define-key magit-status-mode-map (kbd "T") #'magit-key-mode-popup-tagging)
+  (define-key magit-status-mode-map (kbd "H") #'magit-key-mode-popup-diff-options)
+  (define-key magit-status-mode-map (kbd "T") #'magit-key-mode-popup-tagging))
 
 
 ;; this defines the up and down keys for gnus

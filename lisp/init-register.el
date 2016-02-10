@@ -4,9 +4,19 @@
 
 ;; I might need to use (set-register register value)
 
+"
+register-alist is this:
+Alist of elements (NAME . CONTENTS), one for each Emacs register.
+NAME is a character (a number).  CONTENTS is a string, number, marker, list
+or a struct returned by `registerv-make'.
+
+So my number to register command must transform my NAME char into an ASCII number.  fun.
+"
+
 (defun my/number-to-register (number register)
   (interactive "n number: \nMregister: ")
   ;;(number-to-register number register)
+  ;; in order to use
   (set-register register number))
 
 ;; gosh this is getting soo annoying and it's not working at all
@@ -17,7 +27,7 @@
   (print register)
   (insert-register register))
 
-(defun my/increment-register ())
+(defun my/increment-register ())   (get-register "r")
 
 (defhydra hydra-register (:color pink :hint nil)
   "
