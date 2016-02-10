@@ -93,9 +93,8 @@
 
 
 ;;I don't need to know line numbers and column numbers in my mode line
-;;but this is not turning off those things?
-(line-number-mode 1)
-(column-number-mode 1)
+(line-number-mode 0)
+(column-number-mode 0)
 
 
 ;;; Whitespace

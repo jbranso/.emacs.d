@@ -20,7 +20,6 @@
   (setq sml/no-confirm-load-theme t)
   (sml/setup))
 
-
 ;;(setq powerline-evil-tag 'verbose)
 
 (provide 'init-smart-mode-line)
