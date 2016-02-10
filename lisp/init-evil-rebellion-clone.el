@@ -60,6 +60,7 @@
 ;;(evil-set-initial-state 'ggtags-navigation-mode 'normal)
 ;;(evil-set-initial-state 'ggtags-tags-mode 'normal)
 ;; setting this to emacs makes opening up any new buffer set the evil state to emacs
+(evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
 (evil-set-initial-state 'ggtags-global-mode 'emacs)
 
 (provide 'init-evil-rebellion-clone)

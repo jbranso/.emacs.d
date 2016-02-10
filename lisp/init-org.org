@@ -921,6 +921,10 @@ _ht_: subtree
 (global-set-key (kbd "C-c #") 'hydra-outline/body)
   #+END_SRC
 
+** follow org links on return
+#+BEGIN_SRC emacs-lisp
+(setq org-return-follows-link t)
+#+END_SRC
 ** A definition I found online org-begin-template
   I should really check this out at some point http://pragmaticemacs.com/emacs/wrap-text-in-an-org-mode-block/ In my most recent
   post on org-mode, I talked about using blocks to mark text as being latex, or source code and so on. I mentioned using the

@@ -94,6 +94,7 @@ _v_: element vanish       _n_: _n_ext element
                    ac-source-html-tag
                    ac-source-html-attribute
                    ac-source-html-attribute-2
+                   ac-source-files-in-current-dir
                    ))
         ("php" . (
                   ac-source-words-in-buffer

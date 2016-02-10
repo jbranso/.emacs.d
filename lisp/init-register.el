@@ -2,9 +2,15 @@
 
 (require 'register)
 
+;; I might need to use (set-register register value)
+
 (defun my/number-to-register (number register)
   (interactive "n number: \nMregister: ")
-  (number-to-register number register))
+  ;;(number-to-register number register)
+  (set-register register number))
+
+;; gosh this is getting soo annoying and it's not working at all
+;;(print register-alist)
 
 (defun my/insert-register (register)
   (interactive "Mregister: ")
@@ -15,12 +21,13 @@
 
 (defhydra hydra-register (:color pink :hint nil)
   "
-^Store^                  ^Insert^                       ^Increase^
+^Store^                     ^Insert^                       ^Increase^
 ^^^^^^----------------------------------------------------------------------
-_n_umber to register     _i_nsert number register       _I_ncrease the register
-insert _N_umbers left    C-x r i R                      C-u number C-x r + r
-  of Rectangle           Insert _t_ext to register
-  C-x r N                C-x r s R
+_n_umber to register        _i_nsert number register       _I_ncrease the register
+C-u <number> C-x r n R
+insert _N_umbers left       C-x r i R                      C-u number C-x r + r
+  of Rectangle              Insert _t_ext to register
+  C-x r N                   C-x r s R
 "
   ;; Store
   ("n" my/number-to-register)

@@ -276,7 +276,8 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
    #+BEGIN_SRC emacs-lisp
      (gnus-desktop-notify-mode)
      (gnus-demon-add-scanmail)
-     (gnus-demon-add-handler 'gnus-group-get-new-news 20 t)
+     ;;(gnus-demon-init)
+     ;;(gnus-demon-add-handler 'gnus-group-get-new-news 20 t)
    #+END_SRC
 
    ;;alledigeely this next line is not necessary

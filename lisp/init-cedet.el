@@ -101,8 +101,7 @@
                ac-source-words-in-buffer
                ac-source-filename
                ;;useful for eshell
-               ;;ac-source-files-in-current-dir
-               ))
+               ac-source-files-in-current-dir))
 
 
 (dolist (mode '(
@@ -123,6 +122,8 @@
                 ;; sql-mode
                 eshell-mode
                 ;; sql-interactive-mode
+                ;; don't specify web-mode here, web-mode has its own way of specifying what ac sources to use
+                js2-mode
                 inferior-emacs-lisp-mode))
   (add-to-list 'ac-modes mode))
 

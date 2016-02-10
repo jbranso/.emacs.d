@@ -358,9 +358,6 @@ EXT is a list of the extensions of files to be included."
 ; Targets start with the file name - allows creating level 1 tasks
   (setq org-refile-use-outline-path (quote file))
 
-; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
-;;(setq org-outline-path-complete-in-steps t)
-
 (setq org-todo-keywords
 '((sequence "☛ TODO(t!)" "♇ PROJECT(r)" "STARTED(s!)"  "⚑ DELEGATED(e!)" "☺ CHARGED(c!)" "|" "$ PAID(p!)" "✔ DONE(d!)")))
 
@@ -509,6 +506,8 @@ _ht_: subtree
 
 (define-key org-mode-map (kbd "C-c #") 'hydra-outline/body) ; by example
 (global-set-key (kbd "C-c #") 'hydra-outline/body)
+
+(setq org-return-follows-link t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; function to wrap blocks of text in org templates                       ;;
