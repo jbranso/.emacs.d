@@ -199,6 +199,7 @@ _n_   _s_   _o_k        _y_ank
 (put 'narrow-to-page 'disabled nil)
 (put 'narrow-to-defun 'disabled nil)
 
+;; http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
 ;; Also set up narrow dwin
 (defun narrow-or-widen-dwim (p)
   "Widen if buffer is narrowed, narrow-dwim otherwise.

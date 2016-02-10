@@ -193,12 +193,13 @@
        "* TODO %?\n  %i\n  %a")
 
       ("e" "entertainment")
-      ("eb" "Books to Read" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "Books to Read")
-       "*  %i\n  %a")
-      ("eM" "Good Movies Reference" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "Good Movies")
-       "*  %i\n  %a")
-      ("em" "movies to watch" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "movies to watch")
-       "*  %i\n  %a")
+      ("eb" "Books to Read" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org"
+      "Books to Read") "*  %i\n  %a")
+      ("eM" "Good Movies Reference" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "Good Movies") "*  %i\n  %a")
+      ("em" "movies to watch" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "movies to watch") "*  %i\n  %a")
+      ("eU" "good music reference" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org"
+      "good music reference") "*  %i\n  %a")
+
       ("g" "getting close to God")
       ("gg" "get a close friend" entry (file+headline "/home/joshua/programming/org/gtd/projects/get-close-to-God.org"
                                                       "get a close friend") "* TODO %?\n  %i\n  %a")

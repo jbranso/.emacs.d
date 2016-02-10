@@ -16,6 +16,8 @@
 (use-package smart-mode-line :ensure t
   :init
   (setq sml/theme 'powerline)
+  ;; emacs keeps prompting me to run the smart-mode-line-theme.  This is a word around that I found on github
+  (setq sml/no-confirm-load-theme t)
   (sml/setup))
 
 
