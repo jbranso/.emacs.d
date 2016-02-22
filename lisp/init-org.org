@@ -8,12 +8,19 @@
   (use-package org
   :ensure org-plus-contrib)
   #+END_SRC
+
+  #+RESULTS:
+
 * what files org-mode opens
 #+BEGIN_SRC emacs-lisp
 ;; define what files org opens
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
 ;;(setq org-default-notes-file (concat org-directory "/notes.org"))
 #+END_SRC
+
+#+RESULTS:
+: ((\.\(org\|txt\)$ . org-mode) (/git-rebase-todo\' . git-rebase-mode) (\.gpg\(~\|\.~[0-9]+~\)?\' nil epa-file) (\.\(?:3fr\|a\(?:r[tw]\|vs\)\|bmp[23]?\|c\(?:als?\|myka?\|r[2w]\|u[rt]\)\|d\(?:c[mrx]\|ds\|ng\|px\)\|f\(?:ax\|its\)\|gif\(?:87\)?\|hrz\|ic\(?:on\|[bo]\)\|j\(?:\(?:pe\|[np]\)g\)\|k\(?:25\|dc\)\|m\(?:iff\|ng\|rw\|s\(?:l\|vg\)\|tv\)\|nef\|o\(?:rf\|tb\)\|p\(?:bm\|c\(?:ds\|[dltx]\)\|db\|ef\|gm\|i\(?:ct\|x\)\|jpeg\|n\(?:g\(?:24\|32\|8\)\|[gm]\)\|pm\|sd\|tif\|wp\)\|r\(?:a[fs]\|gb[ao]?\|l[ae]\)\|s\(?:c[rt]\|fw\|gi\|r[2f]\|un\|vgz?\)\|t\(?:ga\|i\(?:ff\(?:64\)?\|le\|m\)\|tf\)\|uyvy\|v\(?:da\|i\(?:car\|d\|ff\)\|st\)\|w\(?:bmp\|pg\)\|x\(?:3f\|bm\|cf\|pm\|wd\|[cv]\)\|y\(?:cbcra?\|uv\)\)\' . image-mode) (\.elc\' . emacs-lisp-byte-code-mode) (\.dz\' nil jka-compr) (\.xz\' nil jka-compr) (\.lzma\' nil jka-compr) (\.lz\' nil jka-compr) (\.g?z\' nil jka-compr) (\.bz2\' nil jka-compr) (\.Z\' nil jka-compr) (\.vr[hi]?\' . vera-mode) (\(?:\.rb\|ru\|rake\|thor\|jbuilder\|gemspec\|podspec\|/\(?:Gem\|Rake\|Cap\|Thor\|Vagrant\|Guard\|Pod\)file\)\' . ruby-mode) (\.re?st\' . rst-mode) (\.py\' . python-mode) (\.awk\' . awk-mode) (\.\(u?lpc\|pike\|pmod\(\.in\)?\)\' . pike-mode) (\.idl\' . idl-mode) (\.java\' . java-mode) (\.m\' . objc-mode) (\.ii\' . c++-mode) (\.i\' . c-mode) (\.lex\' . c-mode) (\.y\(acc\)?\' . c-mode) (\.[ch]\' . c-mode) (\.\(CC?\|HH?\)\' . c++-mode) (\.[ch]\(pp\|xx\|\+\+\)\' . c++-mode) (\.\(cc\|hh\)\' . c++-mode) (\.\(bat\|cmd\)\' . bat-mode) (\.[sx]?html?\(\.[a-zA-Z_]+\)?\' . html-mode) (\.svgz?\' . image-mode) (\.svgz?\' . xml-mode) (\.x[bp]m\' . image-mode) (\.x[bp]m\' . c-mode) (\.p[bpgn]m\' . image-mode) (\.tiff?\' . image-mode) (\.gif\' . image-mode) (\.png\' . image-mode) (\.jpe?g\' . image-mode) (\.te?xt\' . text-mode) (\.[tT]e[xX]\' . tex-mode) (\.ins\' . tex-mode) (\.ltx\' . latex-mode) (\.dtx\' . doctex-mode) (\.org\' . org-mode) (\.el\' . emacs-lisp-mode) (Project\.ede\' . emacs-lisp-mode) (\.\(scm\|stk\|ss\|sch\)\' . scheme-mode) (\.l\' . lisp-mode) (\.li?sp\' . lisp-mode) (\.[fF]\' . fortran-mode) (\.for\' . fortran-mode) (\.p\' . pascal-mode) (\.pas\' . pascal-mode) (\.\(dpr\|DPR\)\' . delphi-mode) (\.ad[abs]\' . ada-mode) (\.ad[bs].dg\' . ada-mode) (\.\([pP]\([Llm]\|erl\|od\)\|al\)\' . perl-mode) (Imakefile\' . makefile-imake-mode) (Makeppfile\(?:\.mk\)?\' . makefile-makepp-mode) (\.makepp\' . makefile-makepp-mode) (\.mk\' . makefile-gmake-mode) (\.make\' . makefile-gmake-mode) ([Mm]akefile\' . makefile-gmake-mode) (\.am\' . makefile-automake-mode) (\.texinfo\' . texinfo-mode) (\.te?xi\' . texinfo-mode) (\.[sS]\' . asm-mode) (\.asm\' . asm-mode) (\.css\' . css-mode) (\.mixal\' . mixal-mode) (\.gcov\' . compilation-mode) (/\.[a-z0-9-]*gdbinit . gdb-script-mode) (-gdb\.gdb . gdb-script-mode) ([cC]hange\.?[lL]og?\' . change-log-mode) ([cC]hange[lL]og[-.][0-9]+\' . change-log-mode) (\$CHANGE_LOG\$\.TXT . change-log-mode) (\.scm\.[0-9]*\' . scheme-mode) (\.[ck]?sh\'\|\.shar\'\|/\.z?profile\' . sh-mode) (\.bash\' . sh-mode) (\(/\|\`\)\.\(bash_\(profile\|history\|log\(in\|out\)\)\|z?log\(in\|out\)\)\' . sh-mode) (\(/\|\`\)\.\(shrc\|[kz]shrc\|bashrc\|t?cshrc\|esrc\)\' . sh-mode) (\(/\|\`\)\.\([kz]shenv\|xinitrc\|startxrc\|xsession\)\' . sh-mode) (\.m?spec\' . sh-mode) (\.m[mes]\' . nroff-mode) (\.man\' . nroff-mode) (\.sty\' . latex-mode) (\.cl[so]\' . latex-mode) (\.bbl\' . latex-mode) (\.bib\' . bibtex-mode) (\.bst\' . bibtex-style-mode) (\.sql\' . sql-mode) (\.m[4c]\' . m4-mode) (\.mf\' . metafont-mode) (\.mp\' . metapost-mode) (\.vhdl?\' . vhdl-mode) (\.article\' . text-mode) (\.letter\' . text-mode) (\.i?tcl\' . tcl-mode) (\.exp\' . tcl-mode) (\.itk\' . tcl-mode) (\.icn\' . icon-mode) (\.sim\' . simula-mode) (\.mss\' . scribe-mode) (\.f9[05]\' . f90-mode) (\.f0[38]\' . f90-mode) (\.indent\.pro\' . fundamental-mode) (\.\(pro\|PRO\)\' . idlwave-mode) (\.srt\' . srecode-template-mode) (\.prolog\' . prolog-mode) (\.tar\' . tar-mode) (\.\(arc\|zip\|lzh\|lha\|zoo\|[jew]ar\|xpi\|rar\|7z\|ARC\|ZIP\|LZH\|LHA\|ZOO\|[JEW]AR\|XPI\|RAR\|7Z\)\' . archive-mode) (\.oxt\' . archive-mode) (\.\(deb\|[oi]pk\)\' . archive-mode) (\`/tmp/Re . text-mode) (/Message[0-9]*\' . text-mode) (\`/tmp/fol/ . text-mode) (\.oak\' . scheme-mode) (\.sgml?\' . sgml-mode) (\.x[ms]l\' . xml-mode) (\.dbk\' . xml-mode) (\.dtd\' . sgml-mode) (\.ds\(ss\)?l\' . dsssl-mode) (\.js\' . javascript-mode) (\.json\' . javascript-mode) (\.[ds]?vh?\' . verilog-mode) (\.by\' . bovine-grammar-mode) (\.wy\' . wisent-grammar-mode) ([]>:/\]\..*\(emacs\|gnus\|viper\)\' . emacs-lisp-mode) (\`\..*emacs\' . emacs-lisp-mode) ([:/]_emacs\' . emacs-lisp-mode) (/crontab\.X*[0-9]+\' . shell-script-mode) (\.ml\' . lisp-mode) (\.ld[si]?\' . ld-script-mode) (ld\.?script\' . ld-script-mode) (\.xs\' . c-mode) (\.x[abdsru]?[cnw]?\' . ld-script-mode) (\.zone\' . dns-mode) (\.soa\' . dns-mode) (\.asd\' . lisp-mode) (\.\(asn\|mib\|smi\)\' . snmp-mode) (\.\(as\|mi\|sm\)2\' . snmpv2-mode) (\.\(diffs?\|patch\|rej\)\' . diff-mode) (\.\(dif\|pat\)\' . diff-mode) (\.[eE]?[pP][sS]\' . ps-mode) (\.\(?:PDF\|DVI\|OD[FGPST]\|DOCX?\|XLSX?\|PPTX?\|pdf\|djvu\|dvi\|od[fgpst]\|docx?\|xlsx?\|pptx?\)\' . doc-view-mode-maybe) (configure\.\(ac\|in\)\' . autoconf-mode) (\.s\(v\|iv\|ieve\)\' . sieve-mode) (BROWSE\' . ebrowse-tree-mode) (\.ebrowse\' . ebrowse-tree-mode) (#\*mail\* . mail-mode) (\.g\' . antlr-mode) (\.mod\' . m2-mode) (\.ses\' . ses-mode) (\.docbook\' . sgml-mode) (\.com\' . dcl-mode) (/config\.\(?:bat\|log\)\' . fundamental-mode) (\.\(?:[iI][nN][iI]\|[lL][sS][tT]\|[rR][eE][gG]\|[sS][yY][sS]\)\' . conf-mode) (\.\(?:desktop\|la\)\' . conf-unix-mode) (\.ppd\' . conf-ppd-mode) (java.+\.conf\' . conf-javaprop-mode) (\.properties\(?:\.[a-zA-Z0-9._-]+\)?\' . conf-javaprop-mode) (\`/etc/\(?:DIR_COLORS\|ethers\|.?fstab\|.*hosts\|lesskey\|login\.?de\(?:fs\|vperm\)\|magic\|mtab\|pam\.d/.*\|permissions\(?:\.d/.+\)?\|protocols\|rpc\|services\)\' . conf-space-mode) (\`/etc/\(?:acpid?/.+\|aliases\(?:\.d/.+\)?\|default/.+\|group-?\|hosts\..+\|inittab\|ksysguarddrc\|opera6rc\|passwd-?\|shadow-?\|sysconfig/.+\)\' . conf-mode) ([cC]hange[lL]og[-.][-0-9a-z]+\' . change-log-mode) (/\.?\(?:gnokiirc\|kde.*rc\|mime\.types\|wgetrc\)\' . conf-mode) (/\.\(?:enigma\|gltron\|gtk\|hxplayer\|net\|neverball\|qt/.+\|realplayer\|scummvm\|sversion\|sylpheed/.+\|xmp\)rc\' . conf-mode) (/\.\(?:gdbtkinit\|grip\|orbital/.+txt\|rhosts\|tuxracer/options\)\' . conf-mode) (/\.?X\(?:default\|resource\|re\)s\> . conf-xdefaults-mode) (/X11.+app-defaults/ . conf-xdefaults-mode) (/X11.+locale/.+/Compose\' . conf-colon-mode) (/X11.+locale/compose\.dir\' . conf-javaprop-mode) (\.~?[0-9]+\.[0-9][-.0-9]*~?\' nil t) (\.\(?:orig\|in\|[bB][aA][kK]\)\' nil t) ([/.]c\(?:on\)?f\(?:i?g\)?\(?:\.[a-zA-Z0-9._-]+\)?\' . conf-mode-maybe) (\.[1-9]\' . nroff-mode) (\.tgz\' . tar-mode) (\.tbz2?\' . tar-mode) (\.txz\' . tar-mode))
+
 * Setting up Org-plugins
 ** org-crypt
   encrypting text under a heading in org
@@ -21,7 +28,7 @@
    Any text below a headline that has a `:crypt:' tag will be
 automatically be encrypted when the file is saved.  If you want to use
 a different tag just customize the `org-crypt-tag-matcher' setting.
-
+n
    To use org-crypt it is suggested that you have the following in your
 `.emacs':
 
@@ -130,6 +137,9 @@ vUXAVsyOIEsH32nX9FGZiHjL99CVQLjwgILwxhFgD0Yc9FDcWA==
   (require 'org-mime)
   #+END_SRC
 
+  #+RESULTS:
+  : org-mime
+
 
    imported code from http://orgmode.org/worg/org-contrib/org-mime.html
 
@@ -142,6 +152,9 @@ for those who use color themes with Dark backgrounds it is useful to set a dark 
                            "#E6E1DC" "#232323"))))
   #+END_SRC
 
+  #+RESULTS:
+  | lambda | nil | (org-mime-change-element-style pre (format color: %s; background-color: %s; padding: 0.5em; #E6E1DC #232323)) |
+
   the following can be used to nicely offset block quotes in email bodies
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mime-html-hook
@@ -150,48 +163,53 @@ for those who use color themes with Dark backgrounds it is useful to set a dark 
              "blockquote" "border-left: 2px solid gray; padding-left: 4px;")))
 #+END_SRC
 
+#+RESULTS:
+| lambda | nil | (org-mime-change-element-style blockquote border-left: 2px solid gray; padding-left: 4px;)                    |
+| lambda | nil | (org-mime-change-element-style pre (format color: %s; background-color: %s; padding: 0.5em; #E6E1DC #232323)) |
+
 end imported code
 
 ** org babel
   #+BEGIN_SRC emacs-lisp
-    (after-load 'org
-      (org-babel-do-load-languages
-       'org-babel-load-languages
-       '(
-         (awk . t)
-         (calc .t)
-         (emacs-lisp . t)
-         (latex . t)
-         ;;(ledger . t)
-         (python . t)
-         (awk . t)
-         (C . t)
-         (js . t)
-         (gnuplot . t)
-         ;; org-babel does not currently support php
-         ;;(php . t)
-         (sh . t)
-         (sql . t)
-         ;;(sqlite . t)
-         (gnuplot . t)
-         )))
+      (after-load 'org
+        (org-babel-do-load-languages
+         'org-babel-load-languages
+         '(
+           (awk . t)
+           (calc .t)
+           (emacs-lisp . t)
+           (latex . t)
+           ;;(ledger . t)
+           (python . t)
+           (awk . t)
+           (C . t)
+           ;; (ditaa . t)
+           (js . t)
+           ;; (gnuplot . t)
+           ;; org-babel does not currently support php
+           ;;(php . t)
+           (sh . t)
+           (sql . t)
+           ;;(sqlite . t)
+           (gnuplot . t)
+           )))
+
+    ;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
+    ;; display inline images in org-mode
+    ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
   #+END_SRC
 
   #+RESULTS:
-  : ((emacs-lisp . t) (awk . t) (C . t) (js . t) (python . t) (gnuplot . t) (sh . t) (gnuplot . t))
-
-  Type C-c C-v e  org-babel-execute-maybe to see what this plot produces
-  #+BEGIN_SRC gnuplot
-    plot 'data' with boxes, sin(x) with lines
-  #+END_SRC
-
-  #+RESULTS:
+  : ((awk . t) (calc .t) (emacs-lisp . t) (latex . t) (python . t) (awk . t) (C . t) (js . t) (sh . t) (sql . t) (gnuplot . t))
 
 ** org invoice
 
   #+BEGIN_SRC emacs-lisp
     (require 'org-invoice)
   #+END_SRC
+
+  #+RESULTS:
+  : org-invoice
 
   This lests you manage invoices with org-mode.  It is pretty cool!
   You can create invoices with the following format.  And just call org-invoice-report on the
@@ -289,6 +307,10 @@ end imported code
                     '(:time "2h" :period "5m" :actions -message)
                     '(:time "3d" :actions -email))
   #+END_SRC
+
+  #+RESULTS:
+  | default | ((:time 1h :actions -notify/window :period 2m :duration 60)) | appt | ((:time -1s :period 20s :duration 10 :actions (-message -ding)) (:time 15m :period 2m :duration 100 :actions -notify) (:time 2h :period 5m :actions -message) (:time 3d :actions -email)) |
+
 ** org-google-wheather
    I really want to get this set up at some point
    https://julien.danjou.info/projects/emacs-packages#google-weather
@@ -298,6 +320,9 @@ end imported code
    #+BEGIN_SRC emacs-lisp
      (require 'org-inlinetask)
    #+END_SRC
+
+   #+RESULTS:
+   : org-inlinetask
 
    Suppose you have something like this where point is at point:
 
@@ -334,6 +359,10 @@ end imported code
    #+BEGIN_SRC emacs-lisp
    (require 'org-habit)
    #+END_SRC
+
+   #+RESULTS:
+   : org-habit
+
 * My org-mode preferences
 ** A big setq
 
@@ -390,6 +419,9 @@ end imported code
     (add-hook 'org-agenda-finalize-hook (lambda () (hl-line-mode)))
   #+END_SRC
 
+  #+RESULTS:
+  | lambda | nil | (hl-line-mode) |
+
 ** my org capure templates
   This is SOOOO USEFUL!!!! Org capture lets you quickly jot down a thought that you have and place it in a file under
   a heading that you specify.  I have captchas for shopping, for books to read, for things to do.
@@ -407,8 +439,12 @@ end imported code
          "* TODO %?\nEntered on %U\n  %i\n  %a")
         ("ce" "emacs Todo" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "emacs someday")
          "* TODO %?\n  %i\n  %a")
+        ("cM" "Emacs Meetup" entry (file+headline "~/programming/org/gtd/projects/emacs-meetup-vincent-laf-emacslaf.org" "things to talk about")
+         "* %?\nEntered on %U\n  %i\n  %a")
         ("cE" "Emacs Reference" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "emacs reference")
          "* %?\nEntered on %U\n  %i\n  %a")
+
+
         ("cG" "Gimp Basics Reference" entry (file+headline "~/manuals/gimp.org" "Basic Concepts")
          "* %?\nEntered on %U\n  %i\n  %a")
         ("cH" "The GNU HURD")
@@ -506,6 +542,9 @@ end imported code
         ))
   #+END_SRC
 
+  #+RESULTS:
+  | B | Things I want to buy | entry | (file+headline ~/programming/org/gtd/projects/managing-my-monies.org things I want to buy) | * %? |
+
 ** Agenda Configuration
 *** Agenda icons via Category
    You can easily create custom icons to show up in your agenda next to your specific tasks. My icons are all about
@@ -520,6 +559,15 @@ end imported code
                                       ("WORK"       "/home/joshua/pictures/org-icons/work.png" nil nil nil nil)
                                       ))
    #+END_SRC
+
+   #+RESULTS:
+   | hacker      | /home/joshua/pictures/org-icons/gnu-linux-icon.png | nil | nil | nil | nil |
+   | MAKING CASH | /home/joshua/pictures/org-icons/money.png          | nil | nil | nil | nil |
+   | SEEKING GOD | /home/joshua/pictures/org-icons/god.png            | nil | nil | nil | nil |
+   | BILLS       | /home/joshua/pictures/org-icons/bills.png          | nil | nil | nil | nil |
+   | emacs       | /home/joshua/pictures/org-icons/emacs.png          | nil | nil | nil | nil |
+   | WORK        | /home/joshua/pictures/org-icons/work.png           | nil | nil | nil | nil |
+
 *** I generate my org-agenda-files and org-refile-targets
   Org-agenda-files are a list of files where you store your TODOs.  These are your things that need to be done, scheduled items,
   deadlines, recurring items, etc.  Then pressing "C-c a a" lets you build your agenda from all of your agenda files.  It is very
@@ -682,6 +730,9 @@ EXT is a list of the extensions of files to be included."
     (setq org-refile-use-outline-path (quote file))
   #+END_SRC
 
+  #+RESULTS:
+  : file
+
   I want to make specific TODO states.  Anything after the "|" is marked completed and appears green.  Anything before it, shows
   that the item is still actionable and it is red.
 
@@ -737,6 +788,9 @@ EXT is a list of the extensions of files to be included."
         ;;     ("CANCELED" . (:foreground "blue" :weight bold))))
   #+END_SRC
 
+  #+RESULTS:
+  | sequence | ☛ TODO(t!) | ♇ PROJECT(r) | STARTED(s!) | ⚑ DELEGATED(e!) | ☺ CHARGED(c!) |   |   | $ PAID(p!) | ✔ DONE(d!) |
+
 ** Org Clock Settings
   #+BEGIN_SRC emacs-lisp
 
@@ -777,6 +831,9 @@ EXT is a list of the extensions of files to be included."
 (after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
   #+END_SRC
+
+  #+RESULTS:
+  : org-pomodoro
 
 ** customizing stuck projects
 ** COMMENT easy templates
@@ -819,17 +876,19 @@ try to expand a yasnippet.
                                 ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
                                 (require 'org-eldoc)
                                 ;;(org-eldoc-load)
-                                (make-variable-buffer-local 'yas/trigger-key)
-                                (setq yas/trigger-key [tab])
-                                (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-                                (define-key yas/keymap [tab] 'yas/next-field)
+                                ;;(writegood-mode 1)
+                                ;; (make-variable-buffer-local 'yas/trigger-key)
+                                ;;(setq yas/trigger-key [tab])
+                                ;;(add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+                                ;; (define-key yas/keymap [tab] 'yas/next-field)
                                 ;; make the lines in the buffer wrap around the edges of the screen.
                                 ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
                                 ;; to press C-c q  or fill-paragraph ever again!
-                                (visual-line-mode)
-                                (org-indent-mode)
+                                ;; (visual-line-mode)
+                                ;; (org-indent-mode)
                                 ;; apparently this does the same thing as the above combined modes
-                                ;; (toggle-word-wrap)
+                                ;; this seems to work better than visual line mode.  Why have I not heard of this before?
+                                (toggle-word-wrap)
                                 (org-bullets-mode 1)
                                 ;;make ">=" look like >=, etc.
                                 (push '(">=" . ?≥) prettify-symbols-alist)
@@ -860,6 +919,8 @@ try to expand a yasnippet.
                                 (push '("ae" . ?æ) prettify-symbols-alist)
                                 (push '("^_^" . ?☻) prettify-symbols-alist)))
 #+END_SRC
+
+#+RESULTS:
 
 * customize org-stuck projects
   C-c a # will list all of your stuck projects.  According to David Allen's Getting Things Done productivity system,

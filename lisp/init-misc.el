@@ -6,7 +6,8 @@
 
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
-(load-theme 'zenburn t)
+;; oooo zenburn makes emacs look beautiful!
+(use-package zenburn-theme :ensure t)
 
 (find-file "/home/joshua/programming/org/gtd/gtd.org")
 ;;(org-agenda-list)

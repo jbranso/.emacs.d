@@ -9,6 +9,7 @@
 
 ;; http://endlessparentheses.com/beacon-never-lose-your-cursor-again.html?source=rss
 ;; whenever you jump a line down or jump a line up, beacon flashes a little but.  pretty cool.
+(use-package beacon :ensure t)
 (beacon-mode 1)
 (setq beacon-push-mark 35)
 (setq beacon-color "#666600")

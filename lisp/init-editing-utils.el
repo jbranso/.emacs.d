@@ -8,7 +8,8 @@
  line-move-visual t
  ;;blink-cursor-interval 0.4
  ;; I want to open links from org-mode in chromium
- browse-url-browser-function (quote browse-url-chromium)
+ ;;browse-url-browser-function (quote browse-url-chromium)
+ browse-url-browser-function (quote browse-url-firefox)
  bookmark-default-file (expand-file-name ".bookmarks.el" user-emacs-directory)
  ;;original value was 30.  A large number slows down emacs a bit apparently
  buffers-menu-max-size 20
@@ -318,7 +319,6 @@ already narrowed."
 (global-set-key (kbd "C-c TAB") #'indent-whole-buffer)
 ;; when point is between two words, delete the space between them
 (global-set-key (kbd "C-c \\") #'delete-horizontal-space)
-(define-key org-mode-map (kbd "C-c \\") #'delete-horizontal-space)
 (global-set-key (kbd "C-c SPC") #'just-one-space)
 ;; some modes my default / in normal mode is NOT bound to helm-swoop, BUT I REALLY LIKE helm-swoop
 (global-set-key (kbd "C-c /") #'helm-swoop)
@@ -327,9 +327,9 @@ already narrowed."
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c b") #'eval-buffer)
 (global-set-key (kbd "C-c B") #'browse-kill-ring)
-;;(define-key global-map "\C-cc" 'org-capture)
-(global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c C") #'hydra-org-timer/body)
+;;org-capture is SOOO helpful!!
+(global-set-key (kbd "C-c c") 'org-capture)
 ;;open up a new dired window for the current directory
 (global-set-key (kbd "C-c d") #'dired-jump)
 ;; find the current tag smart.  Just know what I mean.
@@ -361,17 +361,17 @@ already narrowed."
 ;; it's too easy to just press the "turn up the volume button on your keyboard")
 ;; at some point, I might make all of these keys be bound to an evil mode key ie:
 ;; M p  would me emms-previous.
-(global-set-key (kbd "C-c M i") #'(lambda ()
-                                    (interactive)
-                                    (emms-librefm-stream "librefm://globaltags/Classical")))
-(global-set-key (kbd "C-c M p") 'emms-previous)
-(global-set-key (kbd "C-c M n") 'emms-next)
-(global-set-key (kbd "C-c M P") 'emms-pause)
-(global-set-key (kbd "C-c M s") 'emms-show)
-;; I think emms-kill when I press this
-(global-set-key (kbd "C-c M k") 'emms-stop)
-(global-set-key (kbd "C-c M +") 'emms-volume-mode-plus)
-(global-set-key (kbd "C-c M -") 'emms-volume-mode-minus)
+;; (global-set-key (kbd "C-c M i") #'(lambda ()
+;;                                     (interactive)
+;;                                     (emms-librefm-stream "librefm://globaltags/Classical")))
+;; (global-set-key (kbd "C-c M p") 'emms-previous)
+;; (global-set-key (kbd "C-c M n") 'emms-next)
+;; (global-set-key (kbd "C-c M P") 'emms-pause)
+;; (global-set-key (kbd "C-c M s") 'emms-show)
+;; ;; I think emms-kill when I press this
+;; (global-set-key (kbd "C-c M k") 'emms-stop)
+;; (global-set-key (kbd "C-c M +") 'emms-volume-mode-plus)
+;; (global-set-key (kbd "C-c M -") 'emms-volume-mode-minus)
 
 ;; http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html
 ;; I am not a fantastic typist. My speed is acceptable, but I make a great deal of mistakes. The following snippet has turned me into the Messi of keyboards.

@@ -2,7 +2,6 @@
 
 (use-package flycheck
   :config
-
   (add-hook 'after-init-hook #'(lambda ()
                                  (global-flycheck-mode 1)))
 

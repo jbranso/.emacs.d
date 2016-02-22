@@ -51,7 +51,7 @@
 
 ;; (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
 ;; the next command will add another C-j command for helm
-(define-key helm-map (kbd "C-f") 'helm-execute-persistent-action)
+;;(define-key helm-map (kbd "C-f") 'helm-execute-persistent-action)
 ;; I am removing C-t which toggles where on the screen helm pops up when I do this next line
 ;;(define-key helm-map (kbd "C-t") 'helm-execute-persistent-action)
 ;;(define-key helm-map (kbd "s-t") 'helm-execute-persistent-action)
@@ -59,19 +59,18 @@
 ;;(define-key helm--minor-mode-map (kbd "C-f") 'helm-execute-persistent-action)
 ;;I should define some cool helm mini commands
 
+;; (global-set-key (kbd "C-c h")
+;;                 (defhydra hydra-helm (:color pink)
+;;                   "helm"
+;;                   ("r" helm-resume)))
 
-(global-set-key (kbd "C-c h")
-                (defhydra hydra-helm (:color pink)
-                  "helm"
-                  ("r" helm-resume)))
+;; (defhydra hydra-test (hint :nil)
+;;   ("r" helm-resume))
 
-(defhydra hydra-test (hint :nil)
-  ("r" helm-resume))
-
-(defhydra hydra-zoom (global-map "<f2>")
-  "zoom"
-  ("g" text-scale-increase "in")
-  ("l" text-scale-decrease "out"))
+;; (defhydra hydra-zoom (global-map "<f2>")
+;;   "zoom"
+;;   ("g" text-scale-increase "in")
+;;   ("l" text-scale-decrease "out"))
 
 ;; how do I get this to work?
 ;; (define-key helm-find-files-map (kbd "s-h") 'helm-next-line)

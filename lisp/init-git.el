@@ -2,9 +2,18 @@
 ;; TODO: smerge-mode
 
 (use-package magit :defer t :ensure t)
-;;(require-package 'git-blame)
-(use-package git-commit-mode :defer t :ensure t)
-(use-package git-rebase-mode :defer t :ensure t)
+(require-package 'git-blame)
+;; (use-package git-commit-mode
+;;   :defer t
+;;   :ensure t
+;;   :disabled t
+;;   :config
+;;   (add-hook 'git-commit-mode-hook 'goto-address-mode)
+;;   (after-load 'session
+;;     (add-to-list 'session-mode-disable-list 'git-commit-mode))
+;;   )
+;; this package can't be found either
+;;(use-package git-rebase-mode :defer t :ensure t)
 (use-package gitignore-mode  :defer t :ensure t)
 (use-package gitconfig-mode  :defer t :ensure t)
 (use-package git-messenger   :defer t :ensure t)
@@ -39,17 +48,13 @@
 (after-load 'magit
   (fullframe magit-status magit-mode-quit-window))
 
-(add-hook 'git-commit-mode-hook 'goto-address-mode)
-(after-load 'session
-  (add-to-list 'session-mode-disable-list 'git-commit-mode))
-
 
 ;;; When we start working on git-backed files, use git-wip if available
 
-(after-load 'magit
-  (global-magit-wip-save-mode)
-  ;; (diminish 'magit-wip-save-mode)
-  )
+;; (after-load 'magit
+;;   ;;(global-magit-wip-save-mode)
+;;   ;; (diminish 'magit-wip-save-mode)
+;;   )
 
 (after-load 'magit
    (diminish 'magit-auto-revert-mode))
@@ -60,6 +65,7 @@
 (global-set-key (kbd "C-x v f") 'vc-git-grep)
 
 
+;; this is causing an error.  What's the deal.
 (use-package git-messenger :defer t :ensure t)
 
 (global-set-key (kbd "C-x v p") #'git-messenger:popup-message)

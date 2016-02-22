@@ -47,21 +47,26 @@
 ;; to use :bind with use-package, require bind-key
 (require 'bind-key)
 (require 'use-package)
+;; make use-package tell me which packages take longer than 0.1s to load
+(setq use-package-verbose t)
 ;; this was for our emacs meetup group
+;; slack is proprietary.  We should not use it
 ;;(require 'init-slack)
 (require 'init-pdf-tools)
 (require 'init-wgrep)
 ;; turn on abbrev mode.  it implements autocorrect
 (require 'init-abbrev)
+;; make emacs indent your code all the time, so you don't have to
 (require 'init-aggressive-indent)
 (require 'init-avy)
+;; this lets you debug your init file really easily.
 (require 'init-bug-hunter)
 ;; let's do spell checking
 (require 'init-flyspell)
 ;; let's do async processing in emacs
 (require 'init-async)
 ;; I'd like to use nlinum mode, but it is NOT letting me create a new frame.  it's a bug
-(require 'init-linum)
+;;(require 'init-linum)
 ;; hydra's are awesome!  They let you easily remember keybindings.  it needs to be towards the top of the file
 ;; so that other packages can use hydras
 (require 'init-hydra)
@@ -85,6 +90,7 @@
 ;;(require 'init-forecast)
 ;; emacs can read the mail
 (require 'init-gnus)
+;; show on the fringe of the buffer if this part of the file needs to be committed to git
 (require 'init-vc)
 (require 'init-gui-frames)
 ;; make the window that has focus have be the largest on the screen
@@ -92,7 +98,7 @@
 
 ;;(require 'init-autocomplete)
 ;; until I get autocorrect on melpa, I'll have to manually turn on abbrev mode
-;;(abbrev-mode 1)
+(abbrev-mode 1)
 
 ;;we want utf8 chars in emacs
 (require 'init-utf8)
@@ -113,25 +119,30 @@
 ;; Nicer naming of buffers for files with identical names
 ;; Instead of Makefile<1> and Makefile<2>, it will be
 ;; Makefile | tmp  Makefile | lisp
-(require 'init-uniquify)
+;;(require 'init-uniquify)
 ;;yasnippet needs to be loaded before auto complete to let them play nicely together
 (require 'init-yasnippet)
 ;; collection of IDE like features.  I can't get 'em to work
 (require 'init-cedet)
+;; downcase words like THe and BEautiful
+;; This is probably how I can embed yasnippets into various modes
+;;(require 'init-dubcaps)
+;; let's check for poor writing style
+;;(require 'init-writegood)
 ;; let's check our code syntax of all program modes
 (require 'init-flycheck)
 ;; id mode stinks, I'm so glad helm is here.
 (require 'init-helm)
 ;; I haven't used projectile commands in a while.  I'll try turing them off and seenig what happens.
-(require 'init-projectile)
+;;(require 'init-projectile)
 ;;(org-babel-load-file "init-org.org")
 ;;(org-babel-load-file (concat user-emacs-directory "init-org.org"))
 ;;https://github.com/danielmai/.emacs.d/blob/master/init.el
-(require 'init-org)
+;; init org should NOT be loaded  FIXME the problem is probably with org-mode
+;; (require 'init-org)
 ;; I also hardly ever use this sx package, which is an amazing package!
-;; (use-package sx
-;;   :defer t
-;;   :ensure t) ;;searching stack exchange via emacs!  C-c S
+ ;;searching stack exchange via emacs!  C-c S
+;; (use-package sx :ensure t)
 (require 'init-editing-utils)
 ;; let's get modal keybinding working!
 (require 'init-evil)
@@ -152,13 +163,13 @@
 ;;(require 'init-python-mode)
 (require 'init-defuns)
 ;; emacs can play music and stream it! (when streaming works)
-(require 'init-emms)
+;; (require 'init-emms)
 
 ;; load a zenburn
 (require 'init-misc)
 ;; smart-mode-line is awesome!
 ;; woo hoo!
-(require 'init-smart-mode-line)
+;;(require 'init-smart-mode-line)
 
 ;; Make my evil keybindings work pretty much everywhere
 (require 'init-evil-rebellion-clone)

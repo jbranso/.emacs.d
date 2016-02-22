@@ -18,32 +18,11 @@
 ;; color than the function's parenthesis.
 (use-package rainbow-delimiters
   :ensure t)
-(add-hook 'emacs-lisp-mode-hook '(lambda ()
-                                   (rainbow-delimiters-mode 1)
-                                   (flycheck-mode 1)
-                                   ;; You want to enable evil-paredit mode for evil, because it's SOOO helpful.
-                                   (evil-paredit-mode 1)
-                                   (turn-on-paredit)
-                                   ;; make >= look like ≥
-                                   (push '(">=" . ?≥) prettify-symbols-alist)
-                                   (push '("<=" . ?≤) prettify-symbols-alist)
-                                   (eldoc-mode)))
 
-;; automatically indent the text after certain commands are pressed!
-(when (fboundp 'aggressive-indent-mode)
-  (aggressive-indent-mode))
-
-;; emacs regexp are cumbersome
-;; "\b" in most regexp engines means word end
-;; but when one is programming in emacs-lisp you have to write "\\b"
-;; easy escape is light prettify-mode and changes \\ --> one highlighted \
-(use-package easy-escape :ensure t
-  :config (add-hook 'emacs-lisp-mode-hook #'easy-escape-minor-mode)
-  :diminish easy-escape-minor-mode)
+(use-package evil-paredit :ensure t)
 
 ;; show documentation of the current elisp function in the minibuffer as you write it.
 ;; whoever made this mode is amazing!
-
 (use-package paredit
   :ensure t
   :defer t
@@ -80,8 +59,8 @@
 
 (defun turn-on-paredit ()
   (autoload 'enable-paredit-mode "paredit"
-  "Turn on pseudo-structural editing of Lisp code."
-  t)
+    "Turn on pseudo-structural editing of Lisp code."
+    t)
   (define-key emacs-lisp-mode-map (kbd "C-c 0") 'paredit-forward-slurp-sexp)
   (define-key emacs-lisp-mode-map (kbd "C-c 9") 'paredit-backward-slurp-sexp)
   (define-key emacs-lisp-mode-map (kbd "C-c ]") 'paredit-forward-barf-sexp)
@@ -93,6 +72,30 @@
   (define-key emacs-lisp-mode-map (kbd "C-c {") 'paredit-barf-all-the-way-backward)
   (evil-define-key 'normal evil-dvorak-mode-map (kbd "k") 'paredit-kill)
   (paredit-mode +1))
+
+(add-hook 'emacs-lisp-mode-hook '(lambda ()
+                                   (rainbow-delimiters-mode 1)
+                                   ;; You want to enable evil-paredit mode for evil, because it's SOOO helpful.
+                                   (evil-paredit-mode 1)
+                                   (turn-on-paredit)
+                                   ;; make >= look like ≥
+                                   (push '(">=" . ?≥) prettify-symbols-alist)
+                                   (push '("<=" . ?≤) prettify-symbols-alist)
+                                   (eldoc-mode)))
+
+;; automatically indent the text after certain commands are pressed!
+(when (fboundp 'aggressive-indent-mode)
+  (aggressive-indent-mode))
+
+;; emacs regexp are cumbersome
+;; "\b" in most regexp engines means word end
+;; but when one is programming in emacs-lisp you have to write "\\b"
+;; easy escape is light prettify-mode and changes \\ --> one highlighted \
+(use-package easy-escape :ensure t
+  :config (add-hook 'emacs-lisp-mode-hook #'easy-escape-minor-mode)
+  :diminish easy-escape-minor-mode)
+
+
 
 
 

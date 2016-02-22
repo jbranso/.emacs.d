@@ -59,7 +59,8 @@
 
 (gnus-desktop-notify-mode)
 (gnus-demon-add-scanmail)
-(gnus-demon-add-handler 'gnus-group-get-new-news 20 t)
+;;(gnus-demon-init)
+;;(gnus-demon-add-handler 'gnus-group-get-new-news 20 t)
 
 (use-package bbdb
   :ensure t)
@@ -96,14 +97,16 @@ gnus-ignored-from-addresses bbdb-user-mail-address-re)
 
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
-(setq nnimap-split-methods
-      '(("Accrisoft Support" "^From:.*support@accrisoft.com.*")
-        ("Basecamp" "^From:.*notifications@basecamp.com.*")
-        ("arch" "^To:.*arch-general@archlinux.org.*$")
-        ("bug-hurd" "^To:.*bug-hurd@gnu.org.*")
-        ("bug-hurd" "^Cc:.*bug-hurd@gnu.org.*")
-        ;; if an email comes from bransoj@hotmail.com, then we'll put it into testing, and see if this works
-        ("mail.testing" "^From:.*bransoj@hotmail.com.*$")))
+;;(setq nnimap-split-method-default)
+
+  (setq nnmail-split-methods
+        '(("Accrisoft Support" "^From:.*support@accrisoft.com.*")
+          ("Basecamp" "^From:.*notifications@basecamp.com.*")
+          ("arch" "^To:.*arch-general@archlinux.org.*$")
+          ("emacs devel" "^To:.*emacs-devel@gnu.org.*")
+          ("emacs devel" "^CC:.*emacs-devel@gnu.org.*")
+          ("bug-hurd" "^To:.*bug-hurd@gnu.org.*")
+          ("bug-hurd" "^Cc:.*bug-hurd@gnu.org.*")))
 
 (add-hook 'kill-emacs-hook #'(lambda ()
                                (interactive)

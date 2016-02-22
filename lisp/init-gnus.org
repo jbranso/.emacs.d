@@ -413,14 +413,16 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
 I used to have this say nnmail-split methods, but I'm not using the nnmail backend!  I'm using nnimap.  Maybe this will actually let gnus properly split my mail into proper topics.
 
    #+BEGIN_SRC emacs-lisp
-     (setq nnimap-split-methods
+   ;;(setq nnimap-split-method-default)
+
+     (setq nnmail-split-methods
            '(("Accrisoft Support" "^From:.*support@accrisoft.com.*")
              ("Basecamp" "^From:.*notifications@basecamp.com.*")
              ("arch" "^To:.*arch-general@archlinux.org.*$")
+             ("emacs devel" "^To:.*emacs-devel@gnu.org.*")
+             ("emacs devel" "^CC:.*emacs-devel@gnu.org.*")
              ("bug-hurd" "^To:.*bug-hurd@gnu.org.*")
-             ("bug-hurd" "^Cc:.*bug-hurd@gnu.org.*")
-             ;; if an email comes from bransoj@hotmail.com, then we'll put it into testing, and see if this works
-             ("mail.testing" "^From:.*bransoj@hotmail.com.*$")))
+             ("bug-hurd" "^Cc:.*bug-hurd@gnu.org.*")))
    #+END_SRC
 
 ** close gnus when you exit emacs.
