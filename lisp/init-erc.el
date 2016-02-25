@@ -1,5 +1,4 @@
-(use-package erc
-  :defer t)
+(use-package erc :defer t)
 
 ;; Load authentication info from an external source.  Put sensitive
 ;; passwords and the like in here.
@@ -55,6 +54,12 @@ stuff, to the current ERC buffer."
 ;; is useful when using a bouncer like ZNC where you have multiple
 ;; connections to the same server.
 (setq erc-rename-buffers t)
+
+(setq
+ ;; set the default nick
+ erc-nick "joshuaBPMan"
+ ;; don't prompt me for my password erc should know it
+ erc-prompt-for-password nil)
 
 ;; Interpret mIRC-style color commands in IRC chats
 (setq erc-interpret-mirc-color t)

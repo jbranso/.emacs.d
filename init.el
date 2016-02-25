@@ -110,7 +110,7 @@
 (require 'init-grep)
 ;; I don't really ever use erc in emacs.  It's kind of annoying, and it occasionally changes the buffer to
 ;; erc buffers randomly.  Not a fan at the moment.
-;;(require 'init-erc)
+(require 'init-erc)
 (require 'init-eshell)
 ;;(require 'init-term)
 ;; paradox adds some nice features to emacs install packages
@@ -139,9 +139,9 @@
 ;;(org-babel-load-file (concat user-emacs-directory "init-org.org"))
 ;;https://github.com/danielmai/.emacs.d/blob/master/init.el
 ;; init org should NOT be loaded  FIXME the problem is probably with org-mode
-;; (require 'init-org)
+(require 'init-org)
 ;; I also hardly ever use this sx package, which is an amazing package!
- ;;searching stack exchange via emacs!  C-c S
+;;searching stack exchange via emacs!  C-c S
 ;; (use-package sx :ensure t)
 (require 'init-editing-utils)
 ;; let's get modal keybinding working!
@@ -168,8 +168,8 @@
 ;; load a zenburn
 (require 'init-misc)
 ;; smart-mode-line is awesome!
-;; woo hoo!
-;;(require 'init-smart-mode-line)
+;; woo hoo!  I should customize it a bit to make it even prettier
+(require 'init-smart-mode-line)
 
 ;; Make my evil keybindings work pretty much everywhere
 (require 'init-evil-rebellion-clone)

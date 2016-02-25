@@ -5,8 +5,9 @@
 # +OPTIONS: H:4
 * My org use-package declaration
   #+BEGIN_SRC emacs-lisp
-  (use-package org
-  :ensure org-plus-contrib)
+    ;; this is not working right now.
+    ;;(use-package org
+    ;;:ensure org-plus-contrib)
   #+END_SRC
 
   #+RESULTS:
@@ -133,23 +134,23 @@ vUXAVsyOIEsH32nX9FGZiHjL99CVQLjwgILwxhFgD0Yc9FDcWA==
 
   http://orgmode.org/worg/org-contrib/org-mime.html
   I want to figure out how to install this, because I could then write html emails trivially with gnus
-  #+BEGIN_SRC emacs-lisp
-  (require 'org-mime)
+  #+BEGIN_SRC emacs-lisp 
+  ;; (require 'org-mime)
   #+END_SRC
 
   #+RESULTS:
   : org-mime
 
-
    imported code from http://orgmode.org/worg/org-contrib/org-mime.html
 
-for those who use color themes with Dark backgrounds it is useful to set a dark background for all exported code blocks and example regions. This can be accomplished with the following:  And you should totally do this!  it looks SOO COOOL!
+  for those who use color themes with Dark backgrounds it is useful to set a dark background for all exported code blocks and example regions. This can be accomplished with the following:  And you should totally do this!  it looks SOO COOOL!
   #+BEGIN_SRC emacs-lisp
-  (add-hook 'org-mime-html-hook
-          (lambda ()
-            (org-mime-change-element-style
-             "pre" (format "color: %s; background-color: %s; padding: 0.5em;"
-                           "#E6E1DC" "#232323"))))
+    ;; I'm having problems with this
+    ;;(add-hook 'org-mime-html-hook
+    ;;(lambda ()
+    ;;(org-mime-change-element-style
+    ;;"pre" (format "color: %s; background-color: %s; padding: 0.5em;"
+    ;;"#E6E1DC" "#232323"))))
   #+END_SRC
 
   #+RESULTS:
@@ -157,10 +158,11 @@ for those who use color themes with Dark backgrounds it is useful to set a dark 
 
   the following can be used to nicely offset block quotes in email bodies
 #+BEGIN_SRC emacs-lisp
-(add-hook 'org-mime-html-hook
-          (lambda ()
-            (org-mime-change-element-style
-             "blockquote" "border-left: 2px solid gray; padding-left: 4px;")))
+  ;; I'm having problems with this
+  ;;(add-hook 'org-mime-html-hook
+  ;;(lambda ()
+  ;;(org-mime-change-element-style
+  ;;"blockquote" "border-left: 2px solid gray; padding-left: 4px;")))
 #+END_SRC
 
 #+RESULTS:
@@ -171,38 +173,39 @@ end imported code
 
 ** org babel
   #+BEGIN_SRC emacs-lisp
-      (after-load 'org
-        (org-babel-do-load-languages
-         'org-babel-load-languages
-         '(
-           (awk . t)
-           (calc .t)
-           (emacs-lisp . t)
-           (latex . t)
-           ;;(ledger . t)
-           (python . t)
-           (awk . t)
-           (C . t)
-           ;; (ditaa . t)
-           (js . t)
-           ;; (gnuplot . t)
-           ;; org-babel does not currently support php
-           ;;(php . t)
-           (sh . t)
-           (sql . t)
-           ;;(sqlite . t)
-           (gnuplot . t)
-           )))
+    (after-load 'org
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '(
+         (awk . t)
+         (calc .t)
+         (emacs-lisp . t)
+         (latex . t)
+         ;;(ledger . t)
+         (python . t)
+         (awk . t)
+         (C . t)
+         (js . t)
+         ;; (gnuplot . t)
+         ;; org-babel does not currently support php
+         ;;(php . t)
+         (sh . t)
+         (sql . t)
+         ;;(sqlite . t)
+         (gnuplot . t)
+         )))
 
+
+    ;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
+    ;;(ditaa . t)
     ;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
     ;; display inline images in org-mode
     ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
   #+END_SRC
 
   #+RESULTS:
-  : ((awk . t) (calc .t) (emacs-lisp . t) (latex . t) (python . t) (awk . t) (C . t) (js . t) (sh . t) (sql . t) (gnuplot . t))
 
-** org invoice
+  ** org invoice
 
   #+BEGIN_SRC emacs-lisp
     (require 'org-invoice)
@@ -724,7 +727,7 @@ EXT is a list of the extensions of files to be included."
               )
             )
     #+END_SRC
-** I can make add words to the TODO and DONE keywords
+** COMMENT I can make add words to the TODO and DONE keywords
   #+BEGIN_SRC emacs-lisp
   ; Targets start with the file name - allows creating level 1 tasks
     (setq org-refile-use-outline-path (quote file))
@@ -763,8 +766,14 @@ EXT is a list of the extensions of files to be included."
   Apparently I can define a NEXTACTION keyword too. http://thread.gmane.org/gmane.emacs.orgmode/523
 
   #+BEGIN_SRC emacs-lisp
+    ;; I had this set up before, but when I put fancy chars before my todo states my repeating tasks stop working
+    ;; (setq org-todo-keywords
+    ;;       '((sequence "☛ TODO(t!)" "♇ PROJECT(r)" "STARTED(s!)"
+    ;;                   "⚑ DELEGATED(e!)" "☺ CHARGED(c!)" "|" "$ PAID(p!)" "✔ DONE(d!)")))
+
     (setq org-todo-keywords
-    '((sequence "☛ TODO(t!)" "♇ PROJECT(r)" "STARTED(s!)"  "⚑ DELEGATED(e!)" "☺ CHARGED(c!)" "|" "$ PAID(p!)" "✔ DONE(d!)")))
+          '((sequence "TODO(t!)" "PROJECT(r)" "STARTED(s!)"
+                      "DELEGATED(e!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
 
     ;; I'm not sure how to globally set tags.  I would like to know how to do that, so I won't have to specify all the tags
     ;; the top of each agenda document
@@ -784,12 +793,12 @@ EXT is a list of the extensions of files to be included."
     ;;                (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)"))))
 
     ;;(setq org-todo-keyword-faces
-      ;;     '(("TODO" . org-warning) ("STARTED" . "yellow")
-        ;;     ("CANCELED" . (:foreground "blue" :weight bold))))
+    ;;     '(("TODO" . org-warning) ("STARTED" . "yellow")
+    ;;     ("CANCELED" . (:foreground "blue" :weight bold))))
   #+END_SRC
 
   #+RESULTS:
-  | sequence | ☛ TODO(t!) | ♇ PROJECT(r) | STARTED(s!) | ⚑ DELEGATED(e!) | ☺ CHARGED(c!) |   |   | $ PAID(p!) | ✔ DONE(d!) |
+  | sequence | TODO(t!) | ♇ PROJECT(r) | STARTED(s!) | ⚑ DELEGATED(e!) | ☺ CHARGED(c!) |   |   | PAID(p!) | DONE(d!) |
 
 ** Org Clock Settings
   #+BEGIN_SRC emacs-lisp
@@ -871,12 +880,14 @@ try to expand a yasnippet.
 : yas/org-very-safe-expand
 
 #+BEGIN_SRC emacs-lisp
+;; I want to get write-good-mode set up again, because it's awesome.
+;; (use-package write-good-mode :ensure t)
+
 (add-hook 'org-mode-hook '(lambda ()
 
                                 ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
                                 (require 'org-eldoc)
                                 ;;(org-eldoc-load)
-                                ;;(writegood-mode 1)
                                 ;; (make-variable-buffer-local 'yas/trigger-key)
                                 ;;(setq yas/trigger-key [tab])
                                 ;;(add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
@@ -884,8 +895,8 @@ try to expand a yasnippet.
                                 ;; make the lines in the buffer wrap around the edges of the screen.
                                 ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
                                 ;; to press C-c q  or fill-paragraph ever again!
-                                ;; (visual-line-mode)
-                                ;; (org-indent-mode)
+                                ;;(visual-line-mode)
+                                ;;(org-indent-mode)
                                 ;; apparently this does the same thing as the above combined modes
                                 ;; this seems to work better than visual line mode.  Why have I not heard of this before?
                                 (toggle-word-wrap)
@@ -921,6 +932,7 @@ try to expand a yasnippet.
 #+END_SRC
 
 #+RESULTS:
+| (lambda nil (require (quote org-eldoc)) (toggle-word-wrap) (org-bullets-mode 1) (push (quote (>= . 8805)) prettify-symbols-alist) (push (quote (<= . 8804)) prettify-symbols-alist) (push (quote (\geq . 8805)) prettify-symbols-alist) (push (quote (\leq . 8804)) prettify-symbols-alist) (push (quote (\neg . 172)) prettify-symbols-alist) (push (quote (\rightarrow . 8594)) prettify-symbols-alist) (push (quote (\leftarrow . 8592)) prettify-symbols-alist) (push (quote (\infty . 8734)) prettify-symbols-alist) (push (quote (--> . 8594)) prettify-symbols-alist) (push (quote (<-- . 8592)) prettify-symbols-alist) (push (quote (\exists . 8707)) prettify-symbols-alist) (push (quote (\nexists . 8708)) prettify-symbols-alist) (push (quote (\forall . 8704)) prettify-symbols-alist) (push (quote (\or . 8744)) prettify-symbols-alist) (push (quote (\and . 8743)) prettify-symbols-alist) (push (quote (:) . 9786)) prettify-symbols-alist) (push (quote (): . 9785)) prettify-symbols-alist) (push (quote (:D . 9786)) prettify-symbols-alist) (push (quote (\checkmark . 10003)) prettify-symbols-alist) (push (quote (\check . 10003)) prettify-symbols-alist) (push (quote (1/4 . 188)) prettify-symbols-alist) (push (quote (1/2 . 189)) prettify-symbols-alist) (push (quote (3/4 . 190)) prettify-symbols-alist) (push (quote (1/7 . 8528)) prettify-symbols-alist) (push (quote (ae . 230)) prettify-symbols-alist) (push (quote (^_^ . 9787)) prettify-symbols-alist)) | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-show-block-all append local] 5] | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | org-eldoc-load |
 
 * customize org-stuck projects
   C-c a # will list all of your stuck projects.  According to David Allen's Getting Things Done productivity system,

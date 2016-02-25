@@ -54,6 +54,8 @@ _v_: element vanish       _n_: _n_ext element
   )
 
 
+;;(use-package web-mode :ensure t)
+
 ;;I'm not sure what this does
 (setq web-mode-extra-constants '(("php" . ("CONS1" "CONS2"))))
 (setq web-mode-enable-current-column-highlight t)
@@ -112,6 +114,7 @@ _v_: element vanish       _n_: _n_ext element
                   ))))
 
 
+;;(use-package emmet-mode :ensure t)
 (add-hook 'web-mode-hook (lambda ()
                            ;; I've installed http://phpmd.org/ to check my php code using flycheck
                            ;; BUT flycheck mode does NOT support web-mode

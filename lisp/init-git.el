@@ -1,5 +1,6 @@
 ;; TODO: link commits from vc-log to magit-show-commit
 ;; TODO: smerge-mode
+;; I might want to turn off all of purcell's git stuff.  I'm not sure that I need his tweaks.
 
 (use-package magit :defer t :ensure t)
 (require-package 'git-blame)
