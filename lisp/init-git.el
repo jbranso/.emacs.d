@@ -31,12 +31,12 @@
 ;;      ;; force update evil keymaps after git-timemachine-mode loaded
 ;;      (add-hook 'git-timemachine-mode-hook #'evil-normalize-keymaps)))
 
+;; since I'm using helm-mode, magit will use helm-completion for stuff! awesome!
 (setq-default
  magit-save-some-buffers nil
  ;; if a command takes longer than 5 seconds, pop up the process buffer.
  magit-process-popup-time 5
- magit-diff-refine-hunk t
- magit-completing-read-function 'magit-ido-completing-read)
+ magit-diff-refine-hunk t)
 
 ;; Hint: customize `magit-repo-dirs' so that you can use C-u M-F12 to
 ;; quickly open magit on any one of your projects.
@@ -58,7 +58,7 @@
 ;;   )
 
 (after-load 'magit
-   (diminish 'magit-auto-revert-mode))
+  (diminish 'magit-auto-revert-mode))
 
 
 
