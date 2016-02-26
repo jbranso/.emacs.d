@@ -54,7 +54,7 @@ _v_: element vanish       _n_: _n_ext element
   )
 
 
-;;(use-package web-mode :ensure t)
+(use-package web-mode :ensure t)
 
 ;;I'm not sure what this does
 (setq web-mode-extra-constants '(("php" . ("CONS1" "CONS2"))))
@@ -66,6 +66,7 @@ _v_: element vanish       _n_: _n_ext element
 (add-to-list 'auto-mode-alist '("\\.phtml?\\'" . web-mode))
 ;; I want to enable the next line at some point.
 ;; BUT I need to enable the yasnippets for php mode AND fix phpcs, which I have a capture for somewhere
+(use-package php-mode :ensure t)
 (add-to-list 'auto-mode-alist '("\\.php?\\'"  . php-mode))
 ;; when I open a css file use css-mode that way I can set up flychech with it!
 ;;(add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))

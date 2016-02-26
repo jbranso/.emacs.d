@@ -6,8 +6,8 @@
 * My org use-package declaration
   #+BEGIN_SRC emacs-lisp
     ;; this is not working right now.
-    ;;(use-package org
-    ;;:ensure org-plus-contrib)
+    (use-package org
+      :ensure org-plus-contrib)
   #+END_SRC
 
   #+RESULTS:
@@ -134,8 +134,8 @@ vUXAVsyOIEsH32nX9FGZiHjL99CVQLjwgILwxhFgD0Yc9FDcWA==
 
   http://orgmode.org/worg/org-contrib/org-mime.html
   I want to figure out how to install this, because I could then write html emails trivially with gnus
-  #+BEGIN_SRC emacs-lisp 
-  ;; (require 'org-mime)
+  #+BEGIN_SRC emacs-lisp
+  (require 'org-mime)
   #+END_SRC
 
   #+RESULTS:
@@ -377,6 +377,9 @@ end imported code
      ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
      ;; Other interesting characters are ↴, ⬎, ⤷, and ⋱.
      org-ellipsis " ↴"
+     ;; only show times on items in the agenda, if we have an item at a specified time
+     ;; if we set it to true, then we see all the times every 2 hours.  Takes up too much space.
+     org-agenda-use-time-grid nil
      ;;org-ellipsis "⬎"
      ;; org-ellipsis "⤵"
      ;; don't let me accidentally delete text without realizing it in org.  ie: point is buried in a subtree, but you only
@@ -880,55 +883,56 @@ try to expand a yasnippet.
 : yas/org-very-safe-expand
 
 #+BEGIN_SRC emacs-lisp
-;; I want to get write-good-mode set up again, because it's awesome.
-;; (use-package write-good-mode :ensure t)
+  ;; I want to get write-good-mode set up again, because it's awesome.
+  ;; (use-package write-good-mode :ensure t)
 
-(add-hook 'org-mode-hook '(lambda ()
+  (add-hook 'org-mode-hook '(lambda ()
 
-                                ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
-                                (require 'org-eldoc)
-                                ;;(org-eldoc-load)
-                                ;; (make-variable-buffer-local 'yas/trigger-key)
-                                ;;(setq yas/trigger-key [tab])
-                                ;;(add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-                                ;; (define-key yas/keymap [tab] 'yas/next-field)
-                                ;; make the lines in the buffer wrap around the edges of the screen.
-                                ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
-                                ;; to press C-c q  or fill-paragraph ever again!
-                                ;;(visual-line-mode)
-                                ;;(org-indent-mode)
-                                ;; apparently this does the same thing as the above combined modes
-                                ;; this seems to work better than visual line mode.  Why have I not heard of this before?
-                                (toggle-word-wrap)
-                                (org-bullets-mode 1)
-                                ;;make ">=" look like >=, etc.
-                                (push '(">=" . ?≥) prettify-symbols-alist)
-                                (push '("<=" . ?≤) prettify-symbols-alist)
-                                (push '("\\geq" . ?≥) prettify-symbols-alist)
-                                (push '("\\leq" . ?≤) prettify-symbols-alist)
-                                (push '("\\neg" . ?¬) prettify-symbols-alist)
-                                (push '("\\rightarrow" . ?→) prettify-symbols-alist)
-                                (push '("\\leftarrow" . ?←) prettify-symbols-alist)
-                                (push '("\\infty" . ?∞) prettify-symbols-alist)
-                                (push '("-->" . ?→) prettify-symbols-alist)
-                                (push '("<--" . ?←) prettify-symbols-alist)
-                                (push '("\\exists" . ?∃) prettify-symbols-alist)
-                                (push '("\\nexists" . ?∄) prettify-symbols-alist)
-                                (push '("\\forall" . ?∀) prettify-symbols-alist)
-                                (push '("\\or" . ?∨) prettify-symbols-alist)
-                                (push '("\\and" . ?∧) prettify-symbols-alist)
-                                (push '(":)" . ?☺) prettify-symbols-alist)
-                                (push '("):" . ?☹) prettify-symbols-alist)
-                                (push '(":D" . ?☺) prettify-symbols-alist)
-                                (push '("\\checkmark" . ?✓) prettify-symbols-alist)
-                                (push '("\\check" . ?✓) prettify-symbols-alist)
-                                (push '("1/4" . ?¼) prettify-symbols-alist)
-                                (push '("1/2" . ?½) prettify-symbols-alist)
-                                (push '("3/4" . ?¾) prettify-symbols-alist)
-                                (push '("1/7" . ?⅐) prettify-symbols-alist)
-                                ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
-                                (push '("ae" . ?æ) prettify-symbols-alist)
-                                (push '("^_^" . ?☻) prettify-symbols-alist)))
+                                  ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
+                                  ;; but I can't get it to work
+                                  ;;(require 'org-eldoc)
+                                  ;;(org-eldoc-load)
+                                  ;; (make-variable-buffer-local 'yas/trigger-key)
+                                  ;;(setq yas/trigger-key [tab])
+                                  ;;(add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+                                  ;; (define-key yas/keymap [tab] 'yas/next-field)
+                                  ;; make the lines in the buffer wrap around the edges of the screen.
+                                  ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
+                                  ;; to press C-c q  or fill-paragraph ever again!
+                                  ;;(visual-line-mode)
+                                  ;;(org-indent-mode)
+                                  ;; apparently this does the same thing as the above combined modes
+                                  ;; this seems to work better than visual line mode.  Why have I not heard of this before?
+                                  (toggle-word-wrap)
+                                  (org-bullets-mode 1)
+                                  ;;make ">=" look like >=, etc.
+                                  (push '(">=" . ?≥) prettify-symbols-alist)
+                                  (push '("<=" . ?≤) prettify-symbols-alist)
+                                  (push '("\\geq" . ?≥) prettify-symbols-alist)
+                                  (push '("\\leq" . ?≤) prettify-symbols-alist)
+                                  (push '("\\neg" . ?¬) prettify-symbols-alist)
+                                  (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+                                  (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+                                  (push '("\\infty" . ?∞) prettify-symbols-alist)
+                                  (push '("-->" . ?→) prettify-symbols-alist)
+                                  (push '("<--" . ?←) prettify-symbols-alist)
+                                  (push '("\\exists" . ?∃) prettify-symbols-alist)
+                                  (push '("\\nexists" . ?∄) prettify-symbols-alist)
+                                  (push '("\\forall" . ?∀) prettify-symbols-alist)
+                                  (push '("\\or" . ?∨) prettify-symbols-alist)
+                                  (push '("\\and" . ?∧) prettify-symbols-alist)
+                                  (push '(":)" . ?☺) prettify-symbols-alist)
+                                  (push '("):" . ?☹) prettify-symbols-alist)
+                                  (push '(":D" . ?☺) prettify-symbols-alist)
+                                  (push '("\\checkmark" . ?✓) prettify-symbols-alist)
+                                  (push '("\\check" . ?✓) prettify-symbols-alist)
+                                  (push '("1/4" . ?¼) prettify-symbols-alist)
+                                  (push '("1/2" . ?½) prettify-symbols-alist)
+                                  (push '("3/4" . ?¾) prettify-symbols-alist)
+                                  (push '("1/7" . ?⅐) prettify-symbols-alist)
+                                  ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
+                                  (push '("ae" . ?æ) prettify-symbols-alist)
+                                  (push '("^_^" . ?☻) prettify-symbols-alist)))
 #+END_SRC
 
 #+RESULTS:
