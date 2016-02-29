@@ -899,11 +899,11 @@ try to expand a yasnippet.
                                   ;; make the lines in the buffer wrap around the edges of the screen.
                                   ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
                                   ;; to press C-c q  or fill-paragraph ever again!
-                                  ;;(visual-line-mode)
-                                  ;;(org-indent-mode)
+                                  (visual-line-mode)
+                                  (org-indent-mode)
                                   ;; apparently this does the same thing as the above combined modes
                                   ;; this seems to work better than visual line mode.  Why have I not heard of this before?
-                                  (toggle-word-wrap)
+                                  ;;(toggle-word-wrap)
                                   (org-bullets-mode 1)
                                   ;;make ">=" look like >=, etc.
                                   (push '(">=" . ?≥) prettify-symbols-alist)

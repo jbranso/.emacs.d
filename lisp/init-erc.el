@@ -6,6 +6,7 @@
                                       ("freenode.net" "#org-mode")
                                       ;;regular meeting take place every thursday at 19:00 UTC
                                       ("freenode.net" "#hurd")
+                                      ("freenode.net" "#wordpress")
                                       ;;("freenode.net" "#debian-hurd")
                                       ))
   ;; Rename server buffers to reflect the current network name instead

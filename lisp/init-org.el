@@ -1,7 +1,6 @@
-
 ;; this is not working right now.
-;;(use-package org
-;;:ensure org-plus-contrib)
+(use-package org
+  :ensure org-plus-contrib)
 
 ;; define what files org opens
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
@@ -15,7 +14,7 @@
 
 (setq auto-save-default nil)
 
-;; (require 'org-mime)
+(require 'org-mime)
 
 ;; I'm having problems with this
 ;;(add-hook 'org-mime-html-hook
@@ -374,39 +373,6 @@ EXT is a list of the extensions of files to be included."
         )
       )
 
-; Targets start with the file name - allows creating level 1 tasks
-  (setq org-refile-use-outline-path (quote file))
-
-;; I had this set up before, but when I put fancy chars before my todo states my repeating tasks stop working
-;; (setq org-todo-keywords
-;;       '((sequence "☛ TODO(t!)" "♇ PROJECT(r)" "STARTED(s!)"
-;;                   "⚑ DELEGATED(e!)" "☺ CHARGED(c!)" "|" "$ PAID(p!)" "✔ DONE(d!)")))
-
-(setq org-todo-keywords
-      '((sequence "TODO(t!)" "PROJECT(r)" "STARTED(s!)"
-                  "DELEGATED(e!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
-
-;; I'm not sure how to globally set tags.  I would like to know how to do that, so I won't have to specify all the tags
-;; the top of each agenda document
-;; I can apparently also specify org-tag-faces which will make certain tags look certain colors!
-;; why is this big hunk of setq not working?
-;; (setq org-tag-alist '(("waiting(w)" . ?w)
-;; ("action(a)" . ?a) ("career" . ?r) ("community" . ?m) ("gnu" . ?g)
-;; ("someday" . ?o) ("project" . ?p) ("reference" . ?e) ("reward" . ?d))
-
-;; org-tag-faces '(("waiting(w)" . org-warning) ("action(a)" . org-warning)
-;;  ("career" . "green") ("community" . "green") ("gnu" . "green") ("someday" . "yellow")
-;;  ("project" . "blue") ("reference" . "green") ("reward" . "green")))
-
-
-;;  (setq org-todo-keywords
-;;        (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
-;;                (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)"))))
-
-;;(setq org-todo-keyword-faces
-;;     '(("TODO" . org-warning) ("STARTED" . "yellow")
-;;     ("CANCELED" . (:foreground "blue" :weight bold))))
-
 ;; Save the running clock and all clock history when exiting Emacs, load it on startup
 (setq org-clock-persistence-insinuate t)
 (setq org-clock-persist t)
@@ -444,8 +410,6 @@ EXT is a list of the extensions of files to be included."
 (after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
-;; (add-to-list org-structure-template-alist '(("js" "#+BEGIN_SRC js\n?\n ,#+END_SRC")))
-
 (defun yas/org-very-safe-expand ()
     (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
@@ -465,11 +429,11 @@ EXT is a list of the extensions of files to be included."
                                 ;; make the lines in the buffer wrap around the edges of the screen.
                                 ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
                                 ;; to press C-c q  or fill-paragraph ever again!
-                                ;;(visual-line-mode)
-                                ;;(org-indent-mode)
+                                (visual-line-mode)
+                                (org-indent-mode)
                                 ;; apparently this does the same thing as the above combined modes
                                 ;; this seems to work better than visual line mode.  Why have I not heard of this before?
-                                (toggle-word-wrap)
+                                ;;(toggle-word-wrap)
                                 (org-bullets-mode 1)
                                 ;;make ">=" look like >=, etc.
                                 (push '(">=" . ?≥) prettify-symbols-alist)
