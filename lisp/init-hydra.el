@@ -40,8 +40,8 @@
 
 ;;a nice clock in clock out thing from hydra
 ;; https://github.com/abo-abo/hydra/wiki/orgmode
-(defun hydra-global-org (:color blue
-                                :hint nil)
+(defhydra hydra-global-org (:color blue
+                                   :hint nil)
   "
 Timer^^        ^Clock^         ^Capture^
 --------------------------------------------------
@@ -56,7 +56,7 @@ _p_rint
   ("r" org-timer-set-timer)
   ;; Print timer value to buffer
   ("p" org-timer)
-  ("i" (org-clock-in '(4)))
+  ("i" (org-clock-in '(4)) :exit t)
   ("w" org-clock-out)
   ;; Visit the clocked task from any buffer
   ("j" org-clock-goto)
@@ -67,8 +67,8 @@ _p_rint
 ;; This is the hydra that I use with C-c C to clock in and clock out all the time!
 (defhydra hydra-org-timer (:color blue :hint nil)
   "timer"
-  ("i" (org-clock-in '(4))    "clock in")
-  ("o" org-clock-out   "clock out"))
+  ("i" (org-clock-in '(4))    "clock in" :exit t)
+  ("o" org-clock-out   "clock out" :exit t))
 
 (defhydra hydra-apropos (:color blue)
   "Apropos"

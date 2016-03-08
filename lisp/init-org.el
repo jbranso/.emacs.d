@@ -414,7 +414,7 @@ EXT is a list of the extensions of files to be included."
     (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
 ;; I want to get write-good-mode set up again, because it's awesome.
-;; (use-package write-good-mode :ensure t)
+(use-package writegood-mode :ensure t)
 
 (add-hook 'org-mode-hook '(lambda ()
 
@@ -431,6 +431,7 @@ EXT is a list of the extensions of files to be included."
                                 ;; to press C-c q  or fill-paragraph ever again!
                                 (visual-line-mode)
                                 (org-indent-mode)
+                                (require 'writegood-mode)
                                 ;; apparently this does the same thing as the above combined modes
                                 ;; this seems to work better than visual line mode.  Why have I not heard of this before?
                                 ;;(toggle-word-wrap)

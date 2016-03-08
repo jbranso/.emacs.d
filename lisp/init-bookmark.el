@@ -7,16 +7,16 @@ _e_: edit bookmarks     _j_ump to bookmark         _s_: set bookmark
 _r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
 "
   ;; Edit
-  ("e" edit-bookmarks)                ; Up
-  ("r" helm-bookmark-rename)                ; Up
+  ("e" edit-bookmarks :exit t)                ; Up
+  ("r" helm-bookmark-rename :exit t)                ; Up
 
   ;; Jump
-  ("j" bookmark-jump)          ; Show (expand) everything
-  ("J" gnus-bookmark-jump )          ; Show (expand) everything
+  ("j" bookmark-jump :exit t)          ; Show (expand) everything
+  ("J" gnus-bookmark-jump :exit t)          ; Show (expand) everything
 
   ;; Set
-  ("s" bookmark-set)    ; Hide everything but the top-level headings
-  ("S" gnus-bookmark-set)    ; Hide everything but the top-level headings
+  ("s" bookmark-set :exit t)    ; Hide everything but the top-level headings
+  ("S" gnus-bookmark-set :exit t)    ; Hide everything but the top-level headings
 
   ("z" nil "leave"))
 

@@ -55,6 +55,8 @@ _v_: element vanish       _n_: _n_ext element
 
 
 (use-package web-mode :ensure t)
+(use-package emmet-mode :ensure t)
+(use-package ggtags  :ensure t)
 
 ;;I'm not sure what this does
 (setq web-mode-extra-constants '(("php" . ("CONS1" "CONS2"))))

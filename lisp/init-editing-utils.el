@@ -431,7 +431,7 @@ be global."
 ;; (visual-line-mode)
 (global-set-key (kbd "C-c q") #'fill-paragraph)
 ;; search through your current vc project. It's SUPER fast, but you'll need the "silver searcher" installed on your system
-(global-set-key (kbd "C-c s") #'helm-do-ag)
+(global-set-key (kbd "C-c s") #'helm-do-grep-ag)
 ;; this opens up the sx.el program, which lets your read, comment, or write stack overflow questions, which is a popular hacking
 ;; help website.
 (global-set-key (kbd "C-c S") #'sx-search)
