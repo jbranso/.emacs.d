@@ -10,6 +10,7 @@
                                       ("freenode.net" "#deskthority")
                                       ;;("freenode.net" "#debian-hurd")
                                       )
+
         ;; Rename server buffers to reflect the current network name instead
         ;; of SERVER:PORT. (e.g. "freenode" instead of "irc.freenode.net:6667"). This
         ;; is useful when using a bouncer like ZNC where you have multiple

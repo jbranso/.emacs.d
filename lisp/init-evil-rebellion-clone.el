@@ -10,7 +10,7 @@
 (evil-set-initial-state 'git-timemachine-mode 'emacs)
 (evil-set-initial-state 'term-mode 'emacs)
 ;; why is this not working?
-;;(evil-set-initial-state 'info-mode 'emacs)
+(evil-set-initial-state 'info-mode 'emacs)
 (evil-set-initial-state 'help-mode 'emacs)
 (evil-set-initial-state 'helm-grep-mode 'emacs)
 (evil-set-initial-state 'grep-mode 'emacs)
@@ -26,6 +26,11 @@
 (evil-set-initial-state 'woman-mode 'emacs)
 (evil-set-initial-state 'pdf-view-mode 'emacs)
 
+;; trying to make all modes that use motion state, you evil-emacs state by default
+;; https://www.reddit.com/r/evilmode/comments/323xh1/is_it_possible_to_use_vi_keybindings_everywhere/
+;; but it seemed to make it pretty hard to make a commit w/ magit
+;; (setq evil-normal-state-modes (append evil-motion-state-modes evil-emacs-state-modes))
+;; (setq evil-motion-state-modes nil)
 
 (evil-set-initial-state 'dired-mode 'emacs)
 (define-key dired-mode-map (kbd "h") #'dired-next-line)

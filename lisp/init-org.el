@@ -373,6 +373,32 @@ EXT is a list of the extensions of files to be included."
         )
       )
 
+; Targets start with the file name - allows creating level 1 tasks
+  (setq org-refile-use-outline-path (quote file))
+
+;; I had this set up before, but when I put fancy chars before my todo states my repeating tasks stop working
+;; (setq org-todo-keywords
+;;       '((sequence "☛ TODO(t!)" "♇ PROJECT(r)" "STARTED(s!)"
+;;                   "⚑ DELEGATED(e!)" "☺ CHARGED(c!)" "|" "$ PAID(p!)" "✔ DONE(d!)")))
+
+(setq org-todo-keywords
+      '((sequence "TODO(t!)" "PROJECT(r)" "STARTED(s!)"
+                  "WAITING(w!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
+
+;; the top of each agenda document
+;; I can apparently also specify org-tag-faces which will make certain tags look certain colors!
+;; why is this big hunk of setq not working?
+
+;;  (setq org-todo-keywords
+;;        (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
+;;                (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)"))))
+
+(setq org-todo-keyword-faces
+      '(("PROJECT" . "#4da6ff")
+        ("STARTED" . "#ffff99")
+        ("WAITING" . "#ffcc00")
+        ("CHARGED" .  "#e085e0")))
+
 ;; Save the running clock and all clock history when exiting Emacs, load it on startup
 (setq org-clock-persistence-insinuate t)
 (setq org-clock-persist t)

@@ -730,7 +730,7 @@ EXT is a list of the extensions of files to be included."
               )
             )
     #+END_SRC
-** COMMENT I can make add words to the TODO and DONE keywords
+** I can make add words to the TODO and DONE keywords
   #+BEGIN_SRC emacs-lisp
   ; Targets start with the file name - allows creating level 1 tasks
     (setq org-refile-use-outline-path (quote file))
@@ -791,6 +791,8 @@ EXT is a list of the extensions of files to be included."
             ("STARTED" . "#ffff99")
             ("WAITING" . "#ffcc00")
             ("CHARGED" .  "#e085e0")))
+
+
   #+END_SRC
 
   #+RESULTS:
