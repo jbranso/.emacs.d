@@ -123,6 +123,8 @@
 ;;yasnippet needs to be loaded before auto complete to let them play nicely together
 (require 'init-yasnippet)
 ;; collection of IDE like features.  I can't get 'em to work
+;; I should probably just try out company mode and forget about cedet.  Apparently semantic will work with
+;; company mode anyway
 (require 'init-cedet)
 ;; downcase words like THe and BEautiful
 ;; This is probably how I can embed yasnippets into various modes
