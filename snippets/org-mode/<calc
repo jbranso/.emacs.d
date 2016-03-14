@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: <calc
+# key: <calc
+# --
+#+BEGIN_SRC calc
+$0
+#+END_SRC
