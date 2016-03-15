@@ -25,6 +25,8 @@
 (evil-set-initial-state 'paradox-menu-mode 'emacs)
 (evil-set-initial-state 'woman-mode 'emacs)
 (evil-set-initial-state 'pdf-view-mode 'emacs)
+;; this is needed for committing git messages.  It's annoying to have to press i every time I want make a git commit
+(evil-set-initial-state 'text-mode 'insert)
 
 ;; trying to make all modes that use motion state, you evil-emacs state by default
 ;; https://www.reddit.com/r/evilmode/comments/323xh1/is_it_possible_to_use_vi_keybindings_everywhere/

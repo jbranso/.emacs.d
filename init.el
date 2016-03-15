@@ -151,6 +151,9 @@
 ;; set up info to use the windmove commands!
 (require 'init-info)
 
+;; the upstream git repo is apparently broken now,  I'll get this fixed later
+;;(require 'init-lua)
+
 ;; http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html
 ;;(require 'init-darcs)
 (require 'init-git)
