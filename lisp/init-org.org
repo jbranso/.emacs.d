@@ -172,7 +172,12 @@ vUXAVsyOIEsH32nX9FGZiHjL99CVQLjwgILwxhFgD0Yc9FDcWA==
 end imported code
 
 ** org babel
+Org babel lets you run code snippets inside org-mode!  It's a great literate programming environment!
+
   #+BEGIN_SRC emacs-lisp
+  ;; ob-http is needed to run http calls inside org-mode
+  (use-package ob-http :ensure t)
+
     (after-load 'org
       (org-babel-do-load-languages
        'org-babel-load-languages
@@ -184,6 +189,7 @@ end imported code
          ;;(ledger . t)
          (python . t)
          (awk . t)
+         (http . t)
          (C . t)
          (js . t)
          ;; (gnuplot . t)

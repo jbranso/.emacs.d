@@ -7,7 +7,10 @@
                                       ;;regular meeting take place every thursday at 19:00 UTC
                                       ("freenode.net" "#hurd")
                                       ("freenode.net" "#wordpress")
+                                      ;; get questions answered about building your own keyboard
                                       ("freenode.net" "#deskthority")
+                                      ;; https://www.parabola.nu/
+                                      ("freenode.net" "#parabola")
                                       ;;("freenode.net" "#debian-hurd")
                                       )
 
