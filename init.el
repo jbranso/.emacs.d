@@ -161,7 +161,7 @@
 
 (require 'init-lisp)
 (require 'init-javascript)
-
+(require 'init-smart-comment)
 (require 'init-html)
 ;;(require 'init-org2blog)
 (require 'init-css)

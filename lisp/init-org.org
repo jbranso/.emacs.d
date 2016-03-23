@@ -184,21 +184,21 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
        '(
          (awk . t)
          (calc .t)
+         (C . t)
          (emacs-lisp . t)
+         (gnuplot . t)
          (latex . t)
          ;;(ledger . t)
-         (python . t)
-         (awk . t)
-         (http . t)
-         (C . t)
          (js . t)
+         (haskell . t)
+         (http . t)
+         (python . t)
          ;; (gnuplot . t)
          ;; org-babel does not currently support php
          ;;(php . t)
          (sh . t)
          (sql . t)
          ;;(sqlite . t)
-         (gnuplot . t)
          )))
 
 

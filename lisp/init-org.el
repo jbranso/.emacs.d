@@ -29,34 +29,38 @@
 ;;(org-mime-change-element-style
 ;;"blockquote" "border-left: 2px solid gray; padding-left: 4px;")))
 
-(after-load 'org
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '(
-     (awk . t)
-     (calc .t)
-     (emacs-lisp . t)
-     (latex . t)
-     ;;(ledger . t)
-     (python . t)
-     (awk . t)
-     (C . t)
-     (js . t)
-     ;; (gnuplot . t)
-     ;; org-babel does not currently support php
-     ;;(php . t)
-     (sh . t)
-     (sql . t)
-     ;;(sqlite . t)
-     (gnuplot . t)
-     )))
+;; ob-http is needed to run http calls inside org-mode
+(use-package ob-http :ensure t)
+
+  (after-load 'org
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '(
+       (awk . t)
+       (calc .t)
+       (C . t)
+       (emacs-lisp . t)
+       (gnuplot . t)
+       (latex . t)
+       ;;(ledger . t)
+       (js . t)
+       (haskell . t)
+       (http . t)
+       (python . t)
+       ;; (gnuplot . t)
+       ;; org-babel does not currently support php
+       ;;(php . t)
+       (sh . t)
+       (sql . t)
+       ;;(sqlite . t)
+       )))
 
 
-;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
-;;(ditaa . t)
-;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
-;; display inline images in org-mode
-;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+  ;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
+  ;;(ditaa . t)
+  ;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
+  ;; display inline images in org-mode
+  ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
 (require 'org-invoice)
 

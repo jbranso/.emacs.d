@@ -322,7 +322,8 @@ already narrowed."
 (global-set-key (kbd "C-c SPC") #'just-one-space)
 ;; some modes my default / in normal mode is NOT bound to helm-swoop, BUT I REALLY LIKE helm-swoop
 (global-set-key (kbd "C-c /") #'helm-swoop)
-(global-set-key (kbd "C-c ;") #'comment-dwim)
+;; this is bound in init-smart-comment.el
+;;(global-set-key (kbd "C-c ;") #'comment-dwim)
 ;;(define-key global-map (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c b") #'eval-buffer)
