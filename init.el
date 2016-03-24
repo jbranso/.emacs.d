@@ -152,7 +152,7 @@
 (require 'init-info)
 
 ;; the upstream git repo is apparently broken now,  I'll get this fixed later
-;;(require 'init-lua)
+(require 'init-lua)
 
 ;; http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html
 ;;(require 'init-darcs)
@@ -185,6 +185,9 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+;; ert is the emacs lisp regression test.  It lets you test that your lisp files
+;; pass defined tests
+(require 'init-ert)
 
 ;;----------------------------------------------------------------------------
 ;; Locales (setting them earlier in this file doesn't work in X)
