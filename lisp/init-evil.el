@@ -5,12 +5,20 @@
   :diminish undo-tree-mode
   :config (evil-mode 1))
 
+;; TODO evil-surround is broken!
+;; I can't do the basic examples found here: https://github.com/timcharper/evil-surround
 (use-package evil-surround
   :ensure t
   :config
   (global-evil-surround-mode 1)
-  (push '(?* . ("*" . "*")) evil-surround-pairs-alist)
-  (push '(?/ . ("/" . "/")) evil-surround-pairs-alist))
+  ;; for all programming modes and text modes, make * and / a surround pair
+  ;; but this is not working
+  ;;  * hello *  with point on hello "ds*" and "cs*'" does not work
+  (dolist (hook '(prog-mode-hook
+                  text-mode-hook))
+    (add-hook hook (lambda ()
+                     (push '(?* . ("*" . "*")) evil-surround-pairs-alist)
+                     (push '(?/ . ("/" . "/")) evil-surround-pairs-alist)))))
 
 ;;Do not move the cursor back when exiting insert mode.
 (setq evil-move-cursor-back nil)

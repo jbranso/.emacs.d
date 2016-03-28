@@ -22,6 +22,9 @@
 ;;(load-file "/home/joshua/.emacs.d/cedet/cedet-devel-load.el")
 ;; https://github.com/jwiegley/use-package
 
+;; this is supposed to be a big performance win
+;; https://www.reddit.com/r/emacs/comments/4c0mi3/the_biggest_performance_improvement_to_emacs_ive/h
+(remove-hook 'find-file-hooks 'vc-find-file-hook)
 (require 'init-utils)
 (require 'init-elpa)      ;; Machinery for installing required packages
 ;;(require 'init-exec-path) ;; Set up $PATH
@@ -122,6 +125,7 @@
 ;;(require 'init-uniquify)
 ;;yasnippet needs to be loaded before auto complete to let them play nicely together
 (require 'init-yasnippet)
+(require 'init-mediawiki)
 ;; collection of IDE like features.  I can't get 'em to work
 ;; I should probably just try out company mode and forget about cedet.  Apparently semantic will work with
 ;; company mode anyway

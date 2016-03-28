@@ -2,6 +2,7 @@
   :init
   ;; Join the #emacs and #erc channels whenever connecting to Freenode.
   (setq erc-autojoin-channels-alist '(
+                                      ("freenode.net" "#arch")
                                       ("freenode.net" "#emacs")
                                       ("freenode.net" "#org-mode")
                                       ;;regular meeting take place every thursday at 19:00 UTC

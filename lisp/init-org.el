@@ -50,6 +50,7 @@
        ;; (gnuplot . t)
        ;; org-babel does not currently support php
        ;;(php . t)
+       (R . t)
        (sh . t)
        (sql . t)
        ;;(sqlite . t)

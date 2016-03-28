@@ -17,5 +17,16 @@
   (should (not (equal nil
                       (s-match "helm-swoop" (describe-key-briefly (kbd "C-c /")))))))
 
+(ert-deftest C-c-keybindings ()
+
+  (should (not (equal nil
+                      (s-match "org-capture" (describe-key-briefly (kbd "C-c c"))))))
+
+  (should (not (equal nil
+                      (s-match "helm-M-x" (describe-key-briefly (kbd "C-c e"))))))
+
+  (should (not (equal nil
+                      (s-match "helm-swoop" (describe-key-briefly (kbd "C-c /")))))))
+
 
 (provide 'init-ert)

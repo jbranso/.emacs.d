@@ -40,15 +40,15 @@ insert _N_umbers left       C-x r i R                      C-u number C-x r + r
   C-x r N                   C-x r s R
 "
   ;; Store
-  ("n" my/number-to-register)
-  ("N" rectangle-number-lines)
+  ("n" my/number-to-register :exit t)
+  ("N" rectangle-number-lines :exit t)
 
   ;; Insert
-  ("i" my/insert-register)          ; Show (expand) everything
-  ("t" copy-to-register)          ; Show (expand) everything
+  ("i" my/insert-register :exit t)          ; Show (expand) everything
+  ("t" copy-to-register :exit t)          ; Show (expand) everything
 
   ;; Increase
-  ("I" my/increment-register)    ; Hide everything but the top-level headings
+  ("I" my/increment-register  :exit t)    ; Hide everything but the top-level headings
 
   ("g" nil "leave"))
 
