@@ -72,9 +72,7 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
    #+BEGIN_SRC emacs-lisp
      (setq
       message-signature
-      "<hr>\nJoshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\n
-      https://www.gnu.org/software/emacs/")
-
+      "<hr>\nJoshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\nhttps://www.gnu.org/software/emacs/")
    #+END_SRC
 
 ** Making Gnus prettier

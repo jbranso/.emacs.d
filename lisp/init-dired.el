@@ -33,8 +33,7 @@
             (lambda ()
               (guide-key/add-local-guide-key-sequence "%")
               ;; omit boring files: backup files, etc.
-              (dired-omit-mode 1)
-              )))
+              (dired-omit-mode 1))))
 
 ;;(advice-add 'dired-goto-file :after 'dired-find-file)
 ;;(add-function (dired-goto-file FILE) :after 'dired-find-file)

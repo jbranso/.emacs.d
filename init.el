@@ -93,6 +93,8 @@
 ;;(require 'init-forecast)
 ;; emacs can read the mail
 (require 'init-gnus)
+;; read email in emacs
+(require 'init-mu4e)
 ;; show on the fringe of the buffer if this part of the file needs to be committed to git
 (require 'init-vc)
 (require 'init-gui-frames)
