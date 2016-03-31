@@ -18,7 +18,13 @@
   (setq sml/theme 'powerline)
   ;; emacs keeps prompting me to run the smart-mode-line-theme.  This is a word around that I found on github
   (setq sml/no-confirm-load-theme t)
+  (setq powerline-arrow-shape 'curve)
+  (setq powerline-default-separator-dir '(right . left))
+  (setq sml/mode-width 0)
+  ;; this makes sure that the mode line doesn't go off the screen
+  (setq sml/name-width 40)
   (sml/setup))
+
 
 ;;(setq powerline-evil-tag 'verbose)
 

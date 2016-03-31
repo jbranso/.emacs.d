@@ -1,5 +1,12 @@
-;; this is not working right now.
+(defun my-just-one-space ()
+  (interactive)
+  (if (org-at-table-p)
+      (org-table-blank-field)
+    (just-one-space)))
+
 (use-package org
+  :bind (:map org-mode-map
+              ("C-c SPC" . my-just-one-space))
   :ensure org-plus-contrib)
 
 ;; define what files org opens
@@ -333,15 +340,15 @@ EXT is a list of the extensions of files to be included."
         ;; ("w" todo "WAITING")
         ;; ("w" todo "WAITING")
 
-        ("D" todo "⚑ DELEGATED" )
+        ("D" todo "DELEGATED" )
 
         ;; the same search bit with searching for projects
-        ("P" todo "♇ PROJECT")
+        ("P" todo "PROJECT")
 
 
         ("S" todo "STARTED" )
 
-        ("c" todo "☺ CHARGED")
+        ("c" todo "CHARGED")
 
         ;; the same search but only in the current buffer and displaying the
         ;; results as a sparse tree

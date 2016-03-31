@@ -4,6 +4,7 @@
 
 ;; simple setup taken from here
 ;; [[info:emms#Quickstart%20Guide][info:emms#Quickstart Guide]]
+(use-package emms :ensure t)
 (require 'emms-setup)
 (emms-all)
 (emms-default-players)
