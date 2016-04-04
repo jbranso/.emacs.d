@@ -70,6 +70,8 @@
   ;; display inline images in org-mode
   ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
+(setq org-src-window-setup 'current-window)
+
 (require 'org-invoice)
 
 (require 'org-notify)

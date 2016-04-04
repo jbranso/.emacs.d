@@ -221,7 +221,20 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
 
   #+RESULTS:
 
-  ** org invoice
+  To edit a source code block, with point on the src block, type "C-c '".  For example move point to the next "#" on the
+  =#+BEGIN_SRC= block, then type "C-c '".
+  #+BEGIN_SRC org
+    ,#+BEGIN_SRC
+    // code
+    ,#+END_SRC
+  #+END_SRC
+
+  The default behavior is to split the window into two windows, with the org document on top, and an embedded window on the bottom that has the source code.  I would prefer if it just opened in the same window, so I'll run this code, which just makes the embedded code run in the current window:
+
+  #+BEGIN_SRC emacs-lisp
+    (setq org-src-window-setup 'current-window)
+  #+END_SRC
+** org invoice
 
   #+BEGIN_SRC emacs-lisp
     (require 'org-invoice)
