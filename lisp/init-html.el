@@ -69,7 +69,7 @@ _v_: element vanish       _n_: _n_ext element
 ;; I want to enable the next line at some point.
 ;; BUT I need to enable the yasnippets for php mode AND fix phpcs, which I have a capture for somewhere
 (use-package php-mode :ensure t)
-(add-to-list 'auto-mode-alist '("\\.php?\\'"  . php-mode))
+(add-to-list 'auto-mode-alist '("\\.php?\\'"  . web-mode))
 ;; when I open a css file use css-mode that way I can set up flychech with it!
 ;;(add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-mode))

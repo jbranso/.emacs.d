@@ -2,7 +2,7 @@
 ;;; Code:
 (use-package s :ensure t)
 
-(require 'erc)
+(require 'ert)
 
 ;; this test checks to see if my C-c . keybindings work
 (ert-deftest C-c-keybindings ()
