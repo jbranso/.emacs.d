@@ -63,7 +63,7 @@
        ;;(sqlite . t)
        )))
 
-
+       (setq org-latex-create-formula-image-program 'imagemagick)
   ;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
   ;;(ditaa . t)
   ;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
