@@ -765,7 +765,7 @@ EXT is a list of the extensions of files to be included."
     (setq org-refile-use-outline-path (quote file))
   #+END_SRC
 
-  #+RESULTS:
+
   : file
 
   I want to make specific TODO states.  Anything after the "|" is marked completed and appears green.  Anything before it, shows

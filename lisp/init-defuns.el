@@ -94,6 +94,11 @@
   (call-process-shell-command "start-httpd" nil nil)
   (message "httpd.service started."))
 
+(defun filezilla ()
+  "This starts filezilla"
+  (interactive)
+  (async-shell-command "filezilla"))
+
 
 ;; this writes the current file to the live soihub server
 (defun soihub-save-this-buffer-to-live-server ()
@@ -242,3 +247,9 @@
           (if this-win-2nd (other-window 1))))))
 
 (provide 'init-defuns)
+
+;; make a helm-function that looks for STARTED areas in my org files that I can click to clock into
+(defun org-find-logbook-headlines ()
+  (interactive)
+  (helm :sources '((1 2 3 4 5)) :buffer "*helm clock*" :candidate-number-limit 30)
+  )
