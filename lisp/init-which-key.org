@@ -1,0 +1,19 @@
+#+TITLE: Which key
+#+Author: Joshua Branson
+
+Which key displays your keybindings for your emacs major mode.  It might be better than guide-key.el
+
+#+CAPTION: Which key displays the current major mode's keybindings
+#+NAME:   fig:which-key
+[[~/.emacs.d/images/which-key.png]]
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key :ensure t
+    :config (which-key-mode))
+
+    (provide 'init-which-key)
+#+END_SRC
+
+#+RESULTS:
+: init-which-key

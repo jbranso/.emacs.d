@@ -9,21 +9,22 @@
 
 ;; http://endlessparentheses.com/beacon-never-lose-your-cursor-again.html?source=rss
 ;; whenever you jump a line down or jump a line up, beacon flashes a little but.  pretty cool.
-(use-package beacon :ensure t)
-(beacon-mode 1)
-(setq beacon-push-mark 35)
-(setq beacon-color "#666600")
+;; since I am highlighting the current line, I don't really need beacon on
+;; (use-package beacon :ensure t)
+;; (beacon-mode 1)
+;; (setq beacon-push-mark 35)
+;; (setq beacon-color "#666600")
 
 ;; make it easy to switch to various windows inside one emacs frames using windmove
 (add-hook 'evil-mode-hook '( lambda ()
-          (define-key evil-emacs-state-map (kbd "C-w h") 'windmove-down)
-          (define-key evil-emacs-state-map (kbd "C-w t") 'windmove-up)
-          (define-key evil-emacs-state-map (kbd "C-w n") 'windmove-left)
-          (define-key evil-emacs-state-map (kbd "C-w s") 'windmove-right)
-          (define-key evil-normal-state-map (kbd "C-w h") 'windmove-down)
-          (define-key evil-normal-state-map (kbd "C-w t") 'windmove-up)
-          (define-key evil-normal-state-map (kbd "C-w n") 'windmove-left)
-          (define-key evil-normal-state-map (kbd "C-w s") 'windmove-right)))
+                             (define-key evil-emacs-state-map (kbd "C-w h") 'windmove-down)
+                             (define-key evil-emacs-state-map (kbd "C-w t") 'windmove-up)
+                             (define-key evil-emacs-state-map (kbd "C-w n") 'windmove-left)
+                             (define-key evil-emacs-state-map (kbd "C-w s") 'windmove-right)
+                             (define-key evil-normal-state-map (kbd "C-w h") 'windmove-down)
+                             (define-key evil-normal-state-map (kbd "C-w t") 'windmove-up)
+                             (define-key evil-normal-state-map (kbd "C-w n") 'windmove-left)
+                             (define-key evil-normal-state-map (kbd "C-w s") 'windmove-right)))
 
 ;; (add-hook 'debugger-mode-hook '( lambda ()
 ;;                                  (define-key debugger-mode-map (kbd "C-w h") 'windmove-down)

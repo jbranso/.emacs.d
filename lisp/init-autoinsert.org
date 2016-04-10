@@ -1,0 +1,19 @@
+This file configures emacs to [[https://www.gnu.org/software/emacs/manual/html_node/autotype/Autoinserting.html][autoinsert text]] into an empty buffer.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'find-file-hook 'auto-insert)
+#+END_SRC
+
+Auto-insertion of a buffer is completed via the variable =auto-insert-alist=.  If CONDITION is met, then ACTION is done.
+=(add-to-list auto-insert-alist '((CONDITION . DESCRIPTION) . ACTION))=
+CONDITION may be a regexp that matches the file name or a symbol that matches the major mode.
+ACTION may be a function or a filename found in auto-insert-directory.
+
+#+BEGIN_SRC emacs-lisp
+  ;;(add-to-list auto-insert-alist '(('webmode . "The default template to open in webmode") . ACTION))
+#+END_SRC
+
+Provide this file:
+#+BEGIN_SRC emacs-lisp
+(provide 'init-autoinsert)
+#+END_SRC

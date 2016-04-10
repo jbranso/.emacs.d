@@ -60,8 +60,11 @@
 ;;(require 'init-slack)
 (require 'init-pdf-tools)
 (require 'init-wgrep)
+;; insert text into buffer you create them
+(require 'init-autoinsert)
 ;; turn on abbrev mode.  it implements autocorrect
 (require 'init-abbrev)
+(require 'init-which-key)
 ;; make emacs indent your code all the time, so you don't have to
 (require 'init-aggressive-indent)
 (require 'init-avy)

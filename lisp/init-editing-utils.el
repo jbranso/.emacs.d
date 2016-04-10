@@ -521,32 +521,33 @@ be global."
 
 
 
+;; which key is SOOO much better than guide-key!!!
 ;; This package pops up a buffer, when a key prefix is hit, that shows what keys the user can now hit to use a command.
-(use-package guide-key
-  :ensure t
-  :diminish guide-key-mode
-  ;; init loads stuff before a package is loaded
-  :init (setq guide-key/guide-key-sequence '("C-x"
-                                             ;; this is for my personal keybindings
-                                             ;; guide-key is causing issues when I do this in org-mode
-                                             ;; "C-c"
-                                             "C-x 4"
-                                             ;; this is for creating frames
-                                             "C-x 5"
-                                             ;; this is for narrowing commands
-                                             "C-x n"
-                                             ;; this is also for projectile?
-                                             "C-c p s"
-                                             ;;this is for helm keys
-                                             "C-c h"
-                                             ;; this is for another helm info thing
-                                             "C-c h h"
-                                             ;; this is for register commands
-                                             "C-x r"
-                                             ;; this is for org-babel commands
-                                             "C-c C-v"))
-  ;; config does stuff after a package is loaded
-  :config (guide-key-mode 1))
+;; (use-package guide-key
+;;   :ensure t
+;;   :diminish guide-key-mode
+;;   ;; init loads stuff before a package is loaded
+;;   :init (setq guide-key/guide-key-sequence '("C-x"
+;;                                              ;; this is for my personal keybindings
+;;                                              ;; guide-key is causing issues when I do this in org-mode
+;;                                              ;; "C-c"
+;;                                              "C-x 4"
+;;                                              ;; this is for creating frames
+;;                                              "C-x 5"
+;;                                              ;; this is for narrowing commands
+;;                                              "C-x n"
+;;                                              ;; this is also for projectile?
+;;                                              "C-c p s"
+;;                                              ;;this is for helm keys
+;;                                              "C-c h"
+;;                                              ;; this is for another helm info thing
+;;                                              "C-c h h"
+;;                                              ;; this is for register commands
+;;                                              "C-x r"
+;;                                              ;; this is for org-babel commands
+;;                                              "C-c C-v"))
+;;   ;; config does stuff after a package is loaded
+;;   :config (guide-key-mode 1))
 
 ;; delete any trailing whitespace any your buffer on save
 (add-hook 'before-save-hook

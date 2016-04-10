@@ -2,8 +2,7 @@
 
 (setq
  message-signature
- "<hr>\nJoshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\n
- https://www.gnu.org/software/emacs/")
+ "<hr>\nJoshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\nhttps://www.gnu.org/software/emacs/")
 
 (setq  gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n")
 
@@ -99,14 +98,15 @@ gnus-ignored-from-addresses bbdb-user-mail-address-re)
 
 ;;(setq nnimap-split-method-default)
 
-  (setq nnmail-split-methods
-        '(("Accrisoft Support" "^From:.*support@accrisoft.com.*")
-          ("Basecamp" "^From:.*notifications@basecamp.com.*")
-          ("arch" "^To:.*arch-general@archlinux.org.*$")
-          ("emacs devel" "^To:.*emacs-devel@gnu.org.*")
-          ("emacs devel" "^CC:.*emacs-devel@gnu.org.*")
-          ("bug-hurd" "^To:.*bug-hurd@gnu.org.*")
-          ("bug-hurd" "^Cc:.*bug-hurd@gnu.org.*")))
+(setq nnmail-split-methods
+      '(("Accrisoft Support" "^From:.*support@accrisoft.com.*$")
+        ("Basecamp" "^From:.*notifications@basecamp.com.*$")
+        ("arch" "^To:.*arch-general@archlinux.org.*$")
+        ("emacs devel" "^To:.*emacs-devel@gnu.org.*$")
+        ("emacs devel" "^CC:.*emacs-devel@gnu.org.*$")
+        ("bug-hurd" "^To:.*bug-hurd@gnu.org.*$")
+        ("emacs bugs" "^CC:.*@debbugs.gnu.org.*$")
+        ("bug-hurd" "^Cc:.*bug-hurd@gnu.org.*$")))
 
 (add-hook 'kill-emacs-hook #'(lambda ()
                                (interactive)
