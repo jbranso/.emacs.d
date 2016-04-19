@@ -64,6 +64,8 @@
 (require 'init-autoinsert)
 ;; turn on abbrev mode.  it implements autocorrect
 (require 'init-abbrev)
+;; this package is like guide-key, but better.  As you start to type a keychord, but then forget how to finish it,
+;; which-key will bring up a small buffer to show you possible completions.
 (require 'init-which-key)
 ;; make emacs indent your code all the time, so you don't have to
 (require 'init-aggressive-indent)
@@ -173,6 +175,8 @@
 
 (require 'init-lisp)
 (require 'init-javascript)
+;; (smart-comment) is bound to "C-c ;"  Depending on the content, it adds a comment
+;; or removes one.  It's pretty cool!
 (require 'init-smart-comment)
 (require 'init-html)
 ;;(require 'init-org2blog)
@@ -211,4 +215,4 @@
 ;; no-byte-compile: t
 ;; End:
 ;;; init.el ends here
-(put 'scroll-left 'disabled nil)
+;;(put 'scroll-left 'disabled nil)
