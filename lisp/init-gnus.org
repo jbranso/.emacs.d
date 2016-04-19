@@ -414,15 +414,17 @@ I used to have this say nnmail-split methods, but I'm not using the nnmail backe
      ;;(setq nnimap-split-method-default)
 
      (setq nnmail-split-methods
-           '(("Accrisoft Support" "^From:.*support@accrisoft.com.*$")
+           '(
+           ("Accrisoft Support" "^From:.*support@accrisoft.com.*$")
              ("Basecamp" "^From:.*notifications@basecamp.com.*$")
              ("arch" "^To:.*arch-general@archlinux.org.*$")
              ("emacs devel" "^To:.*emacs-devel@gnu.org.*$")
              ("emacs devel" "^CC:.*emacs-devel@gnu.org.*$")
              ("bug-hurd" "^To:.*bug-hurd@gnu.org.*$")
              ("emacs bugs" "^CC:.*@debbugs.gnu.org.*$")
-             ("bug-hurd" "^Cc:.*bug-hurd@gnu.org.*$")))
-
+             ("bug-hurd" "^Cc:.*bug-hurd@gnu.org.*$")
+             )
+             )
 
    #+END_SRC
 

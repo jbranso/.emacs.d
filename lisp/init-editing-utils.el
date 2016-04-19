@@ -326,7 +326,10 @@ already narrowed."
 ;;(global-set-key (kbd "C-c ;") #'comment-dwim)
 ;;(define-key global-map (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c b") #'eval-buffer)
+(global-set-key (kbd "C-c b") #'(lambda ()
+                                  "Switch to the previous buffer"
+                                  (interactive)
+                                  (switch-to-buffer nil)))
 (global-set-key (kbd "C-c B") #'browse-kill-ring)
 (global-set-key (kbd "C-c C") #'hydra-org-timer/body)
 ;;org-capture is SOOO helpful!!

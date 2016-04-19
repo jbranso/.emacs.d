@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: <example
+# key: <example
+# `(if (region-active-p)
+# (concat "#+BEGIN_EXAMPLE\n" yas-selected-text "#+END_EXAMPLE") )
+# (concat "#+BEGIN_EXAMPLE\n$0\n#+END_EXAMPLE" )`
+# --
+#+BEGIN_EXAMPLE
+$0
+#+END_EXAMPLE

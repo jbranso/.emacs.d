@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: <ledger
+# key: <ledger
+# --
+#+BEGIN_SRC ledger
+$0
+#+END_SRC

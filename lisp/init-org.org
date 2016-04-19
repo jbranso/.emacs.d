@@ -229,11 +229,6 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
     ,#+END_SRC
   #+END_SRC
 
-  The default behavior is to split the window into two windows, with the org document on top, and an embedded window on the bottom that has the source code.  I would prefer if it just opened in the same window, so I'll run this code, which just makes the embedded code run in the current window:
-
-  #+BEGIN_SRC emacs-lisp
-    (setq org-src-window-setup 'current-window)
-  #+END_SRC
 ** org invoice
 
   #+BEGIN_SRC emacs-lisp
@@ -394,6 +389,76 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
 
    #+RESULTS:
    : org-habit
+
+* My Org-mode-hook
+Org-mode does not play well with yasnippet.  So this function that I got here [[info:org#Conflicts][info:org#Conflicts]] should help
+with making yasnippet play well with org-mode.  It seems to 1st make TAB try to do any org expanding, then it'll
+try to expand a yasnippet.
+
+#+BEGIN_SRC emacs-lisp
+(defun yas/org-very-safe-expand ()
+    (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+#+END_SRC
+
+#+RESULTS:
+: yas/org-very-safe-expand
+
+#+BEGIN_SRC emacs-lisp
+  ;; I want to get write-good-mode set up again, because it's awesome.
+  (use-package writegood-mode :ensure t)
+
+  (add-hook 'org-mode-hook '(lambda ()
+
+                                  ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
+                                  ;; but I can't get it to work
+                                  ;;(require 'org-eldoc)
+                                  ;;(org-eldoc-load)
+                                  ;; (make-variable-buffer-local 'yas/trigger-key)
+                                  ;;(setq yas/trigger-key [tab])
+                                  ;;(add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+                                  ;; (define-key yas/keymap [tab] 'yas/next-field)
+                                  ;; make the lines in the buffer wrap around the edges of the screen.
+                                  ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
+                                  ;; to press C-c q  or fill-paragraph ever again!
+                                  (visual-line-mode)
+                                  (org-indent-mode)
+                                  (require 'writegood-mode)
+                                  ;; apparently this does the same thing as the above combined modes
+                                  ;; this seems to work better than visual line mode.  Why have I not heard of this before?
+                                  ;;(toggle-word-wrap)
+                                  (org-bullets-mode 1)
+                                  ;;make ">=" look like >=, etc.
+                                  (push '(">=" . ?≥) prettify-symbols-alist)
+                                  (push '("<=" . ?≤) prettify-symbols-alist)
+                                  (push '("\\geq" . ?≥) prettify-symbols-alist)
+                                  (push '("\\leq" . ?≤) prettify-symbols-alist)
+                                  (push '("\\neg" . ?¬) prettify-symbols-alist)
+                                  (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+                                  (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+                                  (push '("\\infty" . ?∞) prettify-symbols-alist)
+                                  (push '("-->" . ?→) prettify-symbols-alist)
+                                  (push '("<--" . ?←) prettify-symbols-alist)
+                                  (push '("\\exists" . ?∃) prettify-symbols-alist)
+                                  (push '("\\nexists" . ?∄) prettify-symbols-alist)
+                                  (push '("\\forall" . ?∀) prettify-symbols-alist)
+                                  (push '("\\or" . ?∨) prettify-symbols-alist)
+                                  (push '("\\and" . ?∧) prettify-symbols-alist)
+                                  (push '(":)" . ?☺) prettify-symbols-alist)
+                                  (push '("):" . ?☹) prettify-symbols-alist)
+                                  (push '(":D" . ?☺) prettify-symbols-alist)
+                                  (push '("\\checkmark" . ?✓) prettify-symbols-alist)
+                                  (push '("\\check" . ?✓) prettify-symbols-alist)
+                                  (push '("1/4" . ?¼) prettify-symbols-alist)
+                                  (push '("1/2" . ?½) prettify-symbols-alist)
+                                  (push '("3/4" . ?¾) prettify-symbols-alist)
+                                  (push '("1/7" . ?⅐) prettify-symbols-alist)
+                                  ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
+                                  (push '("ae" . ?æ) prettify-symbols-alist)
+                                  (push '("^_^" . ?☻) prettify-symbols-alist)))
+#+END_SRC
+
+#+RESULTS:
+| (lambda nil (require (quote org-eldoc)) (toggle-word-wrap) (org-bullets-mode 1) (push (quote (>= . 8805)) prettify-symbols-alist) (push (quote (<= . 8804)) prettify-symbols-alist) (push (quote (\geq . 8805)) prettify-symbols-alist) (push (quote (\leq . 8804)) prettify-symbols-alist) (push (quote (\neg . 172)) prettify-symbols-alist) (push (quote (\rightarrow . 8594)) prettify-symbols-alist) (push (quote (\leftarrow . 8592)) prettify-symbols-alist) (push (quote (\infty . 8734)) prettify-symbols-alist) (push (quote (--> . 8594)) prettify-symbols-alist) (push (quote (<-- . 8592)) prettify-symbols-alist) (push (quote (\exists . 8707)) prettify-symbols-alist) (push (quote (\nexists . 8708)) prettify-symbols-alist) (push (quote (\forall . 8704)) prettify-symbols-alist) (push (quote (\or . 8744)) prettify-symbols-alist) (push (quote (\and . 8743)) prettify-symbols-alist) (push (quote (:) . 9786)) prettify-symbols-alist) (push (quote (): . 9785)) prettify-symbols-alist) (push (quote (:D . 9786)) prettify-symbols-alist) (push (quote (\checkmark . 10003)) prettify-symbols-alist) (push (quote (\check . 10003)) prettify-symbols-alist) (push (quote (1/4 . 188)) prettify-symbols-alist) (push (quote (1/2 . 189)) prettify-symbols-alist) (push (quote (3/4 . 190)) prettify-symbols-alist) (push (quote (1/7 . 8528)) prettify-symbols-alist) (push (quote (ae . 230)) prettify-symbols-alist) (push (quote (^_^ . 9787)) prettify-symbols-alist)) | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-show-block-all append local] 5] | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | org-eldoc-load |
 
 * My org-mode preferences
 ** A big setq
@@ -602,7 +667,6 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
    | BILLS       | /home/joshua/pictures/org-icons/bills.png          | nil | nil | nil | nil |
    | emacs       | /home/joshua/pictures/org-icons/emacs.png          | nil | nil | nil | nil |
    | WORK        | /home/joshua/pictures/org-icons/work.png           | nil | nil | nil | nil |
-
 *** I generate my org-agenda-files and org-refile-targets
   Org-agenda-files are a list of files where you store your TODOs.  These are your things that need to be done, scheduled items,
   deadlines, recurring items, etc.  Then pressing "C-c a a" lets you build your agenda from all of your agenda files.  It is very
@@ -892,76 +956,6 @@ ie: but this is not currently working
 
 (print org-structure-template-alist )
 
-* My Org-mode-hook
-Org-mode does not play well with yasnippet.  So this function that I got here [[info:org#Conflicts][info:org#Conflicts]] should help
-with making yasnippet play well with org-mode.  It seems to 1st make TAB try to do any org expanding, then it'll
-try to expand a yasnippet.
-
-#+BEGIN_SRC emacs-lisp
-(defun yas/org-very-safe-expand ()
-    (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
-#+END_SRC
-
-#+RESULTS:
-: yas/org-very-safe-expand
-
-#+BEGIN_SRC emacs-lisp
-  ;; I want to get write-good-mode set up again, because it's awesome.
-  (use-package writegood-mode :ensure t)
-
-  (add-hook 'org-mode-hook '(lambda ()
-
-                                  ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
-                                  ;; but I can't get it to work
-                                  ;;(require 'org-eldoc)
-                                  ;;(org-eldoc-load)
-                                  ;; (make-variable-buffer-local 'yas/trigger-key)
-                                  ;;(setq yas/trigger-key [tab])
-                                  ;;(add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-                                  ;; (define-key yas/keymap [tab] 'yas/next-field)
-                                  ;; make the lines in the buffer wrap around the edges of the screen.
-                                  ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
-                                  ;; to press C-c q  or fill-paragraph ever again!
-                                  (visual-line-mode)
-                                  (org-indent-mode)
-                                  (require 'writegood-mode)
-                                  ;; apparently this does the same thing as the above combined modes
-                                  ;; this seems to work better than visual line mode.  Why have I not heard of this before?
-                                  ;;(toggle-word-wrap)
-                                  (org-bullets-mode 1)
-                                  ;;make ">=" look like >=, etc.
-                                  (push '(">=" . ?≥) prettify-symbols-alist)
-                                  (push '("<=" . ?≤) prettify-symbols-alist)
-                                  (push '("\\geq" . ?≥) prettify-symbols-alist)
-                                  (push '("\\leq" . ?≤) prettify-symbols-alist)
-                                  (push '("\\neg" . ?¬) prettify-symbols-alist)
-                                  (push '("\\rightarrow" . ?→) prettify-symbols-alist)
-                                  (push '("\\leftarrow" . ?←) prettify-symbols-alist)
-                                  (push '("\\infty" . ?∞) prettify-symbols-alist)
-                                  (push '("-->" . ?→) prettify-symbols-alist)
-                                  (push '("<--" . ?←) prettify-symbols-alist)
-                                  (push '("\\exists" . ?∃) prettify-symbols-alist)
-                                  (push '("\\nexists" . ?∄) prettify-symbols-alist)
-                                  (push '("\\forall" . ?∀) prettify-symbols-alist)
-                                  (push '("\\or" . ?∨) prettify-symbols-alist)
-                                  (push '("\\and" . ?∧) prettify-symbols-alist)
-                                  (push '(":)" . ?☺) prettify-symbols-alist)
-                                  (push '("):" . ?☹) prettify-symbols-alist)
-                                  (push '(":D" . ?☺) prettify-symbols-alist)
-                                  (push '("\\checkmark" . ?✓) prettify-symbols-alist)
-                                  (push '("\\check" . ?✓) prettify-symbols-alist)
-                                  (push '("1/4" . ?¼) prettify-symbols-alist)
-                                  (push '("1/2" . ?½) prettify-symbols-alist)
-                                  (push '("3/4" . ?¾) prettify-symbols-alist)
-                                  (push '("1/7" . ?⅐) prettify-symbols-alist)
-                                  ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
-                                  (push '("ae" . ?æ) prettify-symbols-alist)
-                                  (push '("^_^" . ?☻) prettify-symbols-alist)))
-#+END_SRC
-
-#+RESULTS:
-| (lambda nil (require (quote org-eldoc)) (toggle-word-wrap) (org-bullets-mode 1) (push (quote (>= . 8805)) prettify-symbols-alist) (push (quote (<= . 8804)) prettify-symbols-alist) (push (quote (\geq . 8805)) prettify-symbols-alist) (push (quote (\leq . 8804)) prettify-symbols-alist) (push (quote (\neg . 172)) prettify-symbols-alist) (push (quote (\rightarrow . 8594)) prettify-symbols-alist) (push (quote (\leftarrow . 8592)) prettify-symbols-alist) (push (quote (\infty . 8734)) prettify-symbols-alist) (push (quote (--> . 8594)) prettify-symbols-alist) (push (quote (<-- . 8592)) prettify-symbols-alist) (push (quote (\exists . 8707)) prettify-symbols-alist) (push (quote (\nexists . 8708)) prettify-symbols-alist) (push (quote (\forall . 8704)) prettify-symbols-alist) (push (quote (\or . 8744)) prettify-symbols-alist) (push (quote (\and . 8743)) prettify-symbols-alist) (push (quote (:) . 9786)) prettify-symbols-alist) (push (quote (): . 9785)) prettify-symbols-alist) (push (quote (:D . 9786)) prettify-symbols-alist) (push (quote (\checkmark . 10003)) prettify-symbols-alist) (push (quote (\check . 10003)) prettify-symbols-alist) (push (quote (1/4 . 188)) prettify-symbols-alist) (push (quote (1/2 . 189)) prettify-symbols-alist) (push (quote (3/4 . 190)) prettify-symbols-alist) (push (quote (1/7 . 8528)) prettify-symbols-alist) (push (quote (ae . 230)) prettify-symbols-alist) (push (quote (^_^ . 9787)) prettify-symbols-alist)) | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-show-block-all append local] 5] | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | org-eldoc-load |
-
 * customize org-stuck projects
   C-c a # will list all of your stuck projects.  According to David Allen's Getting Things Done productivity system,
   a stuck project [fn:1] is one where the next action is not defined.  That is, your project does not have any next actions.  No one
@@ -1091,7 +1085,6 @@ _ht_: subtree
 ** to load this file do =M-x org-babel-load-file= and it'll pop up helm and you'll have to say that you want
   to load this file.  All the scripts in this file will be exported and saved into init-org.el.  Then
   that file will be loaded.
-
 * provide this file
   #+BEGIN_SRC emacs-lisp
     (provide 'init-org)
@@ -1100,3 +1093,14 @@ _ht_: subtree
 * Footnotes
 
 [fn:1]  A project is an action that has multiple sequential steps.
+
+|--------|
+| img    |
+| button |
+|--------|
+| img    |
+| button |
+|--------|
+| img    |
+| button |
+|--------|

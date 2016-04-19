@@ -12,6 +12,7 @@
                                       ("freenode.net" "#deskthority")
                                       ;; https://www.parabola.nu/
                                       ("freenode.net" "#parabola")
+                                      ("freenode.net" "#fsf")
                                       ;;("freenode.net" "#debian-hurd")
                                       )
 
