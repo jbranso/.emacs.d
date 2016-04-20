@@ -206,7 +206,7 @@ _v_: element vanish       _n_: _n_ext element
 (add-hook 'js2-mode-hook (lambda ()
                            ;; I have abbrev turned on for all prog and text modes
                            ;; (abbrev-mode 1)
-                           (skewer-mode)
+                           ;; (skewer-mode)
                            (ggtags-mode 1)
                            (push '("function" . ?𝆑) prettify-symbols-alist)
                            (push '(">=" . ?≥) prettify-symbols-alist)

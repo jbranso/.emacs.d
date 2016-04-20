@@ -14,8 +14,9 @@
 
 ;;; LESS
 (use-package less-css-mode)
-(when (featurep 'js2-mode)
-  (use-package skewer-less))
+;; I don't think I've ever used skewer-mode.
+;; (when (featurep 'js2-mode)
+;;   (use-package skewer-less))
 
 
 ;;; Auto-complete CSS keywords

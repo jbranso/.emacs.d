@@ -152,10 +152,12 @@
     (kbd "C-w h") #'windmove-down
     (kbd "C-w n") #'windmove-left
     (kbd "C-w s") #'windmove-right
-    (kbd "b") #'(lambda ()
-                  "Switch to the previous buffer"
-                  (interactive)
-                  (switch-to-buffer nil)))
+    ;; this breaks the regular use of the vim letter "b", which move back by one word.
+    ;; (kbd "b") #'(lambda ()
+    ;;               "Switch to the previous buffer"
+    ;;               (interactive)
+    ;;               (switch-to-buffer nil))
+    )
 
   ;;insert mode customizations
   (evil-define-key 'insert evil-dvorak-mode-map
