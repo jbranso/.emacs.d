@@ -120,6 +120,15 @@
     "," 'undo-tree-undo
     "/" 'helm-swoop
     (kbd "<backspace>") 'avy-goto-char
+    ;; (kbd "<return>") 'newline-and-indent
+    ;; usually RET means newline, BUT RET in org-mode should mean to org-indent.
+    ;; now if you press RET on an org link, you follow it!  cool eh?
+    (kbd "<return>") #'(lambda ()
+                         "Usually do newline and indent, but in org buffers, do org-indent"
+                         (interactive)
+                         (if (equal 'org-mode major-mode)
+                             (org-return)
+                           (newline-and-indent)))
     "Q" 'anzu-query-replace-regexp
     "I" 'evil-append
     "$" 'ispell-word
@@ -135,7 +144,6 @@
     (kbd "l") 'recenter-top-bottom
     ;;there is no need to set return to newline-and-indent, because electric-indent-mode is now on by default.
     ;;at least so the documentation claimed
-    (kbd "<return>") 'newline-and-indent
     (kbd "SPC") 'viper-space
     (kbd "C-d") 'delete-char
     (kbd "<") 'beginning-of-buffer
