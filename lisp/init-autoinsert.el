@@ -1,3 +1,4 @@
+
 (add-hook 'find-file-hook 'auto-insert)
 
 

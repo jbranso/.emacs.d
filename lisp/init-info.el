@@ -10,9 +10,13 @@
 ;; (add-hook  'Info-mode-hook '(lambda ()
 ;;                               (org-bullets-mode 1))
 
+;; I might use this at some point, but eh it seems like it needs some work.
+;; (use-package niceify-info :ensure t
+;;   :config (add-hook 'Info-selection-hook #'niceify-info))
+
 (defhydra hydra-info (:color blue
-                      :hint nil)
-      "
+                             :hint nil)
+  "
 Info-mode:
 
   ^^_]_ forward  (next logical node)       ^^_l_ast (←)        _u_p (↑)                             _f_ollow reference       _T_OC
@@ -24,51 +28,51 @@ Info-mode:
   _1_ .. _9_ Pick first .. ninth item in the node's menu.
 
 "
-      ("]"   Info-forward-node)
-      ("["   Info-backward-node)
-      ("n"   Info-next)
-      ("p"   Info-prev)
-      ("s"   Info-search)
-      ("S"   Info-search-case-sensitively)
+  ("]"   Info-forward-node)
+  ("["   Info-backward-node)
+  ("n"   Info-next)
+  ("p"   Info-prev)
+  ("s"   Info-search)
+  ("S"   Info-search-case-sensitively)
 
-      ("l"   Info-history-back)
-      ("r"   Info-history-forward)
-      ("H"   Info-history)
-      ("t"   Info-top-node)
-      ("<"   Info-top-node)
-      (">"   Info-final-node)
+  ("l"   Info-history-back)
+  ("r"   Info-history-forward)
+  ("H"   Info-history)
+  ("t"   Info-top-node)
+  ("<"   Info-top-node)
+  (">"   Info-final-node)
 
-      ("u"   Info-up)
-      ("^"   Info-up)
-      ("m"   Info-menu)
-      ("g"   Info-goto-node)
-      ("b"   beginning-of-buffer)
-      ("e"   end-of-buffer)
+  ("u"   Info-up)
+  ("^"   Info-up)
+  ("m"   Info-menu)
+  ("g"   Info-goto-node)
+  ("b"   beginning-of-buffer)
+  ("e"   end-of-buffer)
 
-      ("f"   Info-follow-reference)
-      ("i"   Info-index)
-      (","   Info-index-next)
-      ("I"   Info-virtual-index)
+  ("f"   Info-follow-reference)
+  ("i"   Info-index)
+  (","   Info-index-next)
+  ("I"   Info-virtual-index)
 
-      ("T"   Info-toc)
-      ("d"   Info-directory)
-      ("c"   Info-copy-current-node-name)
-      ("C"   clone-buffer)
-      ("a"   info-apropos)
+  ("T"   Info-toc)
+  ("d"   Info-directory)
+  ("c"   Info-copy-current-node-name)
+  ("C"   clone-buffer)
+  ("a"   info-apropos)
 
-      ("1"   Info-nth-menu-item)
-      ("2"   Info-nth-menu-item)
-      ("3"   Info-nth-menu-item)
-      ("4"   Info-nth-menu-item)
-      ("5"   Info-nth-menu-item)
-      ("6"   Info-nth-menu-item)
-      ("7"   Info-nth-menu-item)
-      ("8"   Info-nth-menu-item)
-      ("9"   Info-nth-menu-item)
+  ("1"   Info-nth-menu-item)
+  ("2"   Info-nth-menu-item)
+  ("3"   Info-nth-menu-item)
+  ("4"   Info-nth-menu-item)
+  ("5"   Info-nth-menu-item)
+  ("6"   Info-nth-menu-item)
+  ("7"   Info-nth-menu-item)
+  ("8"   Info-nth-menu-item)
+  ("9"   Info-nth-menu-item)
 
-      ("?"   Info-summary "Info summary")
-      ("h"   Info-help "Info help")
-      ("q"   Info-exit "Info exit")
-      ("C-g" nil "cancel" :color blue))
+  ("?"   Info-summary "Info summary")
+  ("h"   Info-help "Info help")
+  ("q"   Info-exit "Info exit")
+  ("C-g" nil "cancel" :color blue))
 
 (provide 'init-info)

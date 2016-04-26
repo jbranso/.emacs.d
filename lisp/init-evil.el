@@ -111,17 +111,23 @@
   (interactive)
   ;;normal mode customizations
   (evil-define-key 'normal evil-dvorak-mode-map
-    "t" 'evil-previous-line
-    "h" 'evil-next-line
+    ;; the default evil-mode does NOT play well with visual line mode!  Until that is figured out, I'm going to use the
+    ;; emacs keys for moving up and down a line.
+    ;; "t" 'evil-previous-line
+    ;; "h" 'evil-next-line
+    "t" 'previous-line
+    "h" 'next-line
     "n" 'evil-backward-char
     "s" 'evil-forward-char
+    (kbd "ESC") 'nil
     (kbd "C-s") 'evil-substitute
     (kbd "C-c r") 'evil-record-macro
     "," 'undo-tree-undo
     "/" 'helm-swoop
     (kbd "<backspace>") 'avy-goto-char
     ;; (kbd "<return>") 'newline-and-indent
-    ;; usually RET means newline, BUT RET in org-mode should mean to org-indent.
+    ;; usually
+    ;; RET means newline, BUT RET in org-mode should mean to org-indent.
     ;; now if you press RET on an org link, you follow it!  cool eh?
     (kbd "<return>") #'(lambda ()
                          "Usually do newline and indent, but in org buffers, do org-indent"
@@ -132,9 +138,11 @@
     "Q" 'anzu-query-replace-regexp
     "I" 'evil-append
     "$" 'ispell-word
-    (kbd "a") 'evil-first-non-blank
+    ;; (kbd "a") 'evil-first-non-blank
+    (kbd "a") 'move-beginning-of-line
     (kbd "A") 'evil-insert-line
-    (kbd "u") 'evil-end-of-line
+    ;; (kbd "u") 'evil-end-of-line
+    (kbd "u") 'move-end-of-line
     (kbd "U") 'evil-append-line
     (kbd "q") '(lambda ()
                  "q saves the current buffer, then kills it.  I should add a checking mechanism... If the buffer name starts and ends with *, then do not save the buffer"
@@ -144,7 +152,6 @@
     (kbd "l") 'recenter-top-bottom
     ;;there is no need to set return to newline-and-indent, because electric-indent-mode is now on by default.
     ;;at least so the documentation claimed
-    (kbd "SPC") 'viper-space
     (kbd "C-d") 'delete-char
     (kbd "<") 'beginning-of-buffer
     (kbd ">") 'end-of-buffer
@@ -171,7 +178,7 @@
   (evil-define-key 'insert evil-dvorak-mode-map
     (kbd "C-d") 'delete-char
     (kbd "C-z") 'evil-normal-state
-    (kbd "ESC") 'evil-normal-state
+    ;; (kbd "ESC") 'evil-normal-state
     (kbd "C-c r") 'evil-record-macro)
 
   (evil-define-key 'visual evil-dvorak-mode-map

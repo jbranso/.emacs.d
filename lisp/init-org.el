@@ -87,6 +87,61 @@
 
 (require 'org-habit)
 
+(defun yas/org-very-safe-expand ()
+    (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+
+;; I want to get write-good-mode set up again, because it's awesome.
+(use-package writegood-mode :ensure t)
+
+(add-hook 'org-mode-hook '(lambda ()
+
+                                ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
+                                ;; but I can't get it to work
+                                ;;(require 'org-eldoc)
+                                ;;(org-eldoc-load)
+                                ;; (make-variable-buffer-local 'yas/trigger-key)
+                                ;;(setq yas/trigger-key [tab])
+                                ;;(add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+                                ;; (define-key yas/keymap [tab] 'yas/next-field)
+                                ;; make the lines in the buffer wrap around the edges of the screen.
+                                ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
+                                ;; to press C-c q  or fill-paragraph ever again!
+                                (visual-line-mode)
+                                (org-indent-mode)
+                                (require 'writegood-mode)
+                                ;; apparently this does the same thing as the above combined modes
+                                ;; this seems to work better than visual line mode.  Why have I not heard of this before?
+                                ;;(toggle-word-wrap)
+                                (org-bullets-mode 1)
+                                ;;make ">=" look like >=, etc.
+                                (push '(">=" . ?≥) prettify-symbols-alist)
+                                (push '("<=" . ?≤) prettify-symbols-alist)
+                                (push '("\\geq" . ?≥) prettify-symbols-alist)
+                                (push '("\\leq" . ?≤) prettify-symbols-alist)
+                                (push '("\\neg" . ?¬) prettify-symbols-alist)
+                                (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+                                (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+                                (push '("\\infty" . ?∞) prettify-symbols-alist)
+                                (push '("-->" . ?→) prettify-symbols-alist)
+                                (push '("<--" . ?←) prettify-symbols-alist)
+                                (push '("\\exists" . ?∃) prettify-symbols-alist)
+                                (push '("\\nexists" . ?∄) prettify-symbols-alist)
+                                (push '("\\forall" . ?∀) prettify-symbols-alist)
+                                (push '("\\or" . ?∨) prettify-symbols-alist)
+                                (push '("\\and" . ?∧) prettify-symbols-alist)
+                                (push '(":)" . ?☺) prettify-symbols-alist)
+                                (push '("):" . ?☹) prettify-symbols-alist)
+                                (push '(":D" . ?☺) prettify-symbols-alist)
+                                (push '("\\checkmark" . ?✓) prettify-symbols-alist)
+                                (push '("\\check" . ?✓) prettify-symbols-alist)
+                                (push '("1/4" . ?¼) prettify-symbols-alist)
+                                (push '("1/2" . ?½) prettify-symbols-alist)
+                                (push '("3/4" . ?¾) prettify-symbols-alist)
+                                (push '("1/7" . ?⅐) prettify-symbols-alist)
+                                ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
+                                (push '("ae" . ?æ) prettify-symbols-alist)
+                                (push '("^_^" . ?☻) prettify-symbols-alist)))
+
 (setq
  ;; hide the leading stars in my org files
  org-hide-leading-stars t
@@ -228,6 +283,8 @@
       ("em" "movies to watch" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "movies to watch") "*  %i\n  %a")
       ("eU" "good music reference" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org"
       "good music reference") "*  %i\n  %a")
+      ("eg" "games to play" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org"
+      "games to play") "*  %i\n  %a")
 
       ("g" "getting close to God")
       ("gg" "get a close friend" entry (file+headline "/home/joshua/programming/org/gtd/projects/get-close-to-God.org"
@@ -447,61 +504,6 @@ EXT is a list of the extensions of files to be included."
   :ensure t)
 (after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
-
-(defun yas/org-very-safe-expand ()
-    (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
-
-;; I want to get write-good-mode set up again, because it's awesome.
-(use-package writegood-mode :ensure t)
-
-(add-hook 'org-mode-hook '(lambda ()
-
-                                ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
-                                ;; but I can't get it to work
-                                ;;(require 'org-eldoc)
-                                ;;(org-eldoc-load)
-                                ;; (make-variable-buffer-local 'yas/trigger-key)
-                                ;;(setq yas/trigger-key [tab])
-                                ;;(add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-                                ;; (define-key yas/keymap [tab] 'yas/next-field)
-                                ;; make the lines in the buffer wrap around the edges of the screen.
-                                ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
-                                ;; to press C-c q  or fill-paragraph ever again!
-                                (visual-line-mode)
-                                (org-indent-mode)
-                                (require 'writegood-mode)
-                                ;; apparently this does the same thing as the above combined modes
-                                ;; this seems to work better than visual line mode.  Why have I not heard of this before?
-                                ;;(toggle-word-wrap)
-                                (org-bullets-mode 1)
-                                ;;make ">=" look like >=, etc.
-                                (push '(">=" . ?≥) prettify-symbols-alist)
-                                (push '("<=" . ?≤) prettify-symbols-alist)
-                                (push '("\\geq" . ?≥) prettify-symbols-alist)
-                                (push '("\\leq" . ?≤) prettify-symbols-alist)
-                                (push '("\\neg" . ?¬) prettify-symbols-alist)
-                                (push '("\\rightarrow" . ?→) prettify-symbols-alist)
-                                (push '("\\leftarrow" . ?←) prettify-symbols-alist)
-                                (push '("\\infty" . ?∞) prettify-symbols-alist)
-                                (push '("-->" . ?→) prettify-symbols-alist)
-                                (push '("<--" . ?←) prettify-symbols-alist)
-                                (push '("\\exists" . ?∃) prettify-symbols-alist)
-                                (push '("\\nexists" . ?∄) prettify-symbols-alist)
-                                (push '("\\forall" . ?∀) prettify-symbols-alist)
-                                (push '("\\or" . ?∨) prettify-symbols-alist)
-                                (push '("\\and" . ?∧) prettify-symbols-alist)
-                                (push '(":)" . ?☺) prettify-symbols-alist)
-                                (push '("):" . ?☹) prettify-symbols-alist)
-                                (push '(":D" . ?☺) prettify-symbols-alist)
-                                (push '("\\checkmark" . ?✓) prettify-symbols-alist)
-                                (push '("\\check" . ?✓) prettify-symbols-alist)
-                                (push '("1/4" . ?¼) prettify-symbols-alist)
-                                (push '("1/2" . ?½) prettify-symbols-alist)
-                                (push '("3/4" . ?¾) prettify-symbols-alist)
-                                (push '("1/7" . ?⅐) prettify-symbols-alist)
-                                ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
-                                (push '("ae" . ?æ) prettify-symbols-alist)
-                                (push '("^_^" . ?☻) prettify-symbols-alist)))
 
 (setq org-stuck-projects '("PROJECT" ("TODO NEXT") ("action") "\\<IGNORE\\>" ))
 

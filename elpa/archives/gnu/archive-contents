@@ -187,7 +187,7 @@
 	 ((:url . "http://elpa.gnu.org/packages/crisp.html")
 	  (:keywords "emulations" "brief" "crisp"))])
  (csv-mode .
-	   [(1 5)
+	   [(1 6)
 	    nil "Major mode for editing comma/char separated values" single
 	    ((:url . "http://elpa.gnu.org/packages/csv-mode.html")
 	     (:keywords "convenience"))])

@@ -1,0 +1,14 @@
+MMM-mode or more than one major mode, is a way of embedding various modes inside emacs!  Very cool!
+
+#+BEGIN_SRC emacs-lisp
+  (use-package mmm-mode :ensure t
+    :config
+    (setq mmm-global-mode 'maybe)
+    (mmm-add-classes
+     '((embedded-elisp
+        :submode emacs-lisp
+        :face mmm-declaration-submode-face
+        :front ".*#\\+BEGIN_SRC .*emacs-lisp.*"
+        :back  ".*#\\+END_SRC.*")))
+        (mmm-add-mode-ext-class 'org-mode ".*org.*" 'embedded-elisp))
+#+END_SRC
