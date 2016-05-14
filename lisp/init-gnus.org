@@ -448,8 +448,9 @@ That way gnus exits properly, and you don't have to read the active file when yo
 
    I've decided that I like the default 'shr.  the w3m is really annoying to try to use.
 
+   and 3wm has not seen much updates in the past couple of years.
    #+BEGIN_SRC emacs-lisp
-   (use-package w3m :ensure t)
+   ;;(use-package w3m :ensure t)
    ;;(setq mm-text-html-renderer 'w3m)
    (setq mm-text-html-renderer 'shr)
    #+END_SRC

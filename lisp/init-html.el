@@ -54,6 +54,7 @@ _v_: element vanish       _n_: _n_ext element
   )
 
 
+(use-package php-eldoc :ensure t)
 (use-package web-mode :ensure t)
 (use-package emmet-mode :ensure t)
 (use-package ggtags  :ensure t)
@@ -117,10 +118,11 @@ _v_: element vanish       _n_: _n_ext element
                   ))))
 
 
-;;(use-package emmet-mode :ensure t)
 (add-hook 'web-mode-hook (lambda ()
+                           ;;(use-package emmet-mode :ensure t)
                            ;; I've installed http://phpmd.org/ to check my php code using flycheck
                            ;; BUT flycheck mode does NOT support web-mode
+                           (php-eldoc-enable)
                            (ggtags-mode 1)
                            ;; I have abbrev turned on for all prog-modes and all text modes.
                            ;; (abbrev-mode 1)

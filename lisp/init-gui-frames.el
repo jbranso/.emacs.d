@@ -49,7 +49,7 @@
 ;;their file names, major modes, buffer positions, and so on—then subsequent Emacs sessions reload the saved desktop. By default,
 ;;the desktop also tries to save the frame and window configuration. To disable this, set desktop-restore-frames to nil. (See that
 ;;variable’s documentation for some related options that you can customize to fine-tune this behavior.)
-(desktop-save-mode 1)
+;;(desktop-save-mode 1)
 
 ;; http://whattheemacsd.com/init.el-03.html
 ;; save the position that point was in during the last emacs session
@@ -66,6 +66,8 @@
   ("d" desktop-change-dir "dir"))
 
 ;; show a nice highlight where-ever your cursor is
-(global-hl-line-mode 1)
+;; but ONLY on graphical displays.  It looks weird in the terminal
+(when (display-graphic-p)
+  (global-hl-line-mode 1))
 
 (provide 'init-gui-frames)

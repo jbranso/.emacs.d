@@ -102,7 +102,7 @@
 ;; emacs can read the mail
 (require 'init-gnus)
 ;; read email in emacs
-(require 'init-mu4e)
+;;(require 'init-mu4e)
 ;; show on the fringe of the buffer if this part of the file needs to be committed to git
 (require 'init-vc)
 (require 'init-gui-frames)
@@ -128,7 +128,7 @@
 ;;(require 'init-term)
 ;; paradox adds some nice features to emacs install packages
 ;; this sets up paradox to use my private token to access public repos.
-(require 'init-paradox)
+;;(require 'init-paradox)
 ;; Nicer naming of buffers for files with identical names
 ;; Instead of Makefile<1> and Makefile<2>, it will be
 ;; Makefile | tmp  Makefile | lisp

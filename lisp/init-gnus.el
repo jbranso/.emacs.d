@@ -97,9 +97,9 @@ gnus-ignored-from-addresses bbdb-user-mail-address-re)
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
 ;;(setq nnimap-split-method-default)
-
 (setq nnmail-split-methods
-      '(("Accrisoft Support" "^From:.*support@accrisoft.com.*$")
+      '(
+      ("Accrisoft Support" "^From:.*support@accrisoft.com.*$")
         ("Basecamp" "^From:.*notifications@basecamp.com.*$")
         ("arch" "^To:.*arch-general@archlinux.org.*$")
         ("emacs devel" "^To:.*emacs-devel@gnu.org.*$")
@@ -113,7 +113,7 @@ gnus-ignored-from-addresses bbdb-user-mail-address-re)
                                (when (eq nil (get-buffer "*Group*"))
                                  (gnus-group-exit))))
 
-(use-package w3m :ensure t)
+;;(use-package w3m :ensure t)
 ;;(setq mm-text-html-renderer 'w3m)
 (setq mm-text-html-renderer 'shr)
 
