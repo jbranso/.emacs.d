@@ -58,7 +58,7 @@
 ;; this was for our emacs meetup group
 ;; slack is proprietary.  We should not use it
 ;;(require 'init-slack)
-(require 'init-pdf-tools)
+;;(require 'init-pdf-tools)
 (require 'init-wgrep)
 ;; insert text into buffer you create them
 (require 'init-autoinsert)
@@ -87,9 +87,6 @@
 ;; this is for using emacs to edit stuff on the web, but emacsclient is no longer working for me
 ;;(require 'init-edit-server)
 ;; I have some global abbreviations.  So I should turn on abbrev mode
-;;(require-package 'project-local-variables)
-;; this helps you minizize modeline clutter by hidding some modes on the mode line.
-;; http://www.emacswiki.org/emacs/DiminishedModes
 
 ;; this will be cool to monitor my commands.
 ;; But I have to initialize it...It will not record commands by default.
@@ -99,11 +96,16 @@
 
 ;; the forecast is in Celcius.  Why do I even have this installed?
 ;;(require 'init-forecast)
+
 ;; emacs can read the mail
 (require 'init-gnus)
+;; if you have a .authinfo, .netrc, .authinfo.gpg, then load auth-source
+(require 'init-auth-source)
 ;; read email in emacs
 ;;(require 'init-mu4e)
-;; show on the fringe of the buffer if this part of the file needs to be committed to git
+
+;; show on the fringe of the buffer if this part of the file needs to be committed to git.
+;; This is SUPER COOL!
 (require 'init-vc)
 (require 'init-gui-frames)
 ;; make the window that has focus have be the largest on the screen

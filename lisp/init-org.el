@@ -17,7 +17,7 @@
 (org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 
-(setq org-crypt-key "E99C48112E969A17")
+(setq org-crypt-key "C8FA3D82C7B1326F")
 
 (setq auto-save-default nil)
 
@@ -97,7 +97,7 @@
 
                                 ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
                                 ;; but I can't get it to work
-                                ;;(require 'org-eldoc)
+                                ;; (require 'org-eldoc)
                                 ;;(org-eldoc-load)
                                 ;; (make-variable-buffer-local 'yas/trigger-key)
                                 ;;(setq yas/trigger-key [tab])
@@ -200,113 +200,113 @@
     '(
 
       ("B" "Things I want to buy" entry (file+headline
-      "~/programming/org/gtd/projects/managing-my-monies.org" "things I want to buy")
+      "~/programming/org/projects/managing-my-monies.org" "things I want to buy")
        "* %?\nEntered on %U\n  %i\n  %a")
 
       ("c" "Computers Anything")
-      ("ca" "Awesome WM" entry (file+headline "~/programming/org/gtd/gtd.org" "awesome WM someday")
+      ("ca" "Awesome WM" entry (file+headline "~/programming/org/gtd.org" "awesome WM someday")
        "* TODO %?\nEntered on %U\n  %i\n  %a")
-      ("ce" "emacs Todo" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "emacs someday")
+      ("ce" "emacs Todo" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs someday")
        "* TODO %?\n  %i\n  %a")
-      ("cM" "Emacs Meetup" entry (file+headline "~/programming/org/gtd/projects/emacs-meetup-vincent-laf-emacslaf.org" "things to talk about")
+      ("cM" "Emacs Meetup" entry (file+headline "~/programming/org/projects/emacs-meetup-vincent-laf-emacslaf.org" "things to talk about")
        "* %?\nEntered on %U\n  %i\n  %a")
-      ("cE" "Emacs Reference" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "emacs reference")
+      ("cE" "Emacs Reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs reference")
        "* %?\nEntered on %U\n  %i\n  %a")
 
 
       ("cG" "Gimp Basics Reference" entry (file+headline "~/manuals/gimp.org" "Basic Concepts")
        "* %?\nEntered on %U\n  %i\n  %a")
       ("cH" "The GNU HURD")
-      ("cHt" "Hurd" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org"
+      ("cHt" "Hurd" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org"
                                                                      "Hurd")
        "* TODO %?\n  %i\n  %a")
       ("ct" "General Computer TODO"
-       entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "General TODO")
+       entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "General TODO")
        "* TODO %?\n  %i\n  %a")
       ("cw" "Waypoint")
       ("cwi" "ibca Web App")
-      ("cwib" "bugs that need fixin'" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
+      ("cwib" "bugs that need fixin'" entry (file+headline "~/programming/org/projects/working-for-waypoint.org"
                                                                      "bugs that need fixin'")
        "* TODO %?\n  %i\n  %a")
-      ("cwic" "core features that must be done" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
+      ("cwic" "core features that must be done" entry (file+headline "~/programming/org/projects/working-for-waypoint.org"
                                                                      "core features that must be done")
        "* TODO %?\n  %i\n  %a")
-      ("cwif" "features the app should have" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
+      ("cwif" "features the app should have" entry (file+headline "~/programming/org/projects/working-for-waypoint.org"
                                                                   "features the app should have") "* TODO %?\n  %i\n  %a")
-      ("cwir" "IBCA Reference" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
+      ("cwir" "IBCA Reference" entry (file+headline "~/programming/org/projects/working-for-waypoint.org"
                                                     "IBCA Reference") "* %?\nEntered on %U\n  %i\n  %a")
-      ("cwiw" "what I have done" entry (file+headline "~/programming/org/gtd/projects/working-for-waypoint.org"
+      ("cwiw" "what I have done" entry (file+headline "~/programming/org/projects/working-for-waypoint.org"
                                                                "what I have done") "* DONE %?\n  %i\n  %a")
       ("ch" "high star todo"
-       entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "make high star an android app")
+       entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "make high star an android app")
        "* todo %?\n  %i\n  %a")
-      ("cl" "linux TODO" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "linux someday")
+      ("cl" "linux TODO" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "linux someday")
        "* TODO %?\n  %i\n  %a")
-      ("cL" "Linux Reference" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "linux reference")
+      ("cL" "Linux Reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "linux reference")
        "* %?\nEntered on %U\n  %i\n  %a")
-      ("co" "organ TODO" entry (file+headline "~/programming/org/gtd/projects/become-an-awesome-hacker.org" "make organ an android app")
+      ("co" "organ TODO" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "make organ an android app")
        "* TODO %?\n  %i\n  %a")
-      ("cf" "Free the world" entry (file+headline "~/programming/org/gtd/gtd.org" "free the world free content")
+      ("cf" "Free the world" entry (file+headline "~/programming/org/gtd.org" "free the world free content")
        "* %?\nEntered on %U\n  %i\n  %a")
 
        ("cW" "Web")
 
-      ("cWA" "Accrisoft Reference" entry (file+headline "~/programming/org/gtd/web.org" "Accrisoft reference")
+      ("cWA" "Accrisoft Reference" entry (file+headline "~/programming/org/web.org" "Accrisoft reference")
        "* %?\nEntered on %U\n  %i\n  %a")
 
-       ("cWB" "Bootstrap Reference" entry (file+headline "~/programming/org/gtd/web.org" "Bootstrap reference")
+       ("cWB" "Bootstrap Reference" entry (file+headline "~/programming/org/web.org" "Bootstrap reference")
        "* %?\nEntered on %U\n  %i\n  %a")
 
-       ("cWS" "Shoppify Reference" entry (file+headline "~/programming/org/gtd/web.org" "Shoppify reference")
+       ("cWS" "Shoppify Reference" entry (file+headline "~/programming/org/web.org" "Shoppify reference")
        "* %?\nEntered on %U\n  %i\n  %a")
 
-       ("cWW" "Web reference" entry (file+headline "~/programming/org/gtd/web.org" "Web reference")
+       ("cWW" "Web reference" entry (file+headline "~/programming/org/web.org" "Web reference")
        "* %?\nEntered on %U\n  %i\n  %a")
 
 
       ("C" "Community")
-      ("Cc" "community TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "community someday")
+      ("Cc" "community TODO" entry (file+headline "~/programming/org/gtd.org" "community someday")
        "* TODO %?\n  %i\n  %a")
 
-       ("Cn" "nice things to say" entry (file+headline "~/programming/org/gtd/projects/get-close-to-God.org" "nice things to say")
+       ("Cn" "nice things to say" entry (file+headline "~/programming/org/projects/get-close-to-God.org" "nice things to say")
        "* TODO %?\nEntered on %U\n  %i\n  %a")
-      ("Cs" "Social Skills Notes" entry (file+headline "~/programming/org/gtd/being-social.org" "Social Skills Notes")
+      ("Cs" "Social Skills Notes" entry (file+headline "~/programming/org/being-social.org" "Social Skills Notes")
        "* %?\nEntered on %U\n  %i\n  %a")
 
-      ("C" "Calendar TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "calendar")
+      ("C" "Calendar TODO" entry (file+headline "~/programming/org/gtd.org" "calendar")
        "* TODO %?\n  %i\n  %a")
 
       ("e" "entertainment")
-      ("eb" "Books to Read" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org"
+      ("eb" "Books to Read" entry (file+headline "~/programming/org/projects/whatever-I-want.org"
       "Books to Read") "*  %i\n  %a")
-      ("eM" "Good Movies Reference" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "Good Movies") "*  %i\n  %a")
-      ("em" "movies to watch" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org" "movies to watch") "*  %i\n  %a")
-      ("eU" "good music reference" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org"
+      ("eM" "Good Movies Reference" entry (file+headline "~/programming/org/projects/whatever-I-want.org" "Good Movies") "*  %i\n  %a")
+      ("em" "movies to watch" entry (file+headline "~/programming/org/projects/whatever-I-want.org" "movies to watch") "*  %i\n  %a")
+      ("eU" "good music reference" entry (file+headline "~/programming/org/projects/whatever-I-want.org"
       "good music reference") "*  %i\n  %a")
-      ("eg" "games to play" entry (file+headline "~/programming/org/gtd/projects/whatever-I-want.org"
+      ("eg" "games to play" entry (file+headline "~/programming/org/projects/whatever-I-want.org"
       "games to play") "*  %i\n  %a")
 
       ("g" "getting close to God")
-      ("gg" "get a close friend" entry (file+headline "/home/joshua/programming/org/gtd/projects/get-close-to-God.org"
+      ("gg" "get a close friend" entry (file+headline "/home/joshua/programming/org/projects/get-close-to-God.org"
                                                       "get a close friend") "* TODO %?\n  %i\n  %a")
       ("gb" "Boundaries")
-      ("gbn" "Boundary Notes" entry (file+headline "~/programming/org/gtd/gtd.org" "Boundary Notes")
+      ("gbn" "Boundary Notes" entry (file+headline "~/programming/org/gtd.org" "Boundary Notes")
        "* %?\nEntered on %U\n  %i\n  %a")
-      ("gbl" "Lowering My Expectations of Myself" entry (file+headline "~/programming/org/gtd/gtd.org"
+      ("gbl" "Lowering My Expectations of Myself" entry (file+headline "~/programming/org/gtd.org"
                                                                        "Lowering My Expectations of Myself")
        "* %?\nEntered on %U\n  %i\n  %a")
-      ("gbs" "Boundaries To Enforce" entry (file+headline "~/programming/org/gtd/projects/get-close-to-God.org" "Setting Boundaries")
+      ("gbs" "Boundaries To Enforce" entry (file+headline "~/programming/org/projects/get-close-to-God.org" "Setting Boundaries")
        "* TODO %?\n  %i\n  %a")
 
 
 
       ("M" "Math")
-      ("Mf" "fun math problems" entry (file+headline "/home/joshua/programming/org/gtd/projects/math.org" "fun math problems") "* TODO %?\n  %i\n  %a")
-      ("p" "payless TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "shopping todo")
+      ("Mf" "fun math problems" entry (file+headline "/home/joshua/programming/org/projects/math.org" "fun math problems") "* TODO %?\n  %i\n  %a")
+      ("p" "payless TODO" entry (file+headline "~/programming/org/gtd.org" "shopping todo")
        "* TODO %?\n  %i\n  %a")
-      ("r" "Reference" entry (file+headline "~/programming/org/gtd/gtd.org" "general reference")
+      ("r" "Reference" entry (file+headline "~/programming/org/gtd.org" "general reference")
        "* %?\nEntered on %U\n  %i\n  %a")
-      ("t" "TODO" entry (file+headline "~/programming/org/gtd/gtd.org" "general todo")
+      ("t" "TODO" entry (file+headline "~/programming/org/gtd.org" "general todo")
        "* TODO %?\nEntered on %U\n  %i\n  %a")
       ("q" "Quotations" entry (file+headline "~/programming/org/quotes.org" "Quotations")
        "* %?\nEntered on %U\n  %i\n  %a")
@@ -360,8 +360,8 @@ EXT is a list of the extensions of files to be included."
 (defvar my-org-agenda-extensions '(".org")
   "List of extensions of agenda files")
 
-(setq my-org-agenda-directories '("~/programming/org/" "~/programming/org/gtd/"
-                                  "~/programming/org/gtd/projects"))
+(setq my-org-agenda-directories '("~/programming/org/" "~/programming/org/"
+                                  "~/programming/org/projects"))
 (setq my-org-agenda-extensions '(".org"))
 
 (defun my-org-set-agenda-files ()
@@ -445,28 +445,18 @@ EXT is a list of the extensions of files to be included."
 ; Targets start with the file name - allows creating level 1 tasks
   (setq org-refile-use-outline-path (quote file))
 
-;; I had this set up before, but when I put fancy chars before my todo states my repeating tasks stop working
-;; (setq org-todo-keywords
-;;       '((sequence "☛ TODO(t!)" "♇ PROJECT(r)" "STARTED(s!)"
-;;                   "⚑ DELEGATED(e!)" "☺ CHARGED(c!)" "|" "$ PAID(p!)" "✔ DONE(d!)")))
-
 (setq org-todo-keywords
       '((sequence "TODO(t!)" "PROJECT(r)" "STARTED(s!)"
                   "WAITING(w!)" "CHARGED(c!)" "|" "PAID(p!)" "DONE(d!)")))
 
-;; the top of each agenda document
-;; I can apparently also specify org-tag-faces which will make certain tags look certain colors!
-;; why is this big hunk of setq not working?
-
-;;  (setq org-todo-keywords
-;;        (quote ((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
-;;                (sequence "WAITING(w@/!)" "SOMEDAY(S)" "|" "CANCELLED(c@/!)"))))
 
 (setq org-todo-keyword-faces
       '(("PROJECT" . "#4da6ff")
         ("STARTED" . "#ffff99")
         ("WAITING" . "#ffcc00")
         ("CHARGED" .  "#e085e0")))
+
+
 
 ;; Save the running clock and all clock history when exiting Emacs, load it on startup
 (setq org-clock-persistence-insinuate t)
@@ -500,10 +490,10 @@ EXT is a list of the extensions of files to be included."
   (define-key org-clock-mode-line-map [header-line mouse-1] #'org-clock-menu))
 
 ;;you can start clocking in on an event in the agenda buffer by pressing P
-(use-package org-pomodoro
-  :ensure t)
-(after-load 'org-agenda
-  (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
+;;(use-package org-pomodoro
+;;  :ensure t)
+;;(after-load 'org-agenda
+;;  (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
 (setq org-stuck-projects '("PROJECT" ("TODO NEXT") ("action") "\\<IGNORE\\>" ))
 
@@ -544,7 +534,7 @@ _ht_: subtree
 (define-key org-mode-map (kbd "C-c #") 'hydra-outline/body) ; by example
 (global-set-key (kbd "C-c #") 'hydra-outline/body)
 
-(setq org-return-follows-link t)
+;;(setq org-return-follows-link t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; function to wrap blocks of text in org templates                       ;;

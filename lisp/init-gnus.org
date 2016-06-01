@@ -431,12 +431,11 @@ I used to have this say nnmail-split methods, but I'm not using the nnmail backe
 
 ** close gnus when you exit emacs.
 That way gnus exits properly, and you don't have to read the active file when you open gnus again.
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'kill-emacs-hook #'(lambda ()
+
+(add-hook 'kill-emacs-hook #'(lambda ()
                                  (interactive)
                                  (when (eq nil (get-buffer "*Group*"))
                                    (gnus-group-exit))))
-#+END_SRC
 ** read html mail
 
    You have 2 main options here.  You can use the elisp shr for this or you can use gnus-w3m if you have w3m installed.

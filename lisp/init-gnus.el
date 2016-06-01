@@ -108,11 +108,6 @@ gnus-ignored-from-addresses bbdb-user-mail-address-re)
         ("emacs bugs" "^CC:.*@debbugs.gnu.org.*$")
         ("bug-hurd" "^Cc:.*bug-hurd@gnu.org.*$")))
 
-(add-hook 'kill-emacs-hook #'(lambda ()
-                               (interactive)
-                               (when (eq nil (get-buffer "*Group*"))
-                                 (gnus-group-exit))))
-
 ;;(use-package w3m :ensure t)
 ;;(setq mm-text-html-renderer 'w3m)
 (setq mm-text-html-renderer 'shr)

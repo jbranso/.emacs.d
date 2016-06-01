@@ -100,7 +100,20 @@
   (async-shell-command "filezilla"))
 
 
+(defun save-this-buffer-to-portfolio-site ()
+  "Write this buffer to soihub"
+  (interactive)
+  ;; Take the current file and save it on the live server
+  (setq current-directory
+        (s-chop-prefix "Directory " (pwd)))
+  (write-file "/ssh:jbranso_portfolio91@ssh.phx.nearlyfreespeech.net:/home/public/")
+  ;;Take the current file and save it locally, that way, after I'm done saying the local file
+  ;;to the server, pwd is still ~/programming/soihub
+  (write-file current-directory))
+
+
 ;; this writes the current file to the live soihub server
+
 (defun soihub-save-this-buffer-to-live-server ()
   "Write this buffer to soihub"
   (interactive)
@@ -245,6 +258,86 @@
           (set-window-buffer (next-window) next-win-buffer)
           (select-window first-win)
           (if this-win-2nd (other-window 1))))))
+
+;;I found this big code snippet here:  https://github.com/seanirby/dotfiles/blob/master/.emacs.d/init.el#L310-L397
+;;buffer stuff quickly choose between the last 8 opened buffers
+(defvar bswitch-map (list 1 "a"
+                          2 "o"
+                          3 "e"
+                          4 "u"
+                          5 "i"
+                          6 "d"
+                          7 "h"
+                          8 "t"))
+
+(defvar bswitch-offset 15)
+(defvar bswitch-key-buffer-spacing 5)
+
+(defun bswitch-repeat (number &optional str)
+  (if (< number 1)
+      str
+    (bswitch-repeat (1- number) (concat " " str))))
+
+(defun bswitch-get-beginning ()
+  (bswitch-repeat (- (/ (window-body-width) 2) bswitch-offset)))
+
+(defun bswitch-get-end (beg mid)
+  (bswitch-repeat (- (window-body-width)
+                     (+ (length mid)
+                        (length beg)))))
+
+(defun bswitch-get-header-display-line ()
+  (let* ((beg (bswitch-get-beginning))
+         (mid (concat "Key"
+                      (bswitch-repeat
+                       (+ -2 bswitch-key-buffer-spacing))
+                      "Buffer"))
+         (end (bswitch-get-end beg mid)))
+    (concat beg mid end)))
+
+
+(defun bswitch-get-buffer-display-line (index)
+  (let* ((blist (buffer-list)))
+    (if (< index (length blist))
+        (let* ((beg (bswitch-get-beginning))
+               (mid (concat (plist-get bswitch-map index)
+                            (bswitch-repeat bswitch-key-buffer-spacing)
+                            (buffer-name (nth index (buffer-list)))))
+               (end (bswitch-get-end beg mid)))
+
+          (concat beg mid end))
+      (let* ((beg (bswitch-get-beginning))
+             (mid (format "No buffer at index %s yet" index))
+             (end (bswitch-get-end beg mid)))
+        (concat beg mid end)))))
+
+(defun bswitch-switch (index)
+  (if (< index (length (buffer-list)))
+      (switch-to-buffer (nth index (buffer-list)))
+    (message "Cannot switch since there is no buffer at index %s yet" index)))
+
+(defhydra hydra-bswitch (:hint nil :exit t)
+  "
+%(bswitch-get-header-display-line)
+%(bswitch-get-buffer-display-line 1)
+%(bswitch-get-buffer-display-line 2)
+%(bswitch-get-buffer-display-line 3)
+%(bswitch-get-buffer-display-line 4)
+%(bswitch-get-buffer-display-line 5)
+%(bswitch-get-buffer-display-line 6)
+%(bswitch-get-buffer-display-line 7)
+%(bswitch-get-buffer-display-line 8)
+"
+  ("a" (bswitch-switch 1))
+  ("o" (bswitch-switch 2))
+  ("e" (bswitch-switch 3))
+  ("u" (bswitch-switch 4))
+  ("i" (bswitch-switch 5))
+  ("d" (bswitch-switch 6))
+  ("t" (bswitch-switch 7))
+  ("n" (bswitch-switch 8)))
+
+;; end found this cool command online
 
 (provide 'init-defuns)
 
