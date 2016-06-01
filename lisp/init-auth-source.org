@@ -1,0 +1,17 @@
+If I have a .authinfo, .authinfo.gpg, or .netrc, then load auth-source.el
+
+Auth-source.el, lets you save your various logins and password for different servers in one file.  For someone like me, who has never gotten ssh keys to work (it always ALWAYS ANNOYING prompts me for a password), I just have my information stored in .authinfo.gpg, which is an encrypted file.
+
+Ensure that you have f.el
+#+BEGIN_SRC emacs-lisp
+(use-package f :ensure t)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (cond ((or (f-file? "~/.authinfo") (f-file? "~/.netrc") (f-file? "~/.authinfo.gpg"))
+         (require 'auth-source) ))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(provide 'init-auth-source)
+#+END_SRC
