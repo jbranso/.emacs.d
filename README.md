@@ -91,7 +91,7 @@ All of these key bindings can be found in lisp/init-editing-utilities.el
 Keybinding         | Description
 -------------------|------------------------------------------------------------
 <kbd> Mod a </kbd> | highlight the whole buffer
-<kbd> Mod d </kbd> | downcase wore at point
+<kbd> Mod d </kbd> | downcase word at point
 <kbd> Mod g </kbd> | magit status
 <kbd> Mod s </kbd> | save all open buffers
 <kbd> C-c TAB </kbd> | indent the entire buffer according to the major mode
