@@ -181,12 +181,12 @@
 ;; or removes one.  It's pretty cool!
 (require 'init-smart-comment)
 (require 'init-html)
-;;(require 'init-org2blog)
+(require 'init-org2blog)
 (require 'init-css)
 ;;(require 'init-python-mode)
 (require 'init-defuns)
 ;; emacs can play music and stream it! (when streaming works)
-;;(require 'init-emms)
+(require 'init-emms)
 
 ;; load a zenburn
 (require 'init-misc)

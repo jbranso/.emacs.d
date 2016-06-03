@@ -33,14 +33,13 @@ just one space.
 
 * Setting up Org-plugins
 ** org-crypt
-  encrypting text under a heading in org
-  [[info:org#org-crypt][info:org#org-crypt]]
-   Any text below a headline that has a `:crypt:' tag will be
-automatically be encrypted when the file is saved.  If you want to use
-a different tag just customize the `org-crypt-tag-matcher' setting.
-n
-   To use org-crypt it is suggested that you have the following in your
-`.emacs':
+  encrypting text under a heading in org [[info:org#org-crypt][info:org#org-crypt]] Any text below a headline that has a `:crypt:' tag will be automatically be encrypted when the file is saved.  If you want to use a different tag just customize the `org-crypt-tag-matcher' setting. n To use org-crypt it is suggested that you have the following in your `.emacs':
+
+  So the following org heading would be encrypted
+
+  #+BEGIN_SRC org
+    ,* encrypted                                                                     :crypt:
+  #+END_SRC
 
   #+BEGIN_SRC emacs-lisp
     (require 'org-crypt)
@@ -53,7 +52,7 @@ n
 
   GPG key to use for encryption
   Either the Key ID or set to nil to use symmetric encryption.
-  This is my jbranson@setyourwaypoint.com key
+  This is my key for my email address.
   #+BEGIN_SRC emacs-lisp
      (setq org-crypt-key "C8FA3D82C7B1326F")
   #+END_SRC

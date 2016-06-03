@@ -13,6 +13,8 @@
 
 (define-abbrev-table 'bbdb-mode-abbrev-table '())
 
+(define-abbrev-table 'bibtex-mode-abbrev-table '())
+
 (define-abbrev-table 'bookmark-bmenu-mode-abbrev-table '())
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
@@ -61,6 +63,10 @@
 
 (define-abbrev-table 'dig-mode-abbrev-table '())
 
+(define-abbrev-table 'doctex-mode-abbrev-table '())
+
+(define-abbrev-table 'dsssl-mode-abbrev-table '())
+
 (define-abbrev-table 'edebug-eval-mode-abbrev-table '())
 
 (define-abbrev-table 'edit-abbrevs-mode-abbrev-table '())
@@ -99,15 +105,28 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
+    ("ashtonishing" "astonishing" nil 0)
+    ("authentitication" "authentication" nil 0)
     ("bootable" "able" nil 6)
+    ("carear" "career" nil 0)
+    ("conviently" "conveniently" nil 0)
     ("fulfulling" "fulfilling" nil 0)
+    ("funtions" "functions" nil 0)
     ("guarentee" "guarantee" nil 0)
+    ("idiosyncries" "idiosyncrasies" nil 0)
     ("inconcievable" "inconceivable" nil 0)
     ("maintence" "maintenance" nil 0)
+    ("managment" "management" nil 0)
+    ("occassionally" "occasionally" nil 0)
     ("particulary" "particularly" nil 0)
     ("propritary" "proprietary" nil 0)
-    ("relevent" "relevant" nil 0)
+    ("propspect" "prospect" nil 0)
+    ("relevent" "relevant" nil 2)
+    ("seperated" "separated" nil 0)
+    ("similiar" "similar" nil 0)
     ("stumbed" "stumbled" nil 0)
+    ("technicalogical" "technological" nil 0)
+    ("transaltor" "translator" nil 0)
    ))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
@@ -126,6 +145,8 @@
 
 (define-abbrev-table 'help-mode-abbrev-table '())
 
+(define-abbrev-table 'html-mode-abbrev-table '())
+
 (define-abbrev-table 'idl-mode-abbrev-table '())
 
 (define-abbrev-table 'image-dired-display-image-mode-abbrev-table '())
@@ -139,6 +160,12 @@
    ))
 
 (define-abbrev-table 'js-mode-abbrev-table '())
+
+(define-abbrev-table 'js2-jsx-mode-abbrev-table '())
+
+(define-abbrev-table 'js2-mode-abbrev-table '())
+
+(define-abbrev-table 'latex-mode-abbrev-table '())
 
 (define-abbrev-table 'lisp-mode-abbrev-table '())
 
@@ -196,6 +223,8 @@
 
 (define-abbrev-table 'occur-mode-abbrev-table '())
 
+(define-abbrev-table 'org-export-stack-mode-abbrev-table '())
+
 (define-abbrev-table 'org-mode-abbrev-table '())
 
 (define-abbrev-table 'outline-mode-abbrev-table '())
@@ -208,9 +237,15 @@
   '(
    ))
 
+(define-abbrev-table 'plain-tex-mode-abbrev-table '())
+
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'prog-mode-abbrev-table '())
+
+(define-abbrev-table 'ps-mode-abbrev-table '())
+
+(define-abbrev-table 'ps-run-mode-abbrev-table '())
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
@@ -218,11 +253,17 @@
   '(
    ))
 
+(define-abbrev-table 'scheme-mode-abbrev-table '())
+
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
+
+(define-abbrev-table 'sgml-mode-abbrev-table '())
 
 (define-abbrev-table 'sh-mode-abbrev-table '())
 
 (define-abbrev-table 'shell-mode-abbrev-table '())
+
+(define-abbrev-table 'slitex-mode-abbrev-table '())
 
 (define-abbrev-table 'smime-mode-abbrev-table '())
 
@@ -238,7 +279,13 @@
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
 
+(define-abbrev-table 'tar-mode-abbrev-table '())
+
 (define-abbrev-table 'term-mode-abbrev-table '())
+
+(define-abbrev-table 'tex-mode-abbrev-table '())
+
+(define-abbrev-table 'tex-shell-abbrev-table '())
 
 (define-abbrev-table 'text-mode-abbrev-table '())
 

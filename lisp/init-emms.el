@@ -135,8 +135,8 @@
    ("d" (emms-bookmarks-clear))
    ("e" (emms-stream-edit-bookmark))))
 
-
-(require 'init-emms-secret)
+(setq emms-source-file-default-directory "~/music/")
+(use-package init-emms-secret)
 ;; init-emms-secret looks like
 ;;(setq
  ;; emms-librefm-scrobbler-username "<your libre.fm username>"
