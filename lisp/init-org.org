@@ -175,79 +175,18 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
   <2015-09-02 Sat> because when you generate that invoice, Notes will show up in the invoice even though it
   has no time associated with it
 
- * Working for Waypoint
+ * Working for Some Company
 
  #+BEGIN: invoice
 
-  | Task / Date                   |  Time |  Price |
-  |-------------------------------+-------+--------|
-  | Wednesday, September 02, 2015 |  9:57 | 149.25 |
-  | PCN HTML Design               |  9:57 | 149.25 |
-  |-------------------------------+-------+--------|
-  | Tuesday, August 18, 2015      |  3:19 |  49.75 |
-  |                               |  3:19 |  49.75 |
-  |-------------------------------+-------+--------|
-  | Total:                        | 13:16 | 199.00 |
+  | Task / Date                   | Time |  Price |
+  |-------------------------------+------+--------|
+  | Wednesday, September 02, 2015 | 9:57 | 149.25 |
+  | HTML Design                   | 9:57 | 149.25 |
+  |-------------------------------+------+--------|
+  | Total:                        | 9:16 | 149.00 |
  #+END:
 
- ** PCN HTML Design
-   :PROPERTIES:
-   :RATE: 15
-   :END:
-   :LOGBOOK:
-   CLOCK: [2015-10-16 Fri 14:49]--[2015-10-16 Fri 14:51] =>  0:02
-   CLOCK: [2015-10-16 Fri 09:47]--[2015-10-16 Fri 12:34] =>  2:47
-   CLOCK: [2015-10-15 Thu 17:32]--[2015-10-15 Thu 18:03] =>  0:31
-   CLOCK: [2015-10-15 Thu 17:14]--[2015-10-15 Thu 17:26] =>  0:12
-   CLOCK: [2015-10-15 Thu 16:24]--[2015-10-15 Thu 16:37] =>  0:13
-   CLOCK: [2015-10-15 Thu 15:42]--[2015-10-15 Thu 15:57] =>  0:15
-   CLOCK: [2015-10-15 Thu 14:47]--[2015-10-15 Thu 15:26] =>  0:39
-   CLOCK: [2015-10-15 Thu 14:34]--[2015-10-15 Thu 14:42] =>  0:08
-   CLOCK: [2015-10-15 Thu 13:26]--[2015-10-15 Thu 14:09] =>  0:43
-   CLOCK: [2015-10-15 Thu 13:09]--[2015-10-15 Thu 13:17] =>  0:08
-   CLOCK: [2015-10-15 Thu 11:16]--[2015-10-15 Thu 11:59] =>  0:43
-   CLOCK: [2015-10-15 Thu 11:10]--[2015-10-15 Thu 11:12] =>  0:02
-   CLOCK: [2015-10-14 Wed 14:49]--[2015-10-14 Wed 15:06] =>  0:17
-   CLOCK: [2015-10-14 Wed 14:38]--[2015-10-14 Wed 14:49] =>  0:11
-   CLOCK: [2015-10-14 Wed 11:39]--[2015-10-14 Wed 11:55] =>  0:16
-   CLOCK: [2015-10-14 Wed 09:59]--[2015-10-14 Wed 10:01] =>  0:02
-   CLOCK: [2015-10-14 Wed 09:05]--[2015-10-14 Wed 09:59] =>  0:54
-   CLOCK: [2015-10-06 Tue 13:22]--[2015-10-06 Tue 13:50] =>  0:28
-   CLOCK: [2015-10-06 Tue 11:34]--[2015-10-06 Tue 11:41] =>  0:07
-   CLOCK: [2015-10-02 Fri 15:53]--[2015-10-02 Fri 16:20] =>  0:27
-   CLOCK: [2015-10-02 Fri 13:21]--[2015-10-02 Fri 13:50] =>  0:29
-   CLOCK: [2015-09-17 Thu 17:06]--[2015-09-17 Thu 17:29] =>  0:23
-   :END:
-   <2015-09-02 Sat>
- ** Client Bar (Jan 01 - Jan 15)
-   :PROPERTIES:
-   :RATE: 15
-   :END:
-   :LOGBOOK:
-   CLOCK: [2015-10-16 Fri 14:49]--[2015-10-16 Fri 14:51] =>  0:02
-   CLOCK: [2015-10-16 Fri 09:47]--[2015-10-16 Fri 12:34] =>  2:47
-   CLOCK: [2015-10-15 Thu 17:32]--[2015-10-15 Thu 18:03] =>  0:31
-   CLOCK: [2015-10-15 Thu 17:14]--[2015-10-15 Thu 17:26] =>  0:12
-   CLOCK: [2015-10-15 Thu 16:24]--[2015-10-15 Thu 16:37] =>  0:13
-   CLOCK: [2015-10-15 Thu 15:42]--[2015-10-15 Thu 15:57] =>  0:15
-   CLOCK: [2015-10-15 Thu 14:47]--[2015-10-15 Thu 15:26] =>  0:39
-   CLOCK: [2015-10-15 Thu 14:34]--[2015-10-15 Thu 14:42] =>  0:08
-   CLOCK: [2015-10-15 Thu 13:26]--[2015-10-15 Thu 14:09] =>  0:43
-   CLOCK: [2015-10-15 Thu 13:09]--[2015-10-15 Thu 13:17] =>  0:08
-   CLOCK: [2015-10-15 Thu 11:16]--[2015-10-15 Thu 11:59] =>  0:43
-   CLOCK: [2015-10-15 Thu 11:10]--[2015-10-15 Thu 11:12] =>  0:02
-   CLOCK: [2015-10-14 Wed 14:49]--[2015-10-14 Wed 15:06] =>  0:17
-   CLOCK: [2015-10-14 Wed 14:38]--[2015-10-14 Wed 14:49] =>  0:11
-   CLOCK: [2015-10-14 Wed 11:39]--[2015-10-14 Wed 11:55] =>  0:16
-   CLOCK: [2015-10-14 Wed 09:59]--[2015-10-14 Wed 10:01] =>  0:02
-   CLOCK: [2015-10-14 Wed 09:05]--[2015-10-14 Wed 09:59] =>  0:54
-   CLOCK: [2015-10-06 Tue 13:22]--[2015-10-06 Tue 13:50] =>  0:28
-   CLOCK: [2015-10-06 Tue 11:34]--[2015-10-06 Tue 11:41] =>  0:07
-   CLOCK: [2015-10-02 Fri 15:53]--[2015-10-02 Fri 16:20] =>  0:27
-   CLOCK: [2015-10-02 Fri 13:21]--[2015-10-02 Fri 13:50] =>  0:29
-   CLOCK: [2015-09-17 Thu 17:06]--[2015-09-17 Thu 17:29] =>  0:23
-   :END:
-   <2015-09-02 Sat>
 ** org-notify lets you know when you have upcoming appointments
   I would like to get this set up so that it shows pop-ups using a lua script.
   At the moment it only notifies you when you have approaching deadlines.
