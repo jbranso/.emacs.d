@@ -114,39 +114,39 @@ end imported code
 Org babel lets you run code snippets inside org-mode!  It's a great literate programming environment!
 
   #+BEGIN_SRC emacs-lisp
-  ;; ob-http is needed to run http calls inside org-mode
-  (use-package ob-http :ensure t)
+    ;; ob-http is needed to run http calls inside org-mode
+    (use-package ob-http :ensure t)
 
     (after-load 'org
-      (org-babel-do-load-languages
-       'org-babel-load-languages
-       '(
-         (awk . t)
-         (calc .t)
-         (C . t)
-         (emacs-lisp . t)
-         (gnuplot . t)
-         (latex . t)
-         ;;(ledger . t)
-         (js . t)
-         (haskell . t)
-         (http . t)
-         (python . t)
-         ;; (gnuplot . t)
-         ;; org-babel does not currently support php
-         ;;(php . t)
-         (R . t)
-         (sh . t)
-         (sql . t)
-         ;;(sqlite . t)
-         )))
+        (org-babel-do-load-languages
+         'org-babel-load-languages
+         '(
+           (awk . t)
+           (calc .t)
+           (C . t)
+           (emacs-lisp . t)
+           (gnuplot . t)
+           (latex . t)
+           ;;(ledger . t)
+           (js . t)
+           (haskell . t)
+           (http . t)
+           (python . t)
+           ;; (gnuplot . t)
+           ;; org-babel does not currently support php
+           ;;(php . t)
+           (R . t)
+           (sh . t)
+           (sql . t)
+           ;;(sqlite . t)
+           )))
 
-         (setq org-latex-create-formula-image-program 'imagemagick)
-    ;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
-    ;;(ditaa . t)
-    ;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
-    ;; display inline images in org-mode
-    ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+           (setq org-latex-create-formula-image-program 'imagemagick)
+      ;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
+      ;;(ditaa . t)
+      ;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
+      ;; display inline images in org-mode
+      ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
   #+END_SRC
 
   #+RESULTS:

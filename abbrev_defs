@@ -75,6 +75,12 @@
 
 (define-abbrev-table 'emacs-lisp-mode-abbrev-table '())
 
+(define-abbrev-table 'emms-lyrics-mode-abbrev-table '())
+
+(define-abbrev-table 'emms-show-all-mode-abbrev-table '())
+
+(define-abbrev-table 'emms-tag-editor-mode-abbrev-table '())
+
 (define-abbrev-table 'epa-info-mode-abbrev-table '())
 
 (define-abbrev-table 'epa-key-list-mode-abbrev-table '())
@@ -108,25 +114,35 @@
     ("ashtonishing" "astonishing" nil 0)
     ("authentitication" "authentication" nil 0)
     ("bootable" "able" nil 6)
+    ("capabalities" "capabilities" nil 0)
     ("carear" "career" nil 0)
     ("conviently" "conveniently" nil 0)
+    ("directiories" "directories" nil 0)
     ("fulfulling" "fulfilling" nil 0)
     ("funtions" "functions" nil 0)
+    ("genorator" "generator" nil 0)
     ("guarentee" "guarantee" nil 0)
+    ("idientifying" "identifying" nil 0)
     ("idiosyncries" "idiosyncrasies" nil 0)
     ("inconcievable" "inconceivable" nil 0)
     ("maintence" "maintenance" nil 0)
     ("managment" "management" nil 0)
     ("occassionally" "occasionally" nil 0)
     ("particulary" "particularly" nil 0)
+    ("priviledge" "privilege" nil 0)
+    ("pronouced" "pronounced" nil 0)
     ("propritary" "proprietary" nil 0)
     ("propspect" "prospect" nil 0)
-    ("relevent" "relevant" nil 2)
+    ("recieve" "receive" nil 1)
+    ("recieving" "receiving" nil 0)
+    ("relevent" "relevant" nil 3)
+    ("seemlessly" "seamlessly" nil 0)
     ("seperated" "separated" nil 0)
     ("similiar" "similar" nil 0)
     ("stumbed" "stumbled" nil 0)
     ("technicalogical" "technological" nil 0)
     ("transaltor" "translator" nil 0)
+    ("varient" "variant" nil 0)
    ))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
@@ -168,6 +184,8 @@
 (define-abbrev-table 'latex-mode-abbrev-table '())
 
 (define-abbrev-table 'lisp-mode-abbrev-table '())
+
+(define-abbrev-table 'locate-mode-abbrev-table '())
 
 (define-abbrev-table 'log-edit-mode-abbrev-table '())
 
@@ -249,9 +267,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'scheme-mode-abbrev-table '())
 

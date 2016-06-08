@@ -2,6 +2,6 @@
 # name: <org
 # key: <org
 # --
-#+BEGIN_SRC org
+#+BEGIN_SRC org :exports code
 $0
 #+END_SRC

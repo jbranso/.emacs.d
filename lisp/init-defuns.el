@@ -339,10 +339,18 @@
 
 ;; end found this cool command online
 
+(defun update-my-profile-site-lets-encrypt ()
+  (interactive)
+  ;; What to do in the child process
+  (find-file "/home/joshua/programming/org/projects/become-an-awesome-hacker.org")
+  (search-forward ":CUSTOM_ID: updateLetsEncrypt")
+  (search-forward "#+BEGIN_SRC sh")
+  (org-ctrl-c-ctrl-c))
+
+
 (provide 'init-defuns)
 
 ;; make a helm-function that looks for STARTED areas in my org files that I can click to clock into
 (defun org-find-logbook-headlines ()
   (interactive)
-  (helm :sources '((1 2 3 4 5)) :buffer "*helm clock*" :candidate-number-limit 30)
-  )
+  (helm :sources '((1 2 3 4 5)) :buffer "*helm clock*" :candidate-number-limit 30))
