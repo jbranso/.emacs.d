@@ -109,15 +109,20 @@
 
 (define-abbrev-table 'ggtags-view-search-history-mode-abbrev-table '())
 
+(define-abbrev-table 'gitignore-mode-abbrev-table '())
+
 (define-abbrev-table 'global-abbrev-table
   '(
+    ("allegidly" "allegedly" nil 0)
     ("ashtonishing" "astonishing" nil 0)
     ("authentitication" "authentication" nil 0)
     ("bootable" "able" nil 6)
     ("capabalities" "capabilities" nil 0)
+    ("capabilites" "capabilities" nil 0)
     ("carear" "career" nil 0)
     ("conviently" "conveniently" nil 0)
     ("directiories" "directories" nil 0)
+    ("discriptor" "descriptor" nil 0)
     ("fulfulling" "fulfilling" nil 0)
     ("funtions" "functions" nil 0)
     ("genorator" "generator" nil 0)
@@ -267,7 +272,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'scheme-mode-abbrev-table '())
 

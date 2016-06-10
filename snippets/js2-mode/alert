@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: alert
+# key: alert
+# --
+alert ("$0");

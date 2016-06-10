@@ -3,3 +3,8 @@
 *~
 elpa/
 /bbdb
+/lisp/init-org2blog.org
+/lisp/init-org2blog.el
+/.bookmarks.el
+/.emacs.desktop
+/.places

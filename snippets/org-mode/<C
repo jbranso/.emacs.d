@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: <C
+# key: <C
+# --
+#+BEGIN_SRC C
+$0
+#+END_SRC
