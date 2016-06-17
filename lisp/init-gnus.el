@@ -1,4 +1,4 @@
-(use-package init-gnus-secret)
+(use-package init-gnus-secret :defer t)
 
 (setq
  message-signature

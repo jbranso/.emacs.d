@@ -27,9 +27,10 @@
   ;; I don't need dired to automatically show me all the details ie: all the permissions and stuff
   ;; If I do want the details I can use ")" to show them and "(" to hide them again
   (use-package dired-details
+    :defer t
     :ensure t)
   (setq-default dired-details-hidden-string "--- ")
-  (dired-details-install)
+  ;;(dired-details-install)
   (add-hook 'dired-mode-hook
             (lambda ()
               ;; omit boring files: backup files, etc.

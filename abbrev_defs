@@ -121,6 +121,7 @@
     ("capabilites" "capabilities" nil 0)
     ("carear" "career" nil 0)
     ("conviently" "conveniently" nil 0)
+    ("dereferencing" "referencing" nil 0)
     ("directiories" "directories" nil 0)
     ("discriptor" "descriptor" nil 0)
     ("fulfulling" "fulfilling" nil 0)
@@ -135,6 +136,7 @@
     ("occassionally" "occasionally" nil 0)
     ("particulary" "particularly" nil 0)
     ("priviledge" "privilege" nil 0)
+    ("privledges" "privileges" nil 1)
     ("pronouced" "pronounced" nil 0)
     ("propritary" "proprietary" nil 0)
     ("propspect" "prospect" nil 0)
@@ -142,12 +144,15 @@
     ("recieving" "receiving" nil 0)
     ("relevent" "relevant" nil 3)
     ("seemlessly" "seamlessly" nil 0)
+    ("seperate" "separate" nil 0)
     ("seperated" "separated" nil 0)
     ("similiar" "similar" nil 0)
     ("stumbed" "stumbled" nil 0)
     ("technicalogical" "technological" nil 0)
     ("transaltor" "translator" nil 0)
+    ("transfering" "transferring" nil 0)
     ("varient" "variant" nil 0)
+    ("vunerable" "vulnerable" nil 1)
    ))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
@@ -272,9 +277,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'scheme-mode-abbrev-table '())
 

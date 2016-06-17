@@ -8,6 +8,7 @@
 ;; Before we load any helm things, need to load helm-flx so it uses flx instead of helm's fuzzy matching.
 (use-package helm-flx
   :ensure t
+  :defer t
   :init (helm-flx-mode +1))
 ;; according to the github repo this next line is all that I need to install helm
 (require 'helm-config)

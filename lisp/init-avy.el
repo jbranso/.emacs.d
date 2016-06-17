@@ -2,6 +2,7 @@
 ;;; I use avy mode for avy jump to char, which is a little nicer than ace-jump mode, but not by much.
 (use-package avy
   :ensure t
+  :defer t
   :config
   (setq
    avybackground t

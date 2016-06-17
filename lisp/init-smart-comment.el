@@ -5,6 +5,7 @@
 ;; delete the marked regions and lines with "C-u C-u C-c"
 (use-package smart-comment
   :ensure t
+  :defer t
   :config
   (with-eval-after-load 'org
     (local-unset-key "C-c ;"))

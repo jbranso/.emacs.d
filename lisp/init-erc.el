@@ -1,4 +1,5 @@
 (use-package erc
+  :defer t
   :init
   ;; Join the #emacs and #erc channels whenever connecting to Freenode.
   (setq erc-autojoin-channels-alist '(

@@ -59,6 +59,7 @@
 ;;setting up ac
 (use-package auto-complete
   :ensure t
+  :defer t
   :diminish auto-complete-mode)
 (require 'auto-complete-config)
 ;; I'm adding the next 3 lines from following this website

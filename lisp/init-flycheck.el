@@ -1,12 +1,11 @@
 (require 'ispell)
 
-(use-package flycheck :ensure t)
-
-(use-package flycheck-pos-tip :ensure t)
 (use-package flycheck
+  :defer t
   :config
   (add-hook 'after-init-hook #'(lambda ()
-                                 (global-flycheck-mode 1)))
+                                 (global-flycheck-mode 1))
+            )
 
   ;; show flycheck errors in a popup
   (with-eval-after-load 'flycheck
@@ -15,6 +14,7 @@
   ;; (eval-after-load 'flycheck
   ;;   '(flycheck-package-setup))
   )
+(use-package flycheck-pos-tip :ensure t :defer t)
 
 ;; Override default flycheck triggers
 

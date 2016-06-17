@@ -61,7 +61,7 @@ Run ‘M-x gnus’ and enjoy.
    I hope you don't mind that I'm not telling you my email address.  I'd rather that not be public info.
 
   #+BEGIN_SRC emacs-lisp
-    (use-package init-gnus-secret)
+    (use-package init-gnus-secret :defer t)
   #+END_SRC
 
 ** My gnus signature

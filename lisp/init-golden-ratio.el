@@ -1,5 +1,6 @@
 ;;; https://github.com/roman/golden-ratio.el
 (use-package golden-ratio
+  :defer t
   :ensure t
   :config (setq golden-ratio-exclude-modes
                 '( "sr-mode" "ediff-mode" "gnus-summary-mode" ))

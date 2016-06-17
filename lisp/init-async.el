@@ -1,5 +1,6 @@
 (use-package async
   :ensure t
+  :defer t
   :config
   ;; enable async dired commands
   (autoload 'dired-async-mode "dired-async.el" nil t)

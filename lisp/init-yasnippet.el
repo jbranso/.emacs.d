@@ -2,6 +2,7 @@
 
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
 (use-package yasnippet
+  :defer t
   :ensure t)
 (yas-global-mode 1)
 ;; (diminish 'yas-global-mode)
