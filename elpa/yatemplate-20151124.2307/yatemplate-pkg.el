@@ -1,1 +1,0 @@
-(define-package "yatemplate" "20151124.2307" "File templates with yasnippet" '((yasnippet "0.8.1")) :stars '(#("9" 0 1 (font-lock-face paradox-star-face))) :url "https://github.com/mineo/yatemplate" :keywords '("files" "convenience"))
