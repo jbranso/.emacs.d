@@ -9,3 +9,8 @@ elpa/
 /.emacs.desktop
 /.places
 elpa/
+emms/
+games/
+image-dired/
+/ac-comphist.dat
+/custom.el
