@@ -14,3 +14,7 @@ games/
 image-dired/
 /ac-comphist.dat
 /custom.el
+elpa/
+elpa/
+elpa/*
+/lisp/init-wttrin.el

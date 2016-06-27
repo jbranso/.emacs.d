@@ -322,6 +322,7 @@ already narrowed."
 (global-set-key (kbd "C-c SPC") #'just-one-space)
 ;; some modes my default / in normal mode is NOT bound to helm-swoop, BUT I REALLY LIKE helm-swoop
 (global-set-key (kbd "C-c /") #'helm-swoop)
+(global-set-key (kbd "C-c C-o") #'org-open-at-point-global)
 ;; this is bound in init-smart-comment.el
 ;;(global-set-key (kbd "C-c ;") #'comment-dwim)
 ;;(define-key global-map (kbd "C-c a") 'org-agenda)
@@ -528,5 +529,8 @@ be global."
 (add-hook 'before-save-hook
           '(lambda ()
              (delete-trailing-whitespace)))
+
+;; start the emacs server for use via org-protocal.
+(server-start)
 
 (provide 'init-editing-utils)

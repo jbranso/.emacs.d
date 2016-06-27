@@ -59,51 +59,56 @@
 ;;setting up ac
 (use-package auto-complete
   :ensure t
-  :defer t
-  :diminish auto-complete-mode)
-(require 'auto-complete-config)
-;; I'm adding the next 3 lines from following this website
-;; https://truongtx.me/2013/01/06/config-yasnippet-and-autocomplete-on-emacs/
-(ac-config-default)
+  :diminish auto-complete-mode
+  :init  (progn
+           (require 'auto-complete-config)
+
+           ;; I'm adding the next 3 lines from following this website
+           ;; https://truongtx.me/2013/01/06/config-yasnippet-and-autocomplete-on-emacs/
+           (ac-config-default)
 ;;; set the trigger key so that it can work together with yasnippet on tab key,
 ;;; if the word exists in yasnippet, pressing tab will cause yasnippet to
 ;;; activate, otherwise, auto-complete will
-(ac-set-trigger-key "TAB")
-(ac-set-trigger-key "<tab>")
-(global-auto-complete-mode t)
-;;(setq-default ac-expand-on-auto-complete nil)
-;;(setq-default ac-expand-on-auto-complete t)
-;;how long a word needs to be before auto-complete suggestions come up.
-(setq-default ac-auto-start 3)
-(setq-default ac-dwim t) ; To get pop-ups with docs even if a word is uniquely completed
-;; to get fuzzy matches with things.  Very helpful
-(setq-default ac-use-fuzzy t)
+           (ac-set-trigger-key "TAB")
+           (ac-set-trigger-key "<tab>")
+           (global-auto-complete-mode t)
+           (setq-default ac-delay .3)
+           ;;(setq-default ac-expand-on-auto-complete nil)
+           ;; expand a common part of whole candidates
+           ;; it doesn't work well.
+           (setq-default ac-expand-on-auto-complete nil)
+           ;;a word must be 3 chars long before completition begins
+           (setq-default ac-auto-start 2)
+           (setq-default ac-dwim t) ; To get pop-ups with docs even if a word is uniquely completed
 
-;;----------------------------------------------------------------------------
-;; Use Emacs' built-in TAB completion hooks to trigger AC (Emacs >= 23.2)
-;;----------------------------------------------------------------------------
-(setq tab-always-indent 'complete)  ;; use 't when auto-complete is disabled
-(add-to-list 'completion-styles 'initials t)
-;; Stop completion-at-point from popping up completion buffers so eagerly
-(setq completion-cycle-threshold 5)
+           ;;----------------------------------------------------------------------------
+           ;; Use Emacs' built-in TAB completion hooks to trigger AC (Emacs >= 23.2)
+           ;;----------------------------------------------------------------------------
+           (setq tab-always-indent 'complete)  ;; use 't when auto-complete is disabled
+           ;;(add-to-list 'completion-styles 'initials t)
+           ;; Stop completion-at-point from popping up completion buffers so eagerly
+           ;;(setq completion-cycle-threshold 5)
 
-;; make expand be tab
-(define-key ac-complete-mode-map "\t" #'ac-expand)
-;; make complete by return
-(define-key ac-complete-mode-map "\C-m" #'ac-complete)
-;; I was going to make every up and down be t and h but too annoying
-(define-key ac-complete-mode-map "\C-n" #'ac-next)
-(define-key ac-complete-mode-map "\C-p" #'ac-previous)
+           ;; make expand be tab
+           (define-key ac-complete-mode-map "\t" #'ac-expand)
+           ;; make complete by return
+           (define-key ac-complete-mode-map "\C-m" #'ac-complete)
+           ;; Make C-n and C-p mean go up and down on the completion list
+           (define-key ac-complete-mode-map "\C-n" #'ac-next)
+           (define-key ac-complete-mode-map "\C-p" #'ac-previous)
+           (setq ac-quick-help-delay .3)
+           (setq ac-candidate-limit 100)
 
-(set-default 'ac-sources
-             '(
-               ;;ac-source-imenu
-               ac-source-dictionary
-               ac-source-words-in-buffer
-               ac-source-filename
-               ;;useful for eshell
-               ac-source-files-in-current-dir))
+           (set-default 'ac-sources
+                        '(
+                          ;;ac-source-imenu
+                          ac-source-filename
+                          ;;ac-source-dictionary
+                          ac-source-words-in-buffer
+                          ;;useful for eshell
+                          ac-source-files-in-current-dir))
 
+           (setq-default ac-use-fuzzy nil)))
 
 (dolist (mode '(
                 magit-log-edit-mode

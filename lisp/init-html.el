@@ -214,7 +214,7 @@ _v_: element vanish       _n_: _n_ext element
                            (push '(">=" . ?≥) prettify-symbols-alist)
                            (push '("<=" . ?≤) prettify-symbols-alist)
                            (diminish 'ggtags-mode)
-                           ;;this conflicts with the snippets, and it's seriously annoying
+                           ;; this conflicts with the snippets, and it's seriously annoying
                            ;;(ac-js2-mode)
                            ;;set ac sources to nil for javascript that way it doesn't interfer with yasnippet
                            (setq ac-sources

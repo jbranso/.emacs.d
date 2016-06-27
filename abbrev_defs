@@ -113,24 +113,32 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
+    ("accross" "across" nil 0)
     ("allegidly" "allegedly" nil 0)
     ("ashtonishing" "astonishing" nil 0)
+    ("assistent" "assistant" nil 0)
     ("authentitication" "authentication" nil 0)
     ("bootable" "able" nil 6)
+    ("borish" "boorish" nil 0)
     ("capabalities" "capabilities" nil 0)
     ("capabilites" "capabilities" nil 0)
     ("carear" "career" nil 0)
     ("conviently" "conveniently" nil 0)
     ("dereferencing" "referencing" nil 0)
+    ("dialoge" "dialogue" nil 0)
     ("directiories" "directories" nil 0)
+    ("discented" "dissented" nil 0)
     ("discriptor" "descriptor" nil 0)
+    ("extentions" "extensions" nil 0)
     ("fulfulling" "fulfilling" nil 0)
     ("funtions" "functions" nil 0)
     ("genorator" "generator" nil 0)
     ("guarentee" "guarantee" nil 0)
     ("idientifying" "identifying" nil 0)
     ("idiosyncries" "idiosyncrasies" nil 0)
+    ("incitces" "incites" nil 0)
     ("inconcievable" "inconceivable" nil 0)
+    ("langugaes" "languages" nil 0)
     ("maintence" "maintenance" nil 0)
     ("managment" "management" nil 0)
     ("occassionally" "occasionally" nil 0)
@@ -140,9 +148,11 @@
     ("pronouced" "pronounced" nil 0)
     ("propritary" "proprietary" nil 0)
     ("propspect" "prospect" nil 0)
+    ("pysch" "psych" nil 0)
     ("recieve" "receive" nil 1)
     ("recieving" "receiving" nil 0)
     ("relevent" "relevant" nil 3)
+    ("scenerio" "scenario" nil 0)
     ("seemlessly" "seamlessly" nil 0)
     ("seperate" "separate" nil 0)
     ("seperated" "separated" nil 0)
@@ -225,6 +235,8 @@
 
 (define-abbrev-table 'magit-refs-mode-abbrev-table '())
 
+(define-abbrev-table 'magit-repolist-mode-abbrev-table '())
+
 (define-abbrev-table 'magit-revision-mode-abbrev-table '())
 
 (define-abbrev-table 'magit-stash-mode-abbrev-table '())
@@ -292,6 +304,8 @@
 (define-abbrev-table 'slitex-mode-abbrev-table '())
 
 (define-abbrev-table 'smime-mode-abbrev-table '())
+
+(define-abbrev-table 'snake-mode-abbrev-table '())
 
 (define-abbrev-table 'snippet-mode-abbrev-table '())
 

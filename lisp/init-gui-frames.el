@@ -70,4 +70,31 @@
 (when (display-graphic-p)
   (global-hl-line-mode 1))
 
-(provide 'init-gui-frames)
+
+;; make comments in most programming languages various colors. [[file:~/.bashrc::#x%20hello]]
+;;i hello
+;;x like this
+(defface font-lock-comment-strike
+  '((t (:strike-through t)))
+  "For strike-through comments")
+
+(defface font-lock-comment-important
+  '((t (:foreground "#00ff00")))
+  "For important")
+
+(defface font-lock-comment-todo
+  '((t (:foreground "#ff0000")))
+  "For todo comments")
+
+(defun add-custom-keyw()
+  "adds a few special keywords"
+  (font-lock-add-keywords
+   nil
+   '(("\\s<+x[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-strike prepend)
+     ("\\s<+t[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-todo prepend)
+     ("\\s<+i[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-important prepend))))
+
+  (add-hook 'prog-mode-hook #'add-custom-keyw)
+
+
+  (provide 'init-gui-frames)

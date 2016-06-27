@@ -187,7 +187,8 @@
 (require 'init-defuns)
 ;; emacs can play music and stream it! (when streaming works)
 (require 'init-emms)
-
+;;get weather forcast in emacs
+(require init-wttrin)
 ;; load a zenburn
 (require 'init-misc)
 ;; smart-mode-line is awesome!

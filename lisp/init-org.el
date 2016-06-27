@@ -13,15 +13,16 @@
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
 ;;(setq org-default-notes-file (concat org-directory "/notes.org"))
 
-(require 'org-crypt)
-(org-crypt-use-before-save-magic)
-(setq org-tags-exclude-from-inheritance (quote ("crypt")))
+(use-package org-crypt
+  :config
+  (org-crypt-use-before-save-magic)
+  (setq org-tags-exclude-from-inheritance (quote ("crypt"))))
 
 (setq org-crypt-key "C8FA3D82C7B1326F")
 
 (setq auto-save-default nil)
 
-(require 'org-mime)
+(use-package org-mime)
 
 ;; I'm having problems with this
 ;;(add-hook 'org-mime-html-hook
@@ -39,7 +40,7 @@
 ;; ob-http is needed to run http calls inside org-mode
 (use-package ob-http :ensure t)
 
-  (after-load 'org
+(after-load 'org
     (org-babel-do-load-languages
      'org-babel-load-languages
      '(
@@ -55,7 +56,7 @@
        (http . t)
        (python . t)
        ;; (gnuplot . t)
-       ;; org-babel does not currently support php
+       ;; org-babel does not currently support php.  That is really sad.
        ;;(php . t)
        (R . t)
        (sh . t)
@@ -70,9 +71,9 @@
   ;; display inline images in org-mode
   ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
-(require 'org-invoice)
+(use-package org-invoice)
 
-(require 'org-notify)
+(use-package org-notify)
 (org-notify-start)
 
 (org-notify-add 'appt
@@ -83,15 +84,17 @@
                 '(:time "2h" :period "5m" :actions -message)
                 '(:time "3d" :actions -email))
 
-(require 'org-inlinetask)
+(use-package org-inlinetask)
 
-(require 'org-habit)
+(use-package org-habit)
+
+(require 'org-protocol)
 
 (defun yas/org-very-safe-expand ()
     (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
 ;; I want to get write-good-mode set up again, because it's awesome.
-(use-package writegood-mode :ensure t)
+(use-package writegood-mode :ensure t :defer t)
 
 (add-hook 'org-mode-hook '(lambda ()
 
@@ -149,6 +152,8 @@
  ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
  ;; Other interesting characters are ↴, ⬎, ⤷, and ⋱.
  org-ellipsis " ↴"
+ ;; make RET follow a link
+ org-return-follows-link t
  ;; only show times on items in the agenda, if we have an item at a specified time
  ;; if we set it to true, then we see all the times every 2 hours.  Takes up too much space.
  org-agenda-use-time-grid nil
@@ -308,6 +313,9 @@
        "* %?\nEntered on %U\n  %i\n  %a")
       ("t" "TODO" entry (file+headline "~/programming/org/gtd.org" "general todo")
        "* TODO %?\nEntered on %U\n  %i\n  %a")
+       ("w" "Weblink" entry (file (expand-file-name "~/programming/org/gtd.org" "org capture"))
+       "* %c\n  :PROPERTIES:\n  :CREATED: %U\n  :END:\n  - Quote:\n    %i" :unnarrowed)
+
       ("q" "Quotations" entry (file+headline "~/programming/org/quotes.org" "Quotations")
        "* %?\nEntered on %U\n  %i\n  %a")
       ))
@@ -533,8 +541,6 @@ _ht_: subtree
 
 (define-key org-mode-map (kbd "C-c #") 'hydra-outline/body) ; by example
 (global-set-key (kbd "C-c #") 'hydra-outline/body)
-
-;;(setq org-return-follows-link t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; function to wrap blocks of text in org templates                       ;;
