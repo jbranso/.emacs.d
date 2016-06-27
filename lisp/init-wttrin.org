@@ -12,5 +12,15 @@ I'm not sure if Lafayette
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
+  (defun weather ()
+    "Show the local weather via wttrin"
+    (interactive)
+    (wttrin))
+#+END_SRC
+
+#+RESULTS:
+: weather
+
+#+BEGIN_SRC emacs-lisp
 (provide 'init-wttrin.el)
 #+END_SRC
