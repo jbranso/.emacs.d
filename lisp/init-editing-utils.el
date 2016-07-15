@@ -162,8 +162,8 @@
 
 
 (defhydra hydra-rectangle (:body-pre (rectangle-mark-mode 1)
-                           :color pink
-                           :post (deactivate-mark))
+                                     :color pink
+                                     :post (deactivate-mark))
   "
   ^_t_^     _d_elete    str_i_ng
 _n_   _s_   _o_k        _y_ank
@@ -532,5 +532,33 @@ be global."
 
 ;; start the emacs server for use via org-protocal.
 (server-start)
+
+
+;; modify post-self-insert-hook to run "flyspell-auto-correct-word", if the character is SPC
+(defun my/flyspell-auto-correct-word ()
+  "If the last entered character is SPC, then run flyspell-auto-correct-word on the last word "
+  (interactive)
+  (let (char)
+    ;; get the char before point.  If you have just pressed the space bar, then the char before point is SPC.
+    ;; if you have just pressed "h", then the char before point is "h".
+    (setq char
+          (substring (buffer-substring (- (point) 1) (point)) 0))
+    (when (string= " " char)
+      (flyspell-auto-correct-word))))
+
+;; turn on autocorrect last word for all of my text modes.
+;; it might be a bad idea to turn it on for programming modes.  If you have a variable named "becuase", it'll keep correcting it.
+(add-hook 'text-mode-hook #'add-my-flyspell-auto-correct-word)
+
+(defun add-my-flyspell-auto-correct-word ()
+  "This function adds my/flyspell-auto-correct-word function to be run after post-self-insert-hook."
+  (interactive)
+  (add-hook 'post-self-insert-hook 'my/flyspell-auto-correct-word))
+
+(defun remove-my-flyspell-auto-correct-word ()
+  "This function adds my/flyspell-auto-correct-word function to be run after post-self-insert-hook."
+  (interactive)
+  (remove-hook 'post-self-insert-hook 'my/flyspell-auto-correct-word))
+
 
 (provide 'init-editing-utils)

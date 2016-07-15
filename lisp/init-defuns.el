@@ -101,14 +101,14 @@
 
 
 (defun save-this-buffer-to-portfolio-site ()
-  "Write this buffer to soihub"
+  "Write this buffer to to my portfolio site"
   (interactive)
   ;; Take the current file and save it on the live server
   (setq current-directory
         (s-chop-prefix "Directory " (pwd)))
   (write-file "/ssh:jbranso_portfolio91@ssh.phx.nearlyfreespeech.net:/home/public/")
   ;;Take the current file and save it locally, that way, after I'm done saying the local file
-  ;;to the server, pwd is still ~/programming/soihub
+  ;; to the server, pwd is still ~/programming/soihub
   (write-file current-directory))
 
 
@@ -346,7 +346,6 @@
   (search-forward ":CUSTOM_ID: updateLetsEncrypt")
   (search-forward "#+BEGIN_SRC sh")
   (org-ctrl-c-ctrl-c))
-
 
 (provide 'init-defuns)
 

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: <scheme
+# key: <scheme
+# --
+#+BEGIN_SRC scheme
+$0
+#+END_SRC

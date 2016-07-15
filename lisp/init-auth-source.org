@@ -7,9 +7,20 @@ Ensure that you have f.el
 (use-package f :ensure t)
 #+END_SRC
 
+gpg2 is the modern and stable version.
 #+BEGIN_SRC emacs-lisp
-  (cond ((or (f-file? "~/.authinfo") (f-file? "~/.netrc") (f-file? "~/.authinfo.gpg"))
-         (require 'auth-source) ))
+(setq epg-gpg-program "gpg2")
+#+END_SRC
+
+#+RESULTS:
+: gpg2
+
+#+BEGIN_SRC emacs-lisp
+  (when (f-file? "~/.authinfo.gpg")
+    ;; only use the encrypted file.
+    (setq auth-sources '("~/.authinfo.gpg"))
+    ;;(require 'auth-source)
+    )
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp

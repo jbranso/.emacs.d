@@ -145,6 +145,7 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
   #+BEGIN_SRC emacs-lisp
     ;; ob-http is needed to run http calls inside org-mode
     (use-package ob-http :ensure t)
+    (setq geiser-default-implementation 'guile)
 
     (after-load 'org
         (org-babel-do-load-languages
@@ -154,17 +155,20 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
            (calc .t)
            (C . t)
            (emacs-lisp . t)
+           (haskell . t)
            (gnuplot . t)
            (latex . t)
            ;;(ledger . t)
            (js . t)
            (haskell . t)
            (http . t)
+           (perl . t)
            (python . t)
            ;; (gnuplot . t)
            ;; org-babel does not currently support php.  That is really sad.
            ;;(php . t)
            (R . t)
+           (scheme . t)
            (sh . t)
            (sql . t)
            ;;(sqlite . t)

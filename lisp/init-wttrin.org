@@ -22,5 +22,5 @@ I'm not sure if Lafayette
 : weather
 
 #+BEGIN_SRC emacs-lisp
-(provide 'init-wttrin.el)
+(provide 'init-wttrin)
 #+END_SRC

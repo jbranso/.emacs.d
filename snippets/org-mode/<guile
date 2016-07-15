@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: <guile
+# key: <guile
+# --
+#+BEGIN_SRC guile
+$0
+#+END_SRC
