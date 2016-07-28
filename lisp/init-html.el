@@ -88,34 +88,20 @@ _v_: element vanish       _n_: _n_ext element
         ("django"  . "\\.djhtml\\.")))
 
 
-(setq web-mode-ac-sources-alist
-      '(("css" . (ac-source-css-property ac-source-html-bootstrap+))
-        ("html" . (ac-source-words-in-buffer
-                   ac-source-abbrev
-                   ;;no need for yasnippet in html emmet mode is sooo much better
-                   ;; also auto complete and yasnippet do NOT play well together
-                   ;;ac-source-yasnippet
-                   ac-source-emmet-html-aliases
-                   ac-source-emmet-html-snippets
-                   ac-source-html-tag
-                   ac-source-html-attribute
-                   ac-source-html-attribute-2
-                   ac-source-files-in-current-dir
-                   ))
-        ("php" . (
-                  ac-source-words-in-buffer
-                  ;; DO NOT SET ac-source yasnippet. autocomplete does NOT play nicely with ac-source yasnippet
-                  ;; ac-source-yasnippet
-                  ;; Here are some pages that talk about getting yas and autocomplete to play nicely together
-                  ;; http://sethlakowske.com/why-i-use-emacs/fix-yasnippet-and-autocomplete-tab-key-collision/
-                  ;; https://stackoverflow.com/questions/19900949/how-to-make-auto-complete-work-with-yasnippet-and-abbrev
-                  ;; https://github.com/capitaomorte/yasnippet/issues/336
-                  ;; https://emacs.stackexchange.com/questions/9670/yasnippet-not-working-with-auto-complete-mode
-                  ac-source-filename
-                  ;;I'm being more and more annoyed with ac-php
-                  ;; https://github.com/xcwen/ac-php/
-                  ;;ac-source-php
-                  ))))
+;;(setq web-mode-ac-sources-alist '(("css" . (ac-source-css-property ac-source-html-bootstrap+)) ("html" . (ac-source-words-in-buffer ac-source-abbrev ac-source-emmet-html-aliases ac-source-emmet-html-snippets ac-source-html-tag ac-source-html-attribute ac-source-html-attribute-2 ac-source-files-in-current-dir))))
+
+;;("php" . (ac-source-words-in-buffer ac-source-filename))
+
+;; DO NOT SET ac-source yasnippet. autocomplete does NOT play nicely with ac-source yasnippet
+;; ac-source-yasnippet
+;; Here are some pages that talk about getting yas and autocomplete to play nicely together
+;; http://sethlakowske.com/why-i-use-emacs/fix-yasnippet-and-autocomplete-tab-key-collision/
+;; https://stackoverflow.com/questions/19900949/how-to-make-auto-complete-work-with-yasnippet-and-abbrev
+;; https://github.com/capitaomorte/yasnippet/issues/336
+;; https://emacs.stackexchange.com/questions/9670/yasnippet-not-working-with-auto-complete-mode
+;;I'm being more and more annoyed with ac-php
+;; https://github.com/xcwen/ac-php/
+;;ac-source-php
 
 
 (add-hook 'web-mode-hook (lambda ()
@@ -195,11 +181,7 @@ _v_: element vanish       _n_: _n_ext element
                            ;;(push '("):" . ?☹) prettify-symbols-alist)
                            (push '(":D" . ?☺) prettify-symbols-alist)
                            (push '("^_^" . ?☻) prettify-symbols-alist)
-                           (setq ac-sources '(
-                                              ac-source-filename
-                                              ;;  ac-source-dictionary
-                                              ac-source-words-in-buffer
-                                              ))
+                           ;;(setq ac-sources '(ac-source-filename ac-source-words-in-buffer))
                            ))
 
 
@@ -217,11 +199,7 @@ _v_: element vanish       _n_: _n_ext element
                            ;; this conflicts with the snippets, and it's seriously annoying
                            ;;(ac-js2-mode)
                            ;;set ac sources to nil for javascript that way it doesn't interfer with yasnippet
-                           (setq ac-sources
-                                 '(
-                                   ac-source-filename
-                                   ac-source-dictionary
-                                   ))
+                           ;;(setq ac-sources '(ac-source-filename ac-source-dictionary))
                            ))
 
 

@@ -6,6 +6,13 @@
 
 Org-mode is Emacs' organizational mode, and it is amazing!  [[http://doc.norang.ca/org-mode.html][Here]] is an online example configuration that is a little more thorough than this configuration.
 
+* COMMENT Org's 8.3 stable version
+
+Org-mode has just updated to a stable version.  release notes are here: http://orgmode.org/Changes.html
+
+Property drawers now have to be under a headline and its scheduling line.
+
+Org-babel mode now supports sed!
 * My org use-package declaration
 Make C-c SPC inside an org table mean clear that table section.  If you are outside of an org table, make it mean
 just one space.

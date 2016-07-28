@@ -3,6 +3,7 @@ This file configures emacs to [[https://www.gnu.org/software/emacs/manual/html_n
 #+BEGIN_SRC emacs-lisp
   (add-hook 'find-file-hook 'auto-insert)
   (setq auto-insert-directory "~/.emacs.d/auto-insert-directory/")
+  (add-hook 'after-init-hook 'auto-insert-mode)
 #+END_SRC
 
 Auto-insertion of a buffer is completed via the variable =auto-insert-alist=.  If CONDITION is met, then ACTION is done.

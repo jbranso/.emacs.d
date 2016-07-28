@@ -72,7 +72,8 @@
 
 
 ;; make comments in most programming languages various colors. [[file:~/.bashrc::#x%20hello]]
-;;i hello
+;;cr red
+;;cg green
 ;;x like this
 (defface font-lock-comment-strike
   '((t (:strike-through t)))
@@ -95,6 +96,5 @@
      ("\\s<+cg[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-important prepend))))
 
   (add-hook 'prog-mode-hook #'add-custom-keyw)
-
 
   (provide 'init-gui-frames)

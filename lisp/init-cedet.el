@@ -57,6 +57,8 @@
 ;; (ede-enable-generic-projects)
 
 ;;setting up ac
+(require 'auto-complete)
+
 (use-package auto-complete
   :ensure t
   :diminish auto-complete-mode
@@ -72,14 +74,13 @@
            (ac-set-trigger-key "TAB")
            (ac-set-trigger-key "<tab>")
            (global-auto-complete-mode t)
-           (setq-default ac-delay .3)
+           ;;(setq-default ac-delay .3)
            ;;(setq-default ac-expand-on-auto-complete nil)
-           ;; expand a common part of whole candidates
-           ;; it doesn't work well.
-           (setq-default ac-expand-on-auto-complete nil)
+           ;; expand a common part of whole candidates it doesn't work well.
+           ;;(setq-default ac-expand-on-auto-complete nil)
            ;;a word must be 3 chars long before completition begins
-           (setq-default ac-auto-start 2)
-           (setq-default ac-dwim t) ; To get pop-ups with docs even if a word is uniquely completed
+           ;;(setq-default ac-auto-start 2)
+           ;;(setq-default ac-dwim t) ; To get pop-ups with docs even if a word is uniquely completed
 
            ;;----------------------------------------------------------------------------
            ;; Use Emacs' built-in TAB completion hooks to trigger AC (Emacs >= 23.2)
@@ -97,7 +98,9 @@
            (define-key ac-complete-mode-map "\C-n" #'ac-next)
            (define-key ac-complete-mode-map "\C-p" #'ac-previous)
            (setq ac-quick-help-delay .3)
-           (setq ac-candidate-limit 100)
+           ;;(setq ac-candidate-limit 100)
+
+           (setq ac-sources '(ac-source-words-in-buffer))
 
            (set-default 'ac-sources
                         '(
@@ -108,7 +111,8 @@
                           ;;useful for eshell
                           ac-source-files-in-current-dir))
 
-           (setq-default ac-use-fuzzy nil)))
+           ;;(setq-default ac-use-fuzzy nil)
+           ))
 
 (dolist (mode '(
                 magit-log-edit-mode
@@ -130,12 +134,8 @@
                 ;; sql-interactive-mode
                 ;; don't specify web-mode here, web-mode has its own way of specifying what ac sources to use
                 js2-mode
-                inferior-emacs-lisp-mode))
+                inferior-emacs-lisp-mode
+                emacs-lisp-mode))
   (add-to-list 'ac-modes mode))
-
-
-;; Exclude very large buffers from dabbrev
-(defun sanityinc/dabbrev-friend-buffer (other-buffer)
-  (< (buffer-size other-buffer) (* 1 1024 1024)))
 
 (provide 'init-cedet)

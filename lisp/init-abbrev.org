@@ -1,8 +1,14 @@
+Add abbrev-mode to text modes and program modes to turn on autocorrect like functionality.
+#+BEGIN_SRC emacs-lisp
 (dolist (hook '(org-mode-hook
                 prog-mode-hook
                 text-mode-hook))
   (add-hook hook (lambda ()
                    (abbrev-mode 1)
                    (diminish 'abbrev-mode))))
+#+END_SRC
 
+Provide this file
+#+BEGIN_SRC emacs-lisp
 (provide 'init-abbrev)
+#+END_SRC

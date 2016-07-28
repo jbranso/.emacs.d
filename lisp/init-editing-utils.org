@@ -1,0 +1,609 @@
+* Some basic preferences
+** My preferred font
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'default-frame-alist '(font. "Hack Regular"))
+#+END_SRC
+** default variables
+#+BEGIN_SRC emacs-lisp
+  (setq-default
+   ;; It's much easier to move around lines based on how they are displayed, rather than the actual line. This helps a ton with long
+   ;; log file lines that may be wrapped:
+   line-move-visual t
+   ;;blink-cursor-interval 0.4
+   ;; I want to open links from org-mode in chromium
+   ;;browse-url-browser-function (quote browse-url-chromium)
+   browse-url-browser-function (quote browse-url-firefox)
+   bookmark-default-file (expand-file-name ".bookmarks.el" user-emacs-directory)
+   ;;original value was 30.  A large number slows down emacs a bit apparently
+   buffers-menu-max-size 20
+   case-fold-search t
+   default-tab-width 4
+   ;; I believe this sets up ediff to split the two windows horizontally AND to NOT show you all the commands
+   ;; you can use on the two buffers that you are comapring
+   ediff-split-window-function 'split-window-horizontally
+   ediff-window-setup-function 'ediff-setup-windows-plain
+   fill-column 130
+   ;;when you are on the last line of the buffer, C-n will act like <return>
+   next-line-add-newlines t
+   indent-tabs-mode nil
+   inhibit-splash-screen t
+   inhibit-startup-echo-area-message t
+   inhibit-startup-message t
+   ;;make-backup-files nil
+   initial-scratch-message nil
+   ;; don't let the cursor go into minibuffer prompt
+   ;; http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
+   minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
+   ;; this should turn off auto-saving the proper way.
+   auto-save-default nil  ;; this will stop making #auto-save# files
+   make-backup-files nil  ;; this will stop making backup~ files
+   ;; make emacs save all backup~ files in this directory
+   ;;backup-directory-alist '(("" . "~/.emacs.d/backups"))
+   save-interprogram-paste-before-kill t
+   scroll-preserve-screen-position 'always
+   set-mark-command-repeat-pop t
+   tooltip-delay 1.5
+   truncate-lines nil
+   truncate-partial-width-windows nil)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(line-number-mode 0)
+(column-number-mode 0)
+
+#+END_SRC
+
+
+Make TAB mean indent.
+(global-set-key "\t" #'indent-for-tab-command)
+** global keybindings
+*** delete and rename current file
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x C-k") #'delete-this-file)
+(global-set-key (kbd "C-x C-r") #'rename-this-file-and-buffer)
+#+END_SRC
+
+*** some global keybindings
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c C-h") #'help)
+(global-set-key (kbd "C-c h k") #'helm-show-kill-ring)
+(global-set-key (kbd "C-x f")   #'helm-find-files)
+(global-set-key (kbd "C-c h o") #'helm-occur)
+(global-set-key (kbd "C-c h c") #'helm-calcul-expression)
+
+#+END_SRC
+
+Transposing words and characters.
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c t") #'transpose-chars)
+(global-set-key (kbd "C-c T") #'transpose-words)
+#+END_SRC
+
+** My quick commands "C-c <char>"
+*** my modkey <letter> commands
+My modkey is "command" on a macbook.
+#+BEGIN_SRC emacs-lisp
+
+(global-set-key (kbd "s-;") #'web-mode-comment-or-uncomment)
+(global-set-key (kbd "s-a") #'mark-whole-buffer)
+(global-set-key (kbd "s-d") #'my/downcase-word)
+(global-set-key (kbd "s-g") #'magit-status)
+(global-set-key (kbd "s-h") #'mark-paragraph)
+;; This causes ERC to connect to the Freenode network upon hitting mod-i
+(global-set-key (kbd "s-i") (lambda () (interactive)
+                              (erc :server "irc.freenode.net" :port "6667"
+                                   :nick "jbranso")))
+(global-set-key (kbd "s-s") '(lambda ()
+                               (interactive)
+                               (save-some-buffers 1)))
+(global-set-key (kbd "s-u") #'my/uppercase-word)
+#+END_SRC
+
+*** My reserved keychords.  "C-c [a-zA-Z]"
+There is only one set of keychords that Emacs reserves for users to set themselves.  That is "C-c <char>".  These are my preferred keychords.
+
+;; this conflicts with my command for dired.
+(global-unset-key (kbd "C-a"))
+(local-unset-key (kbd "C-a"))
+
+All of my "C-c [letter]" commands
+#+BEGIN_SRC emacs-lisp
+
+  (global-set-key (kbd "C-c TAB") #'indent-whole-buffer)
+  ;; when point is between two words, delete the space between them
+  (global-set-key (kbd "C-c \\") #'delete-horizontal-space)
+  (global-set-key (kbd "C-c SPC") #'just-one-space)
+  ;; some modes my default / in normal mode is NOT bound to helm-swoop, BUT I REALLY LIKE helm-swoop
+  (global-set-key (kbd "C-c /") #'helm-swoop)
+  (global-set-key (kbd "C-c C-o") #'org-open-at-point-global)
+  ;; this is bound in init-smart-comment.el
+  ;;(global-set-key (kbd "C-c ;") #'comment-dwim)
+  ;;(define-key global-map (kbd "C-c a") 'org-agenda)
+  (global-set-key (kbd "C-c a") 'org-agenda)
+  (global-set-key (kbd "C-c b") #'(lambda ()
+                                    "Switch to the previous buffer"
+                                    (interactive)
+                                    (switch-to-buffer nil)))
+  (global-set-key (kbd "C-c B") #'browse-kill-ring)
+  (global-set-key (kbd "C-c C") #'hydra-org-timer/body)
+  ;;org-capture is SOOO helpful!!
+  (global-set-key (kbd "C-c c") 'org-capture)
+  ;;open up a new dired window for the current directory
+  (global-set-key (kbd "C-c d") #'dired-jump)
+  ;; find the current tag smart.  Just know what I mean.
+  ;; For example, with point on the following javascript function upcaseWord
+  ;; var upcase =  upcaseWord (string);
+  ;; And you type C-c D,  ggtags, when open the buffer where that function is defined
+  (global-set-key (kbd "C-c D") 'ggtags-find-tag-dwim)
+  (global-set-key (kbd "C-c e") #'helm-M-x)
+  (global-set-key (kbd "C-c E") #'eshell)
+  (global-set-key (kbd "C-c f") #'isearch-forward-regexp)
+  (global-set-key (kbd "C-c F") #'isearch-backward-regexp)
+  ;; open up email mail program
+  (global-set-key (kbd "C-c g") #'gnus)
+  (global-set-key (kbd "C-c h") #'helm-command-prefix)
+  (global-set-key (kbd "C-c i") #'info-display-manual)
+  ;; type this with point at the end of an elisp expression like
+  ;; (print 5)<point>
+  ;; the result will be 5 printed in the minibuffer
+  (global-set-key (kbd "C-c l") #'eval-last-sexp)
+  ;;this lets you store an org link from pretty much any file
+  ;;then type C-c C-l in an org buffer and it'll put that link it
+  (global-set-key (kbd "C-c L") #'org-store-link)
+  (global-set-key (kbd "C-c I") #'org-insert-link)
+  (global-set-key (kbd "C-c m") #'helm-mini)
+
+;;print the working directory in the minibuffer
+;; I should make these commands copy the output of pwd into the clipboard
+(global-set-key (kbd "C-c P") #'pwd)
+(global-set-key (kbd "C-c p") #'hydra-projectile/body)
+;; C-c p is for projectile.  C-c p F is still broken but C-c p h works
+;;(global-set-key (kbd "C-c p") #'pwd)
+;;This does recursive find and replace.  But I think it only works when you are in a dired buffer
+(global-set-key (kbd "C-c R") #'find-name-dired)
+
+
+#+END_SRC
+
+** Making backup files
+Diskspace is cheap and making emacs backup my files is probably a good idea maybe this will work.
+;; https://www.reddit.com/r/emacs/comments/4398wl/this_is_driving_me_nuts_emacs_will_not_let_me/
+;; https://stackoverflow.com/questions/15302973/emacs-auto-save-why-are-files-not-stored-in-the-correct-folder
+
+;; (defvar my-auto-save-folder (concat "~/.emacs.d/auto-save"))  ; folder for auto-saves
+;; (setq auto-save-list-file-prefix "~/.emacs.d/auto-save/.saves-")  ; set prefix for auto-saves
+;; (setq auto-save-file-name-transforms `((".*", my-auto-save-folder t)))  ; location for all auto-save files
+;; (setq tramp-auto-save-directory my-auto-save-folder)  ; auto-save tramp files in local directory
+
+** Whitespace
+
+#+BEGIN_SRC emacs-lisp
+(defun sanityinc/no-trailing-whitespace ()
+  "Turn off display of trailing whitespace in this buffer."
+  (setq show-trailing-whitespace nil))
+#+END_SRC
+
+
+But don't show trailing whitespace in SQLi, inf-ruby etc.
+
+#+BEGIN_SRC emacs-lisp
+(dolist (hook '(special-mode-hook
+                eww-mode-hook
+                term-mode-hook
+                comint-mode-hook
+                compilation-mode-hook
+                twittering-mode-hook
+                minibuffer-setup-hook))
+  (add-hook hook #'sanityinc/no-trailing-whitespace))
+#+END_SRC
+
+** Newline behaviour
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "RET") #'newline-and-indent)
+#+END_SRC
+* Completition stuff
+ Make emacs completetion better
+ #+BEGIN_SRC emacs-lisp
+(setq read-file-name-completion-ignore-case t)
+(setq read-buffer-completion-ignore-case t)
+ #+END_SRC
+
+add to the list of file names NOT to complete
+
+#+BEGIN_SRC emacs-lisp
+(mapc (lambda (x)
+        (add-to-list 'completion-ignored-extensions x))
+      '(".aux" ".bbl" ".blg" ".exe"
+        ".log" ".meta" ".out" ".pdf"
+        ".synctex.gz" ".tdo" ".toc"
+        "-pkg.el" "-autoloads.el"
+        "Notes.bib" "auto/"))
+#+END_SRC
+
+* Enabling modes
+** Autorevert
+If a file has changed on disk, then automatically revert the buffer and don't complain about it
+#+BEGIN_SRC emacs-lisp
+(global-auto-revert-mode 1)
+#+END_SRC
+
+Be quiet about reverting files.
+#+BEGIN_SRC emacs-lisp
+(setq auto-revert-verbose nil)
+#+END_SRC
+
+
+This apparently also updates dired buffers too.
+#+BEGIN_SRC emacs-lisp
+(setq global-auto-revert-non-file-buffers t)
+#+END_SRC
+
+** Parenthesis
+*** Show matching parens
+ Show matching parens
+ #+BEGIN_SRC emacs-lisp
+ (show-paren-mode 1)
+ #+END_SRC
+*** Electric pair mode
+ When you type an open parenthsis, electric pair mode types the second one for you,
+ leaving point between them
+ #+BEGIN_SRC emacs-lisp
+(electric-pair-mode t)
+ #+END_SRC
+** page break line modes
+This turn ^L into nice long lines.
+#+BEGIN_SRC emacs-lisp
+(use-package page-break-lines
+  :ensure t
+  :diminish page-break-lines-mode
+  :config (global-page-break-lines-mode))
+
+#+END_SRC
+** Emacs's default query-replace sucks.  Let's use anzu!
+Anzu is amazing!  It highlight the words that you wish to replace.
+#+BEGIN_SRC emacs-lisp
+(use-package anzu
+  :ensure t
+  :diminish anzu-mode)
+
+(global-anzu-mode +1)
+#+END_SRC
+
+* Making the default macro better  C-x Q
+
+ When you define a macro, you can type C-x Q to prompt the user for input.
+ Very helpful and cool!
+ #+BEGIN_SRC emacs-lisp
+
+(defun my-macro-query (arg)
+  "Prompt for input using minibuffer during kbd macro execution.
+    With prefix argument, allows you to select what prompt string to use.
+    If the input is non-empty, it is inserted at point."
+  (interactive "P")
+  (let* ((query (lambda () (kbd-macro-query t)))
+         (prompt (if arg (read-from-minibuffer "PROMPT: ") "Input: "))
+         (input (unwind-protect
+                    (progn
+                      (add-hook 'minibuffer-setup-hook query)
+                      (read-from-minibuffer prompt))
+                  (remove-hook 'minibuffer-setup-hook query))))
+    (unless (string= "" input) (insert input))))
+
+(global-set-key "\C-xQ" #'my-macro-query)
+ #+END_SRC
+
+* save all buffers after saving the current buffer.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'after-save-hook #'(lambda ()
+                               (interactive)
+                               (save-some-buffers 1)))
+#+END_SRC
+
+* Enabling Emacs commands
+** Enabling narrowing commands
+
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-defun 'disabled nil)
+
+Also the default narrow commands suck.  Narrow-dwim is super awesome!
+
+http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
+#+BEGIN_SRC emacs-lisp
+(defun narrow-or-widen-dwim (p)
+  "Widen if buffer is narrowed, narrow-dwim otherwise.
+Dwim means: region, org-src-block, org-subtree, or defun,
+whichever applies first. Narrowing to org-src-block actually
+calls `org-edit-src-code'.
+
+With prefix P, don't widen, just narrow even if buffer is
+already narrowed."
+  (interactive "P")
+  (declare (interactive-only))
+  (cond ((and (buffer-narrowed-p) (not p)) (widen))
+        ((region-active-p)
+         (narrow-to-region (region-beginning) (region-end)))
+        ((derived-mode-p 'org-mode)
+         ;; `org-edit-src-code' is not a real narrowing
+         ;; command. Remove this first conditional if you
+         ;; don't want it.
+         (cond ((ignore-errors (org-edit-src-code))
+                (delete-other-windows))
+               ((ignore-errors (org-narrow-to-block) t))
+               (t (org-narrow-to-subtree))))
+        ((derived-mode-p 'latex-mode)
+         (LaTeX-narrow-to-environment))
+        (t (narrow-to-defun))))
+
+;; This line actually replaces Emacs' entire narrowing
+;; keymap, that's how much I like this command. Only copy it
+;; if that's what you want.
+(define-key ctl-x-map "n" #'narrow-or-widen-dwim)
+#+END_SRC
+
+** Enable upcase and downcase
+#+BEGIN_SRC emacs-lisp
+  (put 'upcase-region 'disabled nil)
+  (put 'downcase-region 'disabled nil)
+#+END_SRC
+
+* Indent whole buffer
+#+BEGIN_SRC emacs-lisp
+(defun indent-whole-buffer ()
+  "This indents the whole buffer"
+  (interactive)
+  (indent-region (point-min) (point-max)))
+#+END_SRC
+
+* Making isearch better
+the default behavior on i-search stinks.  This is a lot better
+http://endlessparentheses.com/better-backspace-during-isearch.html?source=rss
+
+#+BEGIN_SRC emacs-lisp
+
+(defun mydelete ()
+  "Delete the failed portion of the search string, or the last char if successful."
+  (interactive)
+  (with-isearch-suspended
+   (setq isearch-new-string
+         (substring
+          isearch-string 0 (or (isearch-fail-pos) (1- (length isearch-string))))
+         isearch-new-message
+         (mapconcat 'isearch-text-char-description isearch-new-string ""))))
+
+(define-key isearch-mode-map (kbd "DEL") 'mydelete)
+#+END_SRC
+
+* My hacky autocorrect functionality.
+http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html
+I am not a fantastic typist. My speed is acceptable, but I make a great deal of mistakes. The following snippet has turned me into the Messi of keyboards.
+
+Whenever I make a typo:
+
+Hit C-x C-i, instead of erasing the mistake;
+Select the appropriate correction (thanks to Ispell);
+Sleep easier at night knowing I'll never see that mistake again (thanks to abbrev).
+
+#+BEGIN_SRC emacs-lisp
+(define-key ctl-x-map "\C-i" #'endless/ispell-word-then-abbrev)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun endless/ispell-word-then-abbrev (p)
+  "Call `ispell-word', then create an abbrev for it.
+With prefix P, create local abbrev. Otherwise it will
+be global."
+  (interactive "P")
+  (let (bef aft)
+    (save-excursion
+      (while (progn
+               (backward-word)
+               (and (setq bef (thing-at-point 'word))
+                    (not (ispell-word nil 'quiet)))))
+      (setq aft (thing-at-point 'word)))
+    (when (and aft bef (not (equal aft bef)))
+      (setq aft (downcase aft))
+      (setq bef (downcase bef))
+      (define-abbrev
+        (if p local-abbrev-table global-abbrev-table)
+        bef aft)
+      (message "\"%s\" now expands to \"%s\" %sally"
+               bef aft (if p "loc" "glob")))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+
+(setq save-abbrevs 'silently)
+(setq-default abbrev-mode t)
+#+END_SRC
+
+* filling
+Filling is what one does to insert actual or invisible newlines at a really long sentence to make a paragraph.
+For example:
+This is a really long sentence, but when you call fill paragraph on it, with point inside it, it might look something like this:
+This is a really long sentence,
+but when you call fill paragraph
+on it, with point inside it, it
+might look something like this:
+You probably know that programs like MS-word has this turned on by default, BUT most people, who use emacs, are programmers,
+NOT writers.  Most programmers DO not want emacs to insert default newline characters.  SO if you would like emacs to
+insert invisible newline characters just add the following to your .emacs
+#+BEGIN_SRC emacs-lisp
+(visual-line-mode)
+(global-set-key (kbd "C-c q") #'fill-paragraph)
+#+END_SRC
+;; search through your current vc project. It's SUPER fast, but you'll need the "silver searcher" installed on your system
+
+* align regexp
+This command is awesome! It'll let you transform stuff like:
+
+var 5 = 10;
+var this = 20;
+var howIMetYourMother = 29;
+
+var 5                 = 10;
+var this              = 20;
+var howIMetYourMother = 29;
+
+ By just pressing C-c x RET = RET
+ #+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c x") #'align-regexp)
+ #+END_SRC
+
+(global-set-key (kbd "C-x C-.") #'pop-global-mark)
+;; web-mode has a command C-c C-h that overrides this.
+
+* Delete trailing whitespace on save
+
+Delete any trailing whitespace any your buffer on save.
+#+BEGIN_SRC emacs-lisp
+  (defun my/delete-trailing-whitespace ()
+    "This is just a defined function that deletes trailing whitespace"
+    (interactive)
+    (delete-trailing-whitespace))
+
+  (defun my/leave-trailing-whitespace-hook  ()
+    "This defun leaves trailing whitespace"
+    (interactive)
+    (remove-hook 'before-save-hook 'my/delete-trailing-whitespace))
+
+  (defun my/delete-trailing-whitespace-hook  ()
+    "This defun leaves trailing whitespace"
+    (interactive)
+    (add-hook 'before-save-hook 'my/delete-trailing-whitespace))
+    (my/delete-trailing-whitespace-hook)
+#+END_SRC
+
+* start the emacs server
+Start the emacs server for use via org-protocal.
+#+BEGIN_SRC emacs-lisp
+(server-start)
+#+END_SRC
+* COMMENT Functionality that I really don't use
+** I can't get nlinum to work well, so I'm turning it off.
+;;snumber of lines you are on. nlinum is much better than linum mode.
+;; de make emacs really SLOW when your files get to be past 1000 lines long
+;; s faster than linum mode, BUT it will not let me open a new frame
+;; kage nlinum
+;; e t
+;; (global-nlinum-mode 1))
+;; hlights search and replacements as you type  VERY helpful for dired-do-replace-regexp and isearch-regexp
+
+** highlight all symbols that match the symbol under point.  Not really useful.
+;; ntic is supposed to have that feature too.
+;;T highlights the current word under point! very cool!
+;; e-package 'highlight-symbol)
+;; (hook '(prog-mode-hook html-mode-hook css-mode-hook))
+;; ook hook 'highlight-symbol-mode)
+;; k hook 'highlight-symbol-nav-mode))
+;; ter-load 'highlight-symbol
+
+** I haven't gotten expand region command to work well.
+
+;;--------------------------------------------------------------------
+;; egion
+;;--------------------------------------------------------------------
+;; ing for this is listed below
+;; s not play well with evil
+;; rarely use it, let's not include it
+;; kage expand-region)
+
+** helm ag search
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c s") #'helm-do-grep-ag)
+#+END_SRC
+
+** sx.el stackexchange in emacs
+
+This is the sx.el program, which lets your read, comment, or write stack overflow questions, which is a popular hacking
+hele.
+
+(global-set-key (kbd "C-c S") #'sx-search)
+
+** multiple cursors
+Mulrsors, which does not work well with evil mode. switch to emacs state to use these commands
+(use-package multiple-cursors
+  :ensure t)
+(gl-key (kbd "C-c <")   #'mc/mark-previous-like-this) ;
+(gl-key (kbd "C-c >")   #'mc/mark-next-like-this)
+(gl-key (kbd "C-c C-<") #'mc/mark-all-like-this)
+;; ive region to multiple cursors:
+;;(et-key (kbd "C-c c c") #'mc/edit-lines)
+;;(et-key (kbd "C-c c e") #'mc/edit-ends-of-lines)
+;;(et-key (kbd "C-c c a") #'mc/edit-beginnings-of-lines)
+
+;; myself use C-w h/t/n/s when changing to other windows
+(gl-key (kbd "C-x o") 'other-window)
+;; elf use "s-s"
+(glet-key (kbd "C-x C-s"))
+** some old stuff that I don't really use. that I didn't write
+;;----------------------------------------------------------------------------
+;; Fix backward-up-list to understand quotes, see http://bit.ly/h7mdIL
+;;----------------------------------------------------------------------------
+(defun backward-up-sexp (arg)
+  "Jump up to the start of the ARG'th enclosing sexp."
+  (interactive "p")
+  (let ((ppss (syntax-ppss)))
+    (cond ((elt ppss 3)
+           (goto-char (elt ppss 8))
+           (backward-up-sexp (1- arg)))
+          ((backward-up-list arg)))))
+
+(global-set-key [remap backward-up-list] 'backward-up-sexp) ; C-M-u, C-M-up
+
+** A hydra for Rectangle commands
+
+#+BEGIN_SRC emacs-lisp
+(defhydra hydra-rectangle (:body-pre (rectangle-mark-mode 1)
+                                     :color pink
+                                     :post (deactivate-mark))
+  "
+  ^_t_^     _d_elete    str_i_ng
+_n_   _s_   _o_k        _y_ank
+  ^_h_^     _n_ew-copy  _r_eset
+^^^^        _e_xchange  _u_ndo
+^^^^        ^ ^         _p_aste
+"
+  ("n" backward-char nil)
+  ("s" forward-char nil)
+  ("t" previous-line nil)
+  ("h" next-line nil)
+  ("e" exchange-point-and-mark nil)
+  ("k" copy-rectangle-as-kill nil)
+  ("d" delete-rectangle nil)
+  ("r" (if (region-active-p)
+           (deactivate-mark)
+         (rectangle-mark-mode 1)) nil)
+  ("y" yank-rectangle nil)
+  ("u" undo nil)
+  ("i" string-rectangle nil)
+  ("p" kill-rectangle nil)
+  ("o" nil nil))
+
+(global-set-key (kbd "C-x SPC") 'hydra-rectangle/body)
+#+END_SRC
+
+* move lines up or down
+Shift lines up and down with M-up and M-down. When paredit is enabled,
+it will use those keybindings. For this reason, you might prefer to
+use M-S-up and M-S-down, which will work even in lisp modes.
+
+#+BEGIN_SRC emacs-lisp
+(require-package 'move-dup)
+(global-set-key (kbd "s-t") #'md/move-lines-up)
+;; this won't work because this is a command that feeds into awesome
+(global-set-key (kbd "s-h") #'md/move-lines-down)
+
+(global-set-key (kbd "s-p") 'md/duplicate-down)
+(global-set-key (kbd "s-P") 'md/duplicate-up)
+#+END_SRC
+
+* provide this file
+#+BEGIN_SRC emacs-lisp
+(provide 'init-editing-utils)
+#+END_SRC

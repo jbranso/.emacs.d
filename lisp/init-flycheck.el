@@ -4,8 +4,7 @@
   :defer t
   :config
   (add-hook 'after-init-hook #'(lambda ()
-                                 (global-flycheck-mode 1))
-            )
+                                 (global-flycheck-mode 1)))
 
   ;; show flycheck errors in a popup
   (with-eval-after-load 'flycheck

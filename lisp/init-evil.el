@@ -189,7 +189,7 @@
 
     ;; I had used this before, but now that I am learning evil, I'm not going to use those.h
     ;; "o" 'evil-backward-word-begin
-    ;; "e" 'evil-forward-word-begin
+    "e" 'evil-forward-word-begin
     ;; "O" 'evil-backward-WORD-end
     ;; "E" 'evil-forward-WORD-end
     ))

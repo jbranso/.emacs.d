@@ -61,7 +61,7 @@
 ;;(require 'init-pdf-tools)
 (require 'init-wgrep)
 ;; insert text into buffer you create them
-(require 'init-autoinsert)
+;;(require 'init-autoinsert)
 ;; turn on abbrev mode.  it implements autocorrect
 (require 'init-abbrev)
 ;; this package is like guide-key, but better.  As you start to type a keychord, but then forget how to finish it,
@@ -111,7 +111,7 @@
 ;; make the window that has focus have be the largest on the screen
 (require 'init-golden-ratio)
 
-;;(require 'init-autocomplete)
+(require 'init-autocorrect)
 ;; until I get autocorrect on melpa, I'll have to manually turn on abbrev mode
 (abbrev-mode 1)
 
@@ -141,7 +141,8 @@
 ;; collection of IDE like features.  I can't get 'em to work
 ;; I should probably just try out company mode and forget about cedet.  Apparently semantic will work with
 ;; company mode anyway
-(require 'init-cedet)
+;;(require 'init-cedet)
+(require 'init-company)
 ;; downcase words like THe and BEautiful
 ;; This is probably how I can embed yasnippets into various modes
 ;;(require 'init-dubcaps)
@@ -195,6 +196,7 @@
 ;; woo hoo!  I should customize it a bit to make it even prettier
 (require 'init-smart-mode-line)
 
+;;(require 'init-prettify)
 ;; Make my evil keybindings work pretty much everywhere
 (require 'init-evil-rebellion-clone)
 ;;----------------------------------------------------------------------------

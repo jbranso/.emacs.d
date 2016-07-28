@@ -30,7 +30,7 @@
 (autoload 'turn-on-css-eldoc "css-eldoc")
 (add-hook 'css-mode-hook 'turn-on-css-eldoc)
 
-(add-to-list 'ac-sources 'ac-source-css-property)
+;;(add-to-list 'ac-sources 'ac-source-css-property)
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 
 (provide 'init-css)

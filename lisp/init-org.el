@@ -39,6 +39,7 @@
 
 ;; ob-http is needed to run http calls inside org-mode
 (use-package ob-http :ensure t)
+(setq geiser-default-implementation 'guile)
 
 (after-load 'org
     (org-babel-do-load-languages

@@ -157,6 +157,7 @@
     ("langugaes" "languages" nil 0)
     ("maintence" "maintenance" nil 0)
     ("managment" "management" nil 0)
+    ("mispelled" "misspelled" nil 2)
     ("multicore" "core" nil 0)
     ("occassionally" "occasionally" nil 0)
     ("particulary" "particularly" nil 0)
