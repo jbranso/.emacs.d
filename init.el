@@ -111,9 +111,6 @@
 ;; make the window that has focus have be the largest on the screen
 (require 'init-golden-ratio)
 
-(require 'init-autocorrect)
-;; until I get autocorrect on melpa, I'll have to manually turn on abbrev mode
-(abbrev-mode 1)
 
 ;;we want utf8 chars in emacs
 (require 'init-utf8)
@@ -209,6 +206,9 @@
 ;; ert is the emacs lisp regression test.  It lets you test that your lisp files
 ;; pass defined tests
 (require 'init-ert)
+
+(require 'init-autocorrect)
+;; until I get autocorrect on melpa, I'll have to manually turn on abbrev mode
 
 ;;----------------------------------------------------------------------------
 ;; Locales (setting them earlier in this file doesn't work in X)

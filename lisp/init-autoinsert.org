@@ -1,6 +1,7 @@
 This file configures emacs to [[https://www.gnu.org/software/emacs/manual/html_node/autotype/Autoinserting.html][autoinsert text]] into an empty buffer.
 
 #+BEGIN_SRC emacs-lisp
+  (require 'autoinsert)
   (add-hook 'find-file-hook 'auto-insert)
   (setq auto-insert-directory "~/.emacs.d/auto-insert-directory/")
   (add-hook 'after-init-hook 'auto-insert-mode)
@@ -13,9 +14,13 @@ ACTION may be a function or a filename found in auto-insert-directory.
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list auto-insert-alist '(
-  (('web-mode . "The default template to open in webmode") . "default-html-file.txt")
-  ((".*html.*" . "The default template to open in webmode") . "default-html-file.txt")))
+                                   ((web-mode . "The default template to open in webmode") . "default-html-file.txt")
+                                   (("^.*html.*$" . "The default template to open in webmode") . "default-html-file.txt")
+                                   (("\.html\'" . "The default template to open in webmode") . "default-html-file.txt")))
+
+
 #+END_SRC
+
 
 well the above didn't work, so I'm going to try to use YATemplate.
 
