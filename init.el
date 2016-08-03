@@ -193,7 +193,8 @@
 ;; woo hoo!  I should customize it a bit to make it even prettier
 (require 'init-smart-mode-line)
 
-;;(require 'init-prettify)
+;; make --> and /arrow look like utf8 chars
+(require 'init-prettify)
 ;; Make my evil keybindings work pretty much everywhere
 (require 'init-evil-rebellion-clone)
 ;;----------------------------------------------------------------------------
@@ -221,3 +222,5 @@
 ;; End:
 ;;; init.el ends here
 ;;(put 'scroll-left 'disabled nil)
+
+(yas-expand-snippet "<elisp")

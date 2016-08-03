@@ -2,11 +2,8 @@
 This package turns on global-prettify-symbols-mode after Emacs loads.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'after-init-hook #'(lambda () 
-                                 global-prettify-symbols-mode))
+  (global-prettify-symbols-mode 1)
 #+END_SRC
-
-
 
 
 #+BEGIN_SRC emacs-lisp

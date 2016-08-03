@@ -1,12 +1,5 @@
-# -*- mode: snippet -*-
-# name: <org
-# key: <org
-# --
 #+AUTHOR:Joshua Branson
-#+TITLE: $1
+#+TITLE:
 #+LATEX_HEADER: \usepackage{lmodern}
 #+LATEX_HEADER: \usepackage[QX]{fontenc}
 #+OPTIONS: H:10 toc:nil
-
-* $1
-  $0

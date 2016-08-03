@@ -454,6 +454,16 @@ EXT is a list of the extensions of files to be included."
         )
       )
 
+(defun my/org-grading-myself-agenda ()
+"This function loads up my grading myself toolset."
+(interactive)
+(let (org-agenda-files)
+  (setq org-agenda-files '("/home/joshua/programming/org/projects/grading-myself.org"))
+  (org-agenda-list)))
+
+(org-defkey org-agenda-mode-map "g" 'org-agenda-filter-by-category)
+;;(org-defkey global-map (kbd "C-c a g") 'org-agenda-filter-by-category)
+
 ; Targets start with the file name - allows creating level 1 tasks
   (setq org-refile-use-outline-path (quote file))
 

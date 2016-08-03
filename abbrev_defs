@@ -153,6 +153,7 @@
     ("idiosyncries" "idiosyncrasies" nil 0)
     ("incitces" "incites" nil 0)
     ("inconcievable" "inconceivable" nil 0)
+    ("init" "init" nil 0)
     ("interoperate" "operate" nil 0)
     ("langugaes" "languages" nil 0)
     ("maintence" "maintenance" nil 0)
@@ -184,6 +185,7 @@
     ("truely" "truly" nil 0)
     ("varient" "variant" nil 0)
     ("vunerable" "vulnerable" nil 1)
+    ("yasnippet" "yasnippet" nil 1)
    ))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
@@ -361,4 +363,3 @@
 (define-abbrev-table 'vc-svn-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'web-mode-abbrev-table '())
-

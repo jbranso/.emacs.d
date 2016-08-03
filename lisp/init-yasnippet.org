@@ -1,0 +1,23 @@
+Set up yasnippet.
+
+#+BEGIN_SRC emacs-lisp
+(setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+(use-package yasnippet
+  :defer t
+  :ensure t)
+(yas-global-mode 1)
+#+END_SRC
+;; (diminish 'yas-global-mode)
+;; I don't want yas globally on, because emmet mode works better in for html, and css
+;; however, if I can change yas-expand key to something other than tab, then I should turn this back on.
+;; because then I can have snippets for javascript, jquery, and php!
+
+
+If I modify the buffer in yasnippet via a back-ticks via ~`SOME ELISP CODE `~, then yasnippet will issue a warning.  Let's tell yasnippet NOT to tell me about that.
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'warning-suppress-types '(yasnippet backquote-change))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(provide 'init-yasnippet)
+#+END_SRC

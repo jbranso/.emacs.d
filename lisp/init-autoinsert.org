@@ -1,10 +1,53 @@
-This file configures emacs to [[https://www.gnu.org/software/emacs/manual/html_node/autotype/Autoinserting.html][autoinsert text]] into an empty buffer.
+#+AUTHOR:Joshua Branson
+#+LATEX_HEADER: \usepackage{lmodern}
+#+LATEX_HEADER: \usepackage[QX]{fontenc}
 
+* Combining auto insertion and yasnippet
+For a long time now, I've wanted Emacs to auto-insert text into a buffer for me.  I have not been able to get it to work, but thanks to the [[https://www.reddit.com/r/emacs/comments/4vrz3v/autoinsertmode_is_not_working/][awesome emacs reddit community]], I was able to get it to work.  They also pointed out this rather extensive yasnippet Congration file:  https://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-auto-insert.el
+** Set up yasnippet
+
+Inserting a predefined snippet via Emacs lisp is defined [[http://joaotavora.github.io/yasnippet/snippet-expansion.html#sec-1-6][here]].  In case you don't like reading, then just do the following:
+
+~(yas-expand-snippet (yas-lookup-snippet "SnippetName"))~
+
+I'm defining some functions that will automatically expand when I open a file.  Cool eh?
+#+BEGIN_SRC emacs-lisp
+  (defun my/yas-org-snippet ()
+    (interactive)
+    (yas-expand-snippet (yas-lookup-snippet "<org")))
+
+  (defun my/yas-elisp-init-files-snippet ()
+    (interactive)
+    (yas-expand-snippet (yas-lookup-snippet "<elisp-init-files")))
+
+
+  (defun my/yas-web-mode-snippet ()
+    (interactive)
+    (yas-expand-snippet (yas-lookup-snippet "<web-mode")))
+#+END_SRC
+** Set up autoinsertion
+This section configures emacs to [[https://www.gnu.org/software/emacs/manual/html_node/autotype/Autoinserting.html][autoinsert text]] into an empty buffer via yasnippets.
+
+Require the autoinsert library.
 #+BEGIN_SRC emacs-lisp
   (require 'autoinsert)
+#+END_SRC
+
+When you open up an empty file, perform auto-insertion, if applicable.
+#+BEGIN_SRC emacs-lisp
   (add-hook 'find-file-hook 'auto-insert)
+#+END_SRC
+
+Tell Emacs where to look for default text files to insert into empty files.  If you don't want to use yasnippet then you could use this method instead.  But let's be honest, we all like yasnippets, so you really probably don't need this next section of code.
+#+BEGIN_SRC emacs-lisp
   (setq auto-insert-directory "~/.emacs.d/auto-insert-directory/")
-  (add-hook 'after-init-hook 'auto-insert-mode)
+#+END_SRC
+
+Enable autoinsert mode, and do not ask me if I want to perform automatic insertion.  Just do it.
+#+BEGIN_SRC emacs-lisp
+  (setq auto-insert-mode t
+        auto-insert-query nil
+        auto-insert t)
 #+END_SRC
 
 Auto-insertion of a buffer is completed via the variable =auto-insert-alist=.  If CONDITION is met, then ACTION is done.
@@ -13,25 +56,16 @@ CONDITION may be a regexp that matches the file name or a symbol that matches th
 ACTION may be a function or a filename found in auto-insert-directory.
 
 #+BEGIN_SRC emacs-lisp
-  (add-to-list auto-insert-alist '(
-                                   ((web-mode . "The default template to open in webmode") . "default-html-file.txt")
-                                   (("^.*html.*$" . "The default template to open in webmode") . "default-html-file.txt")
-                                   (("\.html\'" . "The default template to open in webmode") . "default-html-file.txt")))
-
-
+  (setq auto-insert-alist '((web-mode . [my/yas-web-mode-snippet])
+                            (org-mode . [my/yas-org-snippet])))
 #+END_SRC
 
+Much of my Emacs init files, use org-mode. So if I am in my init-file directory, go ahead and open an org file with that predefined snippet.
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-insert-alist '((".*/lisp/.*\\.org$") . [my/yas-elisp-init-files-snippet]))
+#+END_SRC
 
-well the above didn't work, so I'm going to try to use YATemplate.
-
-I found yatemplate on melpa, which looks cool, but is SUPER hard to understand.
-
-(use-package yatemplate :ensure t
-:config (setq yatemplate-dir "~/.emacs.d/yatemplate-dir/"))
-
-(yatemplate-fill-alist)
-
-Provide this file:
+** Provide this file
 #+BEGIN_SRC emacs-lisp
 (provide 'init-autoinsert)
 #+END_SRC

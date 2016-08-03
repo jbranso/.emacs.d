@@ -219,7 +219,7 @@
 		((:url . "http://elpa.gnu.org/packages/dbus-codegen.html")
 		 (:keywords "comm" "dbus" "convenience"))])
  (debbugs .
-	  [(0 9 7)
+	  [(0 10)
 	   ((soap-client
 	     (3 1 1))
 	    (cl-lib
@@ -335,9 +335,9 @@
 	       ((:keywords "calendar")
 		(:url . "http://elpa.gnu.org/packages/excorporate.html"))])
  (exwm .
-       [(0 7)
+       [(0 8)
 	((xelb
-	  (0 9)))
+	  (0 10)))
 	"Emacs X Window Manager" tar
 	((:keywords "unix")
 	 (:url . "https://github.com/ch11ng/exwm"))])
@@ -622,7 +622,7 @@
 	     ((:url . "https://github.com/michael-heerdegen/on-screen.el")
 	      (:keywords "convenience"))])
  (org .
-      [(20160725)
+      [(20160801)
        nil "Outline-based notes management and organizer" tar nil])
  (osc .
       [(0 1)
@@ -675,6 +675,16 @@
 		nil "Colorize color names in buffers" single
 		((:url . "http://elpa.gnu.org/packages/rainbow-mode.html")
 		 (:keywords "faces"))])
+ (realgud .
+	  [(1 4 2)
+	   ((load-relative
+	     (1 2))
+	    (loc-changes
+	     (1 2))
+	    (test-simple
+	     (1 2 0)))
+	   "A modular front-end for interacting with external debuggers" tar
+	   ((:url . "http://github.com/realgud/realgud/"))])
  (register-list .
 		[(0 1)
 		 nil "Interactively list/edit registers" single
@@ -765,7 +775,7 @@
 	   ((:url . "https://github.com/Malabarba/spinner.el")
 	    (:keywords "processes" "mode-line"))])
  (stream .
-	 [(2 2 0)
+	 [(2 2 1)
 	  ((emacs
 	    (25)))
 	  "Implementation of streams" single
@@ -925,7 +935,7 @@
 	 ((:url . "http://elpa.gnu.org/packages/xclip.html")
 	  (:keywords "convenience" "tools"))])
  (xelb .
-       [(0 9)
+       [(0 10)
 	((emacs
 	  (24 4))
 	 (cl-generic
