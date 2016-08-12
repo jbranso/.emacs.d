@@ -13,6 +13,8 @@
 ;;(org-agenda-list)
 ;; I found this next line from
 ;; http://emacslife.com/baby-steps-org.html#sec-9
-(org-agenda nil "a")
+;;(org-agenda nil "a")
+
+(my/org-grading-myself-agenda)
 
 (provide 'init-misc)

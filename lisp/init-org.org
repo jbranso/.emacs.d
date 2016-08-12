@@ -747,7 +747,7 @@ EXT is a list of the extensions of files to be included."
             )
     #+END_SRC
 
-
+    I have a file that keeps tracks of the things that I want to do often.  This opens that.
     #+BEGIN_SRC emacs-lisp
       (defun my/org-grading-myself-agenda ()
       "This function loads up my grading myself toolset."
@@ -758,6 +758,16 @@ EXT is a list of the extensions of files to be included."
 
       (org-defkey org-agenda-mode-map "g" 'org-agenda-filter-by-category)
       ;;(org-defkey global-map (kbd "C-c a g") 'org-agenda-filter-by-category)
+    #+END_SRC
+
+    #+BEGIN_SRC emacs-lisp
+      (defun my/org-grading-myself-agenda-and-regular-agenda ()
+        "This function loads up my grading myself toolset."
+        (interactive)
+        (add-to-list 'org-agenda-files '"/home/joshua/programming/org/projects/grading-myself.org")
+        (org-agenda-list)
+        ;;how do you remove an element from a list?  I have no idea.
+        )
     #+END_SRC
 ** I can make add words to the TODO and DONE keywords
   #+BEGIN_SRC emacs-lisp

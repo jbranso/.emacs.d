@@ -24,3 +24,5 @@ eshell/
 /lisp/geben-0.26.tar.gz
 /#init.el#
 /lisp/geben-0.26/
+elpa/
+archives/

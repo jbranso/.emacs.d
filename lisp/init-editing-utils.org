@@ -71,6 +71,7 @@ Make TAB mean indent.
 (global-set-key (kbd "C-x f")   #'helm-find-files)
 (global-set-key (kbd "C-c h o") #'helm-occur)
 (global-set-key (kbd "C-c h c") #'helm-calcul-expression)
+(global-set-key (kbd "C-c h g") #'helm-grep-do-git-grep)
 
 #+END_SRC
 
@@ -482,7 +483,9 @@ Delete any trailing whitespace any your buffer on save.
 * start the emacs server
 Start the emacs server for use via org-protocal.
 #+BEGIN_SRC emacs-lisp
-(server-start)
+  (require 'server)
+  (when (not (server-running-p))
+    (server-start))
 #+END_SRC
 * COMMENT Functionality that I really don't use
 ** I can't get nlinum to work well, so I'm turning it off.

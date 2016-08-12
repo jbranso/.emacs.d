@@ -52,6 +52,7 @@
 (global-set-key (kbd "C-x f")   #'helm-find-files)
 (global-set-key (kbd "C-c h o") #'helm-occur)
 (global-set-key (kbd "C-c h c") #'helm-calcul-expression)
+(global-set-key (kbd "C-c h g") #'helm-grep-do-git-grep)
 
 (global-set-key (kbd "C-c t") #'transpose-chars)
 (global-set-key (kbd "C-c T") #'transpose-words)
@@ -190,34 +191,6 @@
                                (interactive)
                                (save-some-buffers 1)))
 
-(defhydra hydra-rectangle (:body-pre (rectangle-mark-mode 1)
-                                     :color pink
-                                     :post (deactivate-mark))
-  "
-  ^_t_^     _d_elete    str_i_ng
-_n_   _s_   _o_k        _y_ank
-  ^_h_^     _n_ew-copy  _r_eset
-^^^^        _e_xchange  _u_ndo
-^^^^        ^ ^         _p_aste
-"
-  ("n" backward-char nil)
-  ("s" forward-char nil)
-  ("t" previous-line nil)
-  ("h" next-line nil)
-  ("e" exchange-point-and-mark nil)
-  ("k" copy-rectangle-as-kill nil)
-  ("d" delete-rectangle nil)
-  ("r" (if (region-active-p)
-           (deactivate-mark)
-         (rectangle-mark-mode 1)) nil)
-  ("y" yank-rectangle nil)
-  ("u" undo nil)
-  ("i" string-rectangle nil)
-  ("p" kill-rectangle nil)
-  ("o" nil nil))
-
-(global-set-key (kbd "C-x SPC") 'hydra-rectangle/body)
-
 (defun narrow-or-widen-dwim (p)
   "Widen if buffer is narrowed, narrow-dwim otherwise.
 Dwim means: region, org-src-block, org-subtree, or defun,
@@ -317,7 +290,9 @@ be global."
   (add-hook 'before-save-hook 'my/delete-trailing-whitespace))
   (my/delete-trailing-whitespace-hook)
 
-(server-start)
+(require 'server)
+(when (not (server-running-p))
+  (server-start))
 
 (require-package 'move-dup)
 (global-set-key (kbd "s-t") #'md/move-lines-up)

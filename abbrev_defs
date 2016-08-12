@@ -185,7 +185,9 @@
     ("truely" "truly" nil 0)
     ("varient" "variant" nil 0)
     ("vunerable" "vulnerable" nil 1)
+    ("wordpress" "wordpress" nil 1)
     ("yasnippet" "yasnippet" nil 1)
+    ("yasnippets" "yasnippets" nil 1)
    ))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())

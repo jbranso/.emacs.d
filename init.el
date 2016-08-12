@@ -61,7 +61,7 @@
 ;;(require 'init-pdf-tools)
 (require 'init-wgrep)
 ;; insert text into buffer you create them
-;;(require 'init-autoinsert)
+(require 'init-autoinsert)
 ;; turn on abbrev mode.  it implements autocorrect
 (require 'init-abbrev)
 ;; this package is like guide-key, but better.  As you start to type a keychord, but then forget how to finish it,
@@ -222,5 +222,3 @@
 ;; End:
 ;;; init.el ends here
 ;;(put 'scroll-left 'disabled nil)
-
-(yas-expand-snippet "<elisp")

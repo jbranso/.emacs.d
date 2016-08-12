@@ -10,20 +10,35 @@ Inserting a predefined snippet via Emacs lisp is defined [[http://joaotavora.git
 
 ~(yas-expand-snippet (yas-lookup-snippet "SnippetName"))~
 
-I'm defining some functions that will automatically expand when I open a file.  Cool eh?
+I'm defining some functions that will automatically expand when I open a file.  Cool eh?  It will also turn my state into evil-state.  That way I can just start typing.
 #+BEGIN_SRC emacs-lisp
   (defun my/yas-org-snippet ()
     (interactive)
-    (yas-expand-snippet (yas-lookup-snippet "<org")))
+    (yas-expand-snippet (yas-lookup-snippet "<org"))
+    (evil-insert-state))
 
   (defun my/yas-elisp-init-files-snippet ()
     (interactive)
-    (yas-expand-snippet (yas-lookup-snippet "<elisp-init-files")))
+    (yas-expand-snippet (yas-lookup-snippet "<elisp-init-files"))
+    (evil-insert-state))
 
+
+  (defun my/cover-letter-file-snippet ()
+    (interactive)
+    (yas-expand-snippet (yas-lookup-snippet "<cover-letter"))
+    (evil-insert-state))
+
+  (defun my/cover-letter-file-snippet ()
+    (interactive)
+    (yas-expand-snippet (yas-lookup-snippet "<blog-entry"))
+    (evil-insert-state))
 
   (defun my/yas-web-mode-snippet ()
     (interactive)
-    (yas-expand-snippet (yas-lookup-snippet "<web-mode")))
+    (yas-expand-snippet (yas-lookup-snippet "<web-mode"))
+    (evil-insert-state))
+
+
 #+END_SRC
 ** Set up autoinsertion
 This section configures emacs to [[https://www.gnu.org/software/emacs/manual/html_node/autotype/Autoinserting.html][autoinsert text]] into an empty buffer via yasnippets.
@@ -46,8 +61,7 @@ Tell Emacs where to look for default text files to insert into empty files.  If 
 Enable autoinsert mode, and do not ask me if I want to perform automatic insertion.  Just do it.
 #+BEGIN_SRC emacs-lisp
   (setq auto-insert-mode t
-        auto-insert-query nil
-        auto-insert t)
+        auto-insert-query nil)
 #+END_SRC
 
 Auto-insertion of a buffer is completed via the variable =auto-insert-alist=.  If CONDITION is met, then ACTION is done.
@@ -60,11 +74,27 @@ ACTION may be a function or a filename found in auto-insert-directory.
                             (org-mode . [my/yas-org-snippet])))
 #+END_SRC
 
+*** My org-mode files specific templates.
+I use org-mode a lot.  And different directories have different formats.  This next bit of code ensures that when I open a file in a specific directory, Emacs inserts a template specific to that directory.
+
+**** My elisp init files template
 Much of my Emacs init files, use org-mode. So if I am in my init-file directory, go ahead and open an org file with that predefined snippet.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-insert-alist '((".*/lisp/.*\\.org$") . [my/yas-elisp-init-files-snippet]))
 #+END_SRC
 
+**** My cover letter template
+I have a directory where I write cover letters.  I want a default snippet to expand whenever I write a cover letter.
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-insert-alist '((".*/cover-letters.*\\.org$") . [my/cover-letter-file-snippet]))
+#+END_SRC
+
+**** My blog template
+I use org-mode for blogging.  It is quite nice to have it auto-insert what needs to be inserted.
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-insert-alist '((".*/my-wordpress-blog.*\\.org$") . [my/cover-letter-file-snippet]))
+#+END_SRC
 ** Provide this file
 #+BEGIN_SRC emacs-lisp
 (provide 'init-autoinsert)

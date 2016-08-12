@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: <blog-entry
+# key: <blog-entry
+# --
+#+DATE: [2016-08-12 Fri 08:31]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+#+CATEGORY: $1, $2
+#+TAGS: $1, $2
+#+DESCRIPTION: $3
+#+TITLE: $4
+
+* $4
+
+$0
