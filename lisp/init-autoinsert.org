@@ -28,7 +28,7 @@ I'm defining some functions that will automatically expand when I open a file.  
     (yas-expand-snippet (yas-lookup-snippet "<cover-letter"))
     (evil-insert-state))
 
-  (defun my/cover-letter-file-snippet ()
+  (defun my/blog-entry-file-snippet ()
     (interactive)
     (yas-expand-snippet (yas-lookup-snippet "<blog-entry"))
     (evil-insert-state))
@@ -93,7 +93,7 @@ I have a directory where I write cover letters.  I want a default snippet to exp
 **** My blog template
 I use org-mode for blogging.  It is quite nice to have it auto-insert what needs to be inserted.
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'auto-insert-alist '((".*/my-wordpress-blog.*\\.org$") . [my/cover-letter-file-snippet]))
+(add-to-list 'auto-insert-alist '((".*/my-wordpress-blog.*\\.org$") . [my/blog-entry-file-snippet]))
 #+END_SRC
 ** Provide this file
 #+BEGIN_SRC emacs-lisp

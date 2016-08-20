@@ -7,9 +7,18 @@ Ensure that you have f.el
 (use-package f :ensure t)
 #+END_SRC
 
-gpg2 is the modern and stable version.
+gpg is the version more suited for servers.  Gpg2 is the version more suited for desktop use.   Here is a [[http://superuser.com/questions/655246/are-gnupg-1-and-gnupg-2-compatible-with-each-other/655250#655250][stackoverflow answer.]] describing the difference between gpg and gpg2.
+
+At the moment I dual boot Parabola GNU/Linux and GuixSD.  At some point, I want to migrate over to use GuixSD, but Parabola has some features, services, and packages that Guix lacks.  So until that time, I'll have to use both.  BUT the good news is that I can tell Emacs which gpg binary to use based upon my host name.  If my host name is "antelope" the default GuixSD host-name then make the egp-gpg-program be gpg.  If it's parabola, make it "gpg2".
+"parabola" uses gpg2.  GuixSD needs to use gpg.
 #+BEGIN_SRC emacs-lisp
-(setq epg-gpg-program "gpg2")
+  (cond
+   ((string-equal system-name "antelope")
+    (setq epg-gpg-program "gpg"))
+   ((string-equal system-name "parabola")
+    (setq epg-gpg-program "gpg2"))
+   ((string-equal system-name "GuixSD")
+    (setq epg-gpg-program "gpg")))
 #+END_SRC
 
 #+RESULTS:

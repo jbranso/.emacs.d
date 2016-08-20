@@ -1,9 +1,10 @@
-(add-to-list 'default-frame-alist '(font. "Hack Regular"))
+;;(add-to-list 'default-frame-alist '(font. "Hack Regular"))
 
 (setq-default
  ;; It's much easier to move around lines based on how they are displayed, rather than the actual line. This helps a ton with long
  ;; log file lines that may be wrapped:
  line-move-visual t
+ visible-bell t
  ;;blink-cursor-interval 0.4
  ;; I want to open links from org-mode in chromium
  ;;browse-url-browser-function (quote browse-url-chromium)

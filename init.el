@@ -26,10 +26,9 @@
 ;; https://www.reddit.com/r/emacs/comments/4c0mi3/the_biggest_performance_improvement_to_emacs_ive/h
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
-;; make my default font be the cool font
-(set-default-font "Hack" nil t)
+
 (require 'init-utils)
-(require 'init-elpa)      ;; Machinery for installing required packages
+(require 'init-elpa)     ;; Machinery for installing required packages
 ;;(require 'init-exec-path) ;; Set up $PATH
 
 ;; reduce the frequency of garbage collection by making it happen on
@@ -134,7 +133,8 @@
 ;;(require 'init-uniquify)
 ;;yasnippet needs to be loaded before auto complete to let them play nicely together
 (require 'init-yasnippet)
-(require 'init-mediawiki)
+;;I don't really use media wiki so.
+;;(require 'init-mediawiki)
 ;; collection of IDE like features.  I can't get 'em to work
 ;; I should probably just try out company mode and forget about cedet.  Apparently semantic will work with
 ;; company mode anyway
@@ -184,7 +184,7 @@
 ;;(require 'init-python-mode)
 (require 'init-defuns)
 ;; emacs can play music and stream it! (when streaming works)
-(require 'init-emms)
+;;(require 'init-emms)
 ;;get weather forcast in emacs
 (require 'init-wttrin)
 ;; load a zenburn
@@ -222,3 +222,4 @@
 ;; End:
 ;;; init.el ends here
 ;;(put 'scroll-left 'disabled nil)
+(put 'set-goal-column 'disabled nil)
