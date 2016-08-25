@@ -2,7 +2,7 @@
 ** My preferred font
 
  Make my default font be the cool [[http://sourcefoundry.org/hack/][Hack font.]]  You might have to download it for your distribution.
- #+BEGIN_SRC elisp
+ #+BEGIN_SRC emacs-lisp
    (when (find-font (font-spec :family "Hack"))
     (set-frame-font "Hack" nil t))
  #+END_SRC

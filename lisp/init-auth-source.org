@@ -25,6 +25,10 @@ At the moment I dual boot Parabola GNU/Linux and GuixSD.  At some point, I want 
 : gpg2
 
 #+BEGIN_SRC emacs-lisp
+(setq epg-gpg-program "gpg")
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
   (when (f-file? "~/.authinfo.gpg")
     ;; only use the encrypted file.
     (setq auth-sources '("~/.authinfo.gpg"))

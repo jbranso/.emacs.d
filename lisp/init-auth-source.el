@@ -8,6 +8,8 @@
  ((string-equal system-name "GuixSD")
   (setq epg-gpg-program "gpg")))
 
+(setq epg-gpg-program "gpg")
+
 (when (f-file? "~/.authinfo.gpg")
   ;; only use the encrypted file.
   (setq auth-sources '("~/.authinfo.gpg"))
