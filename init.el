@@ -26,7 +26,6 @@
 ;; https://www.reddit.com/r/emacs/comments/4c0mi3/the_biggest_performance_improvement_to_emacs_ive/h
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
-
 (require 'init-utils)
 (require 'init-elpa)     ;; Machinery for installing required packages
 ;;(require 'init-exec-path) ;; Set up $PATH
@@ -192,11 +191,11 @@
 ;; smart-mode-line is awesome!
 ;; woo hoo!  I should customize it a bit to make it even prettier
 (require 'init-smart-mode-line)
-
 ;; make --> and /arrow look like utf8 chars
 (require 'init-prettify)
 ;; Make my evil keybindings work pretty much everywhere
 (require 'init-evil-rebellion-clone)
+(require 'init-suggest)
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
 ;;----------------------------------------------------------------------------

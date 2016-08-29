@@ -14,6 +14,9 @@ Property drawers now have to be under a headline and its scheduling line.
 
 Org-babel mode now supports sed!
 * My org use-package declaration
+:PROPERTIES:
+:ID:       e5893542-ca4c-44b6-be5f-d6bcbe365f36
+:END:
 Make C-c SPC inside an org table mean clear that table section.  If you are outside of an org table, make it mean
 just one space.
 
@@ -35,6 +38,9 @@ just one space.
   #+RESULTS:
 
 * what files org-mode opens
+:PROPERTIES:
+:ID:       f217c699-23c2-4a58-bb59-73b639c8447a
+:END:
 #+BEGIN_SRC emacs-lisp
 ;; define what files org opens
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
@@ -46,6 +52,9 @@ just one space.
 
 * Setting up Org-plugins
 ** org-crypt
+:PROPERTIES:
+:ID:       c285b242-e60d-46c0-bd87-c10887f9448b
+:END:
   encrypting text under a heading in org [[info:org#org-crypt][info:org#org-crypt]] Any text below a headline that has a `:crypt:' tag will be automatically be encrypted when the file is saved.  If you want to use a different tag just customize the `org-crypt-tag-matcher' setting. n To use org-crypt it is suggested that you have the following in your `.emacs':
 
   So the following org heading would be encrypted
@@ -97,6 +106,9 @@ just one space.
   #+RESULTS:
 
 ** org mime
+:PROPERTIES:
+:ID:       b1838e30-a287-48cd-8267-3b36a25a8115
+:END:
 
   http://orgmode.org/worg/org-contrib/org-mime.html
   I want to figure out how to install this, because I could then write html emails trivially with gnus
@@ -138,6 +150,9 @@ just one space.
 end imported code
 
 ** org babel
+:PROPERTIES:
+:ID:       5fc7e3ce-61fb-47de-8517-29082f4d4340
+:END:
 Org babel lets you run code snippets inside org-mode!  It's a great literate programming environment!
 
 
@@ -192,6 +207,9 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
   #+RESULTS:
 
 ** org invoice
+:PROPERTIES:
+:ID:       4dc5cf24-8878-498c-a332-41f87ee08fda
+:END:
 
   #+BEGIN_SRC emacs-lisp
     (use-package org-invoice)
@@ -222,6 +240,9 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
   #+END_SRC
 
 ** org-notify lets you know when you have upcoming appointments
+:PROPERTIES:
+:ID:       08bac575-f493-4646-aa56-c5034d8637d1
+:END:
   I would like to get this set up so that it shows pop-ups using a lua script.  That way I can set it up to use awesome's
   pop up library. At the moment it only notifies you when you have approaching deadlines and only certain ones.  It's a little odd.
   #+BEGIN_SRC emacs-lisp
@@ -246,6 +267,9 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
    https://julien.danjou.info/projects/emacs-packages#google-weather
    (require 'org-google-weather)
 ** org-inlinetask
+:PROPERTIES:
+:ID:       ea415ac9-07b1-4eae-a8eb-3cd84d7f216c
+:END:
    Org inline task lets you define an inline task without treating it like a headline
    #+BEGIN_SRC emacs-lisp
      (use-package org-inlinetask)
@@ -284,6 +308,9 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
              Let her know she's a good Mom
    #+END_SRC
 ** org-habit
+:PROPERTIES:
+:ID:       70cbc5a4-78cc-4fda-af2a-08f6a5ead72c
+:END:
    Org habit is a nice way to let you know how well you are doing on your habits.  It shows you a nice
    little color graph in your agenda view.  It is kind of cool.
    #+BEGIN_SRC emacs-lisp
@@ -293,6 +320,9 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
    #+RESULTS:
    : org-habit
 ** org-protocal
+:PROPERTIES:
+:ID:       692f9752-71fb-46ed-87ad-8a7bd664e42e
+:END:
 Org protocal allows you to capture things from firefox or other applications!  Cool!
 
 #+BEGIN_SRC emacs-lisp
@@ -302,12 +332,18 @@ Org protocal allows you to capture things from firefox or other applications!  C
 #+RESULTS:
 : org-protocol
 ** org-id
+:PROPERTIES:
+:ID:       ca509e16-9845-472b-be83-fc3a89a11a91
+:END:
 Org-id is a way to create unique IDs to org-mode files.  Each heading can have a unique ID.  Org can then create a link to that heading.  The link will still work, even if you move entry IDs between files.
 #+BEGIN_SRC emacs-lisp
 (require 'org-id)
 (setq org-id-link-to-org-use-id t)
 #+END_SRC
 * My Org-mode-hook
+:PROPERTIES:
+:ID:       ec8fbf48-40c6-4e7c-bb20-bfac6b46fb08
+:END:
 Org-mode does not play well with yasnippet.  So this function that I got here [[info:org#Conflicts][info:org#Conflicts]] should help
 with making yasnippet play well with org-mode.  It seems to 1st make TAB try to do any org expanding, then it'll
 try to expand a yasnippet.
@@ -380,6 +416,9 @@ try to expand a yasnippet.
 
 * My org-mode preferences
 ** A big setq
+:PROPERTIES:
+:ID:       4725eb30-c909-4c64-b3cc-2be91448f927
+:END:
 
   #+BEGIN_SRC emacs-lisp
     (setq
@@ -480,11 +519,11 @@ try to expand a yasnippet.
             ("ceo" "Org-mode" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "org-mode")
              "* TODO %?\n  %i\n  %a")
 
-            ("cee" "emacs Todo" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs someday")
-             "* TODO %?\n  %i\n  %a")
-
-            ("ceE" "Emacs Reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs reference")
+            ("ceR" "Emacs Reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs reference")
              "* %?\nEntered on %U\n  %i\n  %a")
+
+            ("cet" "emacs Todo" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs someday")
+             "* TODO %?\n  %i\n  %a")
              ;;End Emacs things
 
 
@@ -596,6 +635,9 @@ try to expand a yasnippet.
 
 ** Agenda Configuration
 *** Agenda icons via Category
+:PROPERTIES:
+:ID:       1f343138-b49f-447e-8f34-2a1d05bc3af2
+:END:
    You can easily create custom icons to show up in your agenda next to your specific tasks. My icons are all about
    30 by 30 px.
    #+BEGIN_SRC emacs-lisp
@@ -617,6 +659,9 @@ try to expand a yasnippet.
    | emacs       | /home/joshua/pictures/org-icons/emacs.png          | nil | nil | nil | nil |
    | WORK        | /home/joshua/pictures/org-icons/work.png           | nil | nil | nil | nil |
 *** I would like to generate my org-agenda-files
+:PROPERTIES:
+:ID:       655610ba-7bc8-4cb8-b5a4-7e8d754f84b2
+:END:
 
 But I haven't been able to figure out how to do it.
 
@@ -713,6 +758,9 @@ EXT is a list of the extensions of files to be included."
   #+END_SRC
 
 *** My custom agenda commands
+:PROPERTIES:
+:ID:       928397ca-699b-41db-bcee-9e6f1a306d86
+:END:
     Any commands that I make here are accessable with C-c a <key>
 
     #+BEGIN_SRC emacs-lisp
@@ -799,6 +847,9 @@ EXT is a list of the extensions of files to be included."
         )
     #+END_SRC
 ** I can make add words to the TODO and DONE keywords
+:PROPERTIES:
+:ID:       bc85cb78-e963-49ba-98f6-0f3b232029ed
+:END:
   #+BEGIN_SRC emacs-lisp
   ; Targets start with the file name - allows creating level 1 tasks
     (setq org-refile-use-outline-path (quote file))
@@ -861,6 +912,9 @@ EXT is a list of the extensions of files to be included."
   #+END_SRC
 
 ** Org Clock Settings
+:PROPERTIES:
+:ID:       97426883-1e15-4141-8161-a128d91920ce
+:END:
 This puts up in my top of my buffer the current running org clock.
 
   #+BEGIN_SRC emacs-lisp
@@ -907,6 +961,9 @@ This puts up in my top of my buffer the current running org clock.
   : org-pomodoro
 
 ** customizing stuck projects
+:PROPERTIES:
+:ID:       9d5b3ec8-b9f7-444f-b22d-d02185f2c9b4
+:END:
 There is apparently a way to specify in your org agenda files where you have a stuck project, but I haven't figured out how to do it.
 
   C-c a # will list all of your stuck projects.  According to David Allen's Getting Things Done productivity system,
@@ -929,6 +986,9 @@ There is apparently a way to specify in your org agenda files where you have a s
 :ID:       1a006baf-51cd-454a-950e-3af9ff1915c5
 :END:
 ** a hydra that I found online that lets you easily remember some of the org commands
+:PROPERTIES:
+:ID:       721dc190-9af1-441d-b3fa-1cfc0a92bafb
+:END:
   this is not working?
   we want to remember the org keyboard navigation commands eh?
   https://github.com/abo-abo/hydra/wiki/Emacs
@@ -973,6 +1033,9 @@ _ht_: subtree
   #+END_SRC
 
 ** A definition I found online org-begin-template
+:PROPERTIES:
+:ID:       f86e0ea8-f4f3-45d5-af1a-2b7c30d0a91f
+:END:
   I should really check this out at some point http://pragmaticemacs.com/emacs/wrap-text-in-an-org-mode-block/ In my most recent
   post on org-mode, I talked about using blocks to mark text as being latex, or source code and so on. I mentioned using the
   shortcuts like <e then TAB on a new line to create an empty block. Sometimes it is handy to wrap existing text in a block, and
@@ -1037,6 +1100,9 @@ _ht_: subtree
   to load this file.  All the scripts in this file will be exported and saved into init-org.el.  Then
   that file will be loaded.
 * provide this file
+:PROPERTIES:
+:ID:       6d4c7e86-6fca-4b7c-b329-a1827a49e801
+:END:
   #+BEGIN_SRC emacs-lisp
     (provide 'init-org)
   #+END_SRC

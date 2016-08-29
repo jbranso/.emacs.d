@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: <elisp-init-files
+# key: <elisp-init-files
+# --
+#+AUTHOR:Joshua Branson
+#+LATEX_HEADER: \usepackage{lmodern}
+#+LATEX_HEADER: \usepackage[QX]{fontenc}
+
+* `(insert (substring (buffer-name) 5 (string-match "\\.org$" (buffer-name))))`
+
+ $0
+
+** provide this file
+  #+BEGIN_SRC emacs-lisp
+  (provide '`(insert (substring (buffer-name) 0  (- (length (buffer-name)) 4)))`)
+  #+END_SRC

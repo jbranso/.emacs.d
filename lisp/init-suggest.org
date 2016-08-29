@@ -1,0 +1,21 @@
+* Suggest.el
+:PROPERTIES:
+:ID:       ca29ca15-1273-4e52-91c8-fa34e3d2a80a
+:END:
+This is a program that lets suggests valid elisp functions to use. It is SO cool!
+
+You can read more [[http://www.wilfred.me.uk/blog/2016/07/30/example-driven-development/][here]].
+
+#+BEGIN_SRC emacs-lisp
+(use-package suggest :ensure t)
+#+END_SRC
+
+#+RESULTS:
+
+* provide this File
+:PROPERTIES:
+:ID:       3869ecdc-07ac-48a2-a910-df09c908d7b8
+:END:
+#+BEGIN_SRC emacs-lisp
+(provide 'init-suggest)
+#+END_SRC

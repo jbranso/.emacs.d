@@ -24,6 +24,8 @@
 
 (use-package org-mime)
 
+(use-package org-mime)
+
 ;; I'm having problems with this
 ;;(add-hook 'org-mime-html-hook
 ;;(lambda ()
@@ -77,6 +79,8 @@
 
 (use-package org-invoice)
 
+(use-package org-invoice)
+
 (use-package org-notify)
 (org-notify-start)
 
@@ -91,6 +95,10 @@
 (use-package org-inlinetask)
 
 (use-package org-habit)
+
+(use-package org-habit)
+
+(require 'org-protocol)
 
 (require 'org-protocol)
 
@@ -238,11 +246,11 @@
         ("ceo" "Org-mode" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "org-mode")
          "* TODO %?\n  %i\n  %a")
 
-        ("cee" "emacs Todo" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs someday")
-         "* TODO %?\n  %i\n  %a")
-
-        ("ceE" "Emacs Reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs reference")
+        ("ceR" "Emacs Reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs reference")
          "* %?\nEntered on %U\n  %i\n  %a")
+
+        ("cet" "emacs Todo" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs someday")
+         "* TODO %?\n  %i\n  %a")
          ;;End Emacs things
 
 
@@ -632,5 +640,7 @@ _ht_: subtree
 
 ;;bind to key
 ;;(define-key org-mode-map (kbd "C-<") 'org-begin-template)
+
+(provide 'init-org)
 
 (provide 'init-org)
