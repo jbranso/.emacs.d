@@ -1,26 +1,25 @@
+(cond ((string-equal system-type "darwin"))
+      (setq flyspell-program "hunspell"))
 (require 'ispell)
+
+(use-package flycheck-pos-tip :ensure t :defer t)
+
+(use-package flycheck-status-emoji :ensure t)
+
+(use-package flycheck-color-mode-line :ensure t)
 
 (use-package flycheck
   :defer t
+  :ensure t
   :config
-  (add-hook 'after-init-hook #'(lambda ()
-                                 (global-flycheck-mode 1)))
+  (add-hook 'after-init-hook 'global-flycheck-mode)
 
-  ;; show flycheck errors in a popup
+  (eval-after-load "flycheck"
+    '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
   (with-eval-after-load 'flycheck
     (flycheck-pos-tip-mode))
+  (with-eval-after-load 'flycheck
+    (flycheck-status-emoji-mode)))
 
-  ;; (eval-after-load 'flycheck
-  ;;   '(flycheck-package-setup))
-  )
-(use-package flycheck-pos-tip :ensure t :defer t)
-
-;; Override default flycheck triggers
-
-;; (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled)
-;;       flycheck-idle-change-delay 0.8)
-
-;; (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list))
 
 (provide 'init-flycheck)
-;;; init-flycheck ends here

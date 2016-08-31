@@ -208,7 +208,8 @@
 ;; pass defined tests
 (require 'init-ert)
 
-(require 'init-autocorrect)
+;; I don't have autocorrect on this machine.
+;;(require 'init-autocorrect)
 ;; until I get autocorrect on melpa, I'll have to manually turn on abbrev mode
 
 ;;----------------------------------------------------------------------------

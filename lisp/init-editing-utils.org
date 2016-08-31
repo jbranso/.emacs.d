@@ -279,6 +279,23 @@ Anzu is amazing!  It highlight the words that you wish to replace.
 (global-anzu-mode +1)
 #+END_SRC
 
+** visual line mode
+Filling is what one does to insert actual or invisible newlines at a really long sentence to make a paragraph.
+For example:
+
+This is a really long sentence, but when you call fill paragraph on it, with point inside it, it might look something like this:
+
+This is a really long sentence,
+but when you call fill paragraph
+on it, with point inside it, it
+might look something like this:
+
+You probably know that programs like MS-word has this turned on by default, BUT most people, who use emacs, are programmers, NOT writers.  Most programmers DO not want emacs to insert default newline characters.  SO if you would like emacs to insert invisible newline characters just add the following to your .emacs
+
+#+BEGIN_SRC emacs-lisp
+(global-visual-line-mode)
+(global-set-key (kbd "C-c q") #'fill-paragraph)
+#+END_SRC
 * Making the default macro better  C-x Q
 
  When you define a macro, you can type C-x Q to prompt the user for input.
@@ -431,23 +448,6 @@ be global."
 (setq-default abbrev-mode t)
 #+END_SRC
 
-* filling
-Filling is what one does to insert actual or invisible newlines at a really long sentence to make a paragraph.
-For example:
-This is a really long sentence, but when you call fill paragraph on it, with point inside it, it might look something like this:
-This is a really long sentence,
-but when you call fill paragraph
-on it, with point inside it, it
-might look something like this:
-You probably know that programs like MS-word has this turned on by default, BUT most people, who use emacs, are programmers,
-NOT writers.  Most programmers DO not want emacs to insert default newline characters.  SO if you would like emacs to
-insert invisible newline characters just add the following to your .emacs
-#+BEGIN_SRC emacs-lisp
-(visual-line-mode)
-(global-set-key (kbd "C-c q") #'fill-paragraph)
-#+END_SRC
-;; search through your current vc project. It's SUPER fast, but you'll need the "silver searcher" installed on your system
-
 * align regexp
 This command is awesome! It'll let you transform stuff like:
 
@@ -463,9 +463,6 @@ var howIMetYourMother = 29;
  #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-c x") #'align-regexp)
  #+END_SRC
-
-(global-set-key (kbd "C-x C-.") #'pop-global-mark)
-;; web-mode has a command C-c C-h that overrides this.
 
 * Delete trailing whitespace on save
 

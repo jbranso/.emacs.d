@@ -172,6 +172,9 @@
 
 (global-anzu-mode +1)
 
+(global-visual-line-mode)
+(global-set-key (kbd "C-c q") #'fill-paragraph)
+
 (defun my-macro-query (arg)
   "Prompt for input using minibuffer during kbd macro execution.
     With prefix argument, allows you to select what prompt string to use.
@@ -269,9 +272,6 @@ be global."
 
 (setq save-abbrevs 'silently)
 (setq-default abbrev-mode t)
-
-(visual-line-mode)
-(global-set-key (kbd "C-c q") #'fill-paragraph)
 
 (global-set-key (kbd "C-c x") #'align-regexp)
 
