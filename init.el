@@ -179,14 +179,14 @@
 ;; or removes one.  It's pretty cool!
 (require 'init-smart-comment)
 (require 'init-html)
-(require 'init-org2blog)
+;;(require 'init-org2blog)
 (require 'init-css)
 ;;(require 'init-python-mode)
 (require 'init-defuns)
 ;; emacs can play music and stream it! (when streaming works)
 ;;(require 'init-emms)
 ;;get weather forcast in emacs
-(require 'init-wttrin)
+;;(require 'init-wttrin)
 ;; load a zenburn
 (require 'init-misc)
 ;; smart-mode-line is awesome!

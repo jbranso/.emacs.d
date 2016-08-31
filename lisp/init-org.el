@@ -77,17 +77,6 @@
 
 (use-package org-invoice)
 
-(use-package org-notify)
-(org-notify-start)
-
-(org-notify-add 'appt
-                '(:time "-1s" :period "20s" :duration 10
-                        :actions (-message -ding))
-                '(:time "15m" :period "2m" :duration 100
-                        :actions -notify)
-                '(:time "2h" :period "5m" :actions -message)
-                '(:time "3d" :actions -email))
-
 (use-package org-inlinetask)
 
 (use-package org-habit)
@@ -463,6 +452,14 @@ EXT is a list of the extensions of files to be included."
 
 (org-defkey org-agenda-mode-map "g" 'org-agenda-filter-by-category)
 ;;(org-defkey global-map (kbd "C-c a g") 'org-agenda-filter-by-category)
+
+(defun my/org-grading-myself-agenda-and-regular-agenda ()
+  "This function loads up my grading myself toolset."
+  (interactive)
+  (add-to-list 'org-agenda-files '"/home/joshua/programming/org/projects/grading-myself.org")
+  (org-agenda-list)
+  ;;how do you remove an element from a list?  I have no idea.
+  )
 
 ; Targets start with the file name - allows creating level 1 tasks
   (setq org-refile-use-outline-path (quote file))

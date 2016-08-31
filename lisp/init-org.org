@@ -221,7 +221,7 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
     ,#+END:
   #+END_SRC
 
-** org-notify lets you know when you have upcoming appointments
+** COMMENT org-notify lets you know when you have upcoming appointments
   I would like to get this set up so that it shows pop-ups using a lua script.  That way I can set it up to use awesome's
   pop up library. At the moment it only notifies you when you have approaching deadlines and only certain ones.  It's a little odd.
   #+BEGIN_SRC emacs-lisp

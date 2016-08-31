@@ -11,8 +11,11 @@
   :defer t
   :init (helm-flx-mode +1))
 ;; according to the github repo this next line is all that I need to install helm
+(use-package helm :ensure t)
 (require 'helm-config)
 ;; I've installed helm-ag, which might be cool.
+
+(use-package helm-swoop :ensure t)
 
 (setq
  ;;don't let helm swoop guess what you want to search... It is normally wrong and annoying.
@@ -31,7 +34,7 @@
  ;;helm-M-x-fuzzy-match t
  ;;helm-recentf-fuzzy-match t
  ;;helm-apropos-fuzzy-match t
-;;the more of these sources that I have, the slower helm will be
+ ;;the more of these sources that I have, the slower helm will be
  helm-for-files-preferred-list '(
                                  helm-source-buffers-list
                                  helm-source-recentf
