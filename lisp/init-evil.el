@@ -72,6 +72,8 @@
 (defun evil-dvorak-turn-on-web-mode-keys ()
   "This turns on the evil-dvorak web-mode keyboard shortcuts."
   (interactive)
+  ;;I need to disable the default evil-mode "H" key
+  (define-key evil-normal-state-map (kbd "H")  'nil)
   (define-key evil-normal-state-map (kbd "Hta") 'web-mode-tag-attributes-sort)
   (define-key evil-normal-state-map (kbd "Htb") 'web-mode-tag-beginning)
   (define-key evil-normal-state-map (kbd "Hte") 'web-mode-tag-end)

@@ -156,6 +156,19 @@
   ;;to the server, pwd is still ~/programming/soihub
   (write-file "/home/joshua/programming/waypoint/ihca/"))
 
+(defun purdue-save-this-buffer-to-dev-server ()
+  "Write this buffer to the purdue dev server."
+  (interactive)
+  (require 's)
+  (let (remote-file-path remote-dir local-file)
+    (setq local-file buffer-file-name)
+    (setq remote-dir "/var/www/html/root/honorscollege/")
+    (setq remote-file-path (concat
+                            remote-dir
+                            (s-chop-prefix "/Users/jbranso/honorsCollege/var/" buffer-file-name)))
+    (write-file remote-file-path)
+    (write-file local-file)))
+
 ;; This function can be called from any org-babel sql block that has php and sql code mixed together
 (defun org-babel-strip-php-from-sql-block ()
   "Cleans up a sql statement from

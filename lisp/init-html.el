@@ -122,6 +122,7 @@ _v_: element vanish       _n_: _n_ext element
                                                                           (interactive)
                                                                           (newline)
                                                                           (evil-open-above 0)))
+                           (define-key web-mode-map (kbd "C-c C-h") #'help)
                            ;;(push '("function" . ?𝆑) prettify-symbols-alist)
                            (push '(">=" . ?≥) prettify-symbols-alist)
                            (push '("<=" . ?≤) prettify-symbols-alist)

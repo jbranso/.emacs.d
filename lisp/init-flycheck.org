@@ -32,18 +32,15 @@ Color the mode line if flycheck spots a syntax error.
 
 * The flycheck use package declaration
 #+BEGIN_SRC emacs-lisp
-  (use-package flycheck
-    :defer t
-    :ensure t
-    :config
-    (add-hook 'after-init-hook 'global-flycheck-mode)
+  (use-package flycheck :defer t :ensure t)
 
     (eval-after-load "flycheck"
       '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
     (with-eval-after-load 'flycheck
       (flycheck-pos-tip-mode))
     (with-eval-after-load 'flycheck
-      (flycheck-status-emoji-mode)))
+      (flycheck-status-emoji-mode))
+    (add-hook 'after-init-hook 'global-flycheck-mode)
 
 #+END_SRC
 
