@@ -131,14 +131,19 @@
 ;; Instead of Makefile<1> and Makefile<2>, it will be
 ;; Makefile | tmp  Makefile | lisp
 ;;(require 'init-uniquify)
-;;yasnippet needs to be loaded before auto complete to let them play nicely together
-(require 'init-yasnippet)
 ;;I don't really use media wiki so.
 ;;(require 'init-mediawiki)
 ;; collection of IDE like features.  I can't get 'em to work
 ;; I should probably just try out company mode and forget about cedet.  Apparently semantic will work with
 ;; company mode anyway
 ;;(require 'init-cedet)
+(dolist (file '(
+                ;;I am having some issues with this at the moment.
+                ;; "init-polymode.org"
+                ;;yasnippet needs to be loaded before company to let them play nicely together
+                "init-yasnippet.org"
+                ))
+  (org-babel-load-file (concat "~/.emacs.d/lisp/" file)))
 (require 'init-company)
 ;; downcase words like THe and BEautiful
 ;; This is probably how I can embed yasnippets into various modes

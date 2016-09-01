@@ -162,10 +162,10 @@
   (require 's)
   (let (remote-file-path remote-dir local-file)
     (setq local-file buffer-file-name)
-    (setq remote-dir "/var/www/html/root/honorscollege/")
+    (setq remote-dir "/ssh:jbranso@dev.www.purdue.edu:/var/www/html/root/honorscollege/")
     (setq remote-file-path (concat
                             remote-dir
-                            (s-chop-prefix "/Users/jbranso/honorsCollege/var/" buffer-file-name)))
+                            (s-chop-prefix "/Users/jbranso/honorsCollege/var" buffer-file-name)))
     (write-file remote-file-path)
     (write-file local-file)))
 

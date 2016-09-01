@@ -1,0 +1,11 @@
+Polymode lets you mix different source code in one file.  This lets me edit org-mode files, w/o having to press "C-c '" all of the time.  [[https://github.com/vspinu/polymode#activation-of-polymodes][You can read more about it here.]]  MMM-mode might be better, BUT polymode seems to be faster.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package polymode :ensure t
+    :init (require 'poly-org))
+#+END_SRC
+
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.org" . poly-org-mode))
+#+END_SRC
