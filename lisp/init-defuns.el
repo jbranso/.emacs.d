@@ -169,6 +169,14 @@
     (write-file remote-file-path)
     (write-file local-file)))
 
+(defun purdue-view-this-buffer-in-browser ()
+  "View the current file in your browser."
+  (interactive)
+  (require 's)
+  (let (url)
+    (setq url (concat "https://dev.honors.purdue.edu/" (s-chop-prefix "/Users/jbranso/honorsCollege/var/" buffer-file-name)))
+    (browse-url url)))
+
 ;; This function can be called from any org-babel sql block that has php and sql code mixed together
 (defun org-babel-strip-php-from-sql-block ()
   "Cleans up a sql statement from
