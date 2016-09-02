@@ -1,0 +1,63 @@
+#+BEGIN_SRC emacs-lisp
+(require 'ispell)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck :defer t :ensure t)
+
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+#+END_SRC
+
+* Install Official recommended flycheck extensions
+** Show flycheck errors in a popup
+:PROPERTIES:
+:ID:       cbb7a12e-c203-4e46-a9d4-07feb43e64a0
+:END:
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck-pos-tip :ensure t)
+  (with-eval-after-load 'flycheck
+    (flycheck-pos-tip-mode))
+#+END_SRC
+
+** Color the mode line based on how the errors flycheck finds or doesn't find
+:PROPERTIES:
+:ID:       11552573-6356-4c9a-84a7-f2fb5666584d
+:END:
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck-color-mode-line :ensure t)
+  (eval-after-load "flycheck"
+    '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+#+END_SRC
+
+** Pretty emoji
+:PROPERTIES:
+:ID:       f7f1c485-0e79-48cd-ae86-652b39889abc
+:END:
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck-status-emoji :ensure t)
+
+  (eval-after-load "flycheck"
+    '(add-hook 'flycheck-mode-hook 'flycheck-status-emoji-mode))
+
+#+END_SRC
+
+* Install linters
+Here is a list of [[http://www.flycheck.org/en/latest/languages.html][supported languades]].
+** CSS
+[[http://csslint.net/][CSSLint]]
+
+sudo npm install -g csslint
+
+
+** js
+
+sudo npm install -g standard
+
+* Provide this file
+:PROPERTIES:
+:ID:       e0be043c-dcdc-4953-84c8-470ea0819522
+:END:
+#+BEGIN_SRC emacs-lisp
+(provide 'init-flycheck)
+;;; init-flycheck ends here
+#+END_SRC
