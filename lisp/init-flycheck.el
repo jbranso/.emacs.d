@@ -1,26 +1,22 @@
+
 (require 'ispell)
 
-(use-package flycheck
-  :defer t
-  :config
-  (add-hook 'after-init-hook #'(lambda ()
-                                 (global-flycheck-mode 1)))
+(use-package flycheck :defer t :ensure t)
 
-  ;; show flycheck errors in a popup
-  (with-eval-after-load 'flycheck
-    (flycheck-pos-tip-mode))
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
-  ;; (eval-after-load 'flycheck
-  ;;   '(flycheck-package-setup))
-  )
-(use-package flycheck-pos-tip :ensure t :defer t)
+(use-package flycheck-pos-tip :ensure t)
+(with-eval-after-load 'flycheck
+  (flycheck-pos-tip-mode))
 
-;; Override default flycheck triggers
+(use-package flycheck-color-mode-line :ensure t)
+(eval-after-load "flycheck"
+  '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
 
-;; (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled)
-;;       flycheck-idle-change-delay 0.8)
+(use-package flycheck-status-emoji :ensure t)
 
-;; (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list))
+(eval-after-load "flycheck"
+  '(add-hook 'flycheck-mode-hook 'flycheck-status-emoji-mode))
 
 (provide 'init-flycheck)
 ;;; init-flycheck ends here

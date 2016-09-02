@@ -95,6 +95,8 @@
 ;; the forecast is in Celcius.  Why do I even have this installed?
 ;;(require 'init-forecast)
 
+(require 'init-debugger)
+
 ;; emacs can read the mail
 (require 'init-gnus)
 ;; if you have a .authinfo, .netrc, .authinfo.gpg, then load auth-source
