@@ -3,7 +3,7 @@
   :defer t
   :ensure t
   :config (setq golden-ratio-exclude-modes
-                '( "sr-mode" "ediff-mode" "gnus-summary-mode" ))
+                '( "sr-mode" "ediff-mode" "ediff-meta-mode" "ediff-set-merge-mode" "gnus-summary-mode" ))
   :diminish golden-ratio-mode)
 (golden-ratio-mode 1)
 (provide 'init-golden-ratio)
