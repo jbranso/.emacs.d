@@ -37,6 +37,12 @@
                             (unbind-key (kbd "C-c $") flyspell-mode-map)
                             (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
 
+(use-package aggressive-indent :ensure t :defer t)
+;; it's probably a good idea NOT to enable aggressive indent mode globally.  web-mode has a hard time
+;; indenting everything when the file gets big
+(dolist (hook '(js2-mode-hook cc-mode css-mode emacs-lisp-mode-hook css-mode))
+  (add-hook hook #'aggressive-indent-mode))
+
 (use-package async
   :ensure t
   :defer t
@@ -190,5 +196,20 @@ _r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
 (use-package suggest :ensure t)
 
 (use-package suggest :ensure t)
+
+(require 'uniquify)
+
+(setq uniquify-buffer-name-style 'reverse)
+(setq uniquify-separator " • ")
+(setq uniquify-after-kill-buffer-p t)
+(setq uniquify-ignore-buffers-re "^\\*")
+
+(fset 'yes-or-no-p 'y-or-n-p)
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
+(use-package zenburn-theme :ensure t)
+
+(find-file-noselect "/home/joshua/programming/org/gtd/gtd.org")
+(org-agenda nil "a")
 
 (provide 'init-load-small-packages)

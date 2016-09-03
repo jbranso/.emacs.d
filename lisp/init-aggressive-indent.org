@@ -1,14 +1,12 @@
-;;; Code:
+#+AUTHOR:Joshua Branson
+#+LATEX_HEADER: \usepackage{lmodern}
+#+LATEX_HEADER: \usepackage[QX]{fontenc}
 
-Aggressive indent attempts to aggressively indent you code after you change various aspects of it.
-#+BEGIN_SRC emacs-lisp
-(use-package aggressive-indent :ensure t :defer t)
-;; it's probably a good idea NOT to enable aggressive indent mode globally.  web-mode has a hard time
-;; indenting everything when the file gets big
-(dolist (hook '(js2-mode-hook cc-mode css-mode emacs-lisp-mode-hook css-mode))
-  (add-hook hook #'aggressive-indent-mode))
-#+END_SRC
+* aggressive-indent
 
+
+
+** provide this file
 #+BEGIN_SRC emacs-lisp
 (provide 'init-aggressive-indent)
 #+END_SRC

@@ -95,6 +95,16 @@ This will highlight words that are misspelled in comments. Also flyspell binds C
                             (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
 #+END_SRC
 
+** aggressive indent
+Aggressive indent attempts to aggressively indent you code after you change various aspects of it.
+#+BEGIN_SRC emacs-lisp
+(use-package aggressive-indent :ensure t :defer t)
+;; it's probably a good idea NOT to enable aggressive indent mode globally.  web-mode has a hard time
+;; indenting everything when the file gets big
+(dolist (hook '(js2-mode-hook cc-mode css-mode emacs-lisp-mode-hook css-mode))
+  (add-hook hook #'aggressive-indent-mode))
+#+END_SRC
+
 ** async
 :PROPERTIES:
 :ID:       9d7b0209-dda3-4155-aef7-0e3dbdc5398e

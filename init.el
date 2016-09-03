@@ -1,12 +1,6 @@
 ;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
 
-;; I can define some emacs testing of variables.  This will hopefully help me spot errors. cool.
-;; (ert-deftest pp-test-quote ()
-;;   "Tests the rendering of `quote' symbols in `pp-to-string'."
-;;   (should (equal (pp-to-string '(quote quote)) "'quote"))
-;;   (should (equal (pp-to-string '((quote a) (quote b))) "('a 'b)\n"))
-;;   (should (equal (pp-to-string '('a 'b)) "('a 'b)\n")))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 ;;(require 'init-benchmarking) ;; Measure startup time
@@ -48,10 +42,7 @@
 (setq use-package-verbose t)
 ;; this was for our emacs meetup group
 ;; slack is proprietary.  We should not use it
-;;(require 'init-slack)
 ;;(require 'init-pdf-tools)
-;;(require 'init-wgrep)
-;; insert text into buffer you create them
 (dolist (file '(
                 "init-autoinsert.org"
                 ;; turn on abbrev mode.  it implements autocorrect
@@ -147,6 +138,7 @@
 
 (require 'init-autocorrect)
 ;; until I get autocorrect on melpa, I'll have to manually turn on abbrev mode
+(org-babel-load-file "~/.emacs.d/lisp/init-misc.org")
 
 ;;----------------------------------------------------------------------------
 ;; Locales (setting them earlier in this file doesn't work in X)
