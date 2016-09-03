@@ -1,0 +1,608 @@
+#+AUTHOR:Joshua Branson
+#+LATEX_HEADER: \usepackage{lmodern}
+#+LATEX_HEADER: \usepackage[QX]{fontenc}
+
+* load-small-packages
+
+This file just loads in tiny packages that don't really need to be in separate files.
+
+** abbrev-mode
+:PROPERTIES:
+:ID:       6c870f0d-d805-4e4c-b6d6-09233397e444
+:END:
+Add abbrev-mode to text modes and program modes to turn on autocorrect like functionality.
+#+BEGIN_SRC emacs-lisp
+(dolist (hook '(org-mode-hook
+                prog-mode-hook
+                text-mode-hook))
+  (add-hook hook (lambda ()
+                   (abbrev-mode 1)
+                   (diminish 'abbrev-mode))))
+#+END_SRC
+
+** avy-mode
+:PROPERTIES:
+:ID:       b0fe4e52-38b9-4846-b737-7ac2b025527f
+:END:
+ I use avy mode for avy jump to char, which is a little nicer than ace-jump mode, but not by much.
+ #+BEGIN_SRC emacs-lisp
+(use-package avy
+  :ensure t
+  :defer t
+  :config
+  (setq avybackground t
+   avy-highlight-first t)
+  ;; https://github.com/abo-abo/avy
+  (setq  avy-keys (number-sequence ?e ?t )))
+ #+END_SRC
+
+** abbrev-mode
+:PROPERTIES:
+:ID:       a9c041e7-f6c8-4a15-b828-b4a812fdc563
+:END:
+Add abbrev-mode to text modes and program modes to turn on autocorrect like functionality.
+#+BEGIN_SRC emacs-lisp
+(dolist (hook '(org-mode-hook
+                prog-mode-hook
+                text-mode-hook))
+  (add-hook hook (lambda ()
+                   (abbrev-mode 1)
+                   (diminish 'abbrev-mode))))
+#+END_SRC
+
+** which-key
+:PROPERTIES:
+:ID:       6dd77f41-e39f-4c24-a2af-f46a6bd59398
+:END:
+this package is like guide-key, but better.  As you start to type a keychord, but then forget how to finish it,
+which-key will bring up a small buffer to show you possible completions.
+
+Which key displays your keybindings for your emacs major mode.  It might be better than guide-key.el
+
+#+CAPTION: Which key displays the current major mode's keybindings
+#+NAME:   fig:which-key
+[[~/.emacs.d/images/which-key.png]]
+
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key :ensure t
+    :config (which-key-mode))
+#+END_SRC
+
+** bug-hunter
+:PROPERTIES:
+:ID:       d8cff989-6fde-466e-bd25-2eca563979d7
+:END:
+Bug hunter lets you debug your init file when you've broken it somehow.  Just type M-x bug-hunter-init-file
+#+BEGIN_SRC emacs-lisp
+(use-package bug-hunter :ensure t :defer t)
+#+END_SRC
+
+** enable flyspell for all program modes.
+:PROPERTIES:
+:ID:       bca2e633-d8eb-4d29-a059-8f2d6f18eb57
+:END:
+This will highlight words that are misspelled in comments. Also flyspell binds C-c $ to flyspell fix word before point.  BUT I would prefer that to be bound to endless/ispell-word-then-abbrev.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'prog-mode-hook (lambda ()
+                            (flyspell-prog-mode)
+                            (unbind-key (kbd "C-c $") flyspell-mode-map)
+                            (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
+
+;; enable flyspell mode for all of my text modes.  This will enable flyspell to underline misspelled words.
+(add-hook 'text-mode-hook (lambda ()
+                            (flyspell-mode)
+                            (unbind-key (kbd "C-c $") flyspell-mode-map)
+                            (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
+#+END_SRC
+
+** async
+:PROPERTIES:
+:ID:       9d7b0209-dda3-4155-aef7-0e3dbdc5398e
+:END:
+#+BEGIN_SRC emacs-lisp
+(use-package async
+  :ensure t
+  :defer t
+  :config
+  ;; enable async dired commands
+  (autoload 'dired-async-mode "dired-async.el" nil t)
+  (dired-async-mode 1)
+  ;; enable async compilation of melpa packages
+  (async-bytecomp-package-mode 1))
+#+END_SRC
+
+
+Here is an example of what you can do with async.
+(async-start
+   ;; What to do in the child process
+   (lambda ()
+     (message "This is a test")
+     (sleep-for 3)
+     222)
+
+   ;; What to do when it finishes
+   (lambda (result)
+     (message "Async process done, result should be 222: %s" result)))
+
+** COMMENT hydra
+I really don't use hydras.
+#+BEGIN_SRC emacs-lisp
+(use-package hydra
+  :defer t
+  :ensure t)
+#+END_SRC
+;; create a hydra for inserting cool stuff for emacs
+;; (defhydra hydra-org-template (:color blue :hint nil)
+;;   "
+;; _c_enter  _q_uote    _L_aTeX:
+;; _l_atex   _e_xample  _i_ndex:
+;; _a_scii   _v_erse    _I_NCLUDE:
+;; _s_rc     ^ ^        _H_TML:
+;; _h_tml    ^ ^        _A_SCII:
+;; "
+;;   ("s" (hot-expand "<s"))
+;;   ("e" (hot-expand "<e"))
+;;   ("q" (hot-expand "<q"))
+;;   ("v" (hot-expand "<v"))
+;;   ("c" (hot-expand "<c"))
+;;   ("l" (hot-expand "<l"))
+;;   ("h" (hot-expand "<h"))
+;;   ("a" (hot-expand "<a"))
+;;   ("L" (hot-expand "<L"))
+;;   ("i" (hot-expand "<i"))
+;;   ("I" (hot-expand "<I"))
+;;   ("H" (hot-expand "<H"))
+;;   ("A" (hot-expand "<A"))
+;;   ("<" self-insert-command "ins")
+;;   ("o" nil "quit"))
+
+;; (defun hot-expand (str)
+;;   "Expand org template."
+;;   (insert str)
+;;   (org-try-structure-completion))
+
+;; ;;I bind it for myself like this:
+
+;; (define-key org-mode-map "C-c <"
+;;   (lambda () (interactive)
+;;      (if (looking-back "^")
+;;          (hydra-org-template/body)
+;;        (self-insert-command 1))))
+
+;;a nice clock in clock out thing from hydra
+;; https://github.com/abo-abo/hydra/wiki/orgmode
+(defhydra hydra-global-org (:color blue
+                                   :hint nil)
+  "
+Timer^^        ^Clock^         ^Capture^
+--------------------------------------------------
+s_t_art        _i_ clock in    _c_apture
+ _s_top        _w_ clock out   _l_ast capture
+_r_eset        _j_ clock goto
+_p_rint
+"
+  ("t" org-timer-start)
+  ("s" org-timer-stop)
+  ;; Need to be at timer
+  ("r" org-timer-set-timer)
+  ;; Print timer value to buffer
+  ("p" org-timer)
+  ("i" (org-clock-in '(4)) :exit t)
+  ("w" org-clock-out)
+  ;; Visit the clocked task from any buffer
+  ("j" org-clock-goto)
+  ("c" org-capture)
+  ("l" org-capture-goto-last-stored))
+
+
+;; This is the hydra that I use with C-c C to clock in and clock out all the time!
+(defhydra hydra-org-timer (:color blue :hint nil)
+  "timer"
+  ("i" (org-clock-in '(4))    "clock in" :exit t)
+  ("o" org-clock-out   "clock out" :exit t))
+
+(defhydra hydra-apropos (:color blue)
+  "Apropos"
+  ("a" apropos "apropos")
+  ("c" apropos-command "cmd")
+  ("d" apropos-documentation "doc")
+  ("e" apropos-value "val")
+  ("l" apropos-library "lib")
+  ("o" apropos-user-option "option")
+  ("u" apropos-user-option "option")
+  ("v" apropos-variable "var")
+  ("i" info-apropos "info")
+  ("t" tags-apropos "tags")
+  ("z" hydra-customize-apropos/body "customize"))
+
+(defhydra hydra-customize-apropos (:color blue)
+  "Apropos (customize)"
+  ("a" customize-apropos "apropos")
+  ("f" customize-apropos-faces "faces")
+  ("g" customize-apropos-groups "groups")
+  ("o" customize-apropos-options "options"))
+
+
+(defhydra hydra-transpose (:color red)
+  "Transpose"
+  ("c" transpose-chars "characters")
+  ("w" transpose-words "words")
+  ("o" org-transpose-words "Org mode words")
+  ("l" transpose-lines "lines")
+  ("s" transpose-sentences "sentences")
+  ("e" org-transpose-elements "Org mode elements")
+  ("p" transpose-paragraphs "paragraphs")
+  ("t" org-table-transpose-table-at-point "Org mode table")
+  ("q" nil "cancel" :color blue))
+
+
+(global-set-key
+ (kbd "C-x w")
+ (defhydra hydra-windows
+   (:body-pre (next-line))
+   "move"
+   (">" (enlarge-window-horizontally 5))
+   ("<" (shrink-window-horizontally 5))
+   ("^" (enlarge-window 5))))
+
+(global-set-key
+ (kbd "C-x >")
+ (defhydra hydra-windows
+   (:body-pre (next-line))
+   "move"
+   (">" (scroll-right))
+   ("<" (scroll-left))))
+
+(global-set-key
+ (kbd "C-x <")
+ (defhydra hydra-windows
+   (:body-pre (next-line))
+   "move"
+   (">" (scroll-right))
+   ("<" (scroll-left))))
+
+
+
+(defhydra hydra-projectile-other-window (:color teal)
+  "projectile-other-window"
+  ("f"  projectile-find-file-other-window        "file")
+  ("g"  projectile-find-file-dwim-other-window   "file dwim")
+  ("d"  projectile-find-dir-other-window         "dir")
+  ("b"  projectile-switch-to-buffer-other-window "buffer")
+  ("q"  nil                                      "cancel" :color blue))
+
+*** COMMENT A register hydra
+(require 'register)
+
+;; I might need to use (set-register register value)
+
+"
+register-alist is this:
+Alist of elements (NAME . CONTENTS), one for each Emacs register.
+NAME is a character (a number).  CONTENTS is a string, number, marker, list
+or a struct returned by `registerv-make'.
+
+So my number to register command must transform my NAME char into an ASCII number.  fun.
+"
+
+(defun my/number-to-register (number register)
+  (interactive "n number: \nMregister: ")
+  ;;(number-to-register number register)
+  ;; in order to use
+  (set-register register number))
+
+;; gosh this is getting soo annoying and it's not working at all
+;;(print register-alist)
+
+(defun my/insert-register (register)
+  (interactive "Mregister: ")
+  (print register)
+  (insert-register register))
+
+(defun my/increment-register ())   (get-register "r")
+
+(defhydra hydra-register (:color pink :hint nil)
+  "
+^Store^                     ^Insert^                       ^Increase^
+^^^^^^----------------------------------------------------------------------
+_n_umber to register        _i_nsert number register       _I_ncrease the register
+C-u <number> C-x r n R
+insert _N_umbers left       C-x r i R                      C-u number C-x r + r
+  of Rectangle              Insert _t_ext to register
+  C-x r N                   C-x r s R
+"
+  ;; Store
+  ("n" my/number-to-register :exit t)
+  ("N" rectangle-number-lines :exit t)
+
+  ;; Insert
+  ("i" my/insert-register :exit t)          ; Show (expand) everything
+  ("t" copy-to-register :exit t)          ; Show (expand) everything
+
+  ;; Increase
+  ("I" my/increment-register  :exit t)    ; Hide everything but the top-level headings
+
+  ("g" nil "leave"))
+
+
+;; I want to set this hydra to a keybinding.  So I don't have to remember all of the keybindings
+(global-set-key (kbd "C-c C-r") 'hydra-register/body)
+;; a ton of other modes try to set C-c C-r to a keybinding.  I am overriding them.
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-c C-r") 'hydra-register/body))
+(with-eval-after-load 'web-mode
+  (define-key web-mode-map (kbd "C-c C-r") 'hydra-register/body))
+(with-eval-after-load 'php-mode
+  (define-key php-mode-map (kbd "C-c C-r") 'hydra-register/body))
+** bookmark
+:PROPERTIES:
+:ID:       7f780f9c-3c32-4ac7-b733-885d3651b0e7
+:END:
+#+BEGIN_SRC emacs-lisp
+(require 'bookmark)
+(defhydra hydra-bookmark (:color pink :hint nil)
+  "
+^Edit^                   ^Jump^                    ^Set^
+^^^^^^------------------------------------------------------
+_e_: edit bookmarks     _j_ump to bookmark         _s_: set bookmark
+_r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
+"
+  ;; Edit
+  ("e" edit-bookmarks :exit t)                ; Up
+  ("r" helm-bookmark-rename :exit t)                ; Up
+
+  ;; Jump
+  ("j" bookmark-jump :exit t)          ; Show (expand) everything
+  ("J" gnus-bookmark-jump :exit t)          ; Show (expand) everything
+
+  ;; Set
+  ("s" bookmark-set :exit t)    ; Hide everything but the top-level headings
+  ("S" gnus-bookmark-set :exit t)    ; Hide everything but the top-level headings
+
+  ("z" nil "leave"))
+
+;; I want to set this hydra to a keybinding.  So I don't have to remember all of the keybindings
+(global-set-key (kbd "C-c C-b") 'hydra-bookmark/body)
+;; a ton of other modes try to set C-c C-b to a keybinding.  I am overriding them.
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
+(with-eval-after-load 'web-mode
+  (define-key web-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
+(with-eval-after-load 'php-mode
+  (define-key php-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
+#+END_SRC
+** COMMENT logging the commands I use often.
+;; this will be cool to monitor my commands.
+;; But I have to initialize it...It will not record commands by default.
+;; I don't really use this functionality.  I never see what commands I'm using.  So I'll ignore it for now.
+;;(require-package 'mwe-log-commands)
+;;(mwe:log-keyboard-commands)
+** vc-mode
+:PROPERTIES:
+:ID:       642acc9e-8521-4bfe-8fd0-6d30bc323e4d
+:END:
+ This shows you in the fringes of the buffer (this is the left column on the left side of your buffer)
+ whick text in a buffer has not yet been committed.
+ #+BEGIN_SRC emacs-lisp
+   (use-package diff-hl
+     :defer t
+     :ensure t)
+   (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
+   (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
+ #+END_SRC
+** auth-source
+:PROPERTIES:
+:ID:       90ce5dc0-d72b-4263-a0c6-14cc88a5838c
+:END:
+If I have a .authinfo, .authinfo.gpg, or .netrc, then load auth-source.el
+
+Auth-source.el, lets you save your various logins and password for different servers in one file.  For someone like me, who has never gotten ssh keys to work (it always ALWAYS ANNOYING prompts me for a password), I just have my information stored in .authinfo.gpg, which is an encrypted file.
+
+Ensure that you have f.el
+#+BEGIN_SRC emacs-lisp
+(use-package f :ensure t)
+#+END_SRC
+
+gpg is the version more suited for servers.  Gpg2 is the version more suited for desktop use.   Here is a [[http://superuser.com/questions/655246/are-gnupg-1-and-gnupg-2-compatible-with-each-other/655250#655250][stackoverflow answer.]] describing the difference between gpg and gpg2.
+
+At the moment I dual boot Parabola GNU/Linux and GuixSD.  At some point, I want to migrate over to use GuixSD, but Parabola has some features, services, and packages that Guix lacks.  So until that time, I'll have to use both.  BUT the good news is that I can tell Emacs which gpg binary to use based upon my host name.  If my host name is "antelope" the default GuixSD host-name then make the egp-gpg-program be gpg.  If it's parabola, make it "gpg2".
+"parabola" uses gpg2.  GuixSD needs to use gpg.
+#+BEGIN_SRC emacs-lisp
+  (cond
+   ((string-equal system-name "antelope")
+    (setq epg-gpg-program "gpg"))
+   ((string-equal system-name "parabola")
+    (setq epg-gpg-program "gpg2"))
+   ((string-equal system-name "GuixSD")
+    (setq epg-gpg-program "gpg")))
+#+END_SRC
+
+#+RESULTS:
+: gpg2
+
+#+BEGIN_SRC emacs-lisp
+(setq epg-gpg-program "gpg")
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (when (f-file? "~/.authinfo.gpg")
+    ;; only use the encrypted file.
+    (setq auth-sources '("~/.authinfo.gpg"))
+    ;;(require 'auth-source)
+    )
+#+END_SRC
+** Golden ratio mode
+:PROPERTIES:
+:ID:       a56ac24d-7ddb-4b6c-8ad1-9b817e4a73fe
+:END:
+https://github.com/roman/golden-ratio.el
+#+BEGIN_SRC emacs-lisp
+  (use-package golden-ratio
+    :defer t
+    :ensure t
+    :config (setq golden-ratio-exclude-modes
+                  '( "sr-mode" "ediff-mode" "ediff-meta-mode" "ediff-set-merge-mode" "gnus-summary-mode" ))
+    :diminish golden-ratio-mode)
+  (add-hook 'after-init-hook 'golden-ratio-mode)
+#+END_SRC
+** force emacs to use utf8 in all possible situations
+:PROPERTIES:
+:ID:       2aafacc4-bc8a-4683-a1d3-63cce3f72f84
+:END:
+ https://thraxys.wordpress.com/2016/01/13/utf-8-in-emacs-everywhere-forever/
+ #+BEGIN_SRC emacs-lisp
+   (setq locale-coding-system 'utf-8)
+   (set-terminal-coding-system 'utf-8)
+   (set-keyboard-coding-system 'utf-8)
+   (set-selection-coding-system 'utf-8)
+   (prefer-coding-system 'utf-8)
+   (when (display-graphic-p)
+      (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
+ #+END_SRC
+** recent
+:PROPERTIES:
+:ID:       0a6a1dca-1f12-4b1d-afd3-70d427d695ec
+:END:
+#+BEGIN_SRC emacs-lisp
+  (defun my-recentf-startup ()
+  "My configuration for recentf."
+  (recentf-mode 1)
+
+  (setq recentf-max-saved-items 1000
+        recentf-exclude '("/tmp/"
+              "^.*autoloads.*$"
+              "^.*TAGS.*$"
+              "^.*COMMIT.*$"
+              "^.*pacnew.*$"
+                          ;; in case I ever want to exclude shh files, I can add this next line.
+                          ;;  "/ssh:"
+              ))
+
+  (add-to-list 'recentf-keep "^.*php$//")
+  (recentf-auto-cleanup))
+
+  (add-hook 'after-init-hook 'my-recentf-startup)
+
+#+END_SRC
+** ag
+:PROPERTIES:
+:ID:       6f4c9bad-cf74-43b6-b87c-39e781ae0961
+:END:
+#+BEGIN_SRC emacs-lisp
+(setq-default grep-highlight-matches t
+              grep-scroll-output t)
+
+;; ag is the silver searcher.  It lets you search for stuff crazy fast
+(when (executable-find "ag")
+  (use-package ag
+    :defer t
+    :ensure t)
+  (use-package wgrep-ag
+    :defer t
+    :ensure t)
+  (setq-default ag-highlight-search t))
+#+END_SRC
+** eshell
+:PROPERTIES:
+:ID:       4f6ec06a-4f1b-44c6-ac5f-b0804649b90b
+:END:
+
+First, Emacs doesn't handle less well, so use cat instead for the shell pager:
+#+BEGIN_SRC emacs-lisp
+(setenv "PAGER" "cat")
+#+END_SRC
+
+using ac-source-filename IS super useful
+it is only activated if you start to type a file like
+ "./", "../", or "~/" but then it's awesome!
+#+BEGIN_SRC emacs-lisp
+(add-hook 'eshell-mode-hook (lambda ()
+                              (setq
+                               shell-aliases-file "~/.emacs.d/alias"
+                               )))
+#+END_SRC
+** Make windows commands work with info
+:PROPERTIES:
+:ID:       7b1a8457-6561-4a36-a2d2-c2f93baffd86
+:END:
+  This lets you use the windmove commands inside an info buffer!!!! sooo cool!
+  #+BEGIN_SRC emacs-lisp
+  (define-key Info-mode-map (kbd "C-w h") 'windmove-down)
+  (define-key Info-mode-map (kbd "C-w t") 'windmove-up)
+  (define-key Info-mode-map (kbd "C-w n") 'windmove-left)
+  (define-key Info-mode-map (kbd "C-w s") 'windmove-right)
+  #+END_SRC
+** smart comment
+:PROPERTIES:
+:ID:       a5a5f993-e0a8-48c5-b80f-ccab9781591e
+:END:
+
+with point in the or beginning middle of the line comment out the whole line
+with point at the end of the line, add a comment to the left of the line
+with a region marked, marked the region for delition with "C-u C-c"
+delete the marked regions and lines with "C-u C-u C-c"
+#+BEGIN_SRC emacs-lisp
+(use-package smart-comment
+  :ensure t
+  :defer t
+  :config
+  (with-eval-after-load 'org
+    (local-unset-key "C-c ;"))
+  (global-set-key (kbd "C-c ;") 'smart-comment))
+
+(add-hook 'after-init-hook 'smart-comment)
+#+END_SRC
+** Wttrin is a small emacs package that gets you the local weather forcast.  It pulls from http://wttr.in/.
+:PROPERTIES:
+:ID:       edb1b0b6-a569-491b-a4a9-52cbe36d50fb
+:END:
+
+I'm not sure if Lafayette
+
+#+BEGIN_SRC emacs-lisp
+(use-package wttrin
+  :ensure t
+  :commands (wttrin)
+  :init
+  (setq wttrin-default-cities
+  '("West Lafayette")))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (defun weather ()
+    "Show the local weather via wttrin"
+    (interactive)
+    (wttrin))
+#+END_SRC
+** This package turns on global-prettify-symbols-mode after Emacs loads.
+Make --> and /arrow look like utf8 chars
+#+BEGIN_SRC emacs-lisp
+(add-hook 'after-init-hook 'global-prettify-symbols-mode)
+#+END_SRC
+** suggest
+This is a program that lets suggests valid elisp functions to use. It is SO cool!
+You can read more [[http://www.wilfred.me.uk/blog/2016/07/30/example-driven-development/][here]].
+
+#+BEGIN_SRC emacs-lisp
+(use-package suggest :ensure t)
+#+END_SRC
+** uniquify
+ Nicer naming of buffers for files with identical names
+ Instead of Makefile<1> and Makefile<2>, it will be
+ Makefile | tmp  Makefile | lisp
+ this file is part of gnus emacs.  I don't need to use use-package
+ #+BEGIN_SRC emacs-lisp
+(require 'uniquify)
+
+(setq uniquify-buffer-name-style 'reverse)
+(setq uniquify-separator " • ")
+(setq uniquify-after-kill-buffer-p t)
+(setq uniquify-ignore-buffers-re "^\\*")
+ #+END_SRC
+** provide this file
+:PROPERTIES:
+:ID:       de5dc789-d53e-4932-87fc-844370a9b796
+:END:
+#+BEGIN_SRC emacs-lisp
+(provide 'init-load-small-packages)
+#+END_SRC

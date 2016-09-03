@@ -1,5 +1,5 @@
-(cond ((string-equal system-type "darwin"))
-      (setq flyspell-program "hunspell"))
+(cond ((string-equal system-type "darwin")
+       (setq flyspell-program "hunspell")))
 
 (require 'ispell)
 
