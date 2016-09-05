@@ -135,7 +135,7 @@
 ;; pass defined tests
 (require 'init-ert)
 
-(require 'init-autocorrect)
+;;(require 'init-autocorrect)
 ;; until I get autocorrect on melpa, I'll have to manually turn on abbrev mode
 (org-babel-load-file "~/.emacs.d/lisp/init-misc.org")
 

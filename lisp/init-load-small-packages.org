@@ -50,6 +50,10 @@ Add abbrev-mode to text modes and program modes to turn on autocorrect like func
                    (diminish 'abbrev-mode))))
 #+END_SRC
 
+** autocorrect
+#+BEGIN_SRC emacs-lisp
+(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
+#+END_SRC
 ** which-key
 :PROPERTIES:
 :ID:       6dd77f41-e39f-4c24-a2af-f46a6bd59398
@@ -552,15 +556,12 @@ with point at the end of the line, add a comment to the left of the line
 with a region marked, marked the region for delition with "C-u C-c"
 delete the marked regions and lines with "C-u C-u C-c"
 #+BEGIN_SRC emacs-lisp
-(use-package smart-comment
-  :ensure t
-  :defer t
-  :config
-  (with-eval-after-load 'org
-    (local-unset-key "C-c ;"))
-  (global-set-key (kbd "C-c ;") 'smart-comment))
-
-(add-hook 'after-init-hook 'smart-comment)
+  (use-package smart-comment
+    :ensure t
+    :bind ("C-c ;" . smart-comment)
+    :config
+    (with-eval-after-load 'org
+      (local-unset-key "C-c ;")))
 #+END_SRC
 ** Wttrin is a small emacs package that gets you the local weather forcast.  It pulls from http://wttr.in/.
 :PROPERTIES:

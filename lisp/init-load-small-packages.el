@@ -21,6 +21,8 @@
                    (abbrev-mode 1)
                    (diminish 'abbrev-mode))))
 
+(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
+
 (use-package which-key :ensure t
   :config (which-key-mode))
 
@@ -171,13 +173,10 @@ _r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
 
 (use-package smart-comment
   :ensure t
-  :defer t
+  :bind ("C-c ;" . smart-comment)
   :config
   (with-eval-after-load 'org
-    (local-unset-key "C-c ;"))
-  (global-set-key (kbd "C-c ;") 'smart-comment))
-
-(add-hook 'after-init-hook 'smart-comment)
+    (local-unset-key "C-c ;")))
 
 (use-package wttrin
   :ensure t
@@ -195,21 +194,11 @@ _r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
 
 (use-package suggest :ensure t)
 
-(use-package suggest :ensure t)
-
 (require 'uniquify)
 
 (setq uniquify-buffer-name-style 'reverse)
 (setq uniquify-separator " • ")
 (setq uniquify-after-kill-buffer-p t)
 (setq uniquify-ignore-buffers-re "^\\*")
-
-(fset 'yes-or-no-p 'y-or-n-p)
-(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-
-(use-package zenburn-theme :ensure t)
-
-(find-file-noselect "/home/joshua/programming/org/gtd/gtd.org")
-(org-agenda nil "a")
 
 (provide 'init-load-small-packages)
