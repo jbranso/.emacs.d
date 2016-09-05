@@ -25,7 +25,6 @@
   (setq sml/name-width 40)
   (sml/setup))
 
-
 ;;(setq powerline-evil-tag 'verbose)
 
 (provide 'init-smart-mode-line)

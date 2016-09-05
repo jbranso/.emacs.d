@@ -1,0 +1,987 @@
+#+AUTHOR:Joshua Branson
+#+LATEX_HEADER: \usepackage{lmodern}
+#+LATEX_HEADER: \usepackage[QX]{fontenc}
+#+STARTUP: overview
+
+
+This file just loads in tiny packages that don't really need to be in separate files.
+* abbrev-mode
+:PROPERTIES:
+:ID:       6c870f0d-d805-4e4c-b6d6-09233397e444
+:END:
+Add abbrev-mode to text modes and program modes to turn on autocorrect like functionality.
+#+BEGIN_SRC emacs-lisp
+(dolist (hook '(org-mode-hook
+                prog-mode-hook
+                text-mode-hook))
+  (add-hook hook (lambda ()
+                   (abbrev-mode 1)
+                   (diminish 'abbrev-mode))))
+#+END_SRC
+
+* avy-mode
+:PROPERTIES:
+:ID:       b0fe4e52-38b9-4846-b737-7ac2b025527f
+:END:
+ I use avy mode for avy jump to char, which is a little nicer than ace-jump mode, but not by much.
+ #+BEGIN_SRC emacs-lisp
+(use-package avy
+  :ensure t
+  :defer t
+  :config
+  (setq avybackground t
+   avy-highlight-first t)
+  ;; https://github.com/abo-abo/avy
+  (setq  avy-keys (number-sequence ?e ?t )))
+ #+END_SRC
+
+* autocorrect
+:PROPERTIES:
+:ID:       ed63d49c-50d4-468a-9df2-8b578a823e90
+:END:
+#+BEGIN_SRC emacs-lisp
+(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
+#+END_SRC
+* which-key
+:PROPERTIES:
+:ID:       6dd77f41-e39f-4c24-a2af-f46a6bd59398
+:END:
+this package is like guide-key, but better.  As you start to type a keychord, but then forget how to finish it,
+which-key will bring up a small buffer to show you possible completions.
+
+Which key displays your keybindings for your emacs major mode.  It might be better than guide-key.el
+
+#+CAPTION: Which key displays the current major mode's keybindings
+#+NAME:   fig:which-key
+[[~/.emacs.d/images/which-key.png]]
+
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key :ensure t
+    :config (which-key-mode))
+#+END_SRC
+
+* bug-hunter
+:PROPERTIES:
+:ID:       d8cff989-6fde-466e-bd25-2eca563979d7
+:END:
+Bug hunter lets you debug your init file when you've broken it somehow.  Just type M-x bug-hunter-init-file
+#+BEGIN_SRC emacs-lisp
+(use-package bug-hunter :ensure t :defer t)
+#+END_SRC
+
+* enable flyspell for all program modes.
+:PROPERTIES:
+:ID:       bca2e633-d8eb-4d29-a059-8f2d6f18eb57
+:END:
+This will highlight words that are misspelled in comments. Also flyspell binds C-c $ to flyspell fix word before point.  BUT I would prefer that to be bound to endless/ispell-word-then-abbrev.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'prog-mode-hook (lambda ()
+                            (flyspell-prog-mode)
+                            (unbind-key (kbd "C-c $") flyspell-mode-map)
+                            (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
+
+;; enable flyspell mode for all of my text modes.  This will enable flyspell to underline misspelled words.
+(add-hook 'text-mode-hook (lambda ()
+                            (flyspell-mode)
+                            (unbind-key (kbd "C-c $") flyspell-mode-map)
+                            (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
+
+
+
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+
+(cond ((string-equal system-type "darwin")
+       (setq flyspell-program "hunspell")))
+
+(require 'ispell)
+#+END_SRC
+
+* aggressive indent
+:PROPERTIES:
+:ID:       97237f5e-8877-4168-8d77-264c1e46cd13
+:END:
+Aggressive indent attempts to aggressively indent you code after you change various aspects of it.
+#+BEGIN_SRC emacs-lisp
+(use-package aggressive-indent :ensure t :defer t)
+;; it's probably a good idea NOT to enable aggressive indent mode globally.  web-mode has a hard time
+;; indenting everything when the file gets big
+(dolist (hook '(js2-mode-hook cc-mode css-mode emacs-lisp-mode-hook css-mode))
+  (add-hook hook #'aggressive-indent-mode))
+#+END_SRC
+
+* async
+:PROPERTIES:
+:ID:       9d7b0209-dda3-4155-aef7-0e3dbdc5398e
+:END:
+#+BEGIN_SRC emacs-lisp
+(use-package async
+  :ensure t
+  :defer t
+  :config
+  ;; enable async dired commands
+  (autoload 'dired-async-mode "dired-async.el" nil t)
+  (dired-async-mode 1)
+  ;; enable async compilation of melpa packages
+  (async-bytecomp-package-mode 1))
+#+END_SRC
+
+
+Here is an example of what you can do with async.
+(async-start
+   ;; What to do in the child process
+   (lambda ()
+     (message "This is a test")
+     (sleep-for 3)
+     222)
+
+   ;; What to do when it finishes
+   (lambda (result)
+     (message "Async process done, result should be 222: %s" result)))
+
+* COMMENT some things I don't use
+** hydra
+I re't use hydras.
+#+BEemacs-lisp
+(use hydra
+  :d
+  :e
+#+EN
+;; chydra for inserting cool stuff for emacs
+;; ( hydra-org-template (:color blue :hint nil)
+;;
+;; _ _q_uote    _L_aTeX:
+;; _ _e_xample  _i_ndex:
+;; _ _v_erse    _I_NCLUDE:
+;; _ ^ ^        _H_TML:
+;; _ ^ ^        _A_SCII:
+;; "
+;;  ot-expand "<s"))
+;;  ot-expand "<e"))
+;;  ot-expand "<q"))
+;;  ot-expand "<v"))
+;;  ot-expand "<c"))
+;;  ot-expand "<l"))
+;;  ot-expand "<h"))
+;;  ot-expand "<a"))
+;;  ot-expand "<L"))
+;;  ot-expand "<i"))
+;;  ot-expand "<I"))
+;;  ot-expand "<H"))
+;;  ot-expand "<A"))
+;;  lf-insert-command "ins")
+;;  l "quit"))
+
+;; (t-expand (str)
+;;   org template."
+;;   str)
+;;  y-structure-completion))
+
+;; ;it for myself like this:
+
+;; (ey org-mode-map "C-c <"
+;;   () (interactive)
+;;  (looking-back "^")
+;;  (hydra-org-template/body)
+;;  elf-insert-command 1))))
+
+;;a ck in clock out thing from hydra
+;; hithub.com/abo-abo/hydra/wiki/orgmode
+(defdra-global-org (:color blue
+                           :hint nil)
+  "
+Time   ^Clock^         ^Capture^
+------------------------------------------
+s_t_   _i_ clock in    _c_apture
+ _s_   _w_ clock out   _l_ast capture
+_r_e   _j_ clock goto
+_p_r
+"
+  ("imer-start)
+  ("imer-stop)
+  ;; be at timer
+  ("imer-set-timer)
+  ;;imer value to buffer
+  ("imer)
+  ("clock-in '(4)) :exit t)
+  ("lock-out)
+  ;;he clocked task from any buffer
+  ("lock-goto)
+  ("apture)
+  ("apture-goto-last-stored))
+
+
+;; The hydra that I use with C-c C to clock in and clock out all the time!
+(defdra-org-timer (:color blue :hint nil)
+  "t
+  ("clock-in '(4))    "clock in" :exit t)
+  ("lock-out   "clock out" :exit t))
+
+(defdra-apropos (:color blue)
+  "A
+  ("os "apropos")
+  ("os-command "cmd")
+  ("os-documentation "doc")
+  ("os-value "val")
+  ("os-library "lib")
+  ("os-user-option "option")
+  ("os-user-option "option")
+  ("os-variable "var")
+  ("apropos "info")
+  ("apropos "tags")
+  ("-customize-apropos/body "customize"))
+
+(defdra-customize-apropos (:color blue)
+  "Acustomize)"
+  ("mize-apropos "apropos")
+  ("mize-apropos-faces "faces")
+  ("mize-apropos-groups "groups")
+  ("mize-apropos-options "options"))
+
+
+(defdra-transpose (:color red)
+  "T"
+  ("pose-chars "characters")
+  ("pose-words "words")
+  ("ranspose-words "Org mode words")
+  ("pose-lines "lines")
+  ("pose-sentences "sentences")
+  ("ranspose-elements "Org mode elements")
+  ("pose-paragraphs "paragraphs")
+  ("able-transpose-table-at-point "Org mode table")
+  ("cancel" :color blue))
+
+
+(glokey
+ (kb")
+ (deydra-windows
+   (e (next-line))
+   "
+   (arge-window-horizontally 5))
+   (ink-window-horizontally 5))
+   (arge-window 5))))
+
+(glokey
+ (kb")
+ (deydra-windows
+   (e (next-line))
+   "
+   (oll-right))
+   (oll-left))))
+
+(glokey
+ (kb")
+ (deydra-windows
+   (e (next-line))
+   "
+   (oll-right))
+   (oll-left))))
+
+
+
+(defdra-projectile-other-window (:color teal)
+  "pe-other-window"
+  ("ectile-find-file-other-window        "file")
+  ("ectile-find-file-dwim-other-window   "file dwim")
+  ("ectile-find-dir-other-window         "dir")
+  ("ectile-switch-to-buffer-other-window "buffer")
+  ("                                     "cancel" :color blue))
+
+** A register hydra
+(reqgister)
+
+;; Ieed to use (set-register register value)
+
+"
+regist is this:
+Alisments (NAME . CONTENTS), one for each Emacs register.
+NAMEaracter (a number).  CONTENTS is a string, number, marker, list
+or areturned by `registerv-make'.
+
+So m to register command must transform my NAME char into an ASCII number.  fun.
+"
+
+(defmber-to-register (number register)
+  (ive "n number: \nMregister: ")
+  ;;to-register number register)
+  ;;r to use
+  (ster register number))
+
+;; g is getting soo annoying and it's not working at all
+;;(pister-alist)
+
+(defsert-register (register)
+  (ive "Mregister: ")
+  (pister)
+  (igister register))
+
+(defcrement-register ())   (get-register "r")
+
+(defdra-register (:color pink :hint nil)
+  "
+^Sto                ^Insert^                       ^Increase^
+^^^^----------------------------------------------------------------
+_n_uregister        _i_nsert number register       _I_ncrease the register
+C-u  C-x r n R
+insebers left       C-x r i R                      C-u number C-x r + r
+  ofle              Insert _t_ext to register
+  C-                C-x r s R
+"
+  ;;
+  ("mber-to-register :exit t)
+  ("ngle-number-lines :exit t)
+
+  ;;
+  ("sert-register :exit t)          ; Show (expand) everything
+  ("to-register :exit t)          ; Show (expand) everything
+
+  ;;e
+  ("crement-register  :exit t)    ; Hide everything but the top-level headings
+
+  ("leave"))
+
+
+;; I set this hydra to a keybinding.  So I don't have to remember all of the keybindings
+(glokey (kbd "C-c C-r") 'hydra-register/body)
+;; aother modes try to set C-c C-r to a keybinding.  I am overriding them.
+(witfter-load 'org
+  (dy org-mode-map (kbd "C-c C-r") 'hydra-register/body))
+(witfter-load 'web-mode
+  (dy web-mode-map (kbd "C-c C-r") 'hydra-register/body))
+(witfter-load 'php-mode
+  (dy php-mode-map (kbd "C-c C-r") 'hydra-register/body))
+** logging the commands I use often.
+    this will be cool to monitor my commands.
+    But I have to initialize it...It will not record commands by default.
+    I don't really use this functionality.  I never see what commands I'm using.  So I'll ignore it for now.
+    (require-package 'mwe-log-commands)
+    (me:log-keyboard-commands)
+** paradox
+    Paradox adds some nice features to emacs install packages
+    this sets up paradox to use my private token to access public repos.
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-paradox)
+    #+END_SRC
+** sunrise is a alternative to flotilla
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-sunrise)
+    #+END_SRC
+
+** emacs can play music and stream it! (when streaming works)
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-emms)
+    #+END_SRC
+** python mode
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-python-mode)
+    #+END_SRC
+** github
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-gitgub)
+    #+END_SRC
+** I don't know what this is
+    http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html
+    (require 'init-darcs)
+** stackexchange in emacs
+    I also hardly ever use this sx package, which is an amazing package!
+    searching stack exchange via emacs!  C-c S
+    (use-package sx :ensure t)
+** Projectile
+    I haven't used projectile commands in a while.  I'll try turing them off and seenig what happens.
+;;(require 'init-projectile)
+;;(org-babel-load-file "init-org.org")
+;;(org-babel-load-file (concat user-emacs-directory "init-org.org"))
+;;https://github.com/danielmai/.emacs.d/blob/master/init.el
+;; init org should NOT be loaded  FIXME the problem is probably with org-mode
+** downcase words like THe and BEautiful
+     This is probably how I can embed yasnippets into various modes
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-dubcaps)
+    #+END_SRC
+** some leftover code from purcell's config
+    (require 'init-exec-path) ;; Set up $PATH
+** I found this on the internet, but don't use it
+
+     reduce the frequency of garbage collection by making it happen on
+     each 50MB of allocated data (the default is on every 0.76MB)
+     this might help improve performance
+    ;;(setq gc-cons-threshold 50000000)
+
+* linum
+:PROPERTIES:
+:ID:       6f74055f-5351-453f-90cf-491045428704
+:END:
+   display line numbers in the fringe on the left of the page.
+
+   I'd love to globally enable linum mode, but it slows Emacs to a crawl on large org buffers.
+   #+BEGIN_SRC emacs-lisp
+     (dolist (hook '(
+                     js2-mode-hook
+                     css-mode-hook
+                     php-mode-hook
+                     web-mode-hook
+                     emacs-lisp-mode-hook
+                     ))
+                   (add-hook hook 'linum-mode))
+   #+END_SRC
+* writegood-mode
+:PROPERTIES:
+:ID:       4a51a12d-17e2-4083-878d-c5e216dd5168
+:END:
+   #+BEGIN_SRC emacs-lisp
+    ;; let's check for poor writing style
+    (require 'init-writegood)
+   #+END_SRC
+** ;;(require 'init-term)
+** ;; paradox adds some nice features to emacs install packages
+;; this sets up paradox to use my private token to access public repos.
+;;(require 'init-paradox)
+
+* bookmark
+:PROPERTIES:
+:ID:       7f780f9c-3c32-4ac7-b733-885d3651b0e7
+:END:
+#+BEGIN_SRC emacs-lisp
+(require 'bookmark)
+(defhydra hydra-bookmark (:color pink :hint nil)
+  "
+^Edit^                   ^Jump^                    ^Set^
+^^^^^^------------------------------------------------------
+_e_: edit bookmarks     _j_ump to bookmark         _s_: set bookmark
+_r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
+"
+  ;; Edit
+  ("e" edit-bookmarks :exit t)                ; Up
+  ("r" helm-bookmark-rename :exit t)                ; Up
+
+  ;; Jump
+  ("j" bookmark-jump :exit t)          ; Show (expand) everything
+  ("J" gnus-bookmark-jump :exit t)          ; Show (expand) everything
+
+  ;; Set
+  ("s" bookmark-set :exit t)    ; Hide everything but the top-level headings
+  ("S" gnus-bookmark-set :exit t)    ; Hide everything but the top-level headings
+
+  ("z" nil "leave"))
+
+;; I want to set this hydra to a keybinding.  So I don't have to remember all of the keybindings
+(global-set-key (kbd "C-c C-b") 'hydra-bookmark/body)
+;; a ton of other modes try to set C-c C-b to a keybinding.  I am overriding them.
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
+(with-eval-after-load 'web-mode
+  (define-key web-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
+(with-eval-after-load 'php-mode
+  (define-key php-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
+#+END_SRC
+* vc-mode
+:PROPERTIES:
+:ID:       642acc9e-8521-4bfe-8fd0-6d30bc323e4d
+:END:
+ This shows you in the fringes of the buffer (this is the left column on the left side of your buffer)
+ whick text in a buffer has not yet been committed.
+ #+BEGIN_SRC emacs-lisp
+   (use-package diff-hl
+     :defer t
+     :ensure t)
+   (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
+   (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
+ #+END_SRC
+* auth-source
+:PROPERTIES:
+:ID:       90ce5dc0-d72b-4263-a0c6-14cc88a5838c
+:END:
+If I have a .authinfo, .authinfo.gpg, or .netrc, then load auth-source.el
+
+Auth-source.el, lets you save your various logins and password for different servers in one file.  For someone like me, who has never gotten ssh keys to work (it always ALWAYS ANNOYING prompts me for a password), I just have my information stored in .authinfo.gpg, which is an encrypted file.
+
+Ensure that you have f.el
+#+BEGIN_SRC emacs-lisp
+(use-package f :ensure t)
+#+END_SRC
+
+gpg is the version more suited for servers.  Gpg2 is the version more suited for desktop use.   Here is a [[http://superuser.com/questions/655246/are-gnupg-1-and-gnupg-2-compatible-with-each-other/655250#655250][stackoverflow answer.]] describing the difference between gpg and gpg2.
+
+At the moment I dual boot Parabola GNU/Linux and GuixSD.  At some point, I want to migrate over to use GuixSD, but Parabola has some features, services, and packages that Guix lacks.  So until that time, I'll have to use both.  BUT the good news is that I can tell Emacs which gpg binary to use based upon my host name.  If my host name is "antelope" the default GuixSD host-name then make the egp-gpg-program be gpg.  If it's parabola, make it "gpg2".
+"parabola" uses gpg2.  GuixSD needs to use gpg.
+#+BEGIN_SRC emacs-lisp
+  (cond
+   ((string-equal system-name "antelope")
+    (setq epg-gpg-program "gpg"))
+   ((string-equal system-name "parabola")
+    (setq epg-gpg-program "gpg2"))
+   ((string-equal system-name "GuixSD")
+    (setq epg-gpg-program "gpg")))
+#+END_SRC
+
+#+RESULTS:
+: gpg2
+
+#+BEGIN_SRC emacs-lisp
+(setq epg-gpg-program "gpg")
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (when (f-file? "~/.authinfo.gpg")
+    ;; only use the encrypted file.
+    (setq auth-sources '("~/.authinfo.gpg"))
+    ;;(require 'auth-source)
+    )
+#+END_SRC
+* Golden ratio mode
+:PROPERTIES:
+:ID:       a56ac24d-7ddb-4b6c-8ad1-9b817e4a73fe
+:END:
+https://github.com/roman/golden-ratio.el
+#+BEGIN_SRC emacs-lisp
+  (use-package golden-ratio
+    :defer t
+    :ensure t
+    :config (setq golden-ratio-exclude-modes
+                  '( "sr-mode" "ediff-mode" "ediff-meta-mode" "ediff-set-merge-mode" "gnus-summary-mode" ))
+    :diminish golden-ratio-mode)
+  (add-hook 'after-init-hook 'golden-ratio-mode)
+#+END_SRC
+* force emacs to use utf8 in all possible situations
+:PROPERTIES:
+:ID:       2aafacc4-bc8a-4683-a1d3-63cce3f72f84
+:END:
+ https://thraxys.wordpress.com/2016/01/13/utf-8-in-emacs-everywhere-forever/
+ #+BEGIN_SRC emacs-lisp
+   (setq locale-coding-system 'utf-8)
+   (set-terminal-coding-system 'utf-8)
+   (set-keyboard-coding-system 'utf-8)
+   (set-selection-coding-system 'utf-8)
+   (prefer-coding-system 'utf-8)
+   (when (display-graphic-p)
+      (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
+ #+END_SRC
+* recent
+:PROPERTIES:
+:ID:       0a6a1dca-1f12-4b1d-afd3-70d427d695ec
+:END:
+#+BEGIN_SRC emacs-lisp
+  (defun my-recentf-startup ()
+  "My configuration for recentf."
+  (recentf-mode 1)
+
+  (setq recentf-max-saved-items 1000
+        recentf-exclude '("/tmp/"
+              "^.*autoloads.*$"
+              "^.*TAGS.*$"
+              "^.*COMMIT.*$"
+              "^.*pacnew.*$"
+                          ;; in case I ever want to exclude shh files, I can add this next line.
+                          ;;  "/ssh:"
+              ))
+
+  (add-to-list 'recentf-keep "^.*php$//")
+  (recentf-auto-cleanup))
+
+  (add-hook 'after-init-hook 'my-recentf-startup)
+
+#+END_SRC
+* ag
+:PROPERTIES:
+:ID:       6f4c9bad-cf74-43b6-b87c-39e781ae0961
+:END:
+#+BEGIN_SRC emacs-lisp
+(setq-default grep-highlight-matches t
+              grep-scroll-output t)
+
+;; ag is the silver searcher.  It lets you search for stuff crazy fast
+(when (executable-find "ag")
+  (use-package ag
+    :defer t
+    :ensure t)
+  (use-package wgrep-ag
+    :defer t
+    :ensure t)
+  (setq-default ag-highlight-search t))
+#+END_SRC
+* eshell
+:PROPERTIES:
+:ID:       4f6ec06a-4f1b-44c6-ac5f-b0804649b90b
+:END:
+
+First, Emacs doesn't handle less well, so use cat instead for the shell pager:
+#+BEGIN_SRC emacs-lisp
+(setenv "PAGER" "cat")
+#+END_SRC
+
+using ac-source-filename IS super useful
+it is only activated if you start to type a file like
+ "./", "../", or "~/" but then it's awesome!
+#+BEGIN_SRC emacs-lisp
+(add-hook 'eshell-mode-hook (lambda ()
+                              (setq
+                               shell-aliases-file "~/.emacs.d/alias"
+                               )))
+#+END_SRC
+* Make windows commands work with info
+:PROPERTIES:
+:ID:       7b1a8457-6561-4a36-a2d2-c2f93baffd86
+:END:
+  This lets you use the windmove commands inside an info buffer!!!! sooo cool!
+  #+BEGIN_SRC emacs-lisp
+  (define-key Info-mode-map (kbd "C-w h") 'windmove-down)
+  (define-key Info-mode-map (kbd "C-w t") 'windmove-up)
+  (define-key Info-mode-map (kbd "C-w n") 'windmove-left)
+  (define-key Info-mode-map (kbd "C-w s") 'windmove-right)
+  #+END_SRC
+* smart comment
+   :PROPERTIES:
+   :ID:       a5a5f993-e0a8-48c5-b80f-ccab9781591e
+   :END:
+
+   with point in the or beginning middle of the line comment out the whole line
+   with point at the end of the line, add a comment to the left of the line
+   with a region marked, marked the region for delition with "C-u C-c"
+   delete the marked regions and lines with "C-u C-u C-c"
+   #+BEGIN_SRC emacs-lisp
+     (use-package smart-comment
+       :ensure t
+       :bind ("C-c ;" . smart-comment)
+       :config
+       (with-eval-after-load 'org
+         (local-unset-key "C-c ;")))
+   #+END_SRC
+* Wttrin
+:PROPERTIES:
+:ID:       764c4eb4-fc8f-497d-89af-ad8db03e0f75
+:END:
+Wtrin is a small emacs package that gets you the local weather forcast.  It pulls from http://wttr.in/.
+:PROPERTIES:
+:ID:       edb1b0b6-a569-491b-a4a9-52cbe36d50fb
+:END:
+
+I'm not sure if Lafayette
+
+#+BEGIN_SRC emacs-lisp
+(use-package wttrin
+  :ensure t
+  :commands (wttrin)
+  :init
+  (setq wttrin-default-cities
+  '("West Lafayette")))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (defun weather ()
+    "Show the local weather via wttrin"
+    (interactive)
+    (wttrin))
+#+END_SRC
+* This package turns on global-prettify-symbols-mode after Emacs loads.
+:PROPERTIES:
+:ID:       9aa51c7a-fd2c-4984-88d7-f54f702a3a1d
+:END:
+Make --> and /arrow look like utf8 chars
+#+BEGIN_SRC emacs-lisp
+(add-hook 'after-init-hook 'global-prettify-symbols-mode)
+#+END_SRC
+* suggest
+:PROPERTIES:
+:ID:       93090d59-9fb2-43ca-aff8-f9a3f58a27dd
+:END:
+This is a program that lets suggests valid elisp functions to use. It is SO cool!
+You can read more [[http://www.wilfred.me.uk/blog/2016/07/30/example-driven-development/][here]].
+
+#+BEGIN_SRC emacs-lisp
+(use-package suggest :ensure t)
+#+END_SRC
+* uniquify
+:PROPERTIES:
+:ID:       96509ae1-422f-4821-9939-6c5eae7d740e
+:END:
+ Nicer naming of buffers for files with identical names
+ Instead of Makefile<1> and Makefile<2>, it will be
+ Makefile | tmp  Makefile | lisp
+ this file is part of gnus emacs.  I don't need to use use-package
+ #+BEGIN_SRC emacs-lisp
+(require 'uniquify)
+
+(setq uniquify-buffer-name-style 'reverse)
+(setq uniquify-separator " • ")
+(setq uniquify-after-kill-buffer-p t)
+(setq uniquify-ignore-buffers-re "^\\*")
+ #+END_SRC
+* dired
+** Dired+
+:PROPERTIES:
+:ID:       0460cdf9-b11d-4411-82cc-9aaf74d24621
+:END:
+#+BEGIN_SRC emacs-lisp
+(use-package dired+ :ensure t)
+#+END_SRC
+
+** Dired sort
+:PROPERTIES:
+:ID:       2adfc507-73e7-46c5-9cea-35d84a0917fa
+:END:
+press "S" in a dired buffer to see dired sort in action
+#+BEGIN_SRC emacs-lisp
+(use-package dired-sort :ensure t)
+#+END_SRC
+
+** Dired details
+:PROPERTIES:
+:ID:       3b1694dd-ea8d-4f8a-b24e-5d16f1cdd07a
+:END:
+
+http://whattheemacsd.com/setup-dired.el-01.html
+I don't need dired to automatically show me all the details ie: all the permissions and stuff
+If I do want the details I can use ")" to show them and "(" to hide them again
+#+BEGIN_SRC emacs-lisp
+(use-package dired-details :ensure t
+  :config
+  (setq-default dired-details-hidden-string "--- "))
+#+END_SRC
+
+** dired
+:PROPERTIES:
+:ID:       b316742c-74f3-4393-82a1-c51860523e7c
+:END:
+#+BEGIN_SRC emacs-lisp
+(use-package dired
+  ;; before loading dired, set these variables
+  :init (setq-default diredp-hide-details-initially-flag nil
+                      dired-dwim-target t
+                      ;;omit boring auto save files in dired views
+                      dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$")
+  :config ;; after loading dired, do this stuff
+  (load "dired-x")
+  :bind
+  (:map dired-mode-map
+        ("/" . helm-swoop)
+        ([mouse2] . dired-find-file)))
+
+(with-eval-after-load 'dired
+  (add-hook 'dired-mode-hook 'dired-omit-mode))
+#+END_SRC
+
+* yasnippet
+** Set up yasnippet.
+:PROPERTIES:
+:ID:       20eb3ae4-97e1-4356-a54f-78af87b4647b
+:END:
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :defer t
+    :ensure t)
+
+    (add-to-list 'load-path "~/.emacs.d/snippets")
+    (require 'yasnippet)
+    (yas-global-mode 1)
+
+#+END_SRC
+
+If I modify a buffer via a yasnippet with a back-ticks like ~`SOME ELISP CODE `~, then yasnippet will issue a warning.  Let's tell yasnippet to ignore that.
+
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'warnings
+    (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
+#+END_SRC
+** COMMENT using yasnippet with evil-mode
+
+This advises yasnippet, so that when I expand a snippet, I change to insert state and leave in insert state.
+
+But it is probably not necessary.  When I am about to expand a snippet, I am typically in insert state anyway.
+#+BEGIN_SRC emacs-lisp
+  (when evil-mode
+    (advice-add 'evil-insert-state :before 'yas-expand)
+    (advice-add 'evil-insert-state :after 'yas-expand))
+
+#+END_SRC
+
+* company mode
+** download company mode
+:PROPERTIES:
+:ID:       8ed6b2f0-bcf6-4bcb-9960-8128383be671
+:END:
+#+BEGIN_SRC emacs-lisp
+  (use-package company :ensure t
+    :config
+    (setq company-idle-delay .2)
+    (define-key company-active-map "\C-n" #'company-select-next)
+    (define-key company-active-map "\C-p" #'company-select-previous))
+
+  (add-hook 'after-init-hook 'global-company-mode)
+#+END_SRC
+** show yasnippets in company mode
+:PROPERTIES:
+:ID:       f9dba9a6-e011-48cb-8a14-6a365fe78c1c
+:END:
+
+#+BEGIN_SRC emacs-lisp
+(dolist (hook '(prog-mode-hook
+                text-mode-hook
+                org-mode-hook))
+  (add-hook hook
+            (lambda ()
+              (set (make-local-variable 'company-backends)
+                   '((company-dabbrev-code company-yasnippet))))))
+#+END_SRC
+* flycheck
+:PROPERTIES:
+:ID:       f6a02ab5-420e-4dc8-a8c2-7ae8e1e0acce
+:END:
+
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck-pos-tip :ensure t :defer t)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck-status-emoji :ensure t)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck-color-mode-line :ensure t)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :defer t
+  :ensure t
+  :config
+  (flycheck-color-mode-line-mode)
+  (flycheck-pos-tip-mode)
+  (flycheck-status-emoji-mode))
+
+(add-hook 'after-init-hook 'global-flycheck-mode)
+#+END_SRC
+* lua
+:PROPERTIES:
+:ID:       d9846cc0-b907-4703-98e9-1fc189a6dca5
+:END:
+#+BEGIN_SRC emacs-lisp
+(use-package lua-mode :ensure t)
+#+END_SRC
+* git
+** magit
+:PROPERTIES:
+:ID:       8e5f5d56-7cf6-41b1-bc62-24f0e6cd488f
+:END:
+#+BEGIN_SRC emacs-lisp
+(use-package magit :defer t :ensure t)
+(require-package 'git-blame)
+#+END_SRC
+
+;; (use-package git-commit-mode
+;;   :defer t
+;;   :ensure t
+;;   :disabled t
+;;   :config
+;;   (add-hook 'git-commit-mode-hook 'goto-address-mode)
+;;   (after-load 'session
+;;     (add-to-list 'session-mode-disable-list 'git-commit-mode))
+;;   )
+;; this package can't be found either
+;;(use-package git-rebase-mode :defer t :ensure t)
+
+#+BEGIN_SRC emacs-lisp
+(after-load 'magit
+  (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section))
+
+(require-package 'fullframe)
+(after-load 'magit (fullframe magit-status magit-mode-quit-window))
+#+END_SRC
+
+
+;;; When we start working on git-backed files, use git-wip if available
+
+;; (after-load 'magit
+;;   ;;(global-magit-wip-save-mode)
+;;   ;; (diminish 'magit-wip-save-mode)
+;;   )
+
+#+BEGIN_SRC emacs-lisp
+(after-load 'magit (diminish 'magit-auto-revert-mode))
+#+END_SRC
+
+** gitignore major mode
+:PROPERTIES:
+:ID:       94749d5b-1577-4932-af4f-d6e786056cf6
+:END:
+Major mode for editing gitignore files
+#+BEGIN_SRC emacs-lisp
+(use-package gitignore-mode  :defer t :ensure t)
+(use-package gitconfig-mode  :defer t :ensure t)
+#+END_SRC
+
+** git-timemachine
+:PROPERTIES:
+:ID:       938e9345-2a8b-4a70-b41e-b4a0c1186f7c
+:END:
+Though see also vc-annotate's "n" & "p" bindings
+this package is soooo cool! you execute git-timemachine, you can then press p and n to go to the
+previous and next verions. w copies the git hash of the current buffer, and q quits the buffer
+#+BEGIN_SRC emacs-lisp
+(use-package git-timemachine :ensure t :defer t)
+#+END_SRC
+
+;; since I'm using helm-mode, magit will use helm-completion for stuff! awesome!
+
+** use helm as completetion
+:PROPERTIES:
+:ID:       aef5ac67-6f44-4ac2-ab25-d1647d76f350
+:END:
+#+BEGIN_SRC emacs-lisp
+(setq-default
+ magit-save-some-buffers nil
+ ;; if a command takes longer than 5 seconds, pop up the process buffer.
+ magit-process-popup-time 5
+ magit-diff-refine-hunk t)
+#+END_SRC
+
+
+** git messenger
+(use-package git-messenger :defer t :ensure t)
+
+;;  Type this command on any line of a repo.  It'll tell you the commit when it appeared.
+(global-set-key (kbd "C-x v p") #'git-messenger:popup-message)
+* css
+Colourise CSS colour literals
+#+BEGIN_SRC emacs-lisp
+(use-package rainbow-mode :ensure t)
+(dolist (hook '(css-mode-hook html-mode-hook sass-mode-hook))
+  (add-hook hook 'rainbow-mode))
+#+END_SRC
+
+
+SASS and SCSS
+#+BEGIN_SRC emacs-lisp
+(use-package sass-mode :ensure t)
+(use-package scss-mode :ensure t)
+(setq-default scss-compile-at-save nil)
+#+END_SRC
+
+
+LESS
+#+BEGIN_SRC emacs-lisp
+(use-package less-css-mode :ensure t)
+;; I don't think I've ever used skewer-mode.
+;; (when (featurep 'js2-mode)
+;;   (use-package skewer-less))
+#+END_SRC
+
+Use eldoc for syntax hints
+#+BEGIN_SRC emacs-lisp
+
+(require-package 'css-eldoc)
+(autoload 'turn-on-css-eldoc "css-eldoc")
+(add-hook 'css-mode-hook 'turn-on-css-eldoc)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+#+END_SRC
+
+* provide this file
+:PROPERTIES:
+:ID:       de5dc789-d53e-4932-87fc-844370a9b796
+:END:
+#+BEGIN_SRC emacs-lisp
+(provide 'init-load-small-packages)
+#+END_SRC

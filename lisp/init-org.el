@@ -24,8 +24,6 @@
 
 (use-package org-mime)
 
-(use-package org-mime)
-
 ;; I'm having problems with this
 ;;(add-hook 'org-mime-html-hook
 ;;(lambda ()
@@ -79,26 +77,9 @@
 
 (use-package org-invoice)
 
-(use-package org-invoice)
-
-(use-package org-notify)
-(org-notify-start)
-
-(org-notify-add 'appt
-                '(:time "-1s" :period "20s" :duration 10
-                        :actions (-message -ding))
-                '(:time "15m" :period "2m" :duration 100
-                        :actions -notify)
-                '(:time "2h" :period "5m" :actions -message)
-                '(:time "3d" :actions -email))
-
 (use-package org-inlinetask)
 
 (use-package org-habit)
-
-(use-package org-habit)
-
-(require 'org-protocol)
 
 (require 'org-protocol)
 
@@ -640,7 +621,5 @@ _ht_: subtree
 
 ;;bind to key
 ;;(define-key org-mode-map (kbd "C-<") 'org-begin-template)
-
-(provide 'init-org)
 
 (provide 'init-org)
