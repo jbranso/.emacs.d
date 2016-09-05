@@ -138,216 +138,288 @@ Here is an example of what you can do with async.
    (lambda (result)
      (message "Async process done, result should be 222: %s" result)))
 
-** COMMENT hydra
-I really don't use hydras.
-#+BEGIN_SRC emacs-lisp
-(use-package hydra
-  :defer t
-  :ensure t)
-#+END_SRC
-;; create a hydra for inserting cool stuff for emacs
-;; (defhydra hydra-org-template (:color blue :hint nil)
-;;   "
-;; _c_enter  _q_uote    _L_aTeX:
-;; _l_atex   _e_xample  _i_ndex:
-;; _a_scii   _v_erse    _I_NCLUDE:
-;; _s_rc     ^ ^        _H_TML:
-;; _h_tml    ^ ^        _A_SCII:
+** COMMENT some things I don't use
+*** hydra
+I re't use hydras.
+#+BEemacs-lisp
+(use hydra
+  :d
+  :e
+#+EN
+;; chydra for inserting cool stuff for emacs
+;; ( hydra-org-template (:color blue :hint nil)
+;;
+;; _ _q_uote    _L_aTeX:
+;; _ _e_xample  _i_ndex:
+;; _ _v_erse    _I_NCLUDE:
+;; _ ^ ^        _H_TML:
+;; _ ^ ^        _A_SCII:
 ;; "
-;;   ("s" (hot-expand "<s"))
-;;   ("e" (hot-expand "<e"))
-;;   ("q" (hot-expand "<q"))
-;;   ("v" (hot-expand "<v"))
-;;   ("c" (hot-expand "<c"))
-;;   ("l" (hot-expand "<l"))
-;;   ("h" (hot-expand "<h"))
-;;   ("a" (hot-expand "<a"))
-;;   ("L" (hot-expand "<L"))
-;;   ("i" (hot-expand "<i"))
-;;   ("I" (hot-expand "<I"))
-;;   ("H" (hot-expand "<H"))
-;;   ("A" (hot-expand "<A"))
-;;   ("<" self-insert-command "ins")
-;;   ("o" nil "quit"))
+;;  ot-expand "<s"))
+;;  ot-expand "<e"))
+;;  ot-expand "<q"))
+;;  ot-expand "<v"))
+;;  ot-expand "<c"))
+;;  ot-expand "<l"))
+;;  ot-expand "<h"))
+;;  ot-expand "<a"))
+;;  ot-expand "<L"))
+;;  ot-expand "<i"))
+;;  ot-expand "<I"))
+;;  ot-expand "<H"))
+;;  ot-expand "<A"))
+;;  lf-insert-command "ins")
+;;  l "quit"))
 
-;; (defun hot-expand (str)
-;;   "Expand org template."
-;;   (insert str)
-;;   (org-try-structure-completion))
+;; (t-expand (str)
+;;   org template."
+;;   str)
+;;  y-structure-completion))
 
-;; ;;I bind it for myself like this:
+;; ;it for myself like this:
 
-;; (define-key org-mode-map "C-c <"
-;;   (lambda () (interactive)
-;;      (if (looking-back "^")
-;;          (hydra-org-template/body)
-;;        (self-insert-command 1))))
+;; (ey org-mode-map "C-c <"
+;;   () (interactive)
+;;  (looking-back "^")
+;;  (hydra-org-template/body)
+;;  elf-insert-command 1))))
 
-;;a nice clock in clock out thing from hydra
-;; https://github.com/abo-abo/hydra/wiki/orgmode
-(defhydra hydra-global-org (:color blue
-                                   :hint nil)
+;;a ck in clock out thing from hydra
+;; hithub.com/abo-abo/hydra/wiki/orgmode
+(defdra-global-org (:color blue
+                           :hint nil)
   "
-Timer^^        ^Clock^         ^Capture^
---------------------------------------------------
-s_t_art        _i_ clock in    _c_apture
- _s_top        _w_ clock out   _l_ast capture
-_r_eset        _j_ clock goto
-_p_rint
+Time   ^Clock^         ^Capture^
+------------------------------------------
+s_t_   _i_ clock in    _c_apture
+ _s_   _w_ clock out   _l_ast capture
+_r_e   _j_ clock goto
+_p_r
 "
-  ("t" org-timer-start)
-  ("s" org-timer-stop)
-  ;; Need to be at timer
-  ("r" org-timer-set-timer)
-  ;; Print timer value to buffer
-  ("p" org-timer)
-  ("i" (org-clock-in '(4)) :exit t)
-  ("w" org-clock-out)
-  ;; Visit the clocked task from any buffer
-  ("j" org-clock-goto)
-  ("c" org-capture)
-  ("l" org-capture-goto-last-stored))
+  ("imer-start)
+  ("imer-stop)
+  ;; be at timer
+  ("imer-set-timer)
+  ;;imer value to buffer
+  ("imer)
+  ("clock-in '(4)) :exit t)
+  ("lock-out)
+  ;;he clocked task from any buffer
+  ("lock-goto)
+  ("apture)
+  ("apture-goto-last-stored))
 
 
-;; This is the hydra that I use with C-c C to clock in and clock out all the time!
-(defhydra hydra-org-timer (:color blue :hint nil)
-  "timer"
-  ("i" (org-clock-in '(4))    "clock in" :exit t)
-  ("o" org-clock-out   "clock out" :exit t))
+;; The hydra that I use with C-c C to clock in and clock out all the time!
+(defdra-org-timer (:color blue :hint nil)
+  "t
+  ("clock-in '(4))    "clock in" :exit t)
+  ("lock-out   "clock out" :exit t))
 
-(defhydra hydra-apropos (:color blue)
-  "Apropos"
-  ("a" apropos "apropos")
-  ("c" apropos-command "cmd")
-  ("d" apropos-documentation "doc")
-  ("e" apropos-value "val")
-  ("l" apropos-library "lib")
-  ("o" apropos-user-option "option")
-  ("u" apropos-user-option "option")
-  ("v" apropos-variable "var")
-  ("i" info-apropos "info")
-  ("t" tags-apropos "tags")
-  ("z" hydra-customize-apropos/body "customize"))
+(defdra-apropos (:color blue)
+  "A
+  ("os "apropos")
+  ("os-command "cmd")
+  ("os-documentation "doc")
+  ("os-value "val")
+  ("os-library "lib")
+  ("os-user-option "option")
+  ("os-user-option "option")
+  ("os-variable "var")
+  ("apropos "info")
+  ("apropos "tags")
+  ("-customize-apropos/body "customize"))
 
-(defhydra hydra-customize-apropos (:color blue)
-  "Apropos (customize)"
-  ("a" customize-apropos "apropos")
-  ("f" customize-apropos-faces "faces")
-  ("g" customize-apropos-groups "groups")
-  ("o" customize-apropos-options "options"))
-
-
-(defhydra hydra-transpose (:color red)
-  "Transpose"
-  ("c" transpose-chars "characters")
-  ("w" transpose-words "words")
-  ("o" org-transpose-words "Org mode words")
-  ("l" transpose-lines "lines")
-  ("s" transpose-sentences "sentences")
-  ("e" org-transpose-elements "Org mode elements")
-  ("p" transpose-paragraphs "paragraphs")
-  ("t" org-table-transpose-table-at-point "Org mode table")
-  ("q" nil "cancel" :color blue))
+(defdra-customize-apropos (:color blue)
+  "Acustomize)"
+  ("mize-apropos "apropos")
+  ("mize-apropos-faces "faces")
+  ("mize-apropos-groups "groups")
+  ("mize-apropos-options "options"))
 
 
-(global-set-key
- (kbd "C-x w")
- (defhydra hydra-windows
-   (:body-pre (next-line))
-   "move"
-   (">" (enlarge-window-horizontally 5))
-   ("<" (shrink-window-horizontally 5))
-   ("^" (enlarge-window 5))))
-
-(global-set-key
- (kbd "C-x >")
- (defhydra hydra-windows
-   (:body-pre (next-line))
-   "move"
-   (">" (scroll-right))
-   ("<" (scroll-left))))
-
-(global-set-key
- (kbd "C-x <")
- (defhydra hydra-windows
-   (:body-pre (next-line))
-   "move"
-   (">" (scroll-right))
-   ("<" (scroll-left))))
+(defdra-transpose (:color red)
+  "T"
+  ("pose-chars "characters")
+  ("pose-words "words")
+  ("ranspose-words "Org mode words")
+  ("pose-lines "lines")
+  ("pose-sentences "sentences")
+  ("ranspose-elements "Org mode elements")
+  ("pose-paragraphs "paragraphs")
+  ("able-transpose-table-at-point "Org mode table")
+  ("cancel" :color blue))
 
 
+(glokey
+ (kb")
+ (deydra-windows
+   (e (next-line))
+   "
+   (arge-window-horizontally 5))
+   (ink-window-horizontally 5))
+   (arge-window 5))))
 
-(defhydra hydra-projectile-other-window (:color teal)
-  "projectile-other-window"
-  ("f"  projectile-find-file-other-window        "file")
-  ("g"  projectile-find-file-dwim-other-window   "file dwim")
-  ("d"  projectile-find-dir-other-window         "dir")
-  ("b"  projectile-switch-to-buffer-other-window "buffer")
-  ("q"  nil                                      "cancel" :color blue))
+(glokey
+ (kb")
+ (deydra-windows
+   (e (next-line))
+   "
+   (oll-right))
+   (oll-left))))
 
-*** COMMENT A register hydra
-(require 'register)
+(glokey
+ (kb")
+ (deydra-windows
+   (e (next-line))
+   "
+   (oll-right))
+   (oll-left))))
 
-;; I might need to use (set-register register value)
+
+
+(defdra-projectile-other-window (:color teal)
+  "pe-other-window"
+  ("ectile-find-file-other-window        "file")
+  ("ectile-find-file-dwim-other-window   "file dwim")
+  ("ectile-find-dir-other-window         "dir")
+  ("ectile-switch-to-buffer-other-window "buffer")
+  ("                                     "cancel" :color blue))
+
+*** A register hydra
+(reqgister)
+
+;; Ieed to use (set-register register value)
 
 "
-register-alist is this:
-Alist of elements (NAME . CONTENTS), one for each Emacs register.
-NAME is a character (a number).  CONTENTS is a string, number, marker, list
-or a struct returned by `registerv-make'.
+regist is this:
+Alisments (NAME . CONTENTS), one for each Emacs register.
+NAMEaracter (a number).  CONTENTS is a string, number, marker, list
+or areturned by `registerv-make'.
 
-So my number to register command must transform my NAME char into an ASCII number.  fun.
+So m to register command must transform my NAME char into an ASCII number.  fun.
 "
 
-(defun my/number-to-register (number register)
-  (interactive "n number: \nMregister: ")
-  ;;(number-to-register number register)
-  ;; in order to use
-  (set-register register number))
+(defmber-to-register (number register)
+  (ive "n number: \nMregister: ")
+  ;;to-register number register)
+  ;;r to use
+  (ster register number))
 
-;; gosh this is getting soo annoying and it's not working at all
-;;(print register-alist)
+;; g is getting soo annoying and it's not working at all
+;;(pister-alist)
 
-(defun my/insert-register (register)
-  (interactive "Mregister: ")
-  (print register)
-  (insert-register register))
+(defsert-register (register)
+  (ive "Mregister: ")
+  (pister)
+  (igister register))
 
-(defun my/increment-register ())   (get-register "r")
+(defcrement-register ())   (get-register "r")
 
-(defhydra hydra-register (:color pink :hint nil)
+(defdra-register (:color pink :hint nil)
   "
-^Store^                     ^Insert^                       ^Increase^
-^^^^^^----------------------------------------------------------------------
-_n_umber to register        _i_nsert number register       _I_ncrease the register
-C-u <number> C-x r n R
-insert _N_umbers left       C-x r i R                      C-u number C-x r + r
-  of Rectangle              Insert _t_ext to register
-  C-x r N                   C-x r s R
+^Sto                ^Insert^                       ^Increase^
+^^^^----------------------------------------------------------------
+_n_uregister        _i_nsert number register       _I_ncrease the register
+C-u  C-x r n R
+insebers left       C-x r i R                      C-u number C-x r + r
+  ofle              Insert _t_ext to register
+  C-                C-x r s R
 "
-  ;; Store
-  ("n" my/number-to-register :exit t)
-  ("N" rectangle-number-lines :exit t)
+  ;;
+  ("mber-to-register :exit t)
+  ("ngle-number-lines :exit t)
 
-  ;; Insert
-  ("i" my/insert-register :exit t)          ; Show (expand) everything
-  ("t" copy-to-register :exit t)          ; Show (expand) everything
+  ;;
+  ("sert-register :exit t)          ; Show (expand) everything
+  ("to-register :exit t)          ; Show (expand) everything
 
-  ;; Increase
-  ("I" my/increment-register  :exit t)    ; Hide everything but the top-level headings
+  ;;e
+  ("crement-register  :exit t)    ; Hide everything but the top-level headings
 
-  ("g" nil "leave"))
+  ("leave"))
 
 
-;; I want to set this hydra to a keybinding.  So I don't have to remember all of the keybindings
-(global-set-key (kbd "C-c C-r") 'hydra-register/body)
-;; a ton of other modes try to set C-c C-r to a keybinding.  I am overriding them.
-(with-eval-after-load 'org
-  (define-key org-mode-map (kbd "C-c C-r") 'hydra-register/body))
-(with-eval-after-load 'web-mode
-  (define-key web-mode-map (kbd "C-c C-r") 'hydra-register/body))
-(with-eval-after-load 'php-mode
-  (define-key php-mode-map (kbd "C-c C-r") 'hydra-register/body))
+;; I set this hydra to a keybinding.  So I don't have to remember all of the keybindings
+(glokey (kbd "C-c C-r") 'hydra-register/body)
+;; aother modes try to set C-c C-r to a keybinding.  I am overriding them.
+(witfter-load 'org
+  (dy org-mode-map (kbd "C-c C-r") 'hydra-register/body))
+(witfter-load 'web-mode
+  (dy web-mode-map (kbd "C-c C-r") 'hydra-register/body))
+(witfter-load 'php-mode
+  (dy php-mode-map (kbd "C-c C-r") 'hydra-register/body))
+*** logging the commands I use often.
+    this will be cool to monitor my commands.
+    But I have to initialize it...It will not record commands by default.
+    I don't really use this functionality.  I never see what commands I'm using.  So I'll ignore it for now.
+    (require-package 'mwe-log-commands)
+    (me:log-keyboard-commands)
+*** paradox
+    Paradox adds some nice features to emacs install packages
+    this sets up paradox to use my private token to access public repos.
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-paradox)
+    #+END_SRC
+*** sunrise is a alternative to flotilla
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-sunrise)
+    #+END_SRC
+
+*** emacs can play music and stream it! (when streaming works)
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-emms)
+    #+END_SRC
+*** python mode
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-python-mode)
+    #+END_SRC
+*** github
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-gitgub)
+    #+END_SRC
+*** I don't know what this is
+    http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html
+    (require 'init-darcs)
+*** stackexchange in emacs
+    I also hardly ever use this sx package, which is an amazing package!
+    searching stack exchange via emacs!  C-c S
+    (use-package sx :ensure t)
+*** Projectile
+    I haven't used projectile commands in a while.  I'll try turing them off and seenig what happens.
+;;(require 'init-projectile)
+;;(org-babel-load-file "init-org.org")
+;;(org-babel-load-file (concat user-emacs-directory "init-org.org"))
+;;https://github.com/danielmai/.emacs.d/blob/master/init.el
+;; init org should NOT be loaded  FIXME the problem is probably with org-mode
+*** downcase words like THe and BEautiful
+     This is probably how I can embed yasnippets into various modes
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-dubcaps)
+    #+END_SRC
+** linum
+   display line numbers in the fringe on the left of the page.
+
+   I'd love to globally enable linum mode, but it slows Emacs to a crawl on large org buffers.
+   #+BEGIN_SRC emacs-lisp
+     (dolist (hook '(
+                     js2-mode-hook
+                     css-mode-hook
+                     php-mode-hook
+                     web-mode-hook
+                     ))
+                   (add-hook hook 'linum-mode))
+   #+END_SRC
+** writegood-mode
+   #+BEGIN_SRC emacs-lisp
+    ;; let's check for poor writing style
+    (require 'init-writegood)
+   #+END_SRC
+*** ;;(require 'init-term)
+*** ;; paradox adds some nice features to emacs install packages
+;; this sets up paradox to use my private token to access public repos.
+;;(require 'init-paradox)
+
 ** bookmark
 :PROPERTIES:
 :ID:       7f780f9c-3c32-4ac7-b733-885d3651b0e7
@@ -385,12 +457,6 @@ _r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
 (with-eval-after-load 'php-mode
   (define-key php-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
 #+END_SRC
-** COMMENT logging the commands I use often.
-;; this will be cool to monitor my commands.
-;; But I have to initialize it...It will not record commands by default.
-;; I don't really use this functionality.  I never see what commands I'm using.  So I'll ignore it for now.
-;;(require-package 'mwe-log-commands)
-;;(mwe:log-keyboard-commands)
 ** vc-mode
 :PROPERTIES:
 :ID:       642acc9e-8521-4bfe-8fd0-6d30bc323e4d
@@ -547,22 +613,22 @@ it is only activated if you start to type a file like
   (define-key Info-mode-map (kbd "C-w s") 'windmove-right)
   #+END_SRC
 ** smart comment
-:PROPERTIES:
-:ID:       a5a5f993-e0a8-48c5-b80f-ccab9781591e
-:END:
+   :PROPERTIES:
+   :ID:       a5a5f993-e0a8-48c5-b80f-ccab9781591e
+   :END:
 
-with point in the or beginning middle of the line comment out the whole line
-with point at the end of the line, add a comment to the left of the line
-with a region marked, marked the region for delition with "C-u C-c"
-delete the marked regions and lines with "C-u C-u C-c"
-#+BEGIN_SRC emacs-lisp
-  (use-package smart-comment
-    :ensure t
-    :bind ("C-c ;" . smart-comment)
-    :config
-    (with-eval-after-load 'org
-      (local-unset-key "C-c ;")))
-#+END_SRC
+   with point in the or beginning middle of the line comment out the whole line
+   with point at the end of the line, add a comment to the left of the line
+   with a region marked, marked the region for delition with "C-u C-c"
+   delete the marked regions and lines with "C-u C-u C-c"
+   #+BEGIN_SRC emacs-lisp
+     (use-package smart-comment
+       :ensure t
+       :bind ("C-c ;" . smart-comment)
+       :config
+       (with-eval-after-load 'org
+         (local-unset-key "C-c ;")))
+   #+END_SRC
 ** Wttrin is a small emacs package that gets you the local weather forcast.  It pulls from http://wttr.in/.
 :PROPERTIES:
 :ID:       edb1b0b6-a569-491b-a4a9-52cbe36d50fb

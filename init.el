@@ -51,73 +51,34 @@
                 "init-aggressive-indent.org"
                 ))
   (org-babel-load-file (concat "~/.emacs.d/lisp/" file)))
-;; I'd like to use nlinum mode, but it is NOT letting me create a new frame.  it's a bug
-;;(require 'init-linum)
-;; set up a hydra for my register commands
-
 ;; emacs can read the mail
 (require 'init-gnus)
 ;; read email in emacs
 ;;(require 'init-mu4e)
-
 ;; show on the fringe of the buffer if this part of the file needs to be committed to git.
 (require 'init-gui-frames)
 ;; emacs as a file manager
 (require 'init-dired)
-;;(require 'init-sunrise)
+;; an irc client for emacs
 (require 'init-erc)
-;;(require 'init-term)
-;; paradox adds some nice features to emacs install packages
-;; this sets up paradox to use my private token to access public repos.
-;;(require 'init-paradox)
 (require 'init-yasnippet)
-;;I don't really use media wiki so.
-;;(require 'init-mediawiki)
-;; collection of IDE like features.  I can't get 'em to work
-;; I should probably just try out company mode and forget about cedet.  Apparently semantic will work with
-;; company mode anyway
-;;(require 'init-cedet)
 (require 'init-company)
-;; downcase words like THe and BEautiful
-;; This is probably how I can embed yasnippets into various modes
-;;(require 'init-dubcaps)
-;; let's check for poor writing style
-;;(require 'init-writegood)
-;; let's check our code syntax of all program modes
 (require 'init-flycheck)
 ;; id mode stinks, I'm so glad helm is here.
 (require 'init-helm)
-;; I haven't used projectile commands in a while.  I'll try turing them off and seenig what happens.
-;;(require 'init-projectile)
-;;(org-babel-load-file "init-org.org")
-;;(org-babel-load-file (concat user-emacs-directory "init-org.org"))
-;;https://github.com/danielmai/.emacs.d/blob/master/init.el
-;; init org should NOT be loaded  FIXME the problem is probably with org-mode
 (require 'init-org)
-;; I also hardly ever use this sx package, which is an amazing package!
-;;searching stack exchange via emacs!  C-c S
-;; (use-package sx :ensure t)
 (require 'init-editing-utils)
 ;; let's get modal keybinding working!
 (require 'init-evil)
-
 ;; the upstream git repo is apparently broken now,  I'll get this fixed later
 (require 'init-lua)
-
-;; http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html
-;;(require 'init-darcs)
 (require 'init-git)
-;;(require 'init-github)
-
 (require 'init-lisp)
 (require 'init-javascript)
 (require 'init-html)
 (require 'init-org2blog)
 (require 'init-css)
-;;(require 'init-python-mode)
 (require 'init-defuns)
-;; emacs can play music and stream it! (when streaming works)
-;;(require 'init-emms)
 (require 'init-misc)
 ;; smart-mode-line is awesome!
 ;; woo hoo!  I should customize it a bit to make it even prettier
