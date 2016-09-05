@@ -1,5 +1,8 @@
-;; (use-package helm-core
-;;   :ensure t)
+
+;; (use-package helm
+;;   :bind (:map helm-mode-map
+;;               ("C-c h" . helm-execute-persistent-action)))
+
 ;; (use-package helm
 ;;   :ensure t
 ;;   ;; apperently this next line causes some serious errors

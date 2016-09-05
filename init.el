@@ -14,12 +14,6 @@
 
 (require 'init-utils)
 (require 'init-elpa)     ;; Machinery for installing required packages
-;;(require 'init-exec-path) ;; Set up $PATH
-
-;; reduce the frequency of garbage collection by making it happen on
-;; each 50MB of allocated data (the default is on every 0.76MB)
-;; this might help improve performance
-;;(setq gc-cons-threshold 50000000)
 
 ;;----------------------------------------------------------------------------
 ;; Allow users to provide an optional "init-preload-local.el"
@@ -29,7 +23,6 @@
 ;;----------------------------------------------------------------------------
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
-
 (eval-when-compile
   (require 'use-package))
 ;; diminish hides packages from being on the modeline.  You can use use-package to do this
@@ -49,38 +42,30 @@
                 "init-load-small-packages.org"
                 ;; make emacs indent your code all the time, so you don't have to
                 "init-aggressive-indent.org"
+                ;; emacs can read email
+                "init-gnus.org"
+                ;; some graphical configurations
+                "init-gui-frames.org"
+                ;; my org configurations
+                "init-org.org"
                 ))
   (org-babel-load-file (concat "~/.emacs.d/lisp/" file)))
-;; emacs can read the mail
-(require 'init-gnus)
 ;; read email in emacs
 ;;(require 'init-mu4e)
-;; show on the fringe of the buffer if this part of the file needs to be committed to git.
-(require 'init-gui-frames)
-;; emacs as a file manager
-(require 'init-dired)
 ;; an irc client for emacs
 (require 'init-erc)
-(require 'init-yasnippet)
-(require 'init-company)
-(require 'init-flycheck)
-;; id mode stinks, I'm so glad helm is here.
+;; ido mode stinks, I'm so glad helm is here.
 (require 'init-helm)
-(require 'init-org)
 (require 'init-editing-utils)
 ;; let's get modal keybinding working!
 (require 'init-evil)
 ;; the upstream git repo is apparently broken now,  I'll get this fixed later
-(require 'init-lua)
-(require 'init-git)
 (require 'init-lisp)
 (require 'init-javascript)
 (require 'init-html)
 (require 'init-org2blog)
-(require 'init-css)
 (require 'init-defuns)
 (require 'init-misc)
-;; smart-mode-line is awesome!
 ;; woo hoo!  I should customize it a bit to make it even prettier
 (require 'init-smart-mode-line)
 ;; Make my evil keybindings work pretty much everywhere
@@ -96,8 +81,6 @@
 ;; pass defined tests
 (require 'init-ert)
 
-;;(require 'init-autocorrect)
-;; until I get autocorrect on melpa, I'll have to manually turn on abbrev mode
 (org-babel-load-file "~/.emacs.d/lisp/init-misc.org")
 
 ;;----------------------------------------------------------------------------

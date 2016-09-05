@@ -14,13 +14,6 @@
   ;; https://github.com/abo-abo/avy
   (setq  avy-keys (number-sequence ?e ?t )))
 
-(dolist (hook '(org-mode-hook
-                prog-mode-hook
-                text-mode-hook))
-  (add-hook hook (lambda ()
-                   (abbrev-mode 1)
-                   (diminish 'abbrev-mode))))
-
 (org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
 
 (use-package which-key :ensure t
@@ -39,6 +32,11 @@
                             (unbind-key (kbd "C-c $") flyspell-mode-map)
                             (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
 
+(cond ((string-equal system-type "darwin")
+       (setq flyspell-program "hunspell")))
+
+(require 'ispell)
+
 (use-package aggressive-indent :ensure t :defer t)
 ;; it's probably a good idea NOT to enable aggressive indent mode globally.  web-mode has a hard time
 ;; indenting everything when the file gets big
@@ -54,6 +52,18 @@
   (dired-async-mode 1)
   ;; enable async compilation of melpa packages
   (async-bytecomp-package-mode 1))
+
+(dolist (hook '(
+                js2-mode-hook
+                css-mode-hook
+                php-mode-hook
+                web-mode-hook
+                emacs-lisp-mode-hook
+                ))
+              (add-hook hook 'linum-mode))
+
+;; let's check for poor writing style
+(require 'init-writegood)
 
 (require 'bookmark)
 (defhydra hydra-bookmark (:color pink :hint nil)
@@ -200,5 +210,115 @@ _r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
 (setq uniquify-separator " • ")
 (setq uniquify-after-kill-buffer-p t)
 (setq uniquify-ignore-buffers-re "^\\*")
+
+(use-package dired+ :ensure t)
+
+(use-package dired-sort :ensure t)
+
+(use-package dired-details :ensure t
+  :config
+  (setq-default dired-details-hidden-string "--- "))
+
+(use-package dired
+  ;; before loading dired, set these variables
+  :init (setq-default diredp-hide-details-initially-flag nil
+                      dired-dwim-target t
+                      ;;omit boring auto save files in dired views
+                      dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$")
+  :config ;; after loading dired, do this stuff
+  (load "dired-x")
+  :bind
+  (:map dired-mode-map
+        ("/" . helm-swoop)
+        ([mouse2] . dired-find-file)))
+
+(with-eval-after-load 'dired
+  (add-hook 'dired-mode-hook 'dired-omit-mode))
+
+(use-package yasnippet
+  :defer t
+  :ensure t)
+
+  (add-to-list 'load-path "~/.emacs.d/snippets")
+  (require 'yasnippet)
+  (yas-global-mode 1)
+
+(with-eval-after-load 'warnings
+  (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
+
+(use-package company :ensure t
+  :config
+  (setq company-idle-delay .2)
+  (define-key company-active-map "\C-n" #'company-select-next)
+  (define-key company-active-map "\C-p" #'company-select-previous))
+
+(add-hook 'after-init-hook 'global-company-mode)
+
+(dolist (hook '(prog-mode-hook
+                text-mode-hook
+                org-mode-hook))
+  (add-hook hook
+            (lambda ()
+              (set (make-local-variable 'company-backends)
+                   '((company-dabbrev-code company-yasnippet))))))
+
+(use-package flycheck-pos-tip :ensure t :defer t)
+
+(use-package flycheck-status-emoji :ensure t)
+
+(use-package flycheck-color-mode-line :ensure t)
+
+(use-package flycheck
+  :defer t
+  :ensure t
+  :config
+  (flycheck-color-mode-line-mode)
+  (flycheck-pos-tip-mode)
+  (flycheck-status-emoji-mode))
+
+(add-hook 'after-init-hook 'global-flycheck-mode)
+
+(use-package lua-mode :ensure t)
+
+(use-package magit :defer t :ensure t)
+(require-package 'git-blame)
+
+(after-load 'magit
+  (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section))
+
+(require-package 'fullframe)
+(after-load 'magit (fullframe magit-status magit-mode-quit-window))
+
+(after-load 'magit (diminish 'magit-auto-revert-mode))
+
+(use-package gitignore-mode  :defer t :ensure t)
+(use-package gitconfig-mode  :defer t :ensure t)
+
+(use-package git-timemachine :ensure t :defer t)
+
+(setq-default
+ magit-save-some-buffers nil
+ ;; if a command takes longer than 5 seconds, pop up the process buffer.
+ magit-process-popup-time 5
+ magit-diff-refine-hunk t)
+
+(use-package rainbow-mode :ensure t)
+(dolist (hook '(css-mode-hook html-mode-hook sass-mode-hook))
+  (add-hook hook 'rainbow-mode))
+
+(use-package sass-mode :ensure t)
+(use-package scss-mode :ensure t)
+(setq-default scss-compile-at-save nil)
+
+(use-package less-css-mode :ensure t)
+;; I don't think I've ever used skewer-mode.
+;; (when (featurep 'js2-mode)
+;;   (use-package skewer-less))
+
+(require-package 'css-eldoc)
+(autoload 'turn-on-css-eldoc "css-eldoc")
+(add-hook 'css-mode-hook 'turn-on-css-eldoc)
+
+(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 
 (provide 'init-load-small-packages)
