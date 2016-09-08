@@ -1,3 +1,6 @@
+(when (find-font (font-spec :family "Hack"))
+ (set-frame-font "Hack" nil t))
+
 ;;(add-to-list 'default-frame-alist '(font. "Hack Regular"))
 
 (setq-default

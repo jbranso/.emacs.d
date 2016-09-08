@@ -2,14 +2,14 @@
 ** My preferred font
 
  Make my default font be the cool [[http://sourcefoundry.org/hack/][Hack font.]]  You might have to download it for your distribution.
- #+BEGIN_SRC elisp
+ #+BEGIN_SRC emacs-lisp
    (when (find-font (font-spec :family "Hack"))
     (set-frame-font "Hack" nil t))
  #+END_SRC
 
 This does something too, but I'm not sure what.
 #+BEGIN_SRC emacs-lisp
-;;(add-to-list 'default-frame-alist '(font. "Hack Regular"))
+  ;;(add-to-list 'default-frame-alist '(font. "Hack Regular"))
 #+END_SRC
 ** default variables
 #+BEGIN_SRC emacs-lisp
@@ -57,8 +57,8 @@ This does something too, but I'm not sure what.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(line-number-mode 0)
-(column-number-mode 0)
+  (line-number-mode 0)
+  (column-number-mode 0)
 
 #+END_SRC
 
@@ -68,25 +68,25 @@ Make TAB mean indent.
 ** global keybindings
 *** delete and rename current file
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-x C-k") #'delete-this-file)
-(global-set-key (kbd "C-x C-r") #'rename-this-file-and-buffer)
+  (global-set-key (kbd "C-x C-k") #'delete-this-file)
+  (global-set-key (kbd "C-x C-r") #'rename-this-file-and-buffer)
 #+END_SRC
 
 *** some global keybindings
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c C-h") #'help)
-(global-set-key (kbd "C-c h k") #'helm-show-kill-ring)
-(global-set-key (kbd "C-x f")   #'helm-find-files)
-(global-set-key (kbd "C-c h o") #'helm-occur)
-(global-set-key (kbd "C-c h c") #'helm-calcul-expression)
-(global-set-key (kbd "C-c h g") #'helm-grep-do-git-grep)
+  (global-set-key (kbd "C-c C-h") #'help)
+  (global-set-key (kbd "C-c h k") #'helm-show-kill-ring)
+  (global-set-key (kbd "C-x f")   #'helm-find-files)
+  (global-set-key (kbd "C-c h o") #'helm-occur)
+  (global-set-key (kbd "C-c h c") #'helm-calcul-expression)
+  (global-set-key (kbd "C-c h g") #'helm-grep-do-git-grep)
 
 #+END_SRC
 
 Transposing words and characters.
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c t") #'transpose-chars)
-(global-set-key (kbd "C-c T") #'transpose-words)
+  (global-set-key (kbd "C-c t") #'transpose-chars)
+  (global-set-key (kbd "C-c T") #'transpose-words)
 #+END_SRC
 
 ** My quick commands "C-c <char>"
@@ -94,19 +94,19 @@ Transposing words and characters.
 My modkey is "command" on a macbook.
 #+BEGIN_SRC emacs-lisp
 
-(global-set-key (kbd "s-;") #'web-mode-comment-or-uncomment)
-(global-set-key (kbd "s-a") #'mark-whole-buffer)
-(global-set-key (kbd "s-d") #'my/downcase-word)
-(global-set-key (kbd "s-g") #'magit-status)
-(global-set-key (kbd "s-h") #'mark-paragraph)
-;; This causes ERC to connect to the Freenode network upon hitting mod-i
-(global-set-key (kbd "s-i") (lambda () (interactive)
-                              (erc :server "irc.freenode.net" :port "6667"
-                                   :nick "jbranso")))
-(global-set-key (kbd "s-s") '(lambda ()
-                               (interactive)
-                               (save-some-buffers 1)))
-(global-set-key (kbd "s-u") #'my/uppercase-word)
+  (global-set-key (kbd "s-;") #'web-mode-comment-or-uncomment)
+  (global-set-key (kbd "s-a") #'mark-whole-buffer)
+  (global-set-key (kbd "s-d") #'my/downcase-word)
+  (global-set-key (kbd "s-g") #'magit-status)
+  (global-set-key (kbd "s-h") #'mark-paragraph)
+  ;; This causes ERC to connect to the Freenode network upon hitting mod-i
+  (global-set-key (kbd "s-i") (lambda () (interactive)
+                                (erc :server "irc.freenode.net" :port "6667"
+                                     :nick "jbranso")))
+  (global-set-key (kbd "s-s") '(lambda ()
+                                 (interactive)
+                                 (save-some-buffers 1)))
+  (global-set-key (kbd "s-u") #'my/uppercase-word)
 #+END_SRC
 
 *** My reserved keychords.  "C-c [a-zA-Z]"
@@ -124,11 +124,12 @@ All of my "C-c [letter]" commands
   (global-set-key (kbd "C-c \\") #'delete-horizontal-space)
   (global-set-key (kbd "C-c SPC") #'just-one-space)
   ;; some modes my default / in normal mode is NOT bound to helm-swoop, BUT I REALLY LIKE helm-swoop
-  (global-set-key (kbd "C-c /") #'helm-swoop)
+  (global-set-key (kbd "C-c /") #'swiper)
   (global-set-key (kbd "C-c C-o") #'org-open-at-point-global)
   ;; this is bound in init-smart-comment.el
   ;;(global-set-key (kbd "C-c ;") #'comment-dwim)
   ;;(define-key global-map (kbd "C-c a") 'org-agenda)
+
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c b") #'(lambda ()
                                     "Switch to the previous buffer"
@@ -163,14 +164,14 @@ All of my "C-c [letter]" commands
   (global-set-key (kbd "C-c I") #'org-insert-link)
   (global-set-key (kbd "C-c m") #'helm-mini)
 
-;;print the working directory in the minibuffer
-;; I should make these commands copy the output of pwd into the clipboard
-(global-set-key (kbd "C-c P") #'pwd)
-(global-set-key (kbd "C-c p") #'hydra-projectile/body)
-;; C-c p is for projectile.  C-c p F is still broken but C-c p h works
-;;(global-set-key (kbd "C-c p") #'pwd)
-;;This does recursive find and replace.  But I think it only works when you are in a dired buffer
-(global-set-key (kbd "C-c R") #'find-name-dired)
+  ;;print the working directory in the minibuffer
+  ;; I should make these commands copy the output of pwd into the clipboard
+  (global-set-key (kbd "C-c P") #'pwd)
+  (global-set-key (kbd "C-c p") #'hydra-projectile/body)
+  ;; C-c p is for projectile.  C-c p F is still broken but C-c p h works
+  ;;(global-set-key (kbd "C-c p") #'pwd)
+  ;;This does recursive find and replace.  But I think it only works when you are in a dired buffer
+  (global-set-key (kbd "C-c R") #'find-name-dired)
 
 
 #+END_SRC
@@ -188,125 +189,142 @@ Diskspace is cheap and making emacs backup my files is probably a good idea mayb
 ** Whitespace
 
 #+BEGIN_SRC emacs-lisp
-(defun sanityinc/no-trailing-whitespace ()
-  "Turn off display of trailing whitespace in this buffer."
-  (setq show-trailing-whitespace nil))
+  (defun sanityinc/no-trailing-whitespace ()
+    "Turn off display of trailing whitespace in this buffer."
+    (setq show-trailing-whitespace nil))
 #+END_SRC
 
 
 But don't show trailing whitespace in SQLi, inf-ruby etc.
 
 #+BEGIN_SRC emacs-lisp
-(dolist (hook '(special-mode-hook
-                eww-mode-hook
-                term-mode-hook
-                comint-mode-hook
-                compilation-mode-hook
-                twittering-mode-hook
-                minibuffer-setup-hook))
-  (add-hook hook #'sanityinc/no-trailing-whitespace))
+  (dolist (hook '(special-mode-hook
+                  eww-mode-hook
+                  term-mode-hook
+                  comint-mode-hook
+                  compilation-mode-hook
+                  twittering-mode-hook
+                  minibuffer-setup-hook))
+    (add-hook hook #'sanityinc/no-trailing-whitespace))
 #+END_SRC
 
 ** Newline behaviour
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "RET") #'newline-and-indent)
+  (global-set-key (kbd "RET") #'newline-and-indent)
 #+END_SRC
 * Completition stuff
  Make emacs completetion better
- #+BEGIN_SRC emacs-lisp
-(setq read-file-name-completion-ignore-case t)
-(setq read-buffer-completion-ignore-case t)
+   #+BEGIN_SRC emacs-lisp
+     (setq read-file-name-completion-ignore-case t)
+     (setq read-buffer-completion-ignore-case t)
  #+END_SRC
 
 add to the list of file names NOT to complete
 
 #+BEGIN_SRC emacs-lisp
-(mapc (lambda (x)
-        (add-to-list 'completion-ignored-extensions x))
-      '(".aux" ".bbl" ".blg" ".exe"
-        ".log" ".meta" ".out" ".pdf"
-        ".synctex.gz" ".tdo" ".toc"
-        "-pkg.el" "-autoloads.el"
-        "Notes.bib" "auto/"))
+  (mapc (lambda (x)
+          (add-to-list 'completion-ignored-extensions x))
+        '(".aux" ".bbl" ".blg" ".exe"
+          ".log" ".meta" ".out" ".pdf"
+          ".synctex.gz" ".tdo" ".toc"
+          "-pkg.el" "-autoloads.el"
+          "Notes.bib" "auto/"))
 #+END_SRC
 
 * Enabling modes
 ** Autorevert
 If a file has changed on disk, then automatically revert the buffer and don't complain about it
 #+BEGIN_SRC emacs-lisp
-(global-auto-revert-mode 1)
+  (global-auto-revert-mode 1)
 #+END_SRC
 
 Be quiet about reverting files.
 #+BEGIN_SRC emacs-lisp
-(setq auto-revert-verbose nil)
+  (setq auto-revert-verbose nil)
 #+END_SRC
 
 
 This apparently also updates dired buffers too.
 #+BEGIN_SRC emacs-lisp
-(setq global-auto-revert-non-file-buffers t)
+  (setq global-auto-revert-non-file-buffers t)
 #+END_SRC
 
 ** Parenthesis
 *** Show matching parens
  Show matching parens
- #+BEGIN_SRC emacs-lisp
- (show-paren-mode 1)
+              #+BEGIN_SRC emacs-lisp
+                (show-paren-mode 1)
  #+END_SRC
 *** Electric pair mode
  When you type an open parenthsis, electric pair mode types the second one for you,
  leaving point between them
- #+BEGIN_SRC emacs-lisp
-(electric-pair-mode t)
+  #+BEGIN_SRC emacs-lisp
+    (electric-pair-mode t)
  #+END_SRC
 ** page break line modes
 This turn ^L into nice long lines.
 #+BEGIN_SRC emacs-lisp
-(use-package page-break-lines
-  :ensure t
-  :diminish page-break-lines-mode
-  :config (global-page-break-lines-mode))
+  (use-package page-break-lines
+    :ensure t
+    :diminish page-break-lines-mode
+    :config (global-page-break-lines-mode))
 
 #+END_SRC
 ** Emacs's default query-replace sucks.  Let's use anzu!
 Anzu is amazing!  It highlight the words that you wish to replace.
 #+BEGIN_SRC emacs-lisp
-(use-package anzu
-  :ensure t
-  :diminish anzu-mode)
+  (use-package anzu
+    :ensure t
+    :diminish anzu-mode)
 
-(global-anzu-mode +1)
+  (global-anzu-mode +1)
 #+END_SRC
 
+** visual line mode
+Filling is what one does to insert actual or invisible newlines at a really long sentence to make a paragraph.
+For example:
+
+This is a really long sentence, but when you call fill paragraph on it, with point inside it, it might look something like this:
+
+This is a really long sentence,
+but when you call fill paragraph
+on it, with point inside it, it
+might look something like this:
+
+You probably know that programs like MS-word has this turned on by default, BUT most people, who use emacs, are programmers, NOT writers.  Most programmers DO not want emacs to insert default newline characters.  SO if you would like emacs to insert invisible newline characters just add the following to your .emacs
+
+#+BEGIN_SRC emacs-lisp
+  (global-visual-line-mode)
+  (global-set-key (kbd "C-c q") #'fill-paragraph)
+#+END_SRC
 * Making the default macro better  C-x Q
 
  When you define a macro, you can type C-x Q to prompt the user for input.
  Very helpful and cool!
- #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
 
-(defun my-macro-query (arg)
-  "Prompt for input using minibuffer during kbd macro execution.
+    (defun my-macro-query (arg)
+      "Prompt for input using minibuffer during kbd macro execution.
     With prefix argument, allows you to select what prompt string to use.
     If the input is non-empty, it is inserted at point."
-  (interactive "P")
-  (let* ((query (lambda () (kbd-macro-query t)))
-         (prompt (if arg (read-from-minibuffer "PROMPT: ") "Input: "))
-         (input (unwind-protect
-                    (progn
-                      (add-hook 'minibuffer-setup-hook query)
-                      (read-from-minibuffer prompt))
-                  (remove-hook 'minibuffer-setup-hook query))))
-    (unless (string= "" input) (insert input))))
+      (interactive "P")
+      (let* ((query (lambda () (kbd-macro-query t)))
+             (prompt (if arg (read-from-minibuffer "PROMPT: ") "Input: "))
+             (input (unwind-protect
+                        (progn
+                          (add-hook 'minibuffer-setup-hook query)
+                          (read-from-minibuffer prompt))
+                      (remove-hook 'minibuffer-setup-hook query))))
+        (unless (string= "" input) (insert input))))
 
-(global-set-key "\C-xQ" #'my-macro-query)
+    (global-set-key "\C-xQ" #'my-macro-query)
  #+END_SRC
 
 * save all buffers after saving the current buffer.
 #+BEGIN_SRC emacs-lisp
-(add-hook 'after-save-hook #'(lambda ()
-                               (interactive)
-                               (save-some-buffers 1)))
+  (add-hook 'after-save-hook #'(lambda ()
+                                 (interactive)
+                                 (save-some-buffers 1)))
 #+END_SRC
 
 * Enabling Emacs commands
@@ -431,23 +449,6 @@ be global."
 (setq-default abbrev-mode t)
 #+END_SRC
 
-* filling
-Filling is what one does to insert actual or invisible newlines at a really long sentence to make a paragraph.
-For example:
-This is a really long sentence, but when you call fill paragraph on it, with point inside it, it might look something like this:
-This is a really long sentence,
-but when you call fill paragraph
-on it, with point inside it, it
-might look something like this:
-You probably know that programs like MS-word has this turned on by default, BUT most people, who use emacs, are programmers,
-NOT writers.  Most programmers DO not want emacs to insert default newline characters.  SO if you would like emacs to
-insert invisible newline characters just add the following to your .emacs
-#+BEGIN_SRC emacs-lisp
-(visual-line-mode)
-(global-set-key (kbd "C-c q") #'fill-paragraph)
-#+END_SRC
-;; search through your current vc project. It's SUPER fast, but you'll need the "silver searcher" installed on your system
-
 * align regexp
 This command is awesome! It'll let you transform stuff like:
 
@@ -463,9 +464,6 @@ var howIMetYourMother = 29;
  #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-c x") #'align-regexp)
  #+END_SRC
-
-(global-set-key (kbd "C-x C-.") #'pop-global-mark)
-;; web-mode has a command C-c C-h that overrides this.
 
 * Delete trailing whitespace on save
 

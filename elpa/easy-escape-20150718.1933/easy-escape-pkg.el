@@ -1,1 +1,0 @@
-(define-package "easy-escape" "20150718.1933" "Improve readability of escape characters in regular expressions" 'nil :url "https://github.com/cpitclaudel/easy-escape" :keywords '("convenience" "lisp" "tools"))

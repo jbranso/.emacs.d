@@ -2,11 +2,11 @@
 #+LATEX_HEADER: \usepackage{lmodern}
 #+LATEX_HEADER: \usepackage[QX]{fontenc}
 
-* auth-source
+* aggressive-indent
 
 
 
 ** provide this file
 #+BEGIN_SRC emacs-lisp
-(provide 'init-auth-source)
+(provide 'init-aggressive-indent)
 #+END_SRC

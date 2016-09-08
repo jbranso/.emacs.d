@@ -2,11 +2,17 @@
 #+LATEX_HEADER: \usepackage{lmodern}
 #+LATEX_HEADER: \usepackage[QX]{fontenc}
 
-* auth-source
+* ivy
 
+#+BEGIN_SRC emacs-lisp
+(use-package ivy :ensure t)
+#+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+(use-package swiper :ensure t)
+#+END_SRC
 
 ** provide this file
 #+BEGIN_SRC emacs-lisp
-(provide 'init-auth-source)
+(provide 'init-ivy)
 #+END_SRC

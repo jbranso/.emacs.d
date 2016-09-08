@@ -9,16 +9,16 @@
 
 ;; https://github.com/Fuco1/dash.el
 (use-package dash :ensure t :defer t)
-(-flatten '((1))) ;; => '(1)
-(-flatten '((1 (2 3) (((4 (5))))))) ;; => '(1 2 3 4 5)
-(-flatten '(1 2 (3 . 4))) ;; => '(1 2 (3 . 4))
+;;(-flatten '((1))) ;; => '(1)
+;;(-flatten '((1 (2 3) (((4 (5))))))) ;; => '(1 2 3 4 5)
+;;(-flatten '(1 2 (3 . 4))) ;; => '(1 2 (3 . 4))
 
 ;; https://github.com/rejeep/f.el
 (use-package f :ensure t :defer t)
 (require 'f)
 
-(f-short "/home/joshua")
-(f-long "~/")
+;;(f-short "/home/joshua")
+;;(f-long "~/")
 
 ;;this function creates a hot-key M-x gtd that will open my gtd file
 (defun gtd ()
@@ -186,17 +186,17 @@
   (print arg)
   (while
       (>= arg 0)
-      (if
-          ;;if ispell returns nil (word is correct)
-          (eq nil (ispell-word nil t nil))
-          ;; if ispell returns word was correct
-          ;; print word was correct and move to the next line
-          (progn
-            (print "word was correct")
-            (evil-next-line))
+    (if
+        ;;if ispell returns nil (word is correct)
+        (eq nil (ispell-word nil t nil))
+        ;; if ispell returns word was correct
+        ;; print word was correct and move to the next line
+        (progn
+          (print "word was correct")
+          (evil-next-line))
 
-        ;; if word was wrong, then move it
-        (move-word-at-point))))
+      ;; if word was wrong, then move it
+      (move-word-at-point))))
 
 (defun move-word-at-point ()
   (interactive)
@@ -217,8 +217,7 @@
   (evil-first-non-blank)
   (forward-char)
   (forward-char)
-  (evil-next-line)
-  )
+  (evil-next-line))
 
 ;; this lets you open a file as sudo
 (defun my-find-file-as-sudo ()
@@ -242,9 +241,9 @@
              (this-win-edges (window-edges (selected-window)))
              (next-win-edges (window-edges (next-window)))
              (this-win-2nd (not (and (<= (car this-win-edges)
-                                        (car next-win-edges))
+                                         (car next-win-edges))
                                      (<= (cadr this-win-edges)
-                                        (cadr next-win-edges)))))
+                                         (cadr next-win-edges)))))
              (splitter
               (if (= (car this-win-edges)
                      (car (window-edges (next-window))))
@@ -347,9 +346,63 @@
   (search-forward "#+BEGIN_SRC sh")
   (org-ctrl-c-ctrl-c))
 
-(provide 'init-defuns)
 
-;; make a helm-function that looks for STARTED areas in my org files that I can click to clock into
-(defun org-find-logbook-headlines ()
+(defun goToNextHeading ()
+  "This moves point to the next heading."
   (interactive)
-  (helm :sources '((1 2 3 4 5)) :buffer "*helm clock*" :candidate-number-limit 30))
+  (search-forward-regexp "^*+ "))
+
+(defun storeHeadingText ()
+  "Return the heading Text"
+  (interactive)
+  (when (not (boundp 'headingText))
+    (setq headingText '()))
+  (push
+   (buffer-substring-no-properties (point)
+                                   (progn
+                                     (move-end-of-line 1)
+                                     (point)))
+   headingText)
+  (search-backward-regexp "^*+ "))
+
+
+(defun storePointPosition ()
+  "This is the position point should go to, when is time to
+check the next heading for redundancy."
+  (interactive)
+  (setq nextHeadingPosition
+        (point)))
+
+
+(defun bufferEndCharPosition ()
+  "returns the end of the buffer char position."
+  (interactive)
+  (let (endOfBufferChar currentChar)
+    (setq currentChar (point))
+    (setq endOfBufferChar (progn
+                            (end-of-buffer)
+                            (point)))
+    (goto-char currentChar)
+    endOfBufferChar))
+
+(defun deleteAllNextRedundantHeadings ()
+  "Delete the next redundant headings."
+  (interactive)
+  (if (search-forward-regexp (concat "^*+ " headingText "$") (bufferEndCharPosition) t 1)
+      (progn
+        (beginning-of-line)
+        (kill-line)
+        (deleteAllNextRedundantHeadings))
+    nil))
+
+(defun testNextHeadingForRedundancy ()
+  "Tests the next heading for redundancy."
+  (interactive)
+  (goToNextHeading)
+  (storeHeadingText)
+  (storePointPosition)
+  (goToNextHeading)
+  (deleteAllNextRedundantHeadings))
+
+
+(provide 'init-defuns)
