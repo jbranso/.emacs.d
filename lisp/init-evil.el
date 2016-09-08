@@ -73,7 +73,7 @@
   "This turns on the evil-dvorak web-mode keyboard shortcuts."
   (interactive)
   ;;I need to disable the default evil-mode "H" key
-  (define-key evil-normal-state-map (kbd "H")  'nil)
+  (define-key evil-normal-state-map (kbd "H")  nil)
   (define-key evil-normal-state-map (kbd "Hta") 'web-mode-tag-attributes-sort)
   (define-key evil-normal-state-map (kbd "Htb") 'web-mode-tag-beginning)
   (define-key evil-normal-state-map (kbd "Hte") 'web-mode-tag-end)
@@ -200,9 +200,11 @@
   :ensure t
   :config
   (global-evil-dvorak-mode 1)
-  (add-hook 'web-mode-hook 'evil-dvorak-turn-on-web-mode-keys)
   (my-evil-dvorak-customizations)
   :diminish evil-dvorak-mode)
+
+
+(add-hook 'web-mode-hook 'evil-dvorak-turn-on-web-mode-keys)
 
 (local-unset-key (kbd "TAB"))
 

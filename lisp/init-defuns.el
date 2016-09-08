@@ -368,6 +368,29 @@
   (search-forward "#+BEGIN_SRC sh")
   (org-ctrl-c-ctrl-c))
 
+(defun purdue-remove-dreamweaver-templates ()
+  "Scans a file and changes stuff so that it no longer has the dreamweaver things."
+  (interactive)
+  (beginning-of-buffer)
+  (search-forward-regexp "name=\"above-breadcrumbs\"")
+  (end-of-line)
+  (delete-region 1 (point))
+  (insert "<?php
+require ('/var/www/html/root/honorscollege/templates/_template-top.php');
+?>")
+  ;; add in the footer template
+  (beginning-of-buffer)
+  (search-forward-regexp "<!--Footer -->")
+  (beginning-of-line)
+  (delete-region (point) (progn
+                           (end-of-buffer)
+                           (point)))
+  (insert "<?php
+require ('/var/www/html/root/honorscollege/templates/_template-bottom.php');
+?>
+"))
+
+
 (provide 'init-defuns)
 
 ;; make a helm-function that looks for STARTED areas in my org files that I can click to clock into

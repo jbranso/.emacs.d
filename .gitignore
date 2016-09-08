@@ -27,3 +27,6 @@ eshell/
 elpa/
 archives/
 elpa/
+elpa/
+elpa/*
+./elpa*

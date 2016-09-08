@@ -53,8 +53,7 @@
 ;; my config
 (use-package init-gnus-secret-smtp)
 
-(use-package gnus-desktop-notify
-  :ensure t)
+(use-package gnus-desktop-notify :ensure t)
 
 (gnus-desktop-notify-mode)
 (gnus-demon-add-scanmail)
