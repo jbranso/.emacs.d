@@ -993,6 +993,10 @@ Use eldoc for syntax hints
 #+BEGIN_SRC emacs-lisp
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 #+END_SRC
+* tramp
+#+BEGIN_SRC emacs-lisp
+(setq password-cache-expiry nil)
+#+END_SRC
 * all the icons
 :PROPERTIES:
 :ID:       19d20513-a02a-42fc-91b2-76f7c32df062

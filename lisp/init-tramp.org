@@ -28,7 +28,6 @@ example, if you always have to use the user ‘john’ in the domain ‘somewher
      (add-to-list 'tramp-default-user-alist
                   '("ssh" ".*\\.somewhere\\.else\\'" "john"))
 
-
 * My TRAMP config
   I'm setting my default transfer files methods to scp. This method is apparently the most secure way to transfer files.
   #+BEGIN_SRC emacs-lisp
