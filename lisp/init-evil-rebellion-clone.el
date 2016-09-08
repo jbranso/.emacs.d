@@ -71,4 +71,6 @@
 (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
 (evil-set-initial-state 'ggtags-global-mode 'emacs)
 
+(add-hook 'edebug-setup-hook 'evil-emacs-state)
+
 (provide 'init-evil-rebellion-clone)

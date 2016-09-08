@@ -16,6 +16,13 @@ VK06XF2d5WiN2dMDhCnAzg==
 -----END PGP MESSAGE-----
 
 * My ERC config
+
+I can define some emacs testing of variables.  This will hopefully help me spot errors. cool.
+(ert-deftest pp-test-quote ()
+  "Tests the rendering of `quote' symbols in `pp-to-string'."
+  (should (equal (pp-to-string '(quote quote)) "'quote"))
+  (should (equal (pp-to-string '((quote a) (quote b))) "('a 'b)\n"))
+  (should (equal (pp-to-string '('a 'b)) "('a 'b)\n")))
 #+BEGIN_SRC emacs-lisp
 (use-package erc
   :init

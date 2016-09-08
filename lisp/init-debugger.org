@@ -1,0 +1,22 @@
+#+AUTHOR:Joshua Branson
+#+LATEX_HEADER: \usepackage{lmodern}
+#+LATEX_HEADER: \usepackage[QX]{fontenc}
+
+* debugger
+:PROPERTIES:
+:ID:       1d74c593-36f8-4eae-9860-b227be077025
+:END:
+
+When attempting to debug a error, often the error is Soho long that I cannot read it on Emacs.  It makes more sense to turn on visual line mode, so that I can read the whole line.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'debugger-mode-hook 'visual-line-mode)
+#+END_SRC
+
+** provide this file
+:PROPERTIES:
+:ID:       914d0bcd-f281-4f04-9657-9357e1327743
+:END:
+#+BEGIN_SRC emacs-lisp
+(provide 'init-debugger)
+#+END_SRC

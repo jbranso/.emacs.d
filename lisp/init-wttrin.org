@@ -1,22 +1,3 @@
-wttrin is a small emacs package that gets you the local weather forcast.  It pulls from http://wttr.in/.
-
-I'm not sure if Lafayette
-
-#+BEGIN_SRC emacs-lisp
-(use-package wttrin
-  :ensure t
-  :commands (wttrin)
-  :init
-  (setq wttrin-default-cities
-  '("West Lafayette")))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (defun weather ()
-    "Show the local weather via wttrin"
-    (interactive)
-    (wttrin))
-#+END_SRC
 
 #+RESULTS:
 : weather

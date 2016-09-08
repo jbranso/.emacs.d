@@ -125,7 +125,7 @@
     (kbd "C-s") 'evil-substitute
     (kbd "C-c r") 'evil-record-macro
     "," 'undo-tree-undo
-    "/" 'helm-swoop
+    "/" 'swiper
     (kbd "<backspace>") 'avy-goto-char
     ;; (kbd "<return>") 'newline-and-indent
     ;; usually

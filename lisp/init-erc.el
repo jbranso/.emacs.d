@@ -26,7 +26,7 @@
         ;; set the default nick
         erc-nick "joshuaBPMan_"
         ;; don't prompt me for my password erc should know it
-        erc-prompt-for-password nil
+        erc-prompt-for-password t
         erc-hide-list '("JOIN" "PART" "QUIT")
         ;; don't let erc switch the active buffer when it connects to a new channel when erc is starting up
         ;; this gets annoying because when I'm starting up emacs, it'll switch to "#arch", then "#hurd", then "#org-mode".
