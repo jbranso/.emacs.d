@@ -1,3 +1,4 @@
+#+STARTUP: showall
 #+BEGIN_SRC emacs-lisp
   (cond ((string-equal system-type "darwin"))
         (setq flyspell-program "hunspell"))
