@@ -1,0 +1,18 @@
+#+AUTHOR:Joshua Branson
+#+LATEX_HEADER: \usepackage{lmodern}
+#+LATEX_HEADER: \usepackage[QX]{fontenc}
+
+* ivy
+
+#+BEGIN_SRC emacs-lisp
+(use-package ivy :ensure t)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package swiper :ensure t)
+#+END_SRC
+
+** provide this file
+#+BEGIN_SRC emacs-lisp
+(provide 'init-ivy)
+#+END_SRC
