@@ -53,6 +53,13 @@
 ;; for whatever reason, helm is looking for files with "C-x f" and not "C-x C-f"
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
+(define-key helm-map (kbd "C-<return>") 'helm-execute-persistent-action)
+;; also "C-r" does the same thing.
+
+(define-key helm-map (kbd "<tab>")    'helm-execute-persistent-action)
+(define-key helm-map (kbd "<backtab>") 'helm-select-action)
+
+
 ;; (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
 ;; the next command will add another C-j command for helm
 ;;(define-key helm-map (kbd "C-f") 'helm-execute-persistent-action)

@@ -424,7 +424,23 @@ insebers left       C-x r i R                      C-u number C-x r + r
                      emacs-lisp-mode-hook
                      ))
                    (add-hook hook 'linum-mode))
+
+     (dolist (hook '(
+                     js2-mode-hook
+                     css-mode-hook
+                     php-mode-hook
+                     web-mode-hook
+                     emacs-lisp-mode-hook
+                     ))
+                   (remove-hook hook 'linum-mode))
+
    #+END_SRC
+
+   I'd prefer to use nlinum mode, because it's faster.  BUT it also makes it that I cannot open a new Emacs frame.
+#+BEGIN_SRC emacs-lisp
+;; (use-package nlinum :ensure t)
+
+#+END_SRC
 * writegood-mode
 :PROPERTIES:
 :ID:       4a51a12d-17e2-4083-878d-c5e216dd5168
@@ -976,6 +992,14 @@ Use eldoc for syntax hints
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+#+END_SRC
+* all the icons
+:PROPERTIES:
+:ID:       19d20513-a02a-42fc-91b2-76f7c32df062
+:END:
+You can learn more about [[https://github.com/domtronn/all-the-icons.el][all the icons]] here.
+#+BEGIN_SRC emacs-lisp
+(use-package all-the-icons :load-path "~/.emacs.d/lisp/all-the-icons.el/")
 #+END_SRC
 
 * provide this file

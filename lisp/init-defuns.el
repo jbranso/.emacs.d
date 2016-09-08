@@ -347,4 +347,62 @@
   (org-ctrl-c-ctrl-c))
 
 
+(defun goToNextHeading ()
+  "This moves point to the next heading."
+  (interactive)
+  (search-forward-regexp "^*+ "))
+
+(defun storeHeadingText ()
+  "Return the heading Text"
+  (interactive)
+  (when (not (boundp 'headingText))
+    (setq headingText '()))
+  (push
+   (buffer-substring-no-properties (point)
+                                   (progn
+                                     (move-end-of-line 1)
+                                     (point)))
+   headingText)
+  (search-backward-regexp "^*+ "))
+
+
+(defun storePointPosition ()
+  "This is the position point should go to, when is time to
+check the next heading for redundancy."
+  (interactive)
+  (setq nextHeadingPosition
+        (point)))
+
+
+(defun bufferEndCharPosition ()
+  "returns the end of the buffer char position."
+  (interactive)
+  (let (endOfBufferChar currentChar)
+    (setq currentChar (point))
+    (setq endOfBufferChar (progn
+                            (end-of-buffer)
+                            (point)))
+    (goto-char currentChar)
+    endOfBufferChar))
+
+(defun deleteAllNextRedundantHeadings ()
+  "Delete the next redundant headings."
+  (interactive)
+  (if (search-forward-regexp (concat "^*+ " headingText "$") (bufferEndCharPosition) t 1)
+      (progn
+        (beginning-of-line)
+        (kill-line)
+        (deleteAllNextRedundantHeadings))
+    nil))
+
+(defun testNextHeadingForRedundancy ()
+  "Tests the next heading for redundancy."
+  (interactive)
+  (goToNextHeading)
+  (storeHeadingText)
+  (storePointPosition)
+  (goToNextHeading)
+  (deleteAllNextRedundantHeadings))
+
+
 (provide 'init-defuns)

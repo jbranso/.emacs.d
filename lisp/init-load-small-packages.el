@@ -62,6 +62,17 @@
                 ))
               (add-hook hook 'linum-mode))
 
+(dolist (hook '(
+                js2-mode-hook
+                css-mode-hook
+                php-mode-hook
+                web-mode-hook
+                emacs-lisp-mode-hook
+                ))
+              (remove-hook hook 'linum-mode))
+
+;; (use-package nlinum :ensure t)
+
 ;; let's check for poor writing style
 (require 'init-writegood)
 
@@ -320,5 +331,7 @@ _r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
 (add-hook 'css-mode-hook 'turn-on-css-eldoc)
 
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+
+(use-package all-the-icons :load-path "~/.emacs.d/lisp/all-the-icons.el/")
 
 (provide 'init-load-small-packages)
