@@ -166,6 +166,12 @@
     (setq remote-file-path (concat
                             remote-dir
                             (s-chop-prefix "/Users/jbranso/honorsCollege/var" buffer-file-name)))
+    ;; for some reason updating images doesn't really work.
+    ;; I should delete them first.  Then upload them.
+    (when (and (string-match "\.pdf$\\\|\.jpg$\\\|\.png$" remote-file-path )
+               ;;does the remote file exist?
+               (file-exists-p remote-file-path))
+      (delete-file remote-file-path))
     (write-file remote-file-path)
     (write-file local-file)))
 

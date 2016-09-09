@@ -1,6 +1,3 @@
-(cond ((string-equal system-type "darwin"))
-      (setq flyspell-program "hunspell"))
-(require 'ispell)
 
 (use-package flycheck-pos-tip :ensure t :defer t)
 

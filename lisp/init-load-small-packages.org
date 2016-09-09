@@ -73,19 +73,24 @@ Bug hunter lets you debug your init file when you've broken it somehow.  Just ty
 :PROPERTIES:
 :ID:       bca2e633-d8eb-4d29-a059-8f2d6f18eb57
 :END:
+
 This will highlight words that are misspelled in comments. Also flyspell binds C-c $ to flyspell fix word before point.  BUT I would prefer that to be bound to endless/ispell-word-then-abbrev.
+
+It also checks to see if the system is a Mac.  If so, then it disables flyspell.
 #+BEGIN_SRC emacs-lisp
-(add-hook 'prog-mode-hook (lambda ()
-                            (flyspell-prog-mode)
-                            (unbind-key (kbd "C-c $") flyspell-mode-map)
-                            (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
+  (when (not (string-equal system-type "darwin"))
+    (require 'ispell)
 
-;; enable flyspell mode for all of my text modes.  This will enable flyspell to underline misspelled words.
-(add-hook 'text-mode-hook (lambda ()
-                            (flyspell-mode)
-                            (unbind-key (kbd "C-c $") flyspell-mode-map)
-                            (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
+    (add-hook 'prog-mode-hook (lambda ()
+                                (flyspell-prog-mode)
+                                (unbind-key (kbd "C-c $") flyspell-mode-map)
+                                (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
 
+    ;; enable flyspell mode for all of my text modes.  This will enable flyspell to underline misspelled words.
+    (add-hook 'text-mode-hook (lambda ()
+                                (flyspell-mode)
+                                (unbind-key (kbd "C-c $") flyspell-mode-map)
+                                (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev))))
 
 
 #+END_SRC
@@ -656,9 +661,15 @@ it is only activated if you start to type a file like
    with a region marked, marked the region for delition with "C-u C-c"
    delete the marked regions and lines with "C-u C-u C-c"
    #+BEGIN_SRC emacs-lisp
+   ;; if major mode is web-mode then use web-mode's comment.
+     (defun my/smart-comment
+         (if (string= major-mode "web-mode")
+             (web-mode-comment-or-uncomment))
+       (smart-comment))
+
      (use-package smart-comment
        :ensure t
-       :bind ("C-c ;" . smart-comment)
+       :bind ("C-c ;" . my/smart-comment)
        :config
        (with-eval-after-load 'org
          (local-unset-key "C-c ;")))
@@ -816,6 +827,7 @@ But it is probably not necessary.  When I am about to expand a snippet, I am typ
 :PROPERTIES:
 :ID:       8ed6b2f0-bcf6-4bcb-9960-8128383be671
 :END:
+I'd like to have company mode complete my filenames for me:  http://emacs.stackexchange.com/questions/3654/filename-completion-using-company-mode#3666
 #+BEGIN_SRC emacs-lisp
   (use-package company :ensure t
     :config
@@ -1005,7 +1017,12 @@ You can learn more about [[https://github.com/domtronn/all-the-icons.el][all the
 #+BEGIN_SRC emacs-lisp
 (use-package all-the-icons :load-path "~/.emacs.d/lisp/all-the-icons.el/")
 #+END_SRC
-
+* projectile
+So I can search for my files in my projects.
+#+BEGIN_SRC emacs-lisp
+(use-package projectile :ensure t)
+(use-package helm-projectile :ensure t)
+#+END_SRC
 * provide this file
 :PROPERTIES:
 :ID:       de5dc789-d53e-4932-87fc-844370a9b796
