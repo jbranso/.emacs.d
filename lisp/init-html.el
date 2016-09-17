@@ -1,38 +1,3 @@
-;; here is a nice web-mode element hydra
-
-(defhydra hydra-webmode (:color pink :hint nil)
-  "
-^Hide/Kill^              ^Move
-^^^^^^--------------------------------------------
-_f_: _f_old element       _b_: element _b_eginning
-_k_: kill _e_lement       _e_: element _e_nd
-_v_: element vanish       _n_: _n_ext element
-                          _p_: _p_revious element
-                          _t_: _t_ranspose element
-                          _w_: element _w_rap
-                          _p_: _P_arent element
-
-"
-  ;; Hide
-  ("f" web-mode-fold-or-unfold)    ; Hide everything but the top-level headings
-  ("k" web-mode-element-kill)         ; Hide everything but headings (all body lines)
-  ("v" web-mode-element-vanish)        ; Hide other branches
-  ;; Move
-  ("b" web-mode-element-beginning)                ; Up
-  ("e" web-mode-element-end)      ; Next
-  ("n" web-mode-element-next)  ; Previous
-  ("p" web-mode-element-previous)        ; Forward - same level
-  ("t" web-mode-element-transpose)       ; Backward - same level
-  ("w" web-mode-element-wrap)       ; Backward - same level
-  ("P" web-mode-element-parent)       ; Backward - same level
-
-  ("z" nil "leave"))
-
-;; I'll have to enable this at some point too.
-;; (define-key org-mode-map (kbd "C-c #") 'hydra-outline/body) ; by example
-;; (global-set-key (kbd "C-c #") 'hydra-outline/body)
-
-
 ;; This will probably come in handy.
 (defun my-setup-indent (n)
   ;; web development
@@ -53,7 +18,6 @@ _v_: element vanish       _n_: _n_ext element
   (my-setup-indent 4) ; indent 4 spaces width
   )
 
-
 (use-package php-eldoc :ensure t)
 (use-package web-mode :ensure t)
 (use-package emmet-mode :ensure t)
@@ -67,8 +31,6 @@ _v_: element vanish       _n_: _n_ext element
 ;; Example - you may want to add hooks for your own modes.
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.phtml?\\'" . web-mode))
-;; I want to enable the next line at some point.
-;; BUT I need to enable the yasnippets for php mode AND fix phpcs, which I have a capture for somewhere
 ;; I don't use php-mode and it is causing an error to load it in.
 ;;(use-package php-mode :ensure t)
 (add-to-list 'auto-mode-alist '("\\.php?\\'"  . web-mode))
@@ -81,8 +43,6 @@ _v_: element vanish       _n_: _n_ext element
         ("php"  . (("beg" "end")
                    ("beg" "end")))
         ))
-
-
 
 (setq web-mode-engines-alist
       '(("php"  . "\\.php\\.")
@@ -105,103 +65,101 @@ _v_: element vanish       _n_: _n_ext element
 ;;ac-source-php
 
 
-(add-hook 'web-mode-hook (lambda ()
-                           ;;(use-package emmet-mode :ensure t)
-                           ;; I've installed http://phpmd.org/ to check my php code using flycheck
-                           ;; BUT flycheck mode does NOT support web-mode
-                           (php-eldoc-enable)
-                           (ggtags-mode 1)
-                           ;; I have abbrev turned on for all prog-modes and all text modes.
-                           ;; (abbrev-mode 1)
-                           (diminish 'ggtags-mode)
-                           ;;emmet mode for html % css related things
-                           (emmet-mode)
-                           (diminish 'emmet-mode)
-                           (local-unset-key (kbd "C-<return>"))
-                           (define-key web-mode-map (kbd "C-<return>") '(lambda ()
-                                                                          (interactive)
-                                                                          (newline)
-                                                                          (evil-open-above 0)))
-                           ;;(push '("function" . ?𝆑) prettify-symbols-alist)
-                           (push '(">=" . ?≥) prettify-symbols-alist)
-                           (push '("<=" . ?≤) prettify-symbols-alist)
-                           (push '("\\geq" . ?≥) prettify-symbols-alist)
-                           (push '("\\leq" . ?≤) prettify-symbols-alist)
-                           (push '("\\neg" . ?¬) prettify-symbols-alist)
-                           (push '("\\rightarrow" . ?→) prettify-symbols-alist)
-                           (push '("\\leftarrow" . ?←) prettify-symbols-alist)
-                           (push '("\\infty" . ?∞) prettify-symbols-alist)
-                           ;; this would make a comment look really weird <--  right-arrow
-                           ;;(push '("-->" . ?→) prettify-symbols-alist)
-                           (push '("<--" . ?←) prettify-symbols-alist)
-                           (push '("\\exists" . ?∃) prettify-symbols-alist)
-                           (push '("\\nexists" . ?∄) prettify-symbols-alist)
-                           (push '("\\forall" . ?∀) prettify-symbols-alist)
-                           (push '("\\or" . ?∨) prettify-symbols-alist)
-                           (push '("\\and" . ?∧) prettify-symbols-alist)
-                           (push '(":)" . ?☺) prettify-symbols-alist)
-                           ;;(push '("):" . ?☹) prettify-symbols-alist)
-                           (push '(":D" . ?☺) prettify-symbols-alist)
-                           (push '("^_^" . ?☻) prettify-symbols-alist)
-                           ;; I should not enable aggressive indent mode for soihub files.
-                           ;; There's no need to have lots of git diffs with files.
-                           ;; unset web mode's C-c C-h command, because I want to use that for 'help
-                           (local-unset-key (kbd "C-c C-h"))
-                           (global-set-key (kbd "C-c C-h") 'help)))
-
-(add-hook 'css-mode-hook (lambda () (abbrev-mode 1)))
+(add-hook 'web-mode-hook '(lambda ()
+                            ;;(use-package emmet-mode :ensure t)
+                            ;; I've installed http://phpmd.org/ to check my php code using flycheck
+                            ;; BUT flycheck mode does NOT support web-mode
+                            (php-eldoc-enable)
+                            (ggtags-mode 1)
+                            ;; I have abbrev turned on for all prog-modes and all text modes.
+                            ;; (abbrev-mode 1)
+                            (diminish 'ggtags-mode)
+                            ;;emmet mode for html % css related things
+                            (emmet-mode)
+                            (diminish 'emmet-mode)
+                            (local-unset-key (kbd "C-<return>"))
+                            (define-key web-mode-map (kbd "C-<return>") '(lambda ()
+                                                                           (interactive)
+                                                                           (newline)
+                                                                           (evil-open-above 0)))
+                            ;;(push '("function" . ?𝆑) prettify-symbols-alist)
+                            (push '(">=" . ?≥) prettify-symbols-alist)
+                            (push '("<=" . ?≤) prettify-symbols-alist)
+                            (push '("\\geq" . ?≥) prettify-symbols-alist)
+                            (push '("\\leq" . ?≤) prettify-symbols-alist)
+                            (push '("\\neg" . ?¬) prettify-symbols-alist)
+                            (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+                            (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+                            (push '("\\infty" . ?∞) prettify-symbols-alist)
+                            ;; this would make a comment look really weird <--  right-arrow
+                            ;;(push '("-->" . ?→) prettify-symbols-alist)
+                            (push '("<--" . ?←) prettify-symbols-alist)
+                            (push '("\\exists" . ?∃) prettify-symbols-alist)
+                            (push '("\\nexists" . ?∄) prettify-symbols-alist)
+                            (push '("\\forall" . ?∀) prettify-symbols-alist)
+                            (push '("\\or" . ?∨) prettify-symbols-alist)
+                            (push '("\\and" . ?∧) prettify-symbols-alist)
+                            (push '(":)" . ?☺) prettify-symbols-alist)
+                            ;;(push '("):" . ?☹) prettify-symbols-alist)
+                            (push '(":D" . ?☺) prettify-symbols-alist)
+                            (push '("^_^" . ?☻) prettify-symbols-alist)
+                            ;; I should not enable aggressive indent mode for soihub files.
+                            ;; There's no need to have lots of git diffs with files.
+                            ;; unset web mode's C-c C-h command, because I want to use that for 'help
+                            (local-unset-key (kbd "C-c C-h"))
+                            (global-set-key (kbd "C-c C-h") 'help)))
 
 ;; use flycheck in php buffers as well. it's a real shame that flycheck doesn't support web-mode
-(add-hook 'php-mode-hook (lambda ()
-                           ;; I have abbrev mode turned on for all prog-modes and all text-modes
-                           ;; (abbrev-mode 1)
-                           (define-key php-mode-map (kbd "C-<return>") '(lambda ()
-                                                                          (interactive)
-                                                                          (newline)
-                                                                          (evil-open-above 0)))
-                           ;;(push '("function" . ?𝆑) prettify-symbols-alist)
-                           (push '(">=" . ?≥) prettify-symbols-alist)
-                           (push '("<=" . ?≤) prettify-symbols-alist)
-                           (push '("->" . ?⟶) prettify-symbols-alist)
-                           (push '("=>" . ?⟹) prettify-symbols-alist)
-                           (push '("\\geq" . ?≥) prettify-symbols-alist)
-                           (push '("\\leq" . ?≤) prettify-symbols-alist)
-                           (push '("\\neg" . ?¬) prettify-symbols-alist)
-                           (push '("\\rightarrow" . ?→) prettify-symbols-alist)
-                           (push '("\\leftarrow" . ?←) prettify-symbols-alist)
-                           (push '("\\infty" . ?∞) prettify-symbols-alist)
-                           ;; this would make a comment look really weird <--  right-arrow
-                           ;;(push '("-->" . ?→) prettify-symbols-alist)
-                           (push '("<--" . ?←) prettify-symbols-alist)
-                           (push '("\\exists" . ?∃) prettify-symbols-alist)
-                           (push '("\\nexists" . ?∄) prettify-symbols-alist)
-                           (push '("\\forall" . ?∀) prettify-symbols-alist)
-                           (push '("\\or" . ?∨) prettify-symbols-alist)
-                           (push '("\\and" . ?∧) prettify-symbols-alist)
-                           (push '(":)" . ?☺) prettify-symbols-alist)
-                           ;;(push '("):" . ?☹) prettify-symbols-alist)
-                           (push '(":D" . ?☺) prettify-symbols-alist)
-                           (push '("^_^" . ?☻) prettify-symbols-alist)
-                           ;;(setq ac-sources '(ac-source-filename ac-source-words-in-buffer))
-                           ))
+;; (add-hook 'php-mode-hook (lambda ()
+;;                            ;; I have abbrev mode turned on for all prog-modes and all text-modes
+;;                            ;; (abbrev-mode 1)
+;;                            (define-key php-mode-map (kbd "C-<return>") '(lambda ()
+;;                                                                           (interactive)
+;;                                                                           (newline)
+;;                                                                           (evil-open-above 0)))
+;;                            ;;(push '("function" . ?𝆑) prettify-symbols-alist)
+;;                            (push '(">=" . ?≥) prettify-symbols-alist)
+;;                            (push '("<=" . ?≤) prettify-symbols-alist)
+;;                            (push '("->" . ?⟶) prettify-symbols-alist)
+;;                            (push '("=>" . ?⟹) prettify-symbols-alist)
+;;                            (push '("\\geq" . ?≥) prettify-symbols-alist)
+;;                            (push '("\\leq" . ?≤) prettify-symbols-alist)
+;;                            (push '("\\neg" . ?¬) prettify-symbols-alist)
+;;                            (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+;;                            (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+;;                            (push '("\\infty" . ?∞) prettify-symbols-alist)
+;;                            ;; this would make a comment look really weird <--  right-arrow
+;;                            ;;(push '("-->" . ?→) prettify-symbols-alist)
+;;                            (push '("<--" . ?←) prettify-symbols-alist)
+;;                            (push '("\\exists" . ?∃) prettify-symbols-alist)
+;;                            (push '("\\nexists" . ?∄) prettify-symbols-alist)
+;;                            (push '("\\forall" . ?∀) prettify-symbols-alist)
+;;                            (push '("\\or" . ?∨) prettify-symbols-alist)
+;;                            (push '("\\and" . ?∧) prettify-symbols-alist)
+;;                            (push '(":)" . ?☺) prettify-symbols-alist)
+;;                            ;;(push '("):" . ?☹) prettify-symbols-alist)
+;;                            (push '(":D" . ?☺) prettify-symbols-alist)
+;;                            (push '("^_^" . ?☻) prettify-symbols-alist)
+;;                            ;;(setq ac-sources '(ac-source-filename ac-source-words-in-buffer))
+;;                            ))
 
 
 
 
-(add-hook 'js2-mode-hook (lambda ()
-                           ;; I have abbrev turned on for all prog and text modes
-                           ;; (abbrev-mode 1)
-                           ;; (skewer-mode)
-                           (ggtags-mode 1)
-                           ;;(push '("function" . ?𝆑) prettify-symbols-alist)
-                           (push '(">=" . ?≥) prettify-symbols-alist)
-                           (push '("<=" . ?≤) prettify-symbols-alist)
-                           (diminish 'ggtags-mode)
-                           ;; this conflicts with the snippets, and it's seriously annoying
-                           ;;(ac-js2-mode)
-                           ;;set ac sources to nil for javascript that way it doesn't interfer with yasnippet
-                           ;;(setq ac-sources '(ac-source-filename ac-source-dictionary))
-                           ))
+(add-hook 'js2-mode-hook '(lambda ()
+                            ;; I have abbrev turned on for all prog and text modes
+                            ;; (abbrev-mode 1)
+                            ;; (skewer-mode)
+                            (ggtags-mode 1)
+                            ;;(push '("function" . ?𝆑) prettify-symbols-alist)
+                            (push '(">=" . ?≥) prettify-symbols-alist)
+                            (push '("<=" . ?≤) prettify-symbols-alist)
+                            (diminish 'ggtags-mode)
+                            ;; this conflicts with the snippets, and it's seriously annoying
+                            ;;(ac-js2-mode)
+                            ;;set ac sources to nil for javascript that way it doesn't interfer with yasnippet
+                            ;;(setq ac-sources '(ac-source-filename ac-source-dictionary))
+                            ))
 
 
 (provide 'init-html)

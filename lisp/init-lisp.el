@@ -1,10 +1,3 @@
-(use-package auto-compile
-  :ensure t)
-(auto-compile-on-save-mode 1)
-(auto-compile-on-load-mode 1)
-
-(setq load-prefer-newer t)
-
 (use-package rainbow-delimiters
 :ensure t)
 
@@ -140,7 +133,7 @@ t)
   (interactive)
   (let (current-pos-of-point)
     (setq current-pos-of-point (point))
-    (search-backward-regexp "^(defun")
+    (search-backward-regexp "^.*(defun\\|^(defun")
     (evil-jump-item)
     (eval-last-sexp)
     (goto-char current-pos-of-point)))

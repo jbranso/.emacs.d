@@ -49,7 +49,6 @@ You can find more information in the following sections.
 
 Run ‘M-x gnus’ and enjoy.
 
-
 * Setting up Gnus
 
   let's tell gnus who we are.

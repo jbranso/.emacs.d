@@ -5,7 +5,6 @@
 ;; https://github.com/magnars/s.el
 (use-package s :ensure t :defer t)
 ;; trim the string
-(s-trim " hello ")
 
 ;; https://github.com/Fuco1/dash.el
 (use-package dash :ensure t :defer t)
@@ -350,21 +349,33 @@
 (defun goToNextHeading ()
   "This moves point to the next heading."
   (interactive)
-  (search-forward-regexp "^*+ "))
+  (org-next-visible-heading 1))
+
+(defun goToPreviousHeading ()
+  "This moves point to the next heading."
+  (interactive)
+  (org-previous-visible-heading 1))
+
+(defun returnHeadingText ()
+  "Returns the heading text."
+  (interactive)
+  (org-element-property :raw-value (org-element-at-point)))
 
 (defun storeHeadingText ()
-  "Return the heading Text"
+  "store the heading Text in currentHeadingText.
+Make sure it has no duplicate items."
   (interactive)
-  (when (not (boundp 'headingText))
-    (setq headingText '()))
-  (push
-   (buffer-substring-no-properties (point)
-                                   (progn
-                                     (move-end-of-line 1)
-                                     (point)))
-   headingText)
-  (search-backward-regexp "^*+ "))
-
+  (let (currentHeadingText)
+    ;;if headingText is not created, then create it.
+    (when (not (boundp 'headingText))
+      (setq headingText '()))
+    ;; set the current heading Text
+    (setq currentHeadingText
+          (org-element-property :raw-value (org-element-at-point)))
+    ;;if we have not seen this heading before, then
+    ;; add it to the headingText list.
+    (when (not (member currentHeadingText headingText))
+      (push currentHeadingText headingText))))
 
 (defun storePointPosition ()
   "This is the position point should go to, when is time to
@@ -372,7 +383,6 @@ check the next heading for redundancy."
   (interactive)
   (setq nextHeadingPosition
         (point)))
-
 
 (defun bufferEndCharPosition ()
   "returns the end of the buffer char position."
@@ -385,24 +395,42 @@ check the next heading for redundancy."
     (goto-char currentChar)
     endOfBufferChar))
 
+(defun bufferBeginningCharPosition ()
+  "returns the end of the buffer char position."
+  (interactive)
+  (let (beginningOfBufferChar currentChar)
+    (setq currentChar (point))
+    (setq beginningOfBufferChar (progn
+                                  (beginning-of-buffer)
+                                  (point)))
+    (goto-char currentChar)
+    beginningOfBufferChar))
+
 (defun deleteAllNextRedundantHeadings ()
   "Delete the next redundant headings."
   (interactive)
-  (if (search-forward-regexp (concat "^*+ " headingText "$") (bufferEndCharPosition) t 1)
+  ;; if there is not next heading, quit
+  (if (member (returnHeadingText) headingText)
       (progn
         (beginning-of-line)
-        (kill-line)
+        (kill-line "<deleteline>")
         (deleteAllNextRedundantHeadings))
-    nil))
+    (storeHeadingText)
+    ;; when there is a next heading, go to the next heading
+    ;; and repeat the process
+    (when (not (equal (goToNextHeading) nil))
+      (deleteAllNextRedundantHeadings))))
 
-(defun testNextHeadingForRedundancy ()
-  "Tests the next heading for redundancy."
+(defun deleteRedudantHeadings ()
+  "Delete all redundant headings in an org file."
   (interactive)
+  (setq headingText '())
+  (beginning-of-buffer)
   (goToNextHeading)
-  (storeHeadingText)
-  (storePointPosition)
-  (goToNextHeading)
+  ;; store the first heading text
   (deleteAllNextRedundantHeadings))
+
+
 
 
 (provide 'init-defuns)

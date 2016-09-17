@@ -1,4 +1,4 @@
-* Automatic byte compilation
+* COMMENT Automatic byte compilation
  #+BEGIN_SRC emacs-lisp
 (use-package auto-compile
   :ensure t)
@@ -12,12 +12,18 @@
  #+END_SRC
 
 * Show different parenthesis in different colors.
+:PROPERTIES:
+:ID:       a7b8e2c7-faff-4fb5-b87f-b3d463e023f9
+:END:
 For example, the lambda's parenthesis, within a function will have a different color than the function's parenthesis.
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
   :ensure t)
   #+END_SRC
 * Paredit
+:PROPERTIES:
+:ID:       06d19157-0295-46c5-be0c-a28074243470
+:END:
 Paredit tries to balance your parenthesis in your lispy languages.  It is pretty much amazing.
 
 #+BEGIN_SRC emacs-lisp
@@ -76,6 +82,9 @@ t)
 #+END_SRC
 
 ** hooking in paredit and some other cool modes
+:PROPERTIES:
+:ID:       13f62e23-572a-408b-856b-3e5b55fbaa7e
+:END:
 #+BEGIN_SRC emacs-lisp
   (add-hook 'emacs-lisp-mode-hook '(lambda ()
                                      (rainbow-delimiters-mode 1)
@@ -91,6 +100,9 @@ t)
 #+END_SRC
 
 ** Paredit and scheme
+:PROPERTIES:
+:ID:       9a19b41b-3a98-42a5-b02d-da8a2fd52553
+:END:
 #+BEGIN_SRC emacs-lisp
 (defun scheme/turn-on-paredit ()
 (autoload 'enable-paredit-mode "paredit"
@@ -122,6 +134,9 @@ t)
 #+END_SRC
 
 ** Aggressive indent
+:PROPERTIES:
+:ID:       d95dde29-4a3b-4cd0-8daa-1d6016a7e7af
+:END:
 
 As you type out your code, aggressive indent attempts to indent your code so that you don't have to.
 #+BEGIN_SRC emacs-lisp
@@ -130,6 +145,9 @@ As you type out your code, aggressive indent attempts to indent your code so tha
 #+END_SRC
 
 ** easy-escape for regexps in emacs lisp
+:PROPERTIES:
+:ID:       b3aad618-a1aa-4149-b658-2c23cb7da2ac
+:END:
 emacs regexp are cumbersome
 "\b" in most regexp engines means word end
 but when one is programming in emacs-lisp you have to write "\\b"
@@ -141,6 +159,9 @@ easy escape is light prettify-mode and changes \\ --> one highlighted \
 #+END_SRC
 
 ** geiser-mode (scheme repls)
+:PROPERTIES:
+:ID:       8406082e-dd86-4eea-9806-7c487b7f2c0a
+:END:
 Install geiser mode for guile code
 
 #+BEGIN_SRC emacs-lisp
@@ -196,6 +217,9 @@ text-mode-hook))
 
 * highlight truth values
 ** highlight t and nil in emacs lisp
+:PROPERTIES:
+:ID:       000b010d-6d3a-4f5c-b6d7-2aa6228d2f2c
+:END:
 
 #+BEGIN_SRC emacs-lisp
   (defun getBufferStringFromWordAtPoint ()
@@ -237,6 +261,9 @@ font-lock-constant-face is defined [[file:/usr/share/emacs/24.5/lisp/font-lock.e
 #+END_SRC
 
 * reload defun at point
+:PROPERTIES:
+:ID:       98fc549d-772e-4ff0-beb1-98be6cf7fbe1
+:END:
 #+BEGIN_SRC emacs-lisp
   (defun my/reeval-defun-at-point ()
     "This reevaluates the defun at point."
@@ -257,6 +284,9 @@ font-lock-constant-face is defined [[file:/usr/share/emacs/24.5/lisp/font-lock.e
     #+END_SRC
 
 * provide this file
+:PROPERTIES:
+:ID:       a9e16be2-e2dd-4825-95c1-f86efdbadd74
+:END:
 #+BEGIN_SRC emacs-lisp
 (provide 'init-lisp)
 #+END_SRC

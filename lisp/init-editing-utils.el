@@ -76,48 +76,49 @@
 (global-set-key (kbd "s-u") #'my/uppercase-word)
 
 (global-set-key (kbd "C-c TAB") #'indent-whole-buffer)
-  ;; when point is between two words, delete the space between them
-  (global-set-key (kbd "C-c \\") #'delete-horizontal-space)
-  (global-set-key (kbd "C-c SPC") #'just-one-space)
-  ;; some modes my default / in normal mode is NOT bound to helm-swoop, BUT I REALLY LIKE helm-swoop
-  (global-set-key (kbd "C-c /") #'helm-swoop)
-  (global-set-key (kbd "C-c C-o") #'org-open-at-point-global)
-  ;; this is bound in init-smart-comment.el
-  ;;(global-set-key (kbd "C-c ;") #'comment-dwim)
-  ;;(define-key global-map (kbd "C-c a") 'org-agenda)
-  (global-set-key (kbd "C-c a") 'org-agenda)
-  (global-set-key (kbd "C-c b") #'(lambda ()
-                                    "Switch to the previous buffer"
-                                    (interactive)
-                                    (switch-to-buffer nil)))
-  (global-set-key (kbd "C-c B") #'browse-kill-ring)
-  (global-set-key (kbd "C-c C") #'hydra-org-timer/body)
-  ;;org-capture is SOOO helpful!!
-  (global-set-key (kbd "C-c c") 'org-capture)
-  ;;open up a new dired window for the current directory
-  (global-set-key (kbd "C-c d") #'dired-jump)
-  ;; find the current tag smart.  Just know what I mean.
-  ;; For example, with point on the following javascript function upcaseWord
-  ;; var upcase =  upcaseWord (string);
-  ;; And you type C-c D,  ggtags, when open the buffer where that function is defined
-  (global-set-key (kbd "C-c D") 'ggtags-find-tag-dwim)
-  (global-set-key (kbd "C-c e") #'helm-M-x)
-  (global-set-key (kbd "C-c E") #'eshell)
-  (global-set-key (kbd "C-c f") #'isearch-forward-regexp)
-  (global-set-key (kbd "C-c F") #'isearch-backward-regexp)
-  ;; open up email mail program
-  (global-set-key (kbd "C-c g") #'gnus)
-  (global-set-key (kbd "C-c h") #'helm-command-prefix)
-  (global-set-key (kbd "C-c i") #'info-display-manual)
-  ;; type this with point at the end of an elisp expression like
-  ;; (print 5)<point>
-  ;; the result will be 5 printed in the minibuffer
-  (global-set-key (kbd "C-c l") #'eval-last-sexp)
-  ;;this lets you store an org link from pretty much any file
-  ;;then type C-c C-l in an org buffer and it'll put that link it
-  (global-set-key (kbd "C-c L") #'org-store-link)
-  (global-set-key (kbd "C-c I") #'org-insert-link)
-  (global-set-key (kbd "C-c m") #'helm-mini)
+;; when point is between two words, delete the space between them
+(global-set-key (kbd "C-c \\") #'delete-horizontal-space)
+(global-set-key (kbd "C-c SPC") #'just-one-space)
+;; some modes my default / in normal mode is NOT bound to helm-swoop, BUT I REALLY LIKE helm-swoop
+(global-set-key (kbd "C-c /") #'swiper)
+(global-set-key (kbd "C-c C-o") #'org-open-at-point-global)
+;; this is bound in init-smart-comment.el
+;;(global-set-key (kbd "C-c ;") #'comment-dwim)
+;;(define-key global-map (kbd "C-c a") 'org-agenda)
+
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c b") #'(lambda ()
+                                  "Switch to the previous buffer"
+                                  (interactive)
+                                  (switch-to-buffer nil)))
+(global-set-key (kbd "C-c B") #'browse-kill-ring)
+(global-set-key (kbd "C-c C") #'hydra-org-timer/body)
+;;org-capture is SOOO helpful!!
+(global-set-key (kbd "C-c c") 'org-capture)
+;;open up a new dired window for the current directory
+(global-set-key (kbd "C-c d") #'dired-jump)
+;; find the current tag smart.  Just know what I mean.
+;; For example, with point on the following javascript function upcaseWord
+;; var upcase =  upcaseWord (string);
+;; And you type C-c D,  ggtags, when open the buffer where that function is defined
+(global-set-key (kbd "C-c D") 'ggtags-find-tag-dwim)
+(global-set-key (kbd "C-c e") #'helm-M-x)
+(global-set-key (kbd "C-c E") #'eshell)
+(global-set-key (kbd "C-c f") #'isearch-forward-regexp)
+(global-set-key (kbd "C-c F") #'isearch-backward-regexp)
+;; open up email mail program
+(global-set-key (kbd "C-c g") #'gnus)
+(global-set-key (kbd "C-c h") #'helm-command-prefix)
+(global-set-key (kbd "C-c i") #'info-display-manual)
+;; type this with point at the end of an elisp expression like
+;; (print 5)<point>
+;; the result will be 5 printed in the minibuffer
+(global-set-key (kbd "C-c l") #'eval-last-sexp)
+;;this lets you store an org link from pretty much any file
+;;then type C-c C-l in an org buffer and it'll put that link it
+(global-set-key (kbd "C-c L") #'org-store-link)
+(global-set-key (kbd "C-c I") #'org-insert-link)
+(global-set-key (kbd "C-c m") #'helm-mini)
 
 ;;print the working directory in the minibuffer
 ;; I should make these commands copy the output of pwd into the clipboard
@@ -175,10 +176,13 @@
 
 (global-anzu-mode +1)
 
+(global-visual-line-mode)
+(global-set-key (kbd "C-c q") #'fill-paragraph)
+
 (defun my-macro-query (arg)
   "Prompt for input using minibuffer during kbd macro execution.
-    With prefix argument, allows you to select what prompt string to use.
-    If the input is non-empty, it is inserted at point."
+With prefix argument, allows you to select what prompt string to use.
+If the input is non-empty, it is inserted at point."
   (interactive "P")
   (let* ((query (lambda () (kbd-macro-query t)))
          (prompt (if arg (read-from-minibuffer "PROMPT: ") "Input: "))
@@ -272,9 +276,6 @@ be global."
 
 (setq save-abbrevs 'silently)
 (setq-default abbrev-mode t)
-
-(visual-line-mode)
-(global-set-key (kbd "C-c q") #'fill-paragraph)
 
 (global-set-key (kbd "C-c x") #'align-regexp)
 

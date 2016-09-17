@@ -1,5 +1,8 @@
 * Some basic preferences
 ** My preferred font
+:PROPERTIES:
+:ID:       2db532ec-1f5d-43da-88ba-e751e47f631d
+:END:
 
  Make my default font be the cool [[http://sourcefoundry.org/hack/][Hack font.]]  You might have to download it for your distribution.
  #+BEGIN_SRC emacs-lisp
@@ -12,6 +15,9 @@ This does something too, but I'm not sure what.
   ;;(add-to-list 'default-frame-alist '(font. "Hack Regular"))
 #+END_SRC
 ** default variables
+:PROPERTIES:
+:ID:       8c2b93d0-e2b4-4a6d-8318-c9036c8df1a2
+:END:
 #+BEGIN_SRC emacs-lisp
   (setq-default
    ;; It's much easier to move around lines based on how they are displayed, rather than the actual line. This helps a ton with long
@@ -67,12 +73,18 @@ Make TAB mean indent.
 (global-set-key "\t" #'indent-for-tab-command)
 ** global keybindings
 *** delete and rename current file
+:PROPERTIES:
+:ID:       29c35b57-c1f6-41da-b72d-be6c6e968f54
+:END:
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x C-k") #'delete-this-file)
   (global-set-key (kbd "C-x C-r") #'rename-this-file-and-buffer)
 #+END_SRC
 
 *** some global keybindings
+:PROPERTIES:
+:ID:       d760b22b-8cdd-4fb4-9a79-c4aa7a3a127c
+:END:
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c C-h") #'help)
   (global-set-key (kbd "C-c h k") #'helm-show-kill-ring)
@@ -91,6 +103,9 @@ Transposing words and characters.
 
 ** My quick commands "C-c <char>"
 *** my modkey <letter> commands
+:PROPERTIES:
+:ID:       f39575b3-9e44-4510-abe0-5120da6ff40f
+:END:
 My modkey is "command" on a macbook.
 #+BEGIN_SRC emacs-lisp
 
@@ -110,6 +125,9 @@ My modkey is "command" on a macbook.
 #+END_SRC
 
 *** My reserved keychords.  "C-c [a-zA-Z]"
+:PROPERTIES:
+:ID:       7b79afcf-e0b9-451a-ade1-fbc67d2ff700
+:END:
 There is only one set of keychords that Emacs reserves for users to set themselves.  That is "C-c <char>".  These are my preferred keychords.
 
 ;; this conflicts with my command for dired.
@@ -187,6 +205,9 @@ Diskspace is cheap and making emacs backup my files is probably a good idea mayb
 ;; (setq tramp-auto-save-directory my-auto-save-folder)  ; auto-save tramp files in local directory
 
 ** Whitespace
+:PROPERTIES:
+:ID:       76a8b375-22f8-4112-983f-c06914a6a1ce
+:END:
 
 #+BEGIN_SRC emacs-lisp
   (defun sanityinc/no-trailing-whitespace ()
@@ -209,10 +230,16 @@ But don't show trailing whitespace in SQLi, inf-ruby etc.
 #+END_SRC
 
 ** Newline behaviour
+:PROPERTIES:
+:ID:       48ac749b-4186-4069-8182-478a0eae40c3
+:END:
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "RET") #'newline-and-indent)
 #+END_SRC
 * Completition stuff
+:PROPERTIES:
+:ID:       eec5cf0d-82b8-4642-a1ea-21ac7de754dd
+:END:
  Make emacs completetion better
    #+BEGIN_SRC emacs-lisp
      (setq read-file-name-completion-ignore-case t)
@@ -233,6 +260,9 @@ add to the list of file names NOT to complete
 
 * Enabling modes
 ** Autorevert
+:PROPERTIES:
+:ID:       5361bf81-5d82-4e45-8534-fadd8e575b76
+:END:
 If a file has changed on disk, then automatically revert the buffer and don't complain about it
 #+BEGIN_SRC emacs-lisp
   (global-auto-revert-mode 1)
@@ -251,17 +281,26 @@ This apparently also updates dired buffers too.
 
 ** Parenthesis
 *** Show matching parens
+:PROPERTIES:
+:ID:       46d36ead-f555-4a6f-abcf-201ece93a489
+:END:
  Show matching parens
               #+BEGIN_SRC emacs-lisp
                 (show-paren-mode 1)
  #+END_SRC
 *** Electric pair mode
+:PROPERTIES:
+:ID:       1672d05c-1f83-48b0-a5d8-c9f838c1a954
+:END:
  When you type an open parenthsis, electric pair mode types the second one for you,
  leaving point between them
   #+BEGIN_SRC emacs-lisp
     (electric-pair-mode t)
  #+END_SRC
 ** page break line modes
+:PROPERTIES:
+:ID:       ce614852-2e6c-4c4d-9011-a478bc5e96f9
+:END:
 This turn ^L into nice long lines.
 #+BEGIN_SRC emacs-lisp
   (use-package page-break-lines
@@ -271,6 +310,9 @@ This turn ^L into nice long lines.
 
 #+END_SRC
 ** Emacs's default query-replace sucks.  Let's use anzu!
+:PROPERTIES:
+:ID:       b93b547a-2b97-4896-af4b-e6f4c783457e
+:END:
 Anzu is amazing!  It highlight the words that you wish to replace.
 #+BEGIN_SRC emacs-lisp
   (use-package anzu
@@ -281,6 +323,9 @@ Anzu is amazing!  It highlight the words that you wish to replace.
 #+END_SRC
 
 ** visual line mode
+:PROPERTIES:
+:ID:       c65ee7c6-61e4-46a5-b09f-70ff12cc14eb
+:END:
 Filling is what one does to insert actual or invisible newlines at a really long sentence to make a paragraph.
 For example:
 
@@ -298,6 +343,9 @@ You probably know that programs like MS-word has this turned on by default, BUT 
   (global-set-key (kbd "C-c q") #'fill-paragraph)
 #+END_SRC
 * Making the default macro better  C-x Q
+:PROPERTIES:
+:ID:       7dc7b53c-de3e-460c-92b1-62ebb1aee20d
+:END:
 
  When you define a macro, you can type C-x Q to prompt the user for input.
  Very helpful and cool!
@@ -321,6 +369,9 @@ You probably know that programs like MS-word has this turned on by default, BUT 
  #+END_SRC
 
 * save all buffers after saving the current buffer.
+:PROPERTIES:
+:ID:       24a0d075-a63a-44b1-be8b-560834b85145
+:END:
 #+BEGIN_SRC emacs-lisp
   (add-hook 'after-save-hook #'(lambda ()
                                  (interactive)
@@ -329,6 +380,9 @@ You probably know that programs like MS-word has this turned on by default, BUT 
 
 * Enabling Emacs commands
 ** Enabling narrowing commands
+:PROPERTIES:
+:ID:       6606c3be-6e09-461a-9fea-34d4369c4ebb
+:END:
 
 (put 'narrow-to-region 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
@@ -370,12 +424,18 @@ already narrowed."
 #+END_SRC
 
 ** Enable upcase and downcase
+:PROPERTIES:
+:ID:       6f046e23-81ba-43d4-af2a-75f37e9ca176
+:END:
 #+BEGIN_SRC emacs-lisp
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
 #+END_SRC
 
 * Indent whole buffer
+:PROPERTIES:
+:ID:       98342434-54b9-41d3-bdb4-f1d847d1e7d8
+:END:
 #+BEGIN_SRC emacs-lisp
 (defun indent-whole-buffer ()
   "This indents the whole buffer"
@@ -384,6 +444,9 @@ already narrowed."
 #+END_SRC
 
 * Making isearch better
+:PROPERTIES:
+:ID:       19865e0d-3fda-4bcc-93c0-7d35d451125d
+:END:
 the default behavior on i-search stinks.  This is a lot better
 http://endlessparentheses.com/better-backspace-during-isearch.html?source=rss
 
@@ -403,6 +466,9 @@ http://endlessparentheses.com/better-backspace-during-isearch.html?source=rss
 #+END_SRC
 
 * My hacky autocorrect functionality.
+:PROPERTIES:
+:ID:       81d7cbf5-13bd-47da-b651-6efacd043bbe
+:END:
 http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html
 I am not a fantastic typist. My speed is acceptable, but I make a great deal of mistakes. The following snippet has turned me into the Messi of keyboards.
 
@@ -450,6 +516,9 @@ be global."
 #+END_SRC
 
 * align regexp
+:PROPERTIES:
+:ID:       be773556-b458-48ec-9e90-38cf9a78a848
+:END:
 This command is awesome! It'll let you transform stuff like:
 
 var 5 = 10;
@@ -466,6 +535,9 @@ var howIMetYourMother = 29;
  #+END_SRC
 
 * Delete trailing whitespace on save
+:PROPERTIES:
+:ID:       6318425f-8bd0-4d44-8d10-f0b40754aab8
+:END:
 
 Delete any trailing whitespace any your buffer on save.
 #+BEGIN_SRC emacs-lisp
@@ -487,6 +559,9 @@ Delete any trailing whitespace any your buffer on save.
 #+END_SRC
 
 * start the emacs server
+:PROPERTIES:
+:ID:       84e0b54d-e005-48a8-b940-954da1f944f5
+:END:
 Start the emacs server for use via org-protocal.
 #+BEGIN_SRC emacs-lisp
   (require 'server)
@@ -598,6 +673,9 @@ _n_   _s_   _o_k        _y_ank
 #+END_SRC
 
 * move lines up or down
+:PROPERTIES:
+:ID:       c36069c9-eb4c-40a8-ae82-38f164df1d6c
+:END:
 Shift lines up and down with M-up and M-down. When paredit is enabled,
 it will use those keybindings. For this reason, you might prefer to
 use M-S-up and M-S-down, which will work even in lisp modes.
@@ -613,6 +691,9 @@ use M-S-up and M-S-down, which will work even in lisp modes.
 #+END_SRC
 
 * provide this file
+:PROPERTIES:
+:ID:       563bf05e-0f8a-4582-95a6-d092a190c95b
+:END:
 #+BEGIN_SRC emacs-lisp
 (provide 'init-editing-utils)
 #+END_SRC

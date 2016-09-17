@@ -958,6 +958,9 @@ previous and next verions. w copies the git hash of the current buffer, and q qu
 ;;  Type this command on any line of a repo.  It'll tell you the commit when it appeared.
 (global-set-key (kbd "C-x v p") #'git-messenger:popup-message)
 * css
+:PROPERTIES:
+:ID:       b88f1e6b-66f1-4209-b41e-19a06357db1c
+:END:
 Colourise CSS colour literals
 #+BEGIN_SRC emacs-lisp
 (use-package rainbow-mode :ensure t)
@@ -1001,6 +1004,122 @@ You can learn more about [[https://github.com/domtronn/all-the-icons.el][all the
 #+BEGIN_SRC emacs-lisp
 (use-package all-the-icons :load-path "~/.emacs.d/lisp/all-the-icons.el/")
 #+END_SRC
+* better shell remote open
+:PROPERTIES:
+:ID:       0a0f0129-5e8f-40e7-a2fc-ae3c9b7f6622
+:END:
+#+BEGIN_SRC emacs-lisp
+(use-package better-shell :ensure t)
+#+END_SRC
+
+better-shell-remote-open
+* helm
+:PROPERTIES:
+:ID:       a077141f-fed4-4e16-92fb-5c31ae849737
+:END:
+These don't work.
+;; (use-package helm
+;;   :bind (:map helm-mode-map
+;;               ("C-c h" . helm-execute-persistent-action)))
+
+;; (use-package helm
+;;   :ensure t
+;;   ;; apperently this next line causes some serious errors
+;;   ;;  :diminish helm-mode
+;;   )
+
+Before we load any helm things, need to load helm-flx so it uses flx instead of helm's fuzzy matching.
+#+BEGIN_SRC emacs-lisp
+(use-package helm-flx
+  :ensure t
+  :defer t
+  :init (helm-flx-mode +1))
+#+END_SRC
+;; according to the github repo this next line is all that I need to install helm
+#+BEGIN_SRC emacs-lisp
+(require 'helm-config)
+#+END_SRC
+;; I've installed helm-ag, which might be cool.
+
+#+BEGIN_SRC emacs-lisp
+(setq
+ ;;don't let helm swoop guess what you want to search... It is normally wrong and annoying.
+ helm-swoop-pre-input-function #'(lambda () (interactive))
+ ;; tell helm to use recentf-list to look for files instead of file-name-history
+ helm-ff-file-name-history-use-recentf t
+ ;; let helm show 2000 files in helm-find-files
+ ;; since I let recent f store 2000 files
+ helm-ff-history-max-length 1000
+ ;; I've set helm's prefix key in init-editing utils
+ ;; don't let helm index weird output files from converting .tex files to pdf for example
+ helm-ff-skip-boring-files t
+ ;;make helm use the full frame. not needed.
+ ;; helm-full-frame t
+ ;; enable fuzzy mating in M-x
+ ;;helm-M-x-fuzzy-match t
+ ;;helm-recentf-fuzzy-match t
+ ;;helm-apropos-fuzzy-match t
+;;the more of these sources that I have, the slower helm will be
+ helm-for-files-preferred-list '(
+                                 helm-source-buffers-list
+                                 helm-source-recentf
+                                 helm-source-bookmarks
+                                 helm-source-file-cache
+                                 helm-source-files-in-current-dir
+                                 ;;helm-source-locate
+                                 ;;helm-source-projectile-files-in-all-projects-list
+                                 ;;helm-source-findutils
+                                 ;;helm-source-files-in-all-dired
+                                 ))
+#+END_SRC
+
+
+#+BEGIN_SRC emacs-lisp
+(helm-mode 1)
+#+END_SRC
+
+;; for whatever reason, helm is looking for files with "C-x f" and not "C-x C-f"
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(define-key helm-map (kbd "C-<return>") 'helm-execute-persistent-action)
+#+END_SRC
+;; also "C-r" does the same thing.
+
+#+BEGIN_SRC emacs-lisp
+
+(define-key helm-map (kbd "<tab>")    'helm-execute-persistent-action)
+(define-key helm-map (kbd "<backtab>") 'helm-select-action)
+#+END_SRC
+
+
+;; (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
+;; the next command will add another C-j command for helm
+;;(define-key helm-map (kbd "C-f") 'helm-execute-persistent-action)
+;; I am removing C-t which toggles where on the screen helm pops up when I do this next line
+;;(define-key helm-map (kbd "C-t") 'helm-execute-persistent-action)
+;;(define-key helm-map (kbd "s-t") 'helm-execute-persistent-action)
+;;(define-key helm-top-map (kbd "C-k") 'helm-kill-this-unruly-process)
+;;(define-key helm--minor-mode-map (kbd "C-f") 'helm-execute-persistent-action)
+;;I should define some cool helm mini commands
+
+;; (global-set-key (kbd "C-c h")
+;;                 (defhydra hydra-helm (:color pink)
+;;                   "helm"
+;;                   ("r" helm-resume)))
+
+;; (defhydra hydra-test (hint :nil)
+;;   ("r" helm-resume))
+
+;; (defhydra hydra-zoom (global-map "<f2>")
+;;   "zoom"
+;;   ("g" text-scale-increase "in")
+;;   ("l" text-scale-decrease "out"))
+
+;; how do I get this to work?
+;; (define-key helm-find-files-map (kbd "s-h") 'helm-next-line)
 
 * provide this file
 :PROPERTIES:
