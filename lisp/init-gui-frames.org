@@ -61,13 +61,17 @@ variable’s documentation for some related options that you can customize to fi
 :PROPERTIES:
 :ID:       d134e7d8-0081-45df-b9ef-e94725e39177
 :END:
-;; http://whattheemacsd.com/init.el-03.html
-;; save the position that point was in during the last emacs session
+http://whattheemacsd.com/init.el-03.html
+save the position that point was in during the last emacs session
 #+BEGIN_SRC emacs-lisp
 (require 'saveplace)
 (setq-default save-place t)
 (setq save-place-file (expand-file-name ".places" user-emacs-directory))
 #+END_SRC
+
+In Emacs 25.1,  I now have to just do
+(require 'saveplace)
+(save-place-mode)
 
 * Highlight cursor's line
 :PROPERTIES:

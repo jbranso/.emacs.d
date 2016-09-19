@@ -1,11 +1,7 @@
 ;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
 
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
+;; Get ready to load in all of the Emacs' packages
 (package-initialize)
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
@@ -37,13 +33,12 @@
 (use-package bind-key :ensure t)
 ;; make use-package tell me which packages take longer than 0.1s to load
 (setq use-package-verbose t)
-;; this was for our emacs meetup group
-;; slack is proprietary.  We should not use it
 ;;(require 'init-pdf-tools)
 (dolist (file '(
+                ;; make opening specific types of files,
+                ;; autoinsert a yasnippet
                 "init-autoinsert.org"
-                ;; turn on abbrev mode.  it implements autocorrect
-                ;; load in many packages that don't really need their own file.
+                ;;load is many packages
                 "init-load-small-packages.org"
                 ;; make emacs indent your code all the time, so you don't have to
                 "init-aggressive-indent.org"
@@ -53,7 +48,6 @@
                 "init-gui-frames.org"
                 ;; my org configurations
                 "init-org.org"
-                ;; hide lisp
                 "init-lisp.org"
                 "init-javascript.org"
                 "init-editing-utils.org"
@@ -67,9 +61,10 @@
 ;; let's get modal keybinding working!
 (require 'init-evil)
 (require 'init-html)
+;; let's write my wordpress blog in emacs
 (require 'init-org2blog)
 (require 'init-defuns)
-;; woo hoo!  I should customize it a bit to make it even prettier
+;; Let's make a smart mode-line
 (require 'init-smart-mode-line)
 ;; Make my evil keybindings work pretty much everywhere
 (require 'init-evil-rebellion-clone)
