@@ -1,7 +1,6 @@
 ;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
 
-;; Get ready to load in all of the Emacs' packages
 (package-initialize)
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))

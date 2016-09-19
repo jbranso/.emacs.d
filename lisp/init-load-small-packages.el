@@ -135,10 +135,26 @@ _r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
 (use-package golden-ratio
   :defer t
   :ensure t
+  ;;let's not use golden ratio on various modes
   :config (setq golden-ratio-exclude-modes
-                '( "sr-mode" "ediff-mode" "ediff-meta-mode" "ediff-set-merge-mode" "gnus-summary-mode" ))
+                '( "sr-mode" "ediff-mode" "ediff-meta-mode" "ediff-set-merge-mode" "gnus-summary-mode"
+                   "magit-status-mode" "magit-popup-mode" "org-export-stack-mode"))
   :diminish golden-ratio-mode)
 (add-hook 'after-init-hook 'golden-ratio-mode)
+
+(defun my-ediff-turn-off-golden-ratio ()
+  "This function turns off golden ratio mode, when I
+enter ediff."
+  (interactive)
+  (remove-hook 'window-configuration-change-hook 'golden-ratio)
+  (remove-hook 'post-command-hook 'golden-ratio--post-command-hook)
+  (remove-hook 'mouse-leave-buffer-hook 'golden-ratio--mouse-leave-buffer-hook)
+  (ad-deactivate 'other-window)
+  (ad-deactivate 'pop-to-buffer))
+
+(add-hook 'ediff-mode-hook #'my-ediff-turn-off-golden-ratio)
+
+(add-hook 'ediff-quit-merge-hook #'golden-ratio)
 
 (setq locale-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)

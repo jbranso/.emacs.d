@@ -558,10 +558,36 @@ https://github.com/roman/golden-ratio.el
   (use-package golden-ratio
     :defer t
     :ensure t
+    ;;let's not use golden ratio on various modes
     :config (setq golden-ratio-exclude-modes
-                  '( "sr-mode" "ediff-mode" "ediff-meta-mode" "ediff-set-merge-mode" "gnus-summary-mode" ))
+                  '( "sr-mode" "ediff-mode" "ediff-meta-mode" "ediff-set-merge-mode" "gnus-summary-mode"
+                     "magit-status-mode" "magit-popup-mode" "org-export-stack-mode"))
     :diminish golden-ratio-mode)
   (add-hook 'after-init-hook 'golden-ratio-mode)
+#+END_SRC
+
+I had to find the source code for turning off golden-ratio-mode.  Because
+~(golden-ratio-mode nil)~ does not turn off golden-ratio-mode.
+#+BEGIN_SRC emacs-lisp
+  (defun my-ediff-turn-off-golden-ratio ()
+    "This function turns off golden ratio mode, when I
+  enter ediff."
+    (interactive)
+    (remove-hook 'window-configuration-change-hook 'golden-ratio)
+    (remove-hook 'post-command-hook 'golden-ratio--post-command-hook)
+    (remove-hook 'mouse-leave-buffer-hook 'golden-ratio--mouse-leave-buffer-hook)
+    (ad-deactivate 'other-window)
+    (ad-deactivate 'pop-to-buffer))
+
+#+END_SRC
+
+Let's turn off golden-ratio-mode when I am using ediff, and turn it back on
+when I quit ediff.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'ediff-mode-hook #'my-ediff-turn-off-golden-ratio)
+
+  (add-hook 'ediff-quit-merge-hook #'golden-ratio)
 #+END_SRC
 * force emacs to use utf8 in all possible situations
 :PROPERTIES:
