@@ -69,7 +69,6 @@
                             ;;(use-package emmet-mode :ensure t)
                             ;; I've installed http://phpmd.org/ to check my php code using flycheck
                             ;; BUT flycheck mode does NOT support web-mode
-                            (php-eldoc-enable)
                             (ggtags-mode 1)
                             ;; I have abbrev turned on for all prog-modes and all text modes.
                             ;; (abbrev-mode 1)

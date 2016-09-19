@@ -1018,9 +1018,9 @@ LESS
 Use eldoc for syntax hints
 #+BEGIN_SRC emacs-lisp
 
-(require-package 'css-eldoc)
-(autoload 'turn-on-css-eldoc "css-eldoc")
-(add-hook 'css-mode-hook 'turn-on-css-eldoc)
+(use-package css-eldoc :ensure t)
+;;(autoload 'turn-on-css-eldoc "css-eldoc")
+;;(add-hook 'css-mode-hook 'turn-on-css-eldoc)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp

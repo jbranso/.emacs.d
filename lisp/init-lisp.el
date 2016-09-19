@@ -60,8 +60,7 @@ t)
                                    (push '(">=" . ?≥) prettify-symbols-alist)
                                    (push '("<=" . ?≤) prettify-symbols-alist)
                                    (push '("float-pi" . ?π) prettify-symbols-alist)
-                                   (push '("float-pi" . ?e) prettify-symbols-alist)
-                                   (eldoc-mode)))
+                                   (push '("float-pi" . ?e) prettify-symbols-alist)))
 
 (defun scheme/turn-on-paredit ()
 (autoload 'enable-paredit-mode "paredit"

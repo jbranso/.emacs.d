@@ -95,8 +95,7 @@ t)
                                      (push '(">=" . ?≥) prettify-symbols-alist)
                                      (push '("<=" . ?≤) prettify-symbols-alist)
                                      (push '("float-pi" . ?π) prettify-symbols-alist)
-                                     (push '("float-pi" . ?e) prettify-symbols-alist)
-                                     (eldoc-mode)))
+                                     (push '("float-pi" . ?e) prettify-symbols-alist)))
 #+END_SRC
 
 ** Paredit and scheme
@@ -129,8 +128,7 @@ t)
 (scheme/turn-on-paredit)
 ;; make >= look like ≥
 (push '(">=" . ?≥) prettify-symbols-alist)
-(push '("<=" . ?≤) prettify-symbols-alist)
-(eldoc-mode)))
+(push '("<=" . ?≤) prettify-symbols-alist)))
 #+END_SRC
 
 ** Aggressive indent
