@@ -342,9 +342,9 @@ enter ediff."
 ;; (when (featurep 'js2-mode)
 ;;   (use-package skewer-less))
 
-(require-package 'css-eldoc)
-(autoload 'turn-on-css-eldoc "css-eldoc")
-(add-hook 'css-mode-hook 'turn-on-css-eldoc)
+(use-package css-eldoc :ensure t)
+;;(autoload 'turn-on-css-eldoc "css-eldoc")
+;;(add-hook 'css-mode-hook 'turn-on-css-eldoc)
 
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 
