@@ -1,20 +1,20 @@
 (use-package erc
-  :defer t
   :init
   ;; Join the #emacs and #erc channels whenever connecting to Freenode.
   (setq erc-autojoin-channels-alist '(
                                       ("freenode.net" "#archlinux")
+                                      ("freenode.net" "#deskthority")
                                       ("freenode.net" "#emacs")
+                                      ("freenode.net" "#fsf")
+                                      ("freenode.net" "#gnupg")
+                                      ("freenode.net" "#guix")
+                                      ("freenode.net" "#hurd")
                                       ("freenode.net" "#org-mode")
                                       ;;regular meeting take place every thursday at 19:00 UTC
-                                      ("freenode.net" "#hurd")
-                                      ("freenode.net" "#wordpress")
                                       ;; get questions answered about building your own keyboard
-                                      ("freenode.net" "#deskthority")
                                       ;; https://www.parabola.nu/
                                       ("freenode.net" "#parabola")
-                                      ("freenode.net" "#guix")
-                                      ("freenode.net" "#fsf")
+                                      ("freenode.net" "#wordpress")
                                       ;;("freenode.net" "#debian-hurd")
                                       )
 
@@ -26,7 +26,7 @@
         ;; set the default nick
         erc-nick "joshuaBPMan_"
         ;; don't prompt me for my password erc should know it
-        erc-prompt-for-password t
+        erc-prompt-for-password nil
         erc-hide-list '("JOIN" "PART" "QUIT")
         ;; don't let erc switch the active buffer when it connects to a new channel when erc is starting up
         ;; this gets annoying because when I'm starting up emacs, it'll switch to "#arch", then "#hurd", then "#org-mode".

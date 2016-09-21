@@ -37,27 +37,27 @@
 (dolist (file '(
                 ;; make opening specific types of files,
                 ;; autoinsert a yasnippet
-                "init-autoinsert.org"
+                "init-autoinsert"
                 ;;load is many packages
-                "init-load-small-packages.org"
+                "init-load-small-packages"
                 ;; make emacs indent your code all the time, so you don't have to
-                "init-aggressive-indent.org"
+                "init-aggressive-indent"
                 ;; emacs can read email
-                "init-gnus.org"
+                "init-gnus"
                 ;; some graphical configurations
-                "init-gui-frames.org"
+                "init-gui-frames"
                 ;; my org configurations
-                "init-org.org"
-                "init-lisp.org"
-                "init-javascript.org"
-                "init-editing-utils.org"
-                "init-misc.org"
+                "init-org"
+                "init-lisp"
+                "init-javascript"
+                "init-editing-utils"
+                ;;an irc client for Emacs
+                "init-erc"
+                "init-misc"
                 ))
-  (org-babel-load-file (concat "~/.emacs.d/lisp/" file)))
+  (org-babel-load-file (concat "~/.emacs.d/lisp/" file ".org")))
 ;; read email in emacs
 ;;(require 'init-mu4e)
-;; an irc client for emacs
-(require 'init-erc)
 ;; let's get modal keybinding working!
 (require 'init-evil)
 (require 'init-html)

@@ -349,8 +349,7 @@
 (defun goToNextHeading ()
   "This moves point to the next heading."
   (interactive)
-  (search-forward-regexp "^\\\*\\\*\\\* " (bufferEndCharPosition) t 1)
-  (org-next-visible-heading 1))
+  (search-forward-regexp "^\\\*+ " (bufferEndCharPosition) t 1))
 
 (defun goToPreviousHeading ()
   "This moves point to the next heading."
@@ -425,10 +424,22 @@ check the next heading for redundancy."
 (defun deleteRedudantHeadings ()
   "Delete all redundant headings in an org file."
   (interactive)
-  (setq headingText '())
   ;;(beginning-of-buffer)
+  (setq headingText '())
   (goToNextHeading)
   ;; store the first heading text
   (deleteAllNextRedundantHeadings))
+
+(defun loop-delete-redudant-headings ()
+  "Delete redundant text."
+  (interactive)
+  (setq headingText '())
+  (while (goToNextHeading)
+    (if (member (returnHeadingText) headingText)
+        (progn
+          (beginning-of-line)
+          (kill-line "<deleteline>")
+          (deleteAllNextRedundantHeadings))
+      (storeHeadingText))))
 
 (provide 'init-defuns)
