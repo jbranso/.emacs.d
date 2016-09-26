@@ -86,6 +86,7 @@ Make TAB mean indent.
 :ID:       d760b22b-8cdd-4fb4-9a79-c4aa7a3a127c
 :END:
 #+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c .") #'xref-find-definitions)
   (global-set-key (kbd "C-c C-h") #'help)
   (global-set-key (kbd "C-c h k") #'helm-show-kill-ring)
   (global-set-key (kbd "C-x f")   #'helm-find-files)
@@ -185,8 +186,6 @@ All of my "C-c [letter]" commands
   ;;print the working directory in the minibuffer
   ;; I should make these commands copy the output of pwd into the clipboard
   (global-set-key (kbd "C-c P") #'pwd)
-  (global-set-key (kbd "C-c p") #'hydra-projectile/body)
-  ;; C-c p is for projectile.  C-c p F is still broken but C-c p h works
   ;;(global-set-key (kbd "C-c p") #'pwd)
   ;;This does recursive find and replace.  But I think it only works when you are in a dired buffer
   (global-set-key (kbd "C-c R") #'find-name-dired)

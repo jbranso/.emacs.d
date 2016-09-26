@@ -25,7 +25,6 @@
 
 ;;I'm not sure what this does
 (setq web-mode-extra-constants '(("php" . ("CONS1" "CONS2"))))
-(setq web-mode-enable-current-column-highlight t)
 ;; <?php expands to <?php ?>
 (setq web-mode-enable-auto-pairing t)
 ;; Example - you may want to add hooks for your own modes.

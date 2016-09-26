@@ -342,6 +342,23 @@ Org-id is a way to create unique IDs to org-mode files.  Each heading can have a
 (require 'org-id)
 (setq org-id-link-to-org-use-id t)
 #+END_SRC
+** org gnu-plot
+#+BEGIN_SRC emacs-lisp
+(use-package gnuplot :ensure t)
+#+END_SRC
+
+I can use org-mode to plot tables via gnu plot!
+
+Just type C-"g below.  Or ~org-plot/gnuplot~
+#+PLOT: title:"Citas" ind:1 deps:(3) type:2d with:histograms set:"yrange [0:]"
+| Sede      | Max cites | H-index |
+|-----------+-----------+---------|
+| Chile     |    257.72 |   21.39 |
+| Leeds     |    165.77 |   19.68 |
+| Sao Paolo |     71.00 |   11.50 |
+| Stockholm |    134.19 |   14.33 |
+| Morelia   |    257.56 |   17.67 |
+
 * My Org-mode-hook
 :PROPERTIES:
 :ID:       ec8fbf48-40c6-4e7c-bb20-bfac6b46fb08
