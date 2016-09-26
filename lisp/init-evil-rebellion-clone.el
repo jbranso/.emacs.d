@@ -35,9 +35,8 @@
 ;; (setq evil-motion-state-modes nil)
 
 (evil-set-initial-state 'dired-mode 'emacs)
-(define-key dired-mode-map (kbd "h") #'dired-next-line)
-(define-key dired-mode-map (kbd "t") #'dired-previous-line)
-(define-key dired-mode-map (kbd "n") #'backward-char)
+(define-key dired-mode-map (kbd "n") #'dired-next-line)
+(define-key dired-mode-map (kbd "p") #'dired-previous-line)
 (define-key dired-mode-map (kbd "s") #'forward-char)
 ;; "T" is normally bound to dired-do-touch
 (define-key dired-mode-map (kbd "T") #'dired-toggle-marks)
