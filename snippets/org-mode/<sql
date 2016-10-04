@@ -2,6 +2,6 @@
 # name: <sql
 # key: <sql
 # --
-#+BEGIN_SRC sql
+#+BEGIN_SRC sql :results replace :exports both
 $0
 #+END_SRC

@@ -73,6 +73,8 @@
 
 (define-abbrev-table 'edit-abbrevs-mode-abbrev-table '())
 
+(define-abbrev-table 'elisp-byte-code-mode-abbrev-table '())
+
 (define-abbrev-table 'emacs-lisp-byte-code-mode-abbrev-table '())
 
 (define-abbrev-table 'emacs-lisp-mode-abbrev-table '())
@@ -138,6 +140,7 @@
     ("becuase" "because" nil 1)
     ("bootable" "able" nil 6)
     ("borish" "boorish" nil 0)
+    ("bs3" "ms3" nil 0)
     ("capabalities" "capabilities" nil 0)
     ("capabilites" "capabilities" nil 0)
     ("carear" "career" nil 0)
@@ -178,7 +181,7 @@
     ("multicore" "core" nil 0)
     ("occassionally" "occasionally" nil 0)
     ("particulary" "particularly" nil 0)
-    ("php" "php" nil 6)
+    ("php" "php" nil 7)
     ("priviledge" "privilege" nil 0)
     ("privledges" "privileges" nil 1)
     ("pronouced" "pronounced" nil 0)
@@ -208,6 +211,8 @@
     ("yasnippets" "yasnippets" nil 1)
    ))
 
+(define-abbrev-table 'gnuplot-comint-mode-abbrev-table '())
+
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
 
 (define-abbrev-table 'gnus-article-mode-abbrev-table '())
@@ -215,6 +220,8 @@
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
 
 (define-abbrev-table 'gnus-sticky-article-mode-abbrev-table '())
+
+(define-abbrev-table 'haml-mode-abbrev-table '())
 
 (define-abbrev-table 'helm-grep-mode-abbrev-table '())
 
@@ -238,6 +245,8 @@
   '(
    ))
 
+(define-abbrev-table 'js-jsx-mode-abbrev-table '())
+
 (define-abbrev-table 'js-mode-abbrev-table '())
 
 (define-abbrev-table 'js2-jsx-mode-abbrev-table '())
@@ -245,6 +254,8 @@
 (define-abbrev-table 'js2-mode-abbrev-table '())
 
 (define-abbrev-table 'latex-mode-abbrev-table '())
+
+(define-abbrev-table 'less-css-mode-abbrev-table '())
 
 (define-abbrev-table 'lisp-mode-abbrev-table '())
 
@@ -334,7 +345,13 @@
 
 (define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
+(define-abbrev-table 'ruby-mode-abbrev-table '())
+
+(define-abbrev-table 'sass-mode-abbrev-table '())
+
 (define-abbrev-table 'scheme-mode-abbrev-table '())
+
+(define-abbrev-table 'scss-mode-abbrev-table '())
 
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
 
@@ -360,6 +377,8 @@
   '(
    ))
 
+(define-abbrev-table 'suggest-mode-abbrev-table '())
+
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
 
 (define-abbrev-table 'tar-mode-abbrev-table '())
@@ -380,7 +399,11 @@
 
 (define-abbrev-table 'vc-git-log-view-mode-abbrev-table '())
 
+(define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
+
 (define-abbrev-table 'vc-svn-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'web-mode-abbrev-table '())
+
+(define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 

@@ -61,7 +61,7 @@ Tell Emacs where to look for default text files to insert into empty files.  If 
 Enable autoinsert mode, and do not ask me if I want to perform automatic insertion.  Just do it.
 #+BEGIN_SRC emacs-lisp
   (setq auto-insert-mode t
-        auto-insert-query nil)
+        auto-insert-query t)
 #+END_SRC
 
 Auto-insertion of a buffer is completed via the variable =auto-insert-alist=.  If CONDITION is met, then ACTION is done.

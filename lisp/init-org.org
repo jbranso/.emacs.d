@@ -342,6 +342,11 @@ Org-id is a way to create unique IDs to org-mode files.  Each heading can have a
 (require 'org-id)
 (setq org-id-link-to-org-use-id t)
 #+END_SRC
+** org-php
+I need to have a php REPL available if I am going to get an ob-php.
+#+BEGIN_SRC emacs-lisp
+(use-package psysh :ensure t)
+#+END_SRC
 ** org gnu-plot
 #+BEGIN_SRC emacs-lisp
 (use-package gnuplot :ensure t)

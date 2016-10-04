@@ -8,6 +8,7 @@
  ;; log file lines that may be wrapped:
  line-move-visual t
  visible-bell t
+ ring-bell-function 'ignore
  ;;blink-cursor-interval 0.4
  ;; I want to open links from org-mode in chromium
  ;;browse-url-browser-function (quote browse-url-chromium)
@@ -51,6 +52,7 @@
 (global-set-key (kbd "C-x C-k") #'delete-this-file)
 (global-set-key (kbd "C-x C-r") #'rename-this-file-and-buffer)
 
+(global-set-key (kbd "C-c .") #'xref-find-definitions)
 (global-set-key (kbd "C-c C-h") #'help)
 (global-set-key (kbd "C-c h k") #'helm-show-kill-ring)
 (global-set-key (kbd "C-x f")   #'helm-find-files)
@@ -123,8 +125,6 @@
 ;;print the working directory in the minibuffer
 ;; I should make these commands copy the output of pwd into the clipboard
 (global-set-key (kbd "C-c P") #'pwd)
-(global-set-key (kbd "C-c p") #'hydra-projectile/body)
-;; C-c p is for projectile.  C-c p F is still broken but C-c p h works
 ;;(global-set-key (kbd "C-c p") #'pwd)
 ;;This does recursive find and replace.  But I think it only works when you are in a dired buffer
 (global-set-key (kbd "C-c R") #'find-name-dired)

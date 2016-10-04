@@ -86,6 +86,8 @@
 (require 'org-id)
 (setq org-id-link-to-org-use-id t)
 
+(use-package psysh :ensure t)
+
 (use-package gnuplot :ensure t)
 
 (defun yas/org-very-safe-expand ()

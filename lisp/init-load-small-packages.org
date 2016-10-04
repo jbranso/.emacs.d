@@ -140,6 +140,25 @@ Here is an example of what you can do with async.
    (lambda (result)
      (message "Async process done, result should be 222: %s" result)))
 
+* Projectile
+    I haven't used projectile commands in a while.  I'll try turing them off and seenig what happens.
+;;(require 'init-projectile)
+;;(org-babel-load-file "init-org.org")
+;;(org-babel-load-file (concat user-emacs-directory "init-org.org"))
+;;https://github.com/danielmai/.emacs.d/blob/master/init.el
+;; init org should NOT be loaded  FIXME the problem is probably with org-mode
+
+#+BEGIN_SRC emacs-lisp
+(use-package projectile :ensure t
+  :config (setq projectile-enable-caching t))
+
+(use-package helm-projectile
+  :ensure t)
+(projectile-global-mode)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
+#+END_SRC
+
 * COMMENT some things I don't use
 ** hydra
 I re't use hydras.
@@ -387,13 +406,6 @@ insebers left       C-x r i R                      C-u number C-x r + r
     I also hardly ever use this sx package, which is an amazing package!
     searching stack exchange via emacs!  C-c S
     (use-package sx :ensure t)
-** Projectile
-    I haven't used projectile commands in a while.  I'll try turing them off and seenig what happens.
-;;(require 'init-projectile)
-;;(org-babel-load-file "init-org.org")
-;;(org-babel-load-file (concat user-emacs-directory "init-org.org"))
-;;https://github.com/danielmai/.emacs.d/blob/master/init.el
-;; init org should NOT be loaded  FIXME the problem is probably with org-mode
 ** downcase words like THe and BEautiful
      This is probably how I can embed yasnippets into various modes
     #+BEGIN_SRC emacs-lisp

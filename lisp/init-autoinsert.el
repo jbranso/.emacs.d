@@ -31,7 +31,7 @@
 (setq auto-insert-directory "~/.emacs.d/auto-insert-directory/")
 
 (setq auto-insert-mode t
-      auto-insert-query nil)
+      auto-insert-query t)
 
 (setq auto-insert-alist '((web-mode . [my/yas-web-mode-snippet])
                           (org-mode . [my/yas-org-snippet])))

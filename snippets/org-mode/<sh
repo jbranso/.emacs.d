@@ -2,6 +2,6 @@
 # name: <sh
 # key: <sh
 # --
-#+BEGIN_SRC sh :results output
+#+BEGIN_SRC sh :results output :exports both
 $0
 #+END_SRC
