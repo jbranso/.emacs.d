@@ -14,23 +14,27 @@
   ;; https://github.com/abo-abo/avy
   (setq  avy-keys (number-sequence ?e ?t )))
 
-(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
+(when (file-exists-p "/home/joshua/programming/emacs/autocorrect/autocorrect.org")
+(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org"))
 
 (use-package which-key :ensure t
   :config (which-key-mode))
 
 (use-package bug-hunter :ensure t :defer t)
 
-(add-hook 'prog-mode-hook (lambda ()
-                            (flyspell-prog-mode)
-                            (unbind-key (kbd "C-c $") flyspell-mode-map)
-                            (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
+(when (not (string-equal system-type "darwin"))
+  (require 'ispell)
 
-;; enable flyspell mode for all of my text modes.  This will enable flyspell to underline misspelled words.
-(add-hook 'text-mode-hook (lambda ()
-                            (flyspell-mode)
-                            (unbind-key (kbd "C-c $") flyspell-mode-map)
-                            (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
+  (add-hook 'prog-mode-hook (lambda ()
+                              (flyspell-prog-mode)
+                              (unbind-key (kbd "C-c $") flyspell-mode-map)
+                              (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
+
+  ;; enable flyspell mode for all of my text modes.  This will enable flyspell to underline misspelled words.
+  (add-hook 'text-mode-hook (lambda ()
+                              (flyspell-mode)
+                              (unbind-key (kbd "C-c $") flyspell-mode-map)
+                              (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev))))
 
 (cond ((string-equal system-type "darwin")
        (setq flyspell-program "hunspell")))
@@ -192,9 +196,19 @@ _r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
 (define-key Info-mode-map (kbd "C-w n") 'windmove-left)
 (define-key Info-mode-map (kbd "C-w s") 'windmove-right)
 
+;; if major mode is web-mode then use web-mode's comment.
+(defun my/smart-comment ()
+  "A little wrapper around smart comment.
+If (= major-mode 'web-mode) then use web-mode's built in
+smart comment."
+  (interactive)
+  (if (string= major-mode "web-mode")
+      (web-mode-comment-or-uncomment)
+    (smart-comment t)))
+
 (use-package smart-comment
   :ensure t
-  :bind ("C-c ;" . smart-comment)
+  :bind ("C-c ;" . my/smart-comment)
   :config
   (with-eval-after-load 'org
     (local-unset-key "C-c ;")))
@@ -332,6 +346,11 @@ _r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
 
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 
+(setq password-cache-expiry nil)
+
 (use-package all-the-icons :load-path "~/.emacs.d/lisp/all-the-icons.el/")
+
+(use-package projectile :ensure t)
+(use-package helm-projectile :ensure t)
 
 (provide 'init-load-small-packages)

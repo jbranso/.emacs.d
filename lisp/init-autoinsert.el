@@ -21,8 +21,11 @@
 
 (defun my/yas-web-mode-snippet ()
   (interactive)
-  (yas-expand-snippet (yas-lookup-snippet "<web-mode"))
-  (evil-insert-state))
+  ;; when I'm at work, don't expand this snippet.  <web-mode snippet doesn't
+  ;; really work for my work machine.
+  (when (not (string-match "honorsCollege" buffer-file-name))
+    (yas-expand-snippet (yas-lookup-snippet "<web-mode"))
+    (evil-insert-state)))
 
 (require 'autoinsert)
 

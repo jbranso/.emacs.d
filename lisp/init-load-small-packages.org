@@ -40,7 +40,8 @@ Add abbrev-mode to text modes and program modes to turn on autocorrect like func
 :ID:       ed63d49c-50d4-468a-9df2-8b578a823e90
 :END:
 #+BEGIN_SRC emacs-lisp
-(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
+  (when (file-exists-p "/home/joshua/programming/emacs/autocorrect/autocorrect.org")
+  (org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org"))
 #+END_SRC
 * which-key
 :PROPERTIES:
@@ -661,11 +662,15 @@ it is only activated if you start to type a file like
    with a region marked, marked the region for delition with "C-u C-c"
    delete the marked regions and lines with "C-u C-u C-c"
    #+BEGIN_SRC emacs-lisp
-   ;; if major mode is web-mode then use web-mode's comment.
-     (defun my/smart-comment
-         (if (string= major-mode "web-mode")
-             (web-mode-comment-or-uncomment))
-       (smart-comment))
+     ;; if major mode is web-mode then use web-mode's comment.
+     (defun my/smart-comment ()
+       "A little wrapper around smart comment.
+     If (= major-mode 'web-mode) then use web-mode's built in
+     smart comment."
+       (interactive)
+       (if (string= major-mode "web-mode")
+           (web-mode-comment-or-uncomment)
+         (smart-comment t)))
 
      (use-package smart-comment
        :ensure t
@@ -970,6 +975,9 @@ previous and next verions. w copies the git hash of the current buffer, and q qu
 ;;  Type this command on any line of a repo.  It'll tell you the commit when it appeared.
 (global-set-key (kbd "C-x v p") #'git-messenger:popup-message)
 * css
+:PROPERTIES:
+:ID:       F5E4A752-5719-4EDB-A17D-DEB2789ABCEF
+:END:
 Colourise CSS colour literals
 #+BEGIN_SRC emacs-lisp
 (use-package rainbow-mode :ensure t)
@@ -1006,6 +1014,9 @@ Use eldoc for syntax hints
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 #+END_SRC
 * tramp
+:PROPERTIES:
+:ID:       F53529F8-A06E-4350-82BF-4362B4771BA6
+:END:
 #+BEGIN_SRC emacs-lisp
 (setq password-cache-expiry nil)
 #+END_SRC
@@ -1018,6 +1029,9 @@ You can learn more about [[https://github.com/domtronn/all-the-icons.el][all the
 (use-package all-the-icons :load-path "~/.emacs.d/lisp/all-the-icons.el/")
 #+END_SRC
 * projectile
+:PROPERTIES:
+:ID:       FAD5FA48-0022-4EF7-8F2F-992A2300F7FD
+:END:
 So I can search for my files in my projects.
 #+BEGIN_SRC emacs-lisp
 (use-package projectile :ensure t)

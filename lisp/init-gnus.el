@@ -1,4 +1,4 @@
-(use-package init-gnus-secret :defer t)
+(use-package init-gnus-secret)
 
 (setq
  message-signature
@@ -36,12 +36,6 @@
       gnus-show-threads nil
       gnus-use-cross-reference nil)
 
-(setq mm-verify-option "known"
- mm-decrypt-option "known")
-
-(setq gnus-message-replysign t
- gnus-message-replyencrypt t)
-
 (setq spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
       spam-use-blacklist t)
 (spam-initialize)
@@ -51,9 +45,10 @@
 ;; (require 'init-gnus-secret-smtp)
 ;; I am trying to use use-package so that emacs won't start on an error if someone tries to clone
 ;; my config
-(use-package init-gnus-secret-smtp)
+;;(use-package init-gnus-secret-smtp)
 
-(use-package gnus-desktop-notify :ensure t)
+(use-package gnus-desktop-notify
+  :ensure t)
 
 (gnus-desktop-notify-mode)
 (gnus-demon-add-scanmail)

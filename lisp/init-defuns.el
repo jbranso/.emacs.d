@@ -168,7 +168,7 @@
                             (s-chop-prefix "/Users/jbranso/honorsCollege/var" buffer-file-name)))
     ;; for some reason updating images doesn't really work.
     ;; I should delete them first.  Then upload them.
-    (when (and (string-match "\.pdf$\\\|\.jpg$\\\|\.png$" remote-file-path )
+    (when (and (string-match "\.pdf$\\\|\.jpg$\\\|\.png$" remote-file-path)
                ;;does the remote file exist?
                (file-exists-p remote-file-path))
       (delete-file remote-file-path))
@@ -454,6 +454,50 @@ check the next heading for redundancy."
   (storePointPosition)
   (goToNextHeading)
   (deleteAllNextRedundantHeadings))
+
+(defun open-student-file ()
+  "Searches the buffer for the img with .featureimg"
+  (interactive)
+  (end-of-line)
+  (backward-char)
+  (search-backward-regexp ",")
+  (forward-char)
+  (find-file (buffer-substring-no-properties (point)
+                                             (progn
+                                               (end-of-line)
+                                               (backward-char)
+                                               (point)))))
+
+(defun extract-img-file-path ()
+  "searches for the file path of the image."
+  (interactive)
+  ;; if there is a featured img
+  (beginning-of-buffer)
+  (if (search-forward-regexp "<img.*featureimg" nil t)
+      ;;then set spotlight-img-file-path to it
+      (progn
+        (search-backward-regexp "<img" nil t)
+        (search-forward-regexp "src=" nil t)
+        (forward-char)
+        (setq spotlight-img-file-path
+              (buffer-substring-no-properties (point)
+                                              (progn
+                                                (search-forward-regexp "\"")
+                                                (backward-char)
+                                                (point)))))
+    ;; else set spotlight-img-file-path to NONE
+    (setq spotlight-img-file-path "NONE")))
+
+
+(defun put-img-file-path ()
+  "This puts the image file path at the end of the line."
+  (interactive)
+  (open-student-file)
+  (extract-img-file-path)
+  (find-file "/Users/jbranso/honorsCollege/var/community/news/articles/articleindex.txt")
+  (end-of-line)
+  (insert spotlight-img-file-path))
+
 
 
 (provide 'init-defuns)

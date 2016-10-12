@@ -68,7 +68,6 @@
 ;;(require 'init-mu4e)
 ;; an irc client for emacs
 (require 'init-erc)
-(require 'init-eshell)
 ;;(require 'init-term)
 ;; paradox adds some nice features to emacs install packages
 ;; this sets up paradox to use my private token to access public repos.
@@ -87,10 +86,9 @@
                 ;;I am having some issues with this at the moment.
                 ;; "init-polymode.org"
                 ;;yasnippet needs to be loaded before company to let them play nicely together
-                "init-yasnippet.org"
+		"init-load-small-packages.org"
                 ))
   (org-babel-load-file (concat "~/.emacs.d/lisp/" file)))
-(require 'init-company)
 ;; downcase words like THe and BEautiful
 ;; This is probably how I can embed yasnippets into various modes
 ;;(require 'init-dubcaps)
@@ -120,8 +118,6 @@
 ;; woo hoo!  I should customize it a bit to make it even prettier
 (require 'init-smart-mode-line)
 
-;; make --> and /arrow look like utf8 chars
-(require 'init-prettify)
 ;; Make my evil keybindings work pretty much everywhere
 (require 'init-evil-rebellion-clone)
 ;;----------------------------------------------------------------------------

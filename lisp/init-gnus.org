@@ -49,7 +49,6 @@ You can find more information in the following sections.
 
 Run ‘M-x gnus’ and enjoy.
 
-
 * Setting up Gnus
 
   let's tell gnus who we are.
@@ -61,7 +60,7 @@ Run ‘M-x gnus’ and enjoy.
    I hope you don't mind that I'm not telling you my email address.  I'd rather that not be public info.
 
   #+BEGIN_SRC emacs-lisp
-    (use-package init-gnus-secret :defer t)
+    (use-package init-gnus-secret)
   #+END_SRC
 
 ** My gnus signature
@@ -136,7 +135,7 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
             gnus-show-threads nil
             gnus-use-cross-reference nil)
     #+END_SRC
-** Encrypting Email
+** COMMENT Encrypting Email
 
    Here follows a short rant:
 
@@ -187,7 +186,7 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
    for a string you have to hit "t" when you first open gnus to get purdue working again uncomment this whole thing
 
    (setq gnus-select-method
-      '(nnimap "mymail.purdue.edu"
+      '(nnimap "smtp.purdue.edu"
 	      ;; (nnimap-address "mymail.purdue.edu")  ; it could also be imap.googlemail.com if that's your server.
 	       (nnimap-server-port "993")
 	       (nnimap-stream ssl)
@@ -210,7 +209,7 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
    ;; (require 'init-gnus-secret-smtp)
    ;; I am trying to use use-package so that emacs won't start on an error if someone tries to clone
    ;; my config
-   (use-package init-gnus-secret-smtp)
+   ;;(use-package init-gnus-secret-smtp)
    #+END_SRC
 
   init-gnus-secret-smtp looks like
@@ -251,7 +250,6 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
    I've used this is the past, but with html-mail, it doesn't work very well.
 
    (add-hook 'message-send-hook  'ispell-message)
-
 
 ** Asynchronous Email
 
