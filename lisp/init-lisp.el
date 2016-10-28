@@ -85,8 +85,7 @@ t)
 (scheme/turn-on-paredit)
 ;; make >= look like ≥
 (push '(">=" . ?≥) prettify-symbols-alist)
-(push '("<=" . ?≤) prettify-symbols-alist)
-(eldoc-mode)))
+(push '("<=" . ?≤) prettify-symbols-alist)))
 
 (use-package aggressive-indent :ensure t)
 (aggressive-indent-mode)

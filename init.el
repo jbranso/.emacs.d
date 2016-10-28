@@ -37,7 +37,7 @@
 (dolist (file '(
                 ;; make opening specific types of files,
                 ;; autoinsert a yasnippet
-                "init-autoinsert"
+                ;;"init-autoinsert"
                 ;;load is many packages
                 "init-load-small-packages"
                 ;; make emacs indent your code all the time, so you don't have to

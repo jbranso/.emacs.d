@@ -37,44 +37,6 @@
 ;;(org-mime-change-element-style
 ;;"blockquote" "border-left: 2px solid gray; padding-left: 4px;")))
 
-;; ob-http is needed to run http calls inside org-mode
-(use-package ob-http :ensure t)
-(setq geiser-default-implementation 'guile)
-
-(after-load 'org
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     '(
-       (awk . t)
-       (calc .t)
-       (C . t)
-       (emacs-lisp . t)
-       (haskell . t)
-       (gnuplot . t)
-       (latex . t)
-       ;;(ledger . t)
-       (js . t)
-       (haskell . t)
-       (http . t)
-       (perl . t)
-       (python . t)
-       ;; (gnuplot . t)
-       ;; org-babel does not currently support php.  That is really sad.
-       ;;(php . t)
-       (R . t)
-       (scheme . t)
-       (sh . t)
-       (sql . t)
-       ;;(sqlite . t)
-       )))
-
-       (setq org-latex-create-formula-image-program 'imagemagick)
-  ;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
-  ;;(ditaa . t)
-  ;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
-  ;; display inline images in org-mode
-  ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
-
 (use-package org-invoice)
 
 (use-package org-inlinetask)
@@ -538,43 +500,6 @@ EXT is a list of the extensions of files to be included."
 ;;  (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
 (setq org-stuck-projects '("PROJECT" ("TODO NEXT") ("action") "\\<IGNORE\\>" ))
-
-(defhydra hydra-outline (:color pink :hint nil)
-  "
-^Hide^             ^Show^           ^Move
-^^^^^^------------------------------------------------------
-_hs_: sublevels     _sa_: all         _u_: up
-_hb_: body          _se_: entry       _n_: next visible
-_ho_: other         _sc_: children    _p_: previous visible
-_he_: entry         _sb_: branches    _f_: forward same level
-_hl_: leaves        _st_: subtree     _b_: backward same level
-_ht_: subtree
-
-"
-  ;; Hide
-  ("hs" hide-sublevels)    ; Hide everything but the top-level headings
-  ("hb" hide-body)         ; Hide everything but headings (all body lines)
-  ("ho" hide-other)        ; Hide other branches
-  ("he" hide-entry)        ; Hide this entry's body
-  ("hl" hide-leaves)       ; Hide body lines in this entry and sub-entries
-  ("ht" hide-subtree)      ; Hide everything in this entry and sub-entries
-  ;; Show
-  ("sa" show-all)          ; Show (expand) everything
-  ("se" show-entry)        ; Show this heading's body
-  ("sc" show-children)     ; Show this heading's immediate child sub-headings
-  ("sb" show-branches)     ; Show all sub-headings under this heading
-  ("st" show-subtree)      ; Show (expand) everything in this heading & below
-  ;; Move
-  ("u" outline-up-heading)                ; Up
-  ("n" outline-next-visible-heading)      ; Next
-  ("p" outline-previous-visible-heading)  ; Previous
-  ("f" outline-forward-same-level)        ; Forward - same level
-  ("b" outline-backward-same-level)       ; Backward - same level
-
-  ("z" nil "leave"))
-
-(define-key org-mode-map (kbd "C-c #") 'hydra-outline/body) ; by example
-(global-set-key (kbd "C-c #") 'hydra-outline/body)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; function to wrap blocks of text in org templates                       ;;

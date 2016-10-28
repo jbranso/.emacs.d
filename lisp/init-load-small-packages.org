@@ -40,7 +40,7 @@ Add abbrev-mode to text modes and program modes to turn on autocorrect like func
 :ID:       ed63d49c-50d4-468a-9df2-8b578a823e90
 :END:
 #+BEGIN_SRC emacs-lisp
-(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
+;;(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
 #+END_SRC
 * which-key
 :PROPERTIES:
@@ -361,7 +361,7 @@ insebers left       C-x r i R                      C-u number C-x r + r
     Paradox adds some nice features to emacs install packages
     this sets up paradox to use my private token to access public repos.
     #+BEGIN_SRC emacs-lisp
-    (require 'init-paradox)
+    ;;(require 'init-paradox)
     #+END_SRC
 ** sunrise is a alternative to flotilla
     #+BEGIN_SRC emacs-lisp
@@ -454,7 +454,7 @@ insebers left       C-x r i R                      C-u number C-x r + r
 ;; this sets up paradox to use my private token to access public repos.
 ;;(require 'init-paradox)
 
-* bookmark
+* COMMENT bookmark
 :PROPERTIES:
 :ID:       7f780f9c-3c32-4ac7-b733-885d3651b0e7
 :END:
