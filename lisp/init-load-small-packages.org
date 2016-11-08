@@ -3,7 +3,6 @@
 #+LATEX_HEADER: \usepackage[QX]{fontenc}
 #+STARTUP: overview
 
-
 This file just loads in tiny packages that don't really need to be in separate files.
 * abbrev-mode
 :PROPERTIES:
@@ -141,153 +140,6 @@ Here is an example of what you can do with async.
      (message "Async process done, result should be 222: %s" result)))
 
 * COMMENT some things I don't use
-** hydra
-I re't use hydras.
-#+BEemacs-lisp
-(use hydra
-  :d
-  :e
-#+EN
-;; chydra for inserting cool stuff for emacs
-;; ( hydra-org-template (:color blue :hint nil)
-;;
-;; _ _q_uote    _L_aTeX:
-;; _ _e_xample  _i_ndex:
-;; _ _v_erse    _I_NCLUDE:
-;; _ ^ ^        _H_TML:
-;; _ ^ ^        _A_SCII:
-;; "
-;;  ot-expand "<s"))
-;;  ot-expand "<e"))
-;;  ot-expand "<q"))
-;;  ot-expand "<v"))
-;;  ot-expand "<c"))
-;;  ot-expand "<l"))
-;;  ot-expand "<h"))
-;;  ot-expand "<a"))
-;;  ot-expand "<L"))
-;;  ot-expand "<i"))
-;;  ot-expand "<I"))
-;;  ot-expand "<H"))
-;;  ot-expand "<A"))
-;;  lf-insert-command "ins")
-;;  l "quit"))
-
-;; (t-expand (str)
-;;   org template."
-;;   str)
-;;  y-structure-completion))
-
-;; ;it for myself like this:
-
-;; (ey org-mode-map "C-c <"
-;;   () (interactive)
-;;  (looking-back "^")
-;;  (hydra-org-template/body)
-;;  elf-insert-command 1))))
-
-;;a ck in clock out thing from hydra
-;; hithub.com/abo-abo/hydra/wiki/orgmode
-(defdra-global-org (:color blue
-                           :hint nil)
-  "
-Time   ^Clock^         ^Capture^
-------------------------------------------
-s_t_   _i_ clock in    _c_apture
- _s_   _w_ clock out   _l_ast capture
-_r_e   _j_ clock goto
-_p_r
-"
-  ("imer-start)
-  ("imer-stop)
-  ;; be at timer
-  ("imer-set-timer)
-  ;;imer value to buffer
-  ("imer)
-  ("clock-in '(4)) :exit t)
-  ("lock-out)
-  ;;he clocked task from any buffer
-  ("lock-goto)
-  ("apture)
-  ("apture-goto-last-stored))
-
-
-;; The hydra that I use with C-c C to clock in and clock out all the time!
-(defdra-org-timer (:color blue :hint nil)
-  "t
-  ("clock-in '(4))    "clock in" :exit t)
-  ("lock-out   "clock out" :exit t))
-
-(defdra-apropos (:color blue)
-  "A
-  ("os "apropos")
-  ("os-command "cmd")
-  ("os-documentation "doc")
-  ("os-value "val")
-  ("os-library "lib")
-  ("os-user-option "option")
-  ("os-user-option "option")
-  ("os-variable "var")
-  ("apropos "info")
-  ("apropos "tags")
-  ("-customize-apropos/body "customize"))
-
-(defdra-customize-apropos (:color blue)
-  "Acustomize)"
-  ("mize-apropos "apropos")
-  ("mize-apropos-faces "faces")
-  ("mize-apropos-groups "groups")
-  ("mize-apropos-options "options"))
-
-
-(defdra-transpose (:color red)
-  "T"
-  ("pose-chars "characters")
-  ("pose-words "words")
-  ("ranspose-words "Org mode words")
-  ("pose-lines "lines")
-  ("pose-sentences "sentences")
-  ("ranspose-elements "Org mode elements")
-  ("pose-paragraphs "paragraphs")
-  ("able-transpose-table-at-point "Org mode table")
-  ("cancel" :color blue))
-
-
-(glokey
- (kb")
- (deydra-windows
-   (e (next-line))
-   "
-   (arge-window-horizontally 5))
-   (ink-window-horizontally 5))
-   (arge-window 5))))
-
-(glokey
- (kb")
- (deydra-windows
-   (e (next-line))
-   "
-   (oll-right))
-   (oll-left))))
-
-(glokey
- (kb")
- (deydra-windows
-   (e (next-line))
-   "
-   (oll-right))
-   (oll-left))))
-
-
-
-(defdra-projectile-other-window (:color teal)
-  "pe-other-window"
-  ("ectile-find-file-other-window        "file")
-  ("ectile-find-file-dwim-other-window   "file dwim")
-  ("ectile-find-dir-other-window         "dir")
-  ("ectile-switch-to-buffer-other-window "buffer")
-  ("                                     "cancel" :color blue))
-
 ** A register hydra
 (reqgister)
 
@@ -807,6 +659,36 @@ If I do want the details I can use ")" to show them and "(" to hide them again
   (add-hook 'dired-mode-hook 'dired-omit-mode))
 #+END_SRC
 
+** COMMENT dired rsync
+But it doesn't seem to work ???
+I found this code snippet here:
+https://truongtx.me/2013/04/02/emacs-async-file-copying-in-dired-using-rsync
+#+BEGIN_SRC emacs-lisp
+(defun tmtxt/dired-rsync (dest)
+  (interactive
+   ;; offer dwim target as the suggestion
+   (list (expand-file-name (read-file-name "Rsync to:" (dired-dwim-target-directory)))))
+  ;; store all selected files into "files" list
+  (let ((files (dired-get-marked-files nil current-prefix-arg)))
+	;; the rsync command
+	(setq tmtxt/rsync-command "rsync -arvz --progress ")
+	;; add all selected file names as arguments to the rsync command
+    (dolist (file files)
+	  (setq tmtxt/rsync-command
+			(concat tmtxt/rsync-command
+					(shell-quote-argument file)
+					" ")))
+	;; append the destination
+	(setq tmtxt/rsync-command
+		  (concat tmtxt/rsync-command
+				  (shell-quote-argument dest)))
+	;; run the async shell command
+	(async-shell-command tmtxt/rsync-command "*rsync*")
+	;; finally, switch to that window
+	(other-window 1)))
+;;; bind it to C-c C-r
+(define-key dired-mode-map (kbd "C-c C-r") 'tmtxt/dired-rsync)
+#+END_SRC
 * yasnippet
 ** Set up yasnippet.
 :PROPERTIES:
@@ -1025,6 +907,15 @@ Use eldoc for syntax hints
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+#+END_SRC
+* COMMENT eldoc
+Show eldoc popups in pos-tips.  I got the idea [[https://www.topbug.net/blog/2016/11/03/emacs-display-function-or-variable-information-near-point-cursor/][here]].
+#+BEGIN_SRC emacs-lisp
+   (defun my-eldoc-display-message (format-string &rest args)
+    "Display eldoc message near point."
+    (when format-string
+      (pos-tip-show (apply 'format format-string args))))
+  (setq eldoc-message-function #'my-eldoc-display-message)
 #+END_SRC
 * all the icons
 :PROPERTIES:

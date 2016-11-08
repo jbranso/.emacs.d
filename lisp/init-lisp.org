@@ -80,6 +80,10 @@ t)
 (evil-define-key 'normal evil-dvorak-mode-map (kbd "k") 'paredit-kill)
 (paredit-mode +1))
 #+END_SRC
+** requiring evil-paredit
+#+BEGIN_SRC emacs-lisp
+(require 'evil-paredit)
+#+END_SRC
 
 ** hooking in paredit and some other cool modes
 :PROPERTIES:

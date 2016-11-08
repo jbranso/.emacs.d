@@ -35,10 +35,6 @@
 ;; (setq evil-motion-state-modes nil)
 
 (evil-set-initial-state 'dired-mode 'emacs)
-(define-key dired-mode-map (kbd "h") #'dired-next-line)
-(define-key dired-mode-map (kbd "t") #'dired-previous-line)
-(define-key dired-mode-map (kbd "n") #'backward-char)
-(define-key dired-mode-map (kbd "s") #'forward-char)
 ;; "T" is normally bound to dired-do-touch
 (define-key dired-mode-map (kbd "T") #'dired-toggle-marks)
 (define-key dired-mode-map (kbd "S") #'dired-sort-toggle-or-edit)
@@ -58,11 +54,11 @@
 
 ;; this defines the up and down keys for gnus
 ;; BUT both need to define T,H to do what N and P do
-(define-key gnus-group-mode-map (kbd "t") #'gnus-group-prev-unread-group)
-(define-key gnus-group-mode-map (kbd "h") #'gnus-group-next-unread-group)
+;;(define-key gnus-group-mode-map (kbd "t") #'gnus-group-prev-unread-group)
+;;(define-key gnus-group-mode-map (kbd "h") #'gnus-group-next-unread-group)
 
-(define-key gnus-summary-mode-map (kbd "t") #'gnus-summary-prev-unread-article)
-(define-key gnus-summary-mode-map (kbd "h") #'gnus-summary-next-unread-article)
+;;(define-key gnus-summary-mode-map (kbd "t") #'gnus-summary-prev-unread-article)
+;;(define-key gnus-summary-mode-map (kbd "h") #'gnus-summary-next-unread-article)
 
 ;; I'll have to try out each one at a time and see which one works, if one does work
 ;;(evil-set-initial-state 'ggtags-navigation-mode 'normal)

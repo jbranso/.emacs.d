@@ -61,8 +61,9 @@
 ;; let's get modal keybinding working!
 (require 'init-evil)
 (require 'init-html)
+(require 'init-projectile)
 ;; let's write my wordpress blog in emacs
-(require 'init-org2blog)
+;;(require 'init-org2blog)
 (require 'init-defuns)
 ;; Let's make a smart mode-line
 (require 'init-smart-mode-line)

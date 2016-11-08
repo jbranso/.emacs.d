@@ -51,6 +51,10 @@ t)
 (evil-define-key 'normal evil-dvorak-mode-map (kbd "k") 'paredit-kill)
 (paredit-mode +1))
 
+(require 'evil-paredit)
+
+(require 'evil-paredit)
+
 (add-hook 'emacs-lisp-mode-hook '(lambda ()
                                    (rainbow-delimiters-mode 1)
                                    ;; You want to enable evil-paredit mode for evil, because it's SOOO helpful.
