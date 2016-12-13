@@ -4,7 +4,10 @@
 
 ;; simple setup taken from here
 ;; [[info:emms#Quickstart%20Guide][info:emms#Quickstart Guide]]
-(use-package emms :ensure t)
+(use-package emms :ensure t
+  :config
+  (setq emms-source-file-default-directory "~/music/"))
+
 (require 'emms-setup)
 (emms-all)
 (emms-default-players)

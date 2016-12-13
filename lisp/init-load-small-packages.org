@@ -18,7 +18,20 @@ Add abbrev-mode to text modes and program modes to turn on autocorrect like func
                    (abbrev-mode 1)
                    (diminish 'abbrev-mode))))
 #+END_SRC
-
+* markdown
+:PROPERTIES:
+:ID:       4f12892e-8b3b-4b1e-b606-0be712f28f5b
+:END:
+#+BEGIN_SRC emacs-lisp
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.mdwn\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+#+END_SRC
 * avy-mode
 :PROPERTIES:
 :ID:       b0fe4e52-38b9-4846-b737-7ac2b025527f
@@ -35,7 +48,11 @@ Add abbrev-mode to text modes and program modes to turn on autocorrect like func
   (setq  avy-keys (number-sequence ?e ?t )))
  #+END_SRC
 
-* autocorrect
+* c-mode
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.defs?\\'" . c-mode))
+#+END_SRC
+* COMMENT autocorrect
 :PROPERTIES:
 :ID:       ed63d49c-50d4-468a-9df2-8b578a823e90
 :END:
@@ -141,6 +158,9 @@ Here is an example of what you can do with async.
      (message "Async process done, result should be 222: %s" result)))
 
 * Projectile
+:PROPERTIES:
+:ID:       24fce274-7aa4-4de9-b2a0-f2c7b4783b2e
+:END:
     I haven't used projectile commands in a while.  I'll try turing them off and seenig what happens.
 ;;(require 'init-projectile)
 ;;(org-babel-load-file "init-org.org")
@@ -774,6 +794,13 @@ You can read more [[http://www.wilfred.me.uk/blog/2016/07/30/example-driven-deve
 (use-package dired+ :ensure t)
 #+END_SRC
 
+** COMMENT dired-icon
+https://www.topbug.net/dired-icon/
+#+BEGIN_SRC emacs-lisp
+(use-package dired-icon :ensure t)
+(add-hook 'dired-mode-hook 'dired-icon-mode)
+
+#+END_SRC
 ** Dired sort
 :PROPERTIES:
 :ID:       2adfc507-73e7-46c5-9cea-35d84a0917fa
@@ -993,7 +1020,6 @@ previous and next verions. w copies the git hash of the current buffer, and q qu
  magit-diff-refine-hunk t)
 #+END_SRC
 
-
 ** git messenger
 (use-package git-messenger :defer t :ensure t)
 
@@ -1005,7 +1031,7 @@ previous and next verions. w copies the git hash of the current buffer, and q qu
 :END:
 Colourise CSS colour literals
 #+BEGIN_SRC emacs-lisp
-(use-package rainbow-mode :ensure t)
+(use-package rainbow-mode :ensure t :defer t)
 (dolist (hook '(css-mode-hook html-mode-hook sass-mode-hook))
   (add-hook hook 'rainbow-mode))
 #+END_SRC
@@ -1013,9 +1039,10 @@ Colourise CSS colour literals
 
 SASS and SCSS
 #+BEGIN_SRC emacs-lisp
-(use-package sass-mode :ensure t)
-(use-package scss-mode :ensure t)
-(setq-default scss-compile-at-save nil)
+  (use-package sass-mode :ensure t :defer t)
+  (use-package scss-mode :ensure t :defer t
+    :config
+    (setq-default scss-compile-at-save nil))
 #+END_SRC
 
 
@@ -1030,9 +1057,9 @@ LESS
 Use eldoc for syntax hints
 #+BEGIN_SRC emacs-lisp
 
-(use-package css-eldoc :ensure t)
+(use-package css-eldoc :ensure t :defer t)
 ;;(autoload 'turn-on-css-eldoc "css-eldoc")
-;;(add-hook 'css-mode-hook 'turn-on-css-eldoc)
+(add-hook 'css-mode-hook 'turn-on-css-eldoc)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -1051,7 +1078,7 @@ You can learn more about [[https://github.com/domtronn/all-the-icons.el][all the
 :ID:       0a0f0129-5e8f-40e7-a2fc-ae3c9b7f6622
 :END:
 #+BEGIN_SRC emacs-lisp
-(use-package better-shell :ensure t)
+(use-package better-shell :ensure t :defer t)
 #+END_SRC
 
 better-shell-remote-open
@@ -1137,31 +1164,31 @@ Before we load any helm things, need to load helm-flx so it uses flx instead of 
 #+END_SRC
 
 
-;; (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
-;; the next command will add another C-j command for helm
-;;(define-key helm-map (kbd "C-f") 'helm-execute-persistent-action)
-;; I am removing C-t which toggles where on the screen helm pops up when I do this next line
-;;(define-key helm-map (kbd "C-t") 'helm-execute-persistent-action)
-;;(define-key helm-map (kbd "s-t") 'helm-execute-persistent-action)
-;;(define-key helm-top-map (kbd "C-k") 'helm-kill-this-unruly-process)
-;;(define-key helm--minor-mode-map (kbd "C-f") 'helm-execute-persistent-action)
-;;I should define some cool helm mini commands
+(define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
+ the next command will add another C-j command for helm
+(define-key helm-map (kbd "C-f") 'helm-execute-persistent-action)
+ I am removing C-t which toggles where on the screen helm pops up when I do this next line
+(define-key helm-map (kbd "C-t") 'helm-execute-persistent-action)
+(define-key helm-map (kbd "s-t") 'helm-execute-persistent-action)
+(define-key helm-top-map (kbd "C-k") 'helm-kill-this-unruly-process)
+(define-key helm--minor-mode-map (kbd "C-f") 'helm-execute-persistent-action)
+I should define some cool helm mini commands
 
-;; (global-set-key (kbd "C-c h")
-;;                 (defhydra hydra-helm (:color pink)
-;;                   "helm"
-;;                   ("r" helm-resume)))
+ (global-set-key (kbd "C-c h")
+                 (defhydra hydra-helm (:color pink)
+                   "helm"
+                   ("r" helm-resume)))
 
-;; (defhydra hydra-test (hint :nil)
-;;   ("r" helm-resume))
+ (defhydra hydra-test (hint :nil)
+   ("r" helm-resume))
 
-;; (defhydra hydra-zoom (global-map "<f2>")
-;;   "zoom"
-;;   ("g" text-scale-increase "in")
-;;   ("l" text-scale-decrease "out"))
+ (defhydra hydra-zoom (global-map "<f2>")
+   "zoom"
+   ("g" text-scale-increase "in")
+   ("l" text-scale-decrease "out"))
 
-;; how do I get this to work?
-;; (define-key helm-find-files-map (kbd "s-h") 'helm-next-line)
+ how do I get this to work?
+ (define-key helm-find-files-map (kbd "s-h") 'helm-next-line)
 
 * provide this file
 :PROPERTIES:

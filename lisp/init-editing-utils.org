@@ -144,7 +144,7 @@ All of my "C-c [letter]" commands
   (global-set-key (kbd "C-c \\") #'delete-horizontal-space)
   (global-set-key (kbd "C-c SPC") #'just-one-space)
   ;; some modes my default / in normal mode is NOT bound to helm-swoop, BUT I REALLY LIKE helm-swoop
-  (global-set-key (kbd "C-c /") #'swiper)
+  (global-set-key (kbd "C-c /") #'helm-swoop)
   (global-set-key (kbd "C-c C-o") #'org-open-at-point-global)
   ;; this is bound in init-smart-comment.el
   ;;(global-set-key (kbd "C-c ;") #'comment-dwim)

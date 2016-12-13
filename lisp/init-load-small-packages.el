@@ -5,6 +5,15 @@
                    (abbrev-mode 1)
                    (diminish 'abbrev-mode))))
 
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.mdwn\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+
 (use-package avy
   :ensure t
   :defer t
@@ -14,7 +23,7 @@
   ;; https://github.com/abo-abo/avy
   (setq  avy-keys (number-sequence ?e ?t )))
 
-(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
+(add-to-list 'auto-mode-alist '("\\.defs?\\'" . c-mode))
 
 (use-package which-key :ensure t
   :config (which-key-mode))
@@ -52,6 +61,15 @@
   (dired-async-mode 1)
   ;; enable async compilation of melpa packages
   (async-bytecomp-package-mode 1))
+
+(use-package projectile :ensure t
+  :config (setq projectile-enable-caching t))
+
+(use-package helm-projectile
+  :ensure t)
+(projectile-global-mode)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
 
 (dolist (hook '(
                 js2-mode-hook
@@ -329,28 +347,29 @@ enter ediff."
  magit-process-popup-time 5
  magit-diff-refine-hunk t)
 
-(use-package rainbow-mode :ensure t)
+(use-package rainbow-mode :ensure t :defer t)
 (dolist (hook '(css-mode-hook html-mode-hook sass-mode-hook))
   (add-hook hook 'rainbow-mode))
 
-(use-package sass-mode :ensure t)
-(use-package scss-mode :ensure t)
-(setq-default scss-compile-at-save nil)
+(use-package sass-mode :ensure t :defer t)
+(use-package scss-mode :ensure t :defer t
+  :config
+  (setq-default scss-compile-at-save nil))
 
 (use-package less-css-mode :ensure t)
 ;; I don't think I've ever used skewer-mode.
 ;; (when (featurep 'js2-mode)
 ;;   (use-package skewer-less))
 
-(use-package css-eldoc :ensure t)
+(use-package css-eldoc :ensure t :defer t)
 ;;(autoload 'turn-on-css-eldoc "css-eldoc")
-;;(add-hook 'css-mode-hook 'turn-on-css-eldoc)
+(add-hook 'css-mode-hook 'turn-on-css-eldoc)
 
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 
 (use-package all-the-icons :load-path "~/.emacs.d/lisp/all-the-icons.el/")
 
-(use-package better-shell :ensure t)
+(use-package better-shell :ensure t :defer t)
 
 (use-package helm-flx
   :ensure t

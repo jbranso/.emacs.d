@@ -20,8 +20,6 @@ Org-babel mode now supports sed!
 Make C-c SPC inside an org table mean clear that table section.  If you are outside of an org table, make it mean
 just one space.
 
-
-
   #+BEGIN_SRC emacs-lisp
     (defun my-just-one-space ()
       (interactive)
@@ -170,31 +168,30 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
     (setq geiser-default-implementation 'guile)
 
     (after-load 'org
-        (org-babel-do-load-languages
+    (org-babel-do-load-languages
          'org-babel-load-languages
          '(
-           (awk . t)
-           (calc .t)
-           (C . t)
-           (emacs-lisp . t)
-           (haskell . t)
-           (gnuplot . t)
-           (latex . t)
-           ;;(ledger . t)
-           (js . t)
-           (haskell . t)
-           (http . t)
-           (perl . t)
-           (python . t)
-           ;; (gnuplot . t)
-           ;; org-babel does not currently support php.  That is really sad.
-           ;;(php . t)
-           (R . t)
-           (scheme . t)
-           (sh . t)
-           (sql . t)
-           ;;(sqlite . t)
-           )))
+         (awk . t)
+         (calc . t)
+         (C . t)
+         (emacs-lisp . t)
+         (haskell . t)
+	 ;;(http . t)
+         (gnuplot . t)
+         ;;(latex . t)
+         ;;(ledger . t)
+         (js . t)
+         ;;(perl . t)
+         (python . t)
+         (gnuplot . t)
+         ;;org-babel does not currently support php.  That is really sad.
+         ;;(php . t)
+         ;;(R . t)
+         ;;(scheme . t)
+         (sh . t)
+         (sql . t)
+         ;;(sqlite . t)
+         )))
 
            (setq org-latex-create-formula-image-program 'imagemagick)
       ;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
@@ -238,11 +235,6 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
      | Total:                        | 9:16 | 149.00 |
     ,#+END:
   #+END_SRC
-
-** org-notify lets you know when you have upcoming appointments
-:PROPERTIES:
-:ID:       08bac575-f493-4646-aa56-c5034d8637d1
-:END:
 
 ** COMMENT org-notify lets you know when you have upcoming appointments
   I would like to get this set up so that it shows pop-ups using a lua script.  That way I can set it up to use awesome's
@@ -542,11 +534,36 @@ try to expand a yasnippet.
 
             ("ceo" "Org-mode" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "org-mode")
              "* TODO %?\n  %i\n  %a")
-
-            ("ceR" "Emacs Reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs reference")
+             ("ceR" "Emacs Reference")
+            ("ceRR" "Emacs Reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs reference")
              "* %?\nEntered on %U\n  %i\n  %a")
+             ("ceRe" "emacs evil reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "evil reference")
+             "* TODO %?\n  %i\n  %a")
+             ("ceRg" "emacs gnus reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "gnus reference")
+             "* TODO %?\n  %i\n  %a")
+            ("ceRo" "emacs org reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "org reference")
+             "* TODO %?\n  %i\n  %a")
+            ("ceRm" "emacs magit reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "tags reference")
+             "* TODO %?\n  %i\n  %a")
+            ("ceRt" "emacs tags reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "tags reference")
+             "* TODO %?\n  %i\n  %a")
 
-            ("cet" "emacs Todo" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs someday")
+             ("cet" "emacs Todo")
+            ("cett" "emacs Todo" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs someday")
+             "* TODO %?\n  %i\n  %a")
+            ("cete" "emacs evil someday" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "evil someday")
+             "* TODO %?\n  %i\n  %a")
+            ("cetf" "emacs flycheck someday" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "flycheck someday")
+             "* TODO %?\n  %i\n  %a")
+            ("cetg" "emacs gnus someday" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "gnus someday")
+             "* TODO %?\n  %i\n  %a")
+            ("ceth" "emacs helm someday" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "helm someday")
+             "* TODO %?\n  %i\n  %a")
+            ("ceto" "emacs org someday" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "org someday")
+             "* TODO %?\n  %i\n  %a")
+            ("cetT" "emacs tags someday" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "tags someday")
+             "* TODO %?\n  %i\n  %a")
+            ("cetw" "web-mode someday" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "web-mode someday")
              "* TODO %?\n  %i\n  %a")
              ;;End Emacs things
 
@@ -1005,7 +1022,7 @@ There is apparently a way to specify in your org agenda files where you have a s
   (setq org-stuck-projects '("PROJECT" ("TODO NEXT") ("action") "\\<IGNORE\\>" ))
   #+END_SRC
 
-* misc
+* COMMENT misc
 :PROPERTIES:
 :ID:       1a006baf-51cd-454a-950e-3af9ff1915c5
 :END:
