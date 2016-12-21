@@ -269,22 +269,16 @@ insebers left       C-x r i R                      C-u number C-x r + r
    I'd love to globally enable linum mode, but it slows Emacs to a crawl on large org buffers.
    #+BEGIN_SRC emacs-lisp
      (dolist (hook '(
+                     c-mode-hook
                      js2-mode-hook
                      css-mode-hook
                      php-mode-hook
                      web-mode-hook
                      emacs-lisp-mode-hook
                      ))
-                   (add-hook hook 'linum-mode))
-
-     (dolist (hook '(
-                     js2-mode-hook
-                     css-mode-hook
-                     php-mode-hook
-                     web-mode-hook
-                     emacs-lisp-mode-hook
-                     ))
-                   (remove-hook hook 'linum-mode))
+       (progn
+         (add-hook hook 'linum-mode)
+         (remove-hook hook 'linum-mode)))
 
    #+END_SRC
 

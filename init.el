@@ -12,7 +12,7 @@
 
 ;; this is supposed to be a big performance win
 ;; https://www.reddit.com/r/emacs/comments/4c0mi3/the_biggest_performance_improvement_to_emacs_ive/h
-(remove-hook 'find-file-hooks 'vc-find-file-hook)
+;; (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
 (require 'init-utils)
 (require 'init-elpa)     ;; Machinery for installing required packages

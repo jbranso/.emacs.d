@@ -54,22 +54,16 @@
   (async-bytecomp-package-mode 1))
 
 (dolist (hook '(
+                c-mode-hook
                 js2-mode-hook
                 css-mode-hook
                 php-mode-hook
                 web-mode-hook
                 emacs-lisp-mode-hook
                 ))
-              (add-hook hook 'linum-mode))
-
-(dolist (hook '(
-                js2-mode-hook
-                css-mode-hook
-                php-mode-hook
-                web-mode-hook
-                emacs-lisp-mode-hook
-                ))
-              (remove-hook hook 'linum-mode))
+  (progn
+    (add-hook hook 'linum-mode)
+    (remove-hook hook 'linum-mode)))
 
 ;; (use-package nlinum :ensure t)
 

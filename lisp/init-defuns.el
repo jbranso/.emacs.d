@@ -213,18 +213,26 @@ view o community page, show him the qa server."
 (defun purdue-deploy-to-dev-server ()
   "Rsynce my project to purdue's dev server."
   (interactive)
-  (start-process "rsync-purdue" "*Purdue Deploy*" "rsync"
-                 ;; be verbose
-                 "-v "
-                 ;; recursive into directories
-                 "-r "
-                 "/srv/http/honorscollege/"
-                 "jbranso@dev.www.purdue.edu:/var/www/html/root/honorscollege/")
-  (let ((password (read-string "Enter your password: ")))
-    (process-send-string "rsync-purdue" password))
-  (split-window-below)
-  (windmove-down)
-  (switch-to-buffer "rsync-purdue"))
+  (let (remote-file  remote-file-prefix)
+    (setq remote-file-prefix "/ssh:jbranso@dev.www.purdue.edu:/home/users/jbranso/HTML/honorscollege/")
+    (setq (concat remote-file (s-chop-prefix "/srv/http/honorscollege/" buffer-file-name)))
+    (print remote-file)
+    ;; (write-file remote-file)
+    ;;(write-file local-file)
+    )
+  ;; (start-process "rsync-purdue" "*Purdue Deploy*" "rsync"
+  ;;                ;; be verbose
+  ;;                "-v "
+  ;;                ;; recursive into directories
+  ;;                "-r "
+  ;;                "/srv/http/honorscollege/"
+  ;;                "jbranso@dev.www.purdue.edu:/var/www/html/root/honorscollege/")
+  ;; (let ((password (read-string "Enter your password: ")))
+  ;;   (process-send-string "rsync-purdue" password))
+  ;; (split-window-below)
+  ;; (windmove-down)
+  ;; (switch-to-buffer "rsync-purdue")
+  )
 
 ;; This function can be called from any org-babel sql block that has php and sql code mixed together
 (defun org-babel-strip-php-from-sql-block ()
