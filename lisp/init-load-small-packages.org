@@ -52,6 +52,11 @@ Add abbrev-mode to text modes and program modes to turn on autocorrect like func
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.defs?\\'" . c-mode))
 #+END_SRC
+* rust
+http://emacsist.com/10425
+#+BEGIN_SRC emacs-lisp
+;;(use-package rust :ensure t)
+#+END_SRC
 * COMMENT autocorrect
 :PROPERTIES:
 :ID:       ed63d49c-50d4-468a-9df2-8b578a823e90

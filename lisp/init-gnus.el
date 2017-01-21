@@ -1,4 +1,4 @@
-(use-package init-gnus-secret :defer t)
+(org-babel-load-file "~/.emacs.d/lisp/init-gnus-secret.org")
 
 (setq
  message-signature
@@ -7,25 +7,27 @@
 (setq  gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n")
 
 (when window-system
-  (setq gnus-sum-thread-tree-indent "  ")
-  (setq gnus-sum-thread-tree-root "") ;; "● ")
-  (setq gnus-sum-thread-tree-false-root "") ;; "◯ ")
-  (setq gnus-sum-thread-tree-single-indent "") ;; "◎ ")
-  (setq gnus-sum-thread-tree-vertical        "│")
-  (setq gnus-sum-thread-tree-leaf-with-other "├─► ")
-  (setq gnus-sum-thread-tree-single-leaf     "╰─► "))
-(setq gnus-summary-line-format
-      (concat
-       "%0{%U%R%z%}"
-       "%3{│%}" "%1{%d%}" "%3{│%}" ;; date
-       "  "
-       "%4{%-20,20f%}"               ;; name
-       "  "
-       "%3{│%}"
-       " "
-       "%1{%B%}"
-       "%s\n"))
-(setq gnus-summary-display-arrow t)
+    (setq gnus-sum-thread-tree-indent "  ")
+    (setq gnus-sum-thread-tree-root "● ")
+    (setq gnus-sum-thread-tree-false-root "◯ ")
+    (setq gnus-sum-thread-tree-single-indent "◎ ")
+    (setq gnus-sum-thread-tree-vertical        "│")
+    (setq gnus-sum-thread-tree-leaf-with-other "├─► ")
+    (setq gnus-sum-thread-tree-single-leaf     "╰─► "))
+
+    (setq gnus-summary-line-format
+        (concat
+         "%0{%U%R%z%}"
+         "%3{│%}" "%1{%d%}" "%3{│%}" ;; date
+         "  "
+         "%4{%-20,20f%}"               ;; name
+         "  "
+         "%3{│%}"
+         " "
+         "%1{%B%}"
+         "%s\n"))
+
+  (setq gnus-summary-display-arrow t)
 
 (setq gnus-check-new-newsgroups nil
       gnus-check-bogus-newsgroups nil)
@@ -36,8 +38,8 @@
       gnus-show-threads nil
       gnus-use-cross-reference nil)
 
-(setq mm-verify-option "known"
- mm-decrypt-option "known")
+(setq mm-verify-option 'known
+ mm-decrypt-option 'known)
 
 (setq gnus-message-replysign t
  gnus-message-replyencrypt t)
@@ -49,9 +51,9 @@
 (use-package nnir)
 
 ;; (require 'init-gnus-secret-smtp)
-;; I am trying to use use-package so that emacs won't start on an error if someone tries to clone
-;; my config
-(use-package init-gnus-secret-smtp)
+   ;; I am trying to use use-package so that emacs won't start on an error if someone tries to clone
+   ;; my config
+;;   (use-package init-gnus-secret-smtp)
 
 (use-package gnus-desktop-notify
   :ensure t)
@@ -76,7 +78,7 @@
 (setq bbdb/gnus-summary-prefer-real-names t
    bbdb-file "~/.emacs.d/bbdb"
    bbdb-default-area-code 765
-   bbdb-user-mail-names "jbranson@setyourwaypoint.com")
+   bbdb-user-mail-names "bransoj@hotmail.com")
 
 (setq
  bbdb-use-pop-up t
@@ -84,11 +86,11 @@
  bbdb-update-records-p t)
 
 (setq
-bbdb-user-mail-address-re
-(regexp-opt
- '("jbranso@purdue.edu" "bransoj@hotmail.com" "jbranson@setyourwaypoint.com"))
-message-dont-reply-to-names bbdb-user-mail-address-re
-gnus-ignored-from-addresses bbdb-user-mail-address-re)
+  bbdb-user-mail-address-re
+  (regexp-opt
+   '("bransoj@hotmail.com" "jbranso@purdue.edu" ))
+  message-dont-reply-to-names bbdb-user-mail-address-re
+  gnus-ignored-from-addresses bbdb-user-mail-address-re)
 
 (bbdb-mua-auto-update-init 'message)
 
@@ -96,17 +98,17 @@ gnus-ignored-from-addresses bbdb-user-mail-address-re)
 
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
-;;(setq nnimap-split-method-default)
-(setq nnmail-split-methods
-      '(
-      ("Accrisoft Support" "^From:.*support@accrisoft.com.*$")
-        ("Basecamp" "^From:.*notifications@basecamp.com.*$")
-        ("arch" "^To:.*arch-general@archlinux.org.*$")
-        ("emacs devel" "^To:.*emacs-devel@gnu.org.*$")
-        ("emacs devel" "^CC:.*emacs-devel@gnu.org.*$")
-        ("bug-hurd" "^To:.*bug-hurd@gnu.org.*$")
-        ("emacs bugs" "^CC:.*@debbugs.gnu.org.*$")
-        ("bug-hurd" "^Cc:.*bug-hurd@gnu.org.*$")))
+(setq gnus-posting-styles
+      ;; default posting style
+      '((".*"
+         (signature "Sent from Emacs and Gnus"))
+         ;; My purdue inbox
+        ("Inbox"
+         (signature "Joshua Branson\nPurdue Honors College\nWeb Developer\nSent From Emacs and Gnus")
+         (address "bransoj@hotmail.com"))
+        (".*hotmail.*"
+         (signature "Joshua Branson\nSent From Emacs and Gnus")
+         (address "bransoj@hotmail.com"))))
 
 ;;(use-package w3m :ensure t)
 ;;(setq mm-text-html-renderer 'w3m)
@@ -123,5 +125,10 @@ gnus-ignored-from-addresses bbdb-user-mail-address-re)
 (setq gnus-treat-emphasize 'head)
 
 (setq gnus-use-adaptive-scoring t)
+
+(add-hook 'kill-emacs-hook #'(lambda ()
+                               (interactive)
+                               (when (get-buffer "*Group*")
+                                 (gnus-group-exit))))
 
 (provide 'init-gnus)

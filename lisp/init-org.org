@@ -187,7 +187,7 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
          ;;org-babel does not currently support php.  That is really sad.
          ;;(php . t)
          ;;(R . t)
-         ;;(scheme . t)
+         (scheme . t)
          (sh . t)
          (sql . t)
          ;;(sqlite . t)
@@ -335,11 +335,17 @@ Org-id is a way to create unique IDs to org-mode files.  Each heading can have a
 (setq org-id-link-to-org-use-id t)
 #+END_SRC
 ** org-php
+:PROPERTIES:
+:ID:       ba5eaab7-14db-4c4a-9f23-81bc1d2895c7
+:END:
 I need to have a php REPL available if I am going to get an ob-php.
 #+BEGIN_SRC emacs-lisp
 (use-package psysh :ensure t)
 #+END_SRC
 ** org gnu-plot
+:PROPERTIES:
+:ID:       660f5c8d-f80d-43ea-a8ac-110be0a4d45f
+:END:
 #+BEGIN_SRC emacs-lisp
 (use-package gnuplot :ensure t)
 #+END_SRC

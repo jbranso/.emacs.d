@@ -25,6 +25,8 @@
 
 (add-to-list 'auto-mode-alist '("\\.defs?\\'" . c-mode))
 
+;;(use-package rust :ensure t)
+
 (use-package which-key :ensure t
   :config (which-key-mode))
 

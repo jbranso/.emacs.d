@@ -61,7 +61,7 @@
      ;;org-babel does not currently support php.  That is really sad.
      ;;(php . t)
      ;;(R . t)
-     ;;(scheme . t)
+     (scheme . t)
      (sh . t)
      (sql . t)
      ;;(sqlite . t)

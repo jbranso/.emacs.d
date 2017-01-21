@@ -66,6 +66,8 @@
   (define-key evil-motion-state-map "S" 'evil-forward-arg)
   (define-key evil-motion-state-map "N" 'evil-backward-arg)
 
+  (define-key evil-normal-state-map "\e" 'emacs-prefix-key)
+
   ;; bind evil-jump-out-args
   (define-key evil-normal-state-map "K" 'evil-jump-out-args))
 
@@ -203,9 +205,6 @@
   :diminish evil-dvorak-mode)
 
 (local-unset-key (kbd "TAB"))
-
-(define-key evil-emacs-state-map (kbd "s-z") #'evil-normal-state)
-
 
 ;; M just moves the key to the center of the screen. Just a waste. Let's bind it to use emms!
 (define-key evil-normal-state-map (kbd "M i") #'(lambda ()
