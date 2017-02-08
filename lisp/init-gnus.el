@@ -1,4 +1,3 @@
-
 (use-package init-gnus-secret :defer t)
 
 (setq
@@ -36,3 +35,90 @@
 (setq gnus-nov-is-evil nil
       gnus-show-threads nil
       gnus-use-cross-reference nil)
+
+(setq mm-verify-option "known"
+ mm-decrypt-option "known")
+
+(setq gnus-message-replysign t
+ gnus-message-replyencrypt t)
+
+(setq spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
+      spam-use-blacklist t)
+(spam-initialize)
+
+(use-package nnir)
+
+;; (require 'init-gnus-secret-smtp)
+;; I am trying to use use-package so that emacs won't start on an error if someone tries to clone
+;; my config
+(use-package init-gnus-secret-smtp)
+
+(use-package bbdb
+  :ensure t)
+
+(bbdb-initialize 'gnus 'message )
+
+(require 'bbdb)
+(bbdb-initialize 'gnus 'message)
+
+(bbdb-insinuate-message)
+
+(add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+
+(setq bbdb/gnus-summary-prefer-real-names t
+   bbdb-file "~/.emacs.d/bbdb"
+   bbdb-default-area-code 765
+   bbdb-user-mail-names "jbranson@setyourwaypoint.com")
+
+(setq
+ bbdb-use-pop-up t
+ bbdb-offer-save 1
+ bbdb-update-records-p t)
+
+(setq
+bbdb-user-mail-address-re
+(regexp-opt
+ '("jbranso@purdue.edu" "bransoj@hotmail.com" "jbranson@setyourwaypoint.com"))
+message-dont-reply-to-names bbdb-user-mail-address-re
+gnus-ignored-from-addresses bbdb-user-mail-address-re)
+
+(bbdb-mua-auto-update-init 'message)
+
+(add-hook 'gnus-summary-exit-hook 'gnus-summary-bubble-group)
+
+(add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+
+;;(setq nnimap-split-method-default)
+(setq nnmail-split-methods
+      '(
+      ("Accrisoft Support" "^From:.*support@accrisoft.com.*$")
+        ("Basecamp" "^From:.*notifications@basecamp.com.*$")
+        ("arch" "^To:.*arch-general@archlinux.org.*$")
+        ("emacs devel" "^To:.*emacs-devel@gnu.org.*$")
+        ("emacs devel" "^CC:.*emacs-devel@gnu.org.*$")
+        ("bug-hurd" "^To:.*bug-hurd@gnu.org.*$")
+        ("emacs bugs" "^CC:.*@debbugs.gnu.org.*$")
+        ("bug-hurd" "^Cc:.*bug-hurd@gnu.org.*$")))
+
+(add-hook 'kill-emacs-hook #'(lambda ()
+                                 (interactive)
+                                 (when (eq nil (get-buffer "*Group*"))
+                                   (gnus-group-exit))))
+
+;;(use-package w3m :ensure t)
+;;(setq mm-text-html-renderer 'w3m)
+(setq mm-text-html-renderer 'shr)
+
+(setq nnmail-expiry-wait 'immediate)
+
+(setq gnus-treat-hide-boring-headers 'head)
+
+(setq gnus-treat-strip-multiple-blank-lines t)
+(setq gnus-treat-trailing-blank-lines t)
+;; let's see some smiles in gnus
+(setq gnus-treat-display-smileys t)
+(setq gnus-treat-emphasize 'head)
+
+(setq gnus-use-adaptive-scoring t)
+
+(provide 'init-gnus)

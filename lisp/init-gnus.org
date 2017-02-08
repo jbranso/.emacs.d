@@ -251,7 +251,6 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
 
    (add-hook 'message-send-hook  'ispell-message)
 
-
 ** Asynchronous Email
 
    This might not be worth it. Make gnus load more than 1 email in the background. This seems to slow stuff down in the initial
@@ -261,7 +260,7 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
    gnus-asynchronous t
    ;; fetch 15 messages by default
    gnus-use-article-prefetch 15)
-** Notification on new Mail
+** COMMENT Notification on new Mail
    Have gnus alert you when a new mail arrives.
    #+BEGIN_SRC emacs-lisp
      (use-package gnus-desktop-notify
@@ -368,7 +367,7 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
    bit more important.
 
    #+BEGIN_SRC emacs-lisp
-     (add-hook 'gnus-summary-exit-hook 'gnus-summary-bubble-group)
+   (add-hook 'gnus-summary-exit-hook 'gnus-summary-bubble-group)
    #+END_SRC
 
 ** displaying your topics when you enter gnus
@@ -431,10 +430,12 @@ I used to have this say nnmail-split methods, but I'm not using the nnmail backe
 ** close gnus when you exit emacs.
 That way gnus exits properly, and you don't have to read the active file when you open gnus again.
 
+#+BEGIN_SRC emacs-lisp
 (add-hook 'kill-emacs-hook #'(lambda ()
                                  (interactive)
                                  (when (eq nil (get-buffer "*Group*"))
                                    (gnus-group-exit))))
+#+END_SRC
 ** read html mail
 
    You have 2 main options here.  You can use the elisp shr for this or you can use gnus-w3m if you have w3m installed.
