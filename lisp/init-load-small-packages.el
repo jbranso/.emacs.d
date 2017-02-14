@@ -1,10 +1,3 @@
-(dolist (hook '(org-mode-hook
-                prog-mode-hook
-                text-mode-hook))
-  (add-hook hook (lambda ()
-                   (abbrev-mode 1)
-                   (diminish 'abbrev-mode))))
-
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -21,32 +14,29 @@
   (setq avybackground t
    avy-highlight-first t)
   ;; https://github.com/abo-abo/avy
-  (setq  avy-keys (number-sequence ?e ?t )))
+  ;; What does that do?
+  (setq avy-keys (number-sequence ?e ?t )))
 
 (add-to-list 'auto-mode-alist '("\\.defs?\\'" . c-mode))
 
-;;(use-package rust :ensure t)
-
-(use-package which-key :ensure t
-  :config (which-key-mode))
+(use-package which-key :ensure t :config (which-key-mode))
 
 (use-package bug-hunter :ensure t :defer t)
 
 (add-hook 'prog-mode-hook (lambda ()
                             (flyspell-prog-mode)
-                            (unbind-key (kbd "C-c $") flyspell-mode-map)
-                            (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
+                            ;;(unbind-key (kbd "C-c $") flyspell-mode-map)
+                            ;;(global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev))
+                          ))
 
 ;; enable flyspell mode for all of my text modes.  This will enable flyspell to underline misspelled words.
 (add-hook 'text-mode-hook (lambda ()
                             (flyspell-mode)
-                            (unbind-key (kbd "C-c $") flyspell-mode-map)
-                            (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
+                            ;;(unbind-key (kbd "C-c $") flyspell-mode-map)
+                            ;;(global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev))
+))
 
-(cond ((string-equal system-type "darwin")
-       (setq flyspell-program "hunspell")))
-
-(require 'ispell)
+;;(require 'ispell)
 
 (use-package aggressive-indent :ensure t :defer t)
 ;; it's probably a good idea NOT to enable aggressive indent mode globally.  web-mode has a hard time
@@ -58,40 +48,18 @@
   :ensure t
   :defer t
   :config
-  ;; enable async dired commands
-  (autoload 'dired-async-mode "dired-async.el" nil t)
-  (dired-async-mode 1)
   ;; enable async compilation of melpa packages
   (async-bytecomp-package-mode 1))
 
+(use-package helm-projectile :ensure t)
+
 (use-package projectile :ensure t
-  :config (setq projectile-enable-caching t))
+  :config
+  (setq projectile-enable-caching t)
+  (setq projectile-completion-system 'helm)
+  (helm-projectile-on))
 
-(use-package helm-projectile
-  :ensure t)
-(projectile-global-mode)
-(setq projectile-completion-system 'helm)
-(helm-projectile-on)
-
-(dolist (hook '(
-                js2-mode-hook
-                css-mode-hook
-                php-mode-hook
-                web-mode-hook
-                emacs-lisp-mode-hook
-                ))
-              (add-hook hook 'linum-mode))
-
-(dolist (hook '(
-                js2-mode-hook
-                css-mode-hook
-                php-mode-hook
-                web-mode-hook
-                emacs-lisp-mode-hook
-                ))
-              (remove-hook hook 'linum-mode))
-
-;; (use-package nlinum :ensure t)
+(add-hook 'after-init-hook #'projectile-global-mode)
 
 ;; let's check for poor writing style
 (require 'init-writegood)
@@ -146,7 +114,7 @@ _r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
 
 (setq epg-gpg-program "gpg")
 
-(when (f-file? "~/.authinfo.gpg")
+(when (and (display-graphic-p) (f-file? "~/.authinfo.gpg"))
   ;; only use the encrypted file.
   (setq auth-sources '("~/.authinfo.gpg"))
   ;;(require 'auth-source)
@@ -258,6 +226,10 @@ enter ediff."
 (setq uniquify-after-kill-buffer-p t)
 (setq uniquify-ignore-buffers-re "^\\*")
 
+(after-load 'dired
+  (autoload 'dired-async-mode "dired-async.el" nil t)
+  (dired-async-mode 1))
+
 (use-package dired+ :ensure t)
 
 (use-package dired-sort :ensure t)
@@ -327,11 +299,13 @@ enter ediff."
 
 (use-package lua-mode :ensure t)
 
+(use-package ido-ubiquitous :ensure t)
 (use-package magit :defer t :ensure t)
-(require-package 'git-blame)
+(use-package git-blame :ensure t)
 
 (after-load 'magit
-  (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section))
+  (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
+  (setq magit-completing-read-function 'magit-ido-completing-read))
 
 (require-package 'fullframe)
 (after-load 'magit (fullframe magit-status magit-mode-quit-window))

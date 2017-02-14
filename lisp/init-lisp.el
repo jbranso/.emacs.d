@@ -85,15 +85,7 @@ t)
 (scheme/turn-on-paredit)
 ;; make >= look like ≥
 (push '(">=" . ?≥) prettify-symbols-alist)
-(push '("<=" . ?≤) prettify-symbols-alist)
-(eldoc-mode)))
-
-(use-package aggressive-indent :ensure t)
-(aggressive-indent-mode)
-
-(use-package easy-escape :ensure t
-:config (add-hook 'emacs-lisp-mode-hook #'easy-escape-minor-mode)
-:diminish easy-escape-minor-mode)
+(push '("<=" . ?≤) prettify-symbols-alist)))
 
 (use-package geiser :ensure t
 :config

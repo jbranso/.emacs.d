@@ -23,3 +23,6 @@ archives/
 elpa/
 *session*
 **/melpa
+archive-contents
+elpa/*
+elpa/*

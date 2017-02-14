@@ -1,4 +1,3 @@
-
 ;; this lets you use an emacs grep command to look for something,
 ;; then in that grep buffer, you are can freely modify the text.
 ;; you can also use this in ag-mode. COOL!
@@ -33,7 +32,7 @@
 ;;
 ;; (setq wgrep-change-readonly-file t)
 
-(require-package 'wgrep)
+(use-package wgrep :ensure t)
 ;; make wgrep save all the files you changes on exit
 (setq wgrep-auto-save-buffer t)
 

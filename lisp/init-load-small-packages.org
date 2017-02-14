@@ -3,21 +3,7 @@
 #+LATEX_HEADER: \usepackage[QX]{fontenc}
 #+STARTUP: overview
 
-
 This file just loads in tiny packages that don't really need to be in separate files.
-* abbrev-mode
-:PROPERTIES:
-:ID:       6c870f0d-d805-4e4c-b6d6-09233397e444
-:END:
-Add abbrev-mode to text modes and program modes to turn on autocorrect like functionality.
-#+BEGIN_SRC emacs-lisp
-(dolist (hook '(org-mode-hook
-                prog-mode-hook
-                text-mode-hook))
-  (add-hook hook (lambda ()
-                   (abbrev-mode 1)
-                   (diminish 'abbrev-mode))))
-#+END_SRC
 * markdown
 :PROPERTIES:
 :ID:       4f12892e-8b3b-4b1e-b606-0be712f28f5b
@@ -45,147 +31,17 @@ Add abbrev-mode to text modes and program modes to turn on autocorrect like func
   (setq avybackground t
    avy-highlight-first t)
   ;; https://github.com/abo-abo/avy
-  (setq  avy-keys (number-sequence ?e ?t )))
+  ;; What does that do?
+  (setq avy-keys (number-sequence ?e ?t )))
  #+END_SRC
 
 * c-mode
+When I see a file that ends in .defs, then open it in c-mode.  This is mainly for the GNU Hurd.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.defs?\\'" . c-mode))
 #+END_SRC
-* rust
-http://emacsist.com/10425
-#+BEGIN_SRC emacs-lisp
-;;(use-package rust :ensure t)
-#+END_SRC
-* COMMENT autocorrect
-:PROPERTIES:
-:ID:       ed63d49c-50d4-468a-9df2-8b578a823e90
-:END:
-#+BEGIN_SRC emacs-lisp
-(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
-#+END_SRC
-* which-key
-:PROPERTIES:
-:ID:       6dd77f41-e39f-4c24-a2af-f46a6bd59398
-:END:
-this package is like guide-key, but better.  As you start to type a keychord, but then forget how to finish it,
-which-key will bring up a small buffer to show you possible completions.
-
-Which key displays your keybindings for your emacs major mode.  It might be better than guide-key.el
-
-#+CAPTION: Which key displays the current major mode's keybindings
-#+NAME:   fig:which-key
-[[~/.emacs.d/images/which-key.png]]
-
-#+BEGIN_SRC emacs-lisp
-  (use-package which-key :ensure t
-    :config (which-key-mode))
-#+END_SRC
-
-* bug-hunter
-:PROPERTIES:
-:ID:       d8cff989-6fde-466e-bd25-2eca563979d7
-:END:
-Bug hunter lets you debug your init file when you've broken it somehow.  Just type M-x bug-hunter-init-file
-#+BEGIN_SRC emacs-lisp
-(use-package bug-hunter :ensure t :defer t)
-#+END_SRC
-
-* enable flyspell for all program modes.
-:PROPERTIES:
-:ID:       bca2e633-d8eb-4d29-a059-8f2d6f18eb57
-:END:
-This will highlight words that are misspelled in comments. Also flyspell binds C-c $ to flyspell fix word before point.  BUT I would prefer that to be bound to endless/ispell-word-then-abbrev.
-#+BEGIN_SRC emacs-lisp
-(add-hook 'prog-mode-hook (lambda ()
-                            (flyspell-prog-mode)
-                            (unbind-key (kbd "C-c $") flyspell-mode-map)
-                            (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
-
-;; enable flyspell mode for all of my text modes.  This will enable flyspell to underline misspelled words.
-(add-hook 'text-mode-hook (lambda ()
-                            (flyspell-mode)
-                            (unbind-key (kbd "C-c $") flyspell-mode-map)
-                            (global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev)))
-
-
-
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-
-(cond ((string-equal system-type "darwin")
-       (setq flyspell-program "hunspell")))
-
-(require 'ispell)
-#+END_SRC
-
-* aggressive indent
-:PROPERTIES:
-:ID:       97237f5e-8877-4168-8d77-264c1e46cd13
-:END:
-Aggressive indent attempts to aggressively indent you code after you change various aspects of it.
-#+BEGIN_SRC emacs-lisp
-(use-package aggressive-indent :ensure t :defer t)
-;; it's probably a good idea NOT to enable aggressive indent mode globally.  web-mode has a hard time
-;; indenting everything when the file gets big
-(dolist (hook '(js2-mode-hook cc-mode css-mode emacs-lisp-mode-hook css-mode))
-  (add-hook hook #'aggressive-indent-mode))
-#+END_SRC
-
-* async
-:PROPERTIES:
-:ID:       9d7b0209-dda3-4155-aef7-0e3dbdc5398e
-:END:
-#+BEGIN_SRC emacs-lisp
-(use-package async
-  :ensure t
-  :defer t
-  :config
-  ;; enable async dired commands
-  (autoload 'dired-async-mode "dired-async.el" nil t)
-  (dired-async-mode 1)
-  ;; enable async compilation of melpa packages
-  (async-bytecomp-package-mode 1))
-#+END_SRC
-
-
-Here is an example of what you can do with async.
-(async-start
-   ;; What to do in the child process
-   (lambda ()
-     (message "This is a test")
-     (sleep-for 3)
-     222)
-
-   ;; What to do when it finishes
-   (lambda (result)
-     (message "Async process done, result should be 222: %s" result)))
-
-* Projectile
-:PROPERTIES:
-:ID:       24fce274-7aa4-4de9-b2a0-f2c7b4783b2e
-:END:
-    I haven't used projectile commands in a while.  I'll try turing them off and seenig what happens.
-;;(require 'init-projectile)
-;;(org-babel-load-file "init-org.org")
-;;(org-babel-load-file (concat user-emacs-directory "init-org.org"))
-;;https://github.com/danielmai/.emacs.d/blob/master/init.el
-;; init org should NOT be loaded  FIXME the problem is probably with org-mode
-
-#+BEGIN_SRC emacs-lisp
-(use-package projectile :ensure t
-  :config (setq projectile-enable-caching t))
-
-(use-package helm-projectile
-  :ensure t)
-(projectile-global-mode)
-(setq projectile-completion-system 'helm)
-(helm-projectile-on)
-#+END_SRC
-
 * COMMENT some things I don't use
-** hydra
+*** hydra
 I re't use hydras.
 #+BEemacs-lisp
 (use hydra
@@ -332,7 +188,7 @@ _p_r
   ("ectile-switch-to-buffer-other-window "buffer")
   ("                                     "cancel" :color blue))
 
-** A register hydra
+**** A register hydra
 (reqgister)
 
 ;; Ieed to use (set-register register value)
@@ -395,57 +251,89 @@ insebers left       C-x r i R                      C-u number C-x r + r
   (dy web-mode-map (kbd "C-c C-r") 'hydra-register/body))
 (witfter-load 'php-mode
   (dy php-mode-map (kbd "C-c C-r") 'hydra-register/body))
-** logging the commands I use often.
+*** COMMENT rust
+http://emacsist.com/10425
+#+BEGIN_SRC emacs-lisp
+;;(use-package rust :ensure t)
+#+END_SRC
+*** COMMENT autocorrect
+:PROPERTIES:
+:ID:       ed63d49c-50d4-468a-9df2-8b578a823e90
+:END:
+
+My hacky Emacs autocorrect functionality, is not the best.  It changes things that I don't want changed all the time, etc.
+
+Until it's better, I don't want to use it
+
+#+BEGIN_SRC emacs-lisp
+(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
+#+END_SRC
+
+*** abbrev-mode
+:PROPERTIES:
+:ID:       6c870f0d-d805-4e4c-b6d6-09233397e444
+:END:
+Add abbrev-mode to text modes and program modes to turn on autocorrect like functionality.
+#+BEGIN_SRC emacs-lisp
+(dolist (hook '(org-mode-hook
+                prog-mode-hook
+                text-mode-hook))
+  (add-hook hook (lambda ()
+                   (abbrev-mode 1)
+                   (diminish 'abbrev-mode))))
+
+
+#+END_SRC
+
+*** logging the commands I use often.
     this will be cool to monitor my commands.
     But I have to initialize it...It will not record commands by default.
     I don't really use this functionality.  I never see what commands I'm using.  So I'll ignore it for now.
     (require-package 'mwe-log-commands)
     (me:log-keyboard-commands)
-** paradox
+*** paradox
     Paradox adds some nice features to emacs install packages
     this sets up paradox to use my private token to access public repos.
     #+BEGIN_SRC emacs-lisp
     (require 'init-paradox)
     #+END_SRC
-** sunrise is a alternative to flotilla
+*** sunrise is a alternative to flotilla
     #+BEGIN_SRC emacs-lisp
     (require 'init-sunrise)
     #+END_SRC
 
-** emacs can play music and stream it! (when streaming works)
+*** emacs can play music and stream it! (when streaming works)
     #+BEGIN_SRC emacs-lisp
     (require 'init-emms)
     #+END_SRC
-** python mode
+*** python mode
     #+BEGIN_SRC emacs-lisp
     (require 'init-python-mode)
     #+END_SRC
-** github
+*** github
     #+BEGIN_SRC emacs-lisp
     (require 'init-gitgub)
     #+END_SRC
-** I don't know what this is
+*** I don't know what this is
     http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html
     (require 'init-darcs)
-** stackexchange in emacs
+*** stackexchange in emacs
     I also hardly ever use this sx package, which is an amazing package!
     searching stack exchange via emacs!  C-c S
     (use-package sx :ensure t)
-** downcase words like THe and BEautiful
+*** downcase words like THe and BEautiful
      This is probably how I can embed yasnippets into various modes
     #+BEGIN_SRC emacs-lisp
     (require 'init-dubcaps)
     #+END_SRC
-** some leftover code from purcell's config
-    (require 'init-exec-path) ;; Set up $PATH
-** I found this on the internet, but don't use it
+*** I found this on the internet, but don't use it
 
      reduce the frequency of garbage collection by making it happen on
      each 50MB of allocated data (the default is on every 0.76MB)
      this might help improve performance
     ;;(setq gc-cons-threshold 50000000)
 
-* linum
+*** COMMENT linum
 :PROPERTIES:
 :ID:       6f74055f-5351-453f-90cf-491045428704
 :END:
@@ -478,6 +366,126 @@ insebers left       C-x r i R                      C-u number C-x r + r
 ;; (use-package nlinum :ensure t)
 
 #+END_SRC
+* which-key
+:PROPERTIES:
+:ID:       6dd77f41-e39f-4c24-a2af-f46a6bd59398
+:END:
+this package is like guide-key, but better.  As you start to type a keychord, but then forget how to finish it,
+which-key will bring up a small buffer to show you possible completions.
+
+Which key displays your keybindings for your emacs major mode.  It might be better than guide-key.el
+
+#+CAPTION: Which key displays the current major mode's keybindings
+#+NAME:   fig:which-key
+[[~/.emacs.d/images/which-key.png]]
+
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key :ensure t :config (which-key-mode))
+#+END_SRC
+
+* bug-hunter
+:PROPERTIES:
+:ID:       d8cff989-6fde-466e-bd25-2eca563979d7
+:END:
+
+Bug hunter lets you debug your init file when you've broken it somehow.  Just type M-x bug-hunter-init-file.
+#+BEGIN_SRC emacs-lisp
+(use-package bug-hunter :ensure t :defer t)
+#+END_SRC
+
+* enable flyspell for all program modes.
+:PROPERTIES:
+:ID:       bca2e633-d8eb-4d29-a059-8f2d6f18eb57
+:END:
+This will highlight words that are misspelled in comments.
+Also flyspell binds C-c $ to flyspell fix word before point.  BUT I used to prefer that to be bound to endless/ispell-word-then-abbrev.
+BUT my hacky autocorrect functionality.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'prog-mode-hook (lambda ()
+                            (flyspell-prog-mode)
+                            ;;(unbind-key (kbd "C-c $") flyspell-mode-map)
+                            ;;(global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev))
+                          ))
+
+;; enable flyspell mode for all of my text modes.  This will enable flyspell to underline misspelled words.
+(add-hook 'text-mode-hook (lambda ()
+                            (flyspell-mode)
+                            ;;(unbind-key (kbd "C-c $") flyspell-mode-map)
+                            ;;(global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev))
+))
+
+
+
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+
+;;(require 'ispell)
+#+END_SRC
+
+* aggressive indent
+:PROPERTIES:
+:ID:       97237f5e-8877-4168-8d77-264c1e46cd13
+:END:
+Aggressive indent attempts to aggressively indent you code after you change various aspects of it.
+#+BEGIN_SRC emacs-lisp
+  (use-package aggressive-indent :ensure t :defer t)
+  ;; it's probably a good idea NOT to enable aggressive indent mode globally.  web-mode has a hard time
+  ;; indenting everything when the file gets big
+  (dolist (hook '(js2-mode-hook cc-mode css-mode emacs-lisp-mode-hook css-mode))
+    (add-hook hook #'aggressive-indent-mode))
+
+#+END_SRC
+
+* async
+:PROPERTIES:
+:ID:       9d7b0209-dda3-4155-aef7-0e3dbdc5398e
+:END:
+#+BEGIN_SRC emacs-lisp
+(use-package async
+  :ensure t
+  :defer t
+  :config
+  ;; enable async compilation of melpa packages
+  (async-bytecomp-package-mode 1))
+#+END_SRC
+
+
+Here is an example of what you can do with async.
+(async-start
+   ;; What to do in the child process
+   (lambda ()
+     (message "This is a test")
+     (sleep-for 3)
+     222)
+
+   ;; What to do when it finishes
+   (lambda (result)
+     (message "Async process done, result should be 222: %s" result)))
+
+* Projectile
+:PROPERTIES:
+:ID:       24fce274-7aa4-4de9-b2a0-f2c7b4783b2e
+:END:
+    I haven't used projectile commands in a while.  I'll try turing them off and seenig what happens.
+;;(require 'init-projectile)
+;;(org-babel-load-file "init-org.org")
+;;(org-babel-load-file (concat user-emacs-directory "init-org.org"))
+;;https://github.com/danielmai/.emacs.d/blob/master/init.el
+;; init org should NOT be loaded  FIXME the problem is probably with org-mode
+
+#+BEGIN_SRC emacs-lisp
+(use-package helm-projectile :ensure t)
+
+(use-package projectile :ensure t
+  :config
+  (setq projectile-enable-caching t)
+  (setq projectile-completion-system 'helm)
+  (helm-projectile-on))
+
+(add-hook 'after-init-hook #'projectile-global-mode)
+#+END_SRC
+
 * writegood-mode
 :PROPERTIES:
 :ID:       4a51a12d-17e2-4083-878d-c5e216dd5168
@@ -580,7 +588,7 @@ At the moment I dual boot Parabola GNU/Linux and GuixSD.  At some point, I want 
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  (when (f-file? "~/.authinfo.gpg")
+  (when (and (display-graphic-p) (f-file? "~/.authinfo.gpg"))
     ;; only use the encrypted file.
     (setq auth-sources '("~/.authinfo.gpg"))
     ;;(require 'auth-source)
@@ -791,6 +799,13 @@ You can read more [[http://www.wilfred.me.uk/blog/2016/07/30/example-driven-deve
 (setq uniquify-ignore-buffers-re "^\\*")
  #+END_SRC
 * dired
+  Enable async dired commands.
+#+BEGIN_SRC emacs-lisp
+  (after-load 'dired
+    (autoload 'dired-async-mode "dired-async.el" nil t)
+    (dired-async-mode 1))
+#+END_SRC
+
 ** Dired+
 :PROPERTIES:
 :ID:       0460cdf9-b11d-4411-82cc-9aaf74d24621
@@ -953,9 +968,11 @@ But it is probably not necessary.  When I am about to expand a snippet, I am typ
 :PROPERTIES:
 :ID:       8e5f5d56-7cf6-41b1-bc62-24f0e6cd488f
 :END:
+Ido-ubiquitous is needed for completing magit via ido.
 #+BEGIN_SRC emacs-lisp
+(use-package ido-ubiquitous :ensure t)
 (use-package magit :defer t :ensure t)
-(require-package 'git-blame)
+(use-package git-blame :ensure t)
 #+END_SRC
 
 ;; (use-package git-commit-mode
@@ -971,11 +988,12 @@ But it is probably not necessary.  When I am about to expand a snippet, I am typ
 ;;(use-package git-rebase-mode :defer t :ensure t)
 
 #+BEGIN_SRC emacs-lisp
-(after-load 'magit
-  (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section))
+  (after-load 'magit
+    (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
+    (setq magit-completing-read-function 'magit-ido-completing-read))
 
-(require-package 'fullframe)
-(after-load 'magit (fullframe magit-status magit-mode-quit-window))
+  (require-package 'fullframe)
+  (after-load 'magit (fullframe magit-status magit-mode-quit-window))
 #+END_SRC
 
 

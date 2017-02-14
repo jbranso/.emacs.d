@@ -5,6 +5,9 @@
 * Combining auto insertion and yasnippet
 For a long time now, I've wanted Emacs to auto-insert text into a buffer for me.  I have not been able to get it to work, but thanks to the [[https://www.reddit.com/r/emacs/comments/4vrz3v/autoinsertmode_is_not_working/][awesome emacs reddit community]], I was able to get it to work.  They also pointed out this rather extensive yasnippet Congration file:  https://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-auto-insert.el
 ** Set up yasnippet
+:PROPERTIES:
+:ID:       dd1a27ff-dea3-4283-b21e-40d5261608c5
+:END:
 
 Inserting a predefined snippet via Emacs lisp is defined [[http://joaotavora.github.io/yasnippet/snippet-expansion.html#sec-1-6][here]].  In case you don't like reading, then just do the following:
 
@@ -41,11 +44,14 @@ I'm defining some functions that will automatically expand when I open a file.  
 
 #+END_SRC
 ** Set up autoinsertion
+:PROPERTIES:
+:ID:       c049987f-1492-46dc-9d6a-a55d006419ca
+:END:
 This section configures emacs to [[https://www.gnu.org/software/emacs/manual/html_node/autotype/Autoinserting.html][autoinsert text]] into an empty buffer via yasnippets.
 
 Require the autoinsert library.
 #+BEGIN_SRC emacs-lisp
-  (require 'autoinsert)
+;;(use-package autoinsert)
 #+END_SRC
 
 When you open up an empty file, perform auto-insertion, if applicable.
@@ -78,12 +84,18 @@ ACTION may be a function or a filename found in auto-insert-directory.
 I use org-mode a lot.  And different directories have different formats.  This next bit of code ensures that when I open a file in a specific directory, Emacs inserts a template specific to that directory.
 
 **** My elisp init files template
+:PROPERTIES:
+:ID:       3a3c0afb-9b0a-4307-b68a-f776a4324d94
+:END:
 Much of my Emacs init files, use org-mode. So if I am in my init-file directory, go ahead and open an org file with that predefined snippet.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-insert-alist '((".*/lisp/.*\\.org$") . [my/yas-elisp-init-files-snippet]))
 #+END_SRC
 
 **** My cover letter template
+:PROPERTIES:
+:ID:       9af8425f-d96e-44b4-8f4e-2bb38df4932c
+:END:
 I have a directory where I write cover letters.  I want a default snippet to expand whenever I write a cover letter.
 
 #+BEGIN_SRC emacs-lisp
@@ -91,11 +103,17 @@ I have a directory where I write cover letters.  I want a default snippet to exp
 #+END_SRC
 
 **** My blog template
+:PROPERTIES:
+:ID:       3fc39135-28be-4515-b1df-8350b9ec1162
+:END:
 I use org-mode for blogging.  It is quite nice to have it auto-insert what needs to be inserted.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-insert-alist '((".*/my-wordpress-blog.*\\.org$") . [my/blog-entry-file-snippet]))
 #+END_SRC
 ** Provide this file
+:PROPERTIES:
+:ID:       d09bbea3-3c5c-40cf-819f-700268b8e74b
+:END:
 #+BEGIN_SRC emacs-lisp
 (provide 'init-autoinsert)
 #+END_SRC

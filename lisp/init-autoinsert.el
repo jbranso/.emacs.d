@@ -24,7 +24,7 @@
   (yas-expand-snippet (yas-lookup-snippet "<web-mode"))
   (evil-insert-state))
 
-(require 'autoinsert)
+;;(use-package autoinsert)
 
 (add-hook 'find-file-hook 'auto-insert)
 

@@ -19,50 +19,51 @@
   )
 
 (use-package php-eldoc :ensure t)
-(use-package web-mode :ensure t)
+(use-package web-mode :ensure t :config
+
+  ;;I'm not sure what this does
+  (setq web-mode-extra-constants '(("php" . ("CONS1" "CONS2"))))
+  ;; <?php expands to <?php ?>
+  (setq web-mode-enable-auto-pairing t)
+  ;; Example - you may want to add hooks for your own modes.
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.phtml?\\'" . web-mode))
+  ;; I don't use php-mode and it is causing an error to load it in.
+  ;;(use-package php-mode :ensure t)
+  (add-to-list 'auto-mode-alist '("\\.php?\\'"  . web-mode))
+  ;; when I open a css file use css-mode that way I can set up flychech with it!
+  ;;(add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.css?\\'" . css-mode))
+  (setq web-mode-extra-auto-pairs
+        '(("erb"  . (("beg" "end")))
+          ("php"  . (("beg" "end")
+                     ("beg" "end")))
+          ))
+
+  (setq web-mode-engines-alist
+        '(("php"  . "\\.php\\.")
+          ("django"  . "\\.djhtml\\.")))
+
+
+  ;;(setq web-mode-ac-sources-alist '(("css" . (ac-source-css-property ac-source-html-bootstrap+)) ("html" . (ac-source-words-in-buffer ac-source-abbrev ac-source-emmet-html-aliases ac-source-emmet-html-snippets ac-source-html-tag ac-source-html-attribute ac-source-html-attribute-2 ac-source-files-in-current-dir))))
+
+  ;;("php" . (ac-source-words-in-buffer ac-source-filename))
+
+  ;; DO NOT SET ac-source yasnippet. autocomplete does NOT play nicely with ac-source yasnippet
+  ;; ac-source-yasnippet
+  ;; Here are some pages that talk about getting yas and autocomplete to play nicely together
+  ;; http://sethlakowske.com/why-i-use-emacs/fix-yasnippet-and-autocomplete-tab-key-collision/
+  ;; https://stackoverflow.com/questions/19900949/how-to-make-auto-complete-work-with-yasnippet-and-abbrev
+  ;; https://github.com/capitaomorte/yasnippet/issues/336
+  ;; https://emacs.stackexchange.com/questions/9670/yasnippet-not-working-with-auto-complete-mode
+  ;;I'm being more and more annoyed with ac-php
+  ;; https://github.com/xcwen/ac-php/
+  ;;ac-source-php
+  )
+
 (use-package emmet-mode :ensure t)
 (use-package ggtags  :ensure t)
-
-;;I'm not sure what this does
-(setq web-mode-extra-constants '(("php" . ("CONS1" "CONS2"))))
-;; <?php expands to <?php ?>
-(setq web-mode-enable-auto-pairing t)
-;; Example - you may want to add hooks for your own modes.
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.phtml?\\'" . web-mode))
-;; I don't use php-mode and it is causing an error to load it in.
-;;(use-package php-mode :ensure t)
-(add-to-list 'auto-mode-alist '("\\.php?\\'"  . web-mode))
-;; when I open a css file use css-mode that way I can set up flychech with it!
-;;(add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.css?\\'" . css-mode))
-(setq web-mode-extra-auto-pairs
-      '(("erb"  . (("beg" "end")))
-        ("php"  . (("beg" "end")
-                   ("beg" "end")))
-        ))
-
-(setq web-mode-engines-alist
-      '(("php"  . "\\.php\\.")
-        ("django"  . "\\.djhtml\\.")))
-
-
-;;(setq web-mode-ac-sources-alist '(("css" . (ac-source-css-property ac-source-html-bootstrap+)) ("html" . (ac-source-words-in-buffer ac-source-abbrev ac-source-emmet-html-aliases ac-source-emmet-html-snippets ac-source-html-tag ac-source-html-attribute ac-source-html-attribute-2 ac-source-files-in-current-dir))))
-
-;;("php" . (ac-source-words-in-buffer ac-source-filename))
-
-;; DO NOT SET ac-source yasnippet. autocomplete does NOT play nicely with ac-source yasnippet
-;; ac-source-yasnippet
-;; Here are some pages that talk about getting yas and autocomplete to play nicely together
-;; http://sethlakowske.com/why-i-use-emacs/fix-yasnippet-and-autocomplete-tab-key-collision/
-;; https://stackoverflow.com/questions/19900949/how-to-make-auto-complete-work-with-yasnippet-and-abbrev
-;; https://github.com/capitaomorte/yasnippet/issues/336
-;; https://emacs.stackexchange.com/questions/9670/yasnippet-not-working-with-auto-complete-mode
-;;I'm being more and more annoyed with ac-php
-;; https://github.com/xcwen/ac-php/
-;;ac-source-php
-
 
 (add-hook 'web-mode-hook '(lambda ()
                             ;;(use-package emmet-mode :ensure t)

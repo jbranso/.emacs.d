@@ -131,21 +131,13 @@ t)
 (push '("<=" . ?≤) prettify-symbols-alist)))
 #+END_SRC
 
-** Aggressive indent
-:PROPERTIES:
-:ID:       d95dde29-4a3b-4cd0-8daa-1d6016a7e7af
-:END:
-
-As you type out your code, aggressive indent attempts to indent your code so that you don't have to.
-#+BEGIN_SRC emacs-lisp
-(use-package aggressive-indent :ensure t)
-(aggressive-indent-mode)
-#+END_SRC
-
-** easy-escape for regexps in emacs lisp
+** COMMENT easy-escape for regexps in emacs lisp
 :PROPERTIES:
 :ID:       b3aad618-a1aa-4149-b658-2c23cb7da2ac
 :END:
+
+This mode really confuses me.  I'm turning it off.
+
 emacs regexp are cumbersome
 "\b" in most regexp engines means word end
 but when one is programming in emacs-lisp you have to write "\\b"
@@ -167,51 +159,6 @@ Install geiser mode for guile code
 :config
 (setq geiser-active-implementations '(guile)))
 #+END_SRC
-
-
-;; I don't use the motion commands in there at all, because it's just easier to use the evil motion
-(defhydra hydra-paredit (:color pink :hint nil)
-"
-^Barfing/Slurping^           ^Splice^
-^^^^^^^^^^^^^^^^^^------------------------------------------------
-_0_: slurp forward           _S._: splice sexp
-_9_: slurp backward          _Ss_: splice forward
-_]_: barf forward            _Sn_: splice backward
-_[_: barf backward           _\^_: raise sexp
-_\)_: slurp all forward
-_\(_: slurp all backward
-_\}_: barf all forward
-_\{_: barf all backward
-"
-;; Barfing/Slurping
-("0" paredit-forward-slurp-sexp)
-("9" paredit-backward-slurp-sexp)
-("]" paredit-forward-barf-sexp)
-("[" paredit-backward-barf-sexp)
-(")" paredit-slurp-all-the-way-forward)
-("(" paredit-slurp-all-the-way-backward)
-("}" paredit-barf-all-the-way-forward)
-("{" paredit-barf-all-the-way-backward)
-
-;; Splice
-("S." paredit-splice-sexp)
-("Ss" paredit-splice-killing-forward)
-("Sn" paredit-splice-killing-backward)
-("^"  paredit-raise-sexp)
-("\\" paredit-split-sexp)
-("j" paredit-join-sexp)
-(";" paredit-semicolan)
-
-("g" nil "leave"))
-
-;; I want to set this hydra to a keybinding.  So I don't have to remember all of the keybindings
-(define-key emacs-lisp-mode-map (kbd "C-c C-p") 'hydra-paredit/body)
-
-What is this here for?  I'm going to leave it out for now.
-(dolist (hook '(prog-mode-hook
-text-mode-hook))
-(add-hook hook (lambda ()
-(evil-define-key 'normal evil-dvorak-mode-map  "k" 'kill-line))))
 
 * highlight truth values
 ** highlight t and nil in emacs lisp

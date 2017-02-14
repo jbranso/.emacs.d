@@ -21,9 +21,10 @@ oooo zenburn makes emacs look beautiful!
 (org-agenda-list)
 I found this next line from
 http://emacslife.com/baby-steps-org.html#sec-9
+
 #+BEGIN_SRC emacs-lisp
-(find-file-noselect "/home/joshua/programming/org/gtd.org")
-(org-agenda nil "a")
+;;(find-file-noselect "/home/joshua/programming/org/gtd.org")
+;;(org-agenda nil "a")
 #+END_SRC
 
 ** provide this file

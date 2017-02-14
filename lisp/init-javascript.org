@@ -1,4 +1,3 @@
-;;(require-package 'json-mode)
 * js2 mode
 #+BEGIN_SRC emacs-lisp
 (use-package js2-mode
@@ -110,4 +109,9 @@ Javascript nests {} and () a lot, so I find this helpful
 ;;               (lambda () (inferior-js-keys-mode -1)))))
 
 
+#+END_SRC
+* provide this file
+
+#+BEGIN_SRC emacs-lisp
+(provide 'init-javascript)
 #+END_SRC

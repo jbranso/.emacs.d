@@ -299,7 +299,7 @@ be global."
 (when (not (server-running-p))
   (server-start))
 
-(require-package 'move-dup)
+(use-package move-dup :ensure t)
 (global-set-key (kbd "s-t") #'md/move-lines-up)
 ;; this won't work because this is a command that feeds into awesome
 (global-set-key (kbd "s-h") #'md/move-lines-down)

@@ -38,7 +38,6 @@
 ;; make use-package tell me which packages take longer than 0.1s to load
 (setq use-package-verbose t)
 ;;(require 'init-pdf-tools)
-(org-babel-load-file "~/.emacs.d/lisp/init-autoinsert.org")
 ;; make opening specific types of files,
 ;; autoinsert a yasnippet
 (org-babel-load-file "~/.emacs.d/lisp/init-autoinsert.org")
@@ -57,7 +56,6 @@
 (org-babel-load-file 	"~/.emacs.d/lisp/init-editing-utils.org")
 		     ;;an irc client for Emacs
 (org-babel-load-file 	"~/.emacs.d/lisp/init-erc.org")
-(org-babel-load-file 	"~/.emacs.d/lisp/init-misc.org")
 
 
 ;; read email in emacs
@@ -72,6 +70,8 @@
 (require 'init-smart-mode-line)
 ;; Make my evil keybindings work pretty much everywhere
 (require 'init-evil-rebellion-clone)
+
+(org-babel-load-file 	"~/.emacs.d/lisp/init-misc.org")
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
 ;;----------------------------------------------------------------------------
