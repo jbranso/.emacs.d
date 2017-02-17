@@ -155,6 +155,85 @@
   ;;to the server, pwd is still ~/programming/soihub
   (write-file "/home/joshua/programming/waypoint/ihca/"))
 
+(defun purdue-delete-this-buffer-from-dev-server ()
+  "Write this buffer to the purdue dev server."
+  (interactive)
+  (require 's)
+  (let (remote-file-path remote-dir local-file)
+    (setq local-file buffer-file-name)
+    (setq remote-dir "/ssh:jbranso@dev.www.purdue.edu:/var/www/html/root/honorscollege/")
+    (setq remote-file-path (concat
+                            remote-dir
+                            (s-chop-prefix "/home/joshua/honorscollege/" buffer-file-name)))
+    (delete-file remote-file-path)))
+
+(defun purdue-save-this-buffer-to-dev-server ()
+  "Write this buffer to the purdue dev server."
+  (interactive)
+  (require 's)
+  (let (remote-file-path remote-dir local-file)
+    (setq local-file buffer-file-name)
+    (setq remote-dir "/ssh:jbranso@dev.www.purdue.edu:/var/www/html/root/honorscollege/")
+    (setq remote-file-path (concat
+                            remote-dir
+                            (s-chop-prefix "/srv/http/honorscollege/" buffer-file-name)))
+    ;; for some reason updating images doesn't really work.
+    ;; I should delete them first.  Then upload them.
+    (when (and (string-match "\.pdf$\\\|\.jpg$\\\|\.png$" remote-file-path)
+               ;; does the file exist?
+               (file-exists-p remote-file-path))
+      (delete-file remote-file-path))
+    (write-file remote-file-path)
+    (write-file local-file)))
+
+(defun purdue-view-this-buffer-in-browser ()
+  "View the current file in your browser.  Since anything under community is now wordpress, then if the user wants to
+view o community page, show him the qa server."
+  (interactive)
+  (require 's)
+  (let (url dev-string qa-string)
+    (setq dev-string "https://dev.honors.purdue.edu/")
+    (setq qa-string  "https://qa.honors.purdue.edu/")
+    (if (s-match "community" buffer-file-name)
+        (setq url (concat qa-string (s-chop-prefix "/srv/http/honorscollege/" buffer-file-name)))
+      (setq url (concat dev-string  (s-chop-prefix "/srv/http/honorscollege/" buffer-file-name))))
+    (browse-url url)))
+
+
+(defun purdue-view-this-buffer-locally ()
+  "View the current file in your browser.  Since anything under community is now wordpress, then if the user wants to
+view o community page, show him the qa server."
+  (interactive)
+  (require 's)
+  (let (url local-string)
+    (setq local-string "localhost/honorscollege/")
+    (setq url (concat local-string  (s-chop-prefix "/srv/http/honorscollege/" buffer-file-name)))
+    (browse-url url)))
+
+(defun purdue-deploy-to-dev-server ()
+  "Rsynce my project to purdue's dev server."
+  (interactive)
+  (let (remote-file  remote-file-prefix)
+    (setq remote-file-prefix "/ssh:jbranso@dev.www.purdue.edu:/home/users/jbranso/HTML/honorscollege/")
+    (setq (concat remote-file (s-chop-prefix "/srv/http/honorscollege/" buffer-file-name)))
+    (print remote-file)
+    ;; (write-file remote-file)
+    ;;(write-file local-file)
+    )
+  ;; (start-process "rsync-purdue" "*Purdue Deploy*" "rsync"
+  ;;                ;; be verbose
+  ;;                "-v "
+  ;;                ;; recursive into directories
+  ;;                "-r "
+  ;;                "/srv/http/honorscollege/"
+  ;;                "jbranso@dev.www.purdue.edu:/var/www/html/root/honorscollege/")
+  ;; (let ((password (read-string "Enter your password: ")))
+  ;;   (process-send-string "rsync-purdue" password))
+  ;; (split-window-below)
+  ;; (windmove-down)
+  ;; (switch-to-buffer "rsync-purdue")
+  )
+
 ;; This function can be called from any org-babel sql block that has php and sql code mixed together
 (defun org-babel-strip-php-from-sql-block ()
   "Cleans up a sql statement from
@@ -256,86 +335,6 @@
           (set-window-buffer (next-window) next-win-buffer)
           (select-window first-win)
           (if this-win-2nd (other-window 1))))))
-
-;;I found this big code snippet here:  https://github.com/seanirby/dotfiles/blob/master/.emacs.d/init.el#L310-L397
-;;buffer stuff quickly choose between the last 8 opened buffers
-(defvar bswitch-map (list 1 "a"
-                          2 "o"
-                          3 "e"
-                          4 "u"
-                          5 "i"
-                          6 "d"
-                          7 "h"
-                          8 "t"))
-
-(defvar bswitch-offset 15)
-(defvar bswitch-key-buffer-spacing 5)
-
-(defun bswitch-repeat (number &optional str)
-  (if (< number 1)
-      str
-    (bswitch-repeat (1- number) (concat " " str))))
-
-(defun bswitch-get-beginning ()
-  (bswitch-repeat (- (/ (window-body-width) 2) bswitch-offset)))
-
-(defun bswitch-get-end (beg mid)
-  (bswitch-repeat (- (window-body-width)
-                     (+ (length mid)
-                        (length beg)))))
-
-(defun bswitch-get-header-display-line ()
-  (let* ((beg (bswitch-get-beginning))
-         (mid (concat "Key"
-                      (bswitch-repeat
-                       (+ -2 bswitch-key-buffer-spacing))
-                      "Buffer"))
-         (end (bswitch-get-end beg mid)))
-    (concat beg mid end)))
-
-
-(defun bswitch-get-buffer-display-line (index)
-  (let* ((blist (buffer-list)))
-    (if (< index (length blist))
-        (let* ((beg (bswitch-get-beginning))
-               (mid (concat (plist-get bswitch-map index)
-                            (bswitch-repeat bswitch-key-buffer-spacing)
-                            (buffer-name (nth index (buffer-list)))))
-               (end (bswitch-get-end beg mid)))
-
-          (concat beg mid end))
-      (let* ((beg (bswitch-get-beginning))
-             (mid (format "No buffer at index %s yet" index))
-             (end (bswitch-get-end beg mid)))
-        (concat beg mid end)))))
-
-(defun bswitch-switch (index)
-  (if (< index (length (buffer-list)))
-      (switch-to-buffer (nth index (buffer-list)))
-    (message "Cannot switch since there is no buffer at index %s yet" index)))
-
-(defhydra hydra-bswitch (:hint nil :exit t)
-  "
-%(bswitch-get-header-display-line)
-%(bswitch-get-buffer-display-line 1)
-%(bswitch-get-buffer-display-line 2)
-%(bswitch-get-buffer-display-line 3)
-%(bswitch-get-buffer-display-line 4)
-%(bswitch-get-buffer-display-line 5)
-%(bswitch-get-buffer-display-line 6)
-%(bswitch-get-buffer-display-line 7)
-%(bswitch-get-buffer-display-line 8)
-"
-  ("a" (bswitch-switch 1))
-  ("o" (bswitch-switch 2))
-  ("e" (bswitch-switch 3))
-  ("u" (bswitch-switch 4))
-  ("i" (bswitch-switch 5))
-  ("d" (bswitch-switch 6))
-  ("t" (bswitch-switch 7))
-  ("n" (bswitch-switch 8)))
-
-;; end found this cool command online
 
 (defun update-my-profile-site-lets-encrypt ()
   (interactive)

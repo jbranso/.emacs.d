@@ -1,3 +1,4 @@
+
 (defun my/yas-org-snippet ()
   (interactive)
   (yas-expand-snippet (yas-lookup-snippet "<org"))

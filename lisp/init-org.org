@@ -147,7 +147,7 @@ just one space.
 
 end imported code
 
-** org babel
+** COMMENT org babel
 :PROPERTIES:
 :ID:       5fc7e3ce-61fb-47de-8517-29082f4d4340
 :END:
@@ -1032,7 +1032,7 @@ There is apparently a way to specify in your org agenda files where you have a s
 :PROPERTIES:
 :ID:       1a006baf-51cd-454a-950e-3af9ff1915c5
 :END:
-** a hydra that I found online that lets you easily remember some of the org commands
+** COMMENT a hydra that I found online that lets you easily remember some of the org commands
 :PROPERTIES:
 :ID:       721dc190-9af1-441d-b3fa-1cfc0a92bafb
 :END:

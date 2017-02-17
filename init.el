@@ -16,7 +16,7 @@
 
 ;; this is supposed to be a big performance win
 ;; https://www.reddit.com/r/emacs/comments/4c0mi3/the_biggest_performance_improvement_to_emacs_ive/h
-(remove-hook 'find-file-hooks 'vc-find-file-hook)
+;; (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
 (require 'init-utils)
 (require 'init-elpa)     ;; Machinery for installing required packages
@@ -41,20 +41,20 @@
 ;; make opening specific types of files,
 ;; autoinsert a yasnippet
 (org-babel-load-file "~/.emacs.d/lisp/init-autoinsert.org")
-		     ;;load is many packages
+;;load is many packages
 (org-babel-load-file 	"~/.emacs.d/lisp/init-load-small-packages.org")
-		     ;; make emacs indent your code all the time, so you don't have to
+;; make emacs indent your code all the time, so you don't have to
 (org-babel-load-file 	"~/.emacs.d/lisp/init-aggressive-indent.org")
-		     ;; emacs can read email
+;; emacs can read email
 (org-babel-load-file 	"~/.emacs.d/lisp/init-gnus.org")
-		     ;; some graphical configurations
+;; some graphical configurations
 (org-babel-load-file 	"~/.emacs.d/lisp/init-gui-frames.org")
-		     ;; my org configurations
+;; my org configurations
 (org-babel-load-file 	"~/.emacs.d/lisp/init-org.org")
 (org-babel-load-file 	"~/.emacs.d/lisp/init-lisp.org")
 (org-babel-load-file 	"~/.emacs.d/lisp/init-javascript.org")
 (org-babel-load-file 	"~/.emacs.d/lisp/init-editing-utils.org")
-		     ;;an irc client for Emacs
+;;an irc client for Emacs
 (org-babel-load-file 	"~/.emacs.d/lisp/init-erc.org")
 
 
@@ -63,6 +63,7 @@
 ;; let's get modal keybinding working!
 (require 'init-evil)
 (require 'init-html)
+(require 'init-projectile)
 ;; let's write my wordpress blog in emacs
 ;;(require 'init-org2blog)
 (require 'init-defuns)

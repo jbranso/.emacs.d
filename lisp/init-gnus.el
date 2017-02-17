@@ -55,14 +55,6 @@
    ;; my config
 ;;   (use-package init-gnus-secret-smtp)
 
-(use-package gnus-desktop-notify
-  :ensure t)
-
-(gnus-desktop-notify-mode)
-(gnus-demon-add-scanmail)
-;;(gnus-demon-init)
-;;(gnus-demon-add-handler 'gnus-group-get-new-news 20 t)
-
 (use-package bbdb
   :ensure t)
 
@@ -109,6 +101,11 @@
         (".*hotmail.*"
          (signature "Joshua Branson\nSent From Emacs and Gnus")
          (address "bransoj@hotmail.com"))))
+
+(add-hook 'kill-emacs-hook #'(lambda ()
+                                 (interactive)
+                                 (when (eq nil (get-buffer "*Group*"))
+                                   (gnus-group-exit))))
 
 ;;(use-package w3m :ensure t)
 ;;(setq mm-text-html-renderer 'w3m)

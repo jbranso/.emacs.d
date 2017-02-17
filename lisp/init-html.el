@@ -75,6 +75,8 @@
                             (diminish 'ggtags-mode)
                             ;;emmet mode for html % css related things
                             (emmet-mode)
+                            ;; turn urls into clickable links.
+                            (goto-address-mode)
                             (diminish 'emmet-mode)
                             (local-unset-key (kbd "C-<return>"))
                             (define-key web-mode-map (kbd "C-<return>") '(lambda ()
@@ -144,6 +146,12 @@
 
 
 
+(defun my-js-minify-function ()
+  "Minifying my js files."
+  (interactive)
+  (async-shell-command (concat (format "closure --js  %s --js_output_file "
+                                       (buffer-file-name))
+                               (s-replace ".js" ".min.js" buffer-file-name)) "*js minifying*"))
 
 (add-hook 'js2-mode-hook '(lambda ()
                             ;; I have abbrev turned on for all prog and text modes
@@ -154,11 +162,20 @@
                             (push '(">=" . ?≥) prettify-symbols-alist)
                             (push '("<=" . ?≤) prettify-symbols-alist)
                             (diminish 'ggtags-mode)
-                            ;; this conflicts with the snippets, and it's seriously annoying
-                            ;;(ac-js2-mode)
-                            ;;set ac sources to nil for javascript that way it doesn't interfer with yasnippet
-                            ;;(setq ac-sources '(ac-source-filename ac-source-dictionary))
-                            ))
+                            (add-hook 'after-save-hook 'my-js-minify-function nil t)))
 
+(add-to-list 'display-buffer-alist (cons "\\\*js minifying\\\*" (cons #'display-buffer-no-window nil)))
+
+(defun my-css-minify-function ()
+  "Minifying my css files."
+  (interactive)
+  (async-shell-command (concat (format "yuicompressor --type css  %s -o "
+                                       (buffer-file-name))
+                               (s-replace ".css" ".min.css" buffer-file-name)) "*css minifying*"))
+
+(add-to-list 'display-buffer-alist (cons "\\\*css minifying\\\*" (cons #'display-buffer-no-window nil)))
+
+(add-hook 'css-mode-hook '(lambda ()
+                            (add-hook 'after-save-hook 'my-css-minify-function nil t)))
 
 (provide 'init-html)
