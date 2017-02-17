@@ -1,4 +1,7 @@
 * js2 mode
+:PROPERTIES:
+:ID:       6427284b-565d-418a-a57a-995f36b1175d
+:END:
 #+BEGIN_SRC emacs-lisp
 (use-package js2-mode
   :ensure t
@@ -49,6 +52,9 @@
 #+END_SRC
 
 * rainbow delimiters
+:PROPERTIES:
+:ID:       5671bd7d-efd1-460f-b8e2-c09fd812313f
+:END:
 #+BEGIN_SRC emacs-lisp
 (use-package rainbow-delimiters :ensure t)
 (dolist (hook '(js2-mode-hook js-mode-hook json-mode-hook))
@@ -77,6 +83,9 @@ Javascript nests {} and () a lot, so I find this helpful
 #+END_SRC
 
 * inferior js
+:PROPERTIES:
+:ID:       3fc76131-9245-40ad-83c1-391361570403
+:END:
 #+BEGIN_SRC emacs-lisp
 
 (setq inferior-js-program-command "js")
@@ -97,6 +106,9 @@ Javascript nests {} and () a lot, so I find this helpful
 #+END_SRC
 
 * skewer mode
+:PROPERTIES:
+:ID:       20044505-c553-4e3e-b272-4d4d84ae1004
+:END:
 #+BEGIN_SRC emacs-lisp
 
 ;; ---------------------------------------------------------------------------
@@ -111,6 +123,9 @@ Javascript nests {} and () a lot, so I find this helpful
 
 #+END_SRC
 * provide this file
+:PROPERTIES:
+:ID:       acca9101-ebf5-4d01-bf86-de55c8600a0c
+:END:
 
 #+BEGIN_SRC emacs-lisp
 (provide 'init-javascript)

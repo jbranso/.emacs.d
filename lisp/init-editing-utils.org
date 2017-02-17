@@ -89,11 +89,11 @@ Make TAB mean indent.
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c .") #'xref-find-definitions)
   (global-set-key (kbd "C-c C-h") #'help)
-  (global-set-key (kbd "C-c h k") #'helm-show-kill-ring)
+  ;;(global-set-key (kbd "C-c h k") #'helm-show-kill-ring)
   (global-set-key (kbd "C-x f")   #'helm-find-files)
-  (global-set-key (kbd "C-c h o") #'helm-occur)
-  (global-set-key (kbd "C-c h c") #'helm-calcul-expression)
-  (global-set-key (kbd "C-c h g") #'helm-grep-do-git-grep)
+  ;;(global-set-key (kbd "C-c h o") #'helm-occur)
+  ;;(global-set-key (kbd "C-c h c") #'helm-calcul-expression)
+  ;;(global-set-key (kbd "C-c h g") #'helm-grep-do-git-grep)
 
 #+END_SRC
 

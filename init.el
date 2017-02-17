@@ -1,4 +1,4 @@
-;;; This file bootstraps the configuration, which is divided into
+;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
 
 ;; Added by Package.el.  This must come before configurations of
@@ -37,6 +37,13 @@
 (use-package bind-key :ensure t)
 ;; make use-package tell me which packages take longer than 0.1s to load
 (setq use-package-verbose t)
+;;Make Emacs load in bug hunter early.  That way I can almost always
+;; easily debug my init file.
+(org-babel-load-file "~/.emacs.d/lisp/init-bug-hunter.org")
+;; let's get modal keybinding working!
+;; And let's load it in quickly, so I can always use evil-mode
+;; even when my config is broken.
+(require 'init-evil)
 ;;(require 'init-pdf-tools)
 ;; make opening specific types of files,
 ;; autoinsert a yasnippet
@@ -60,8 +67,6 @@
 
 ;; read email in emacs
 ;;(require 'init-mu4e)
-;; let's get modal keybinding working!
-(require 'init-evil)
 (require 'init-html)
 (require 'init-projectile)
 ;; let's write my wordpress blog in emacs

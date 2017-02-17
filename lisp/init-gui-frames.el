@@ -28,7 +28,7 @@
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 
-(desktop-save-mode 1)
+;;(desktop-save-mode 1)
 
 (require 'saveplace)
 (setq-default save-place t)

@@ -12,33 +12,29 @@
   :defer t
   :config
   (setq avybackground t
-        avy-highlight-first t)
+   avy-highlight-first t)
   ;; https://github.com/abo-abo/avy
   ;; What does that do?
   (setq avy-keys (number-sequence ?e ?t )))
 
-<<<<<<< variant A
-(add-to-list 'auto-mode-alist '("\\.defs?\\'" . c-mode))
->>>>>>> variant B
 ;;(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
-======= end
+
+(add-to-list 'auto-mode-alist '("\\.defs?\\'" . c-mode))
 
 (use-package which-key :ensure t :config (which-key-mode))
-
-(use-package bug-hunter :ensure t :defer t)
 
 (add-hook 'prog-mode-hook (lambda ()
                             (flyspell-prog-mode)
                             ;;(unbind-key (kbd "C-c $") flyspell-mode-map)
                             ;;(global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev))
-                            ))
+                          ))
 
 ;; enable flyspell mode for all of my text modes.  This will enable flyspell to underline misspelled words.
 (add-hook 'text-mode-hook (lambda ()
                             (flyspell-mode)
                             ;;(unbind-key (kbd "C-c $") flyspell-mode-map)
                             ;;(global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev))
-                            ))
+))
 
 ;;(require 'ispell)
 
@@ -55,23 +51,8 @@
   ;; enable async compilation of melpa packages
   (async-bytecomp-package-mode 1))
 
-<<<<<<< variant A
 (use-package helm-projectile :ensure t)
->>>>>>> variant B
-(dolist (hook '(
-                c-mode-hook
-                js2-mode-hook
-                css-mode-hook
-                php-mode-hook
-                web-mode-hook
-                emacs-lisp-mode-hook
-                ))
-  (progn
-    (add-hook hook 'linum-mode)
-    (remove-hook hook 'linum-mode)))
-======= end
 
-<<<<<<< variant A
 (use-package projectile :ensure t
   :config
   (setq projectile-enable-caching t)
@@ -79,9 +60,6 @@
   (helm-projectile-on))
 
 (add-hook 'after-init-hook #'projectile-global-mode)
->>>>>>> variant B
-;; (use-package nlinum :ensure t)
-======= end
 
 ;; let's check for poor writing style
 (require 'init-writegood)
@@ -140,24 +118,24 @@ enter ediff."
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 (when (display-graphic-p)
-  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
+   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
 (defun my-recentf-startup ()
-  "My configuration for recentf."
-  (recentf-mode 1)
+"My configuration for recentf."
+(recentf-mode 1)
 
-  (setq recentf-max-saved-items 1000
-        recentf-exclude '("/tmp/"
-                          "^.*autoloads.*$"
-                          "^.*TAGS.*$"
-                          "^.*COMMIT.*$"
-                          "^.*pacnew.*$"
-                          ;; in case I ever want to exclude shh files, I can add this next line.
-                          ;;  "/ssh:"
-                          ))
+(setq recentf-max-saved-items 1000
+      recentf-exclude '("/tmp/"
+            "^.*autoloads.*$"
+            "^.*TAGS.*$"
+            "^.*COMMIT.*$"
+            "^.*pacnew.*$"
+                        ;; in case I ever want to exclude shh files, I can add this next line.
+                        ;;  "/ssh:"
+            ))
 
-  (add-to-list 'recentf-keep "^.*php$//")
-  (recentf-auto-cleanup))
+(add-to-list 'recentf-keep "^.*php$//")
+(recentf-auto-cleanup))
 
 (add-hook 'after-init-hook 'my-recentf-startup)
 
@@ -198,7 +176,7 @@ enter ediff."
   :commands (wttrin)
   :init
   (setq wttrin-default-cities
-        '("West Lafayette")))
+  '("West Lafayette")))
 
 (defun weather ()
   "Show the local weather via wttrin"
@@ -248,9 +226,9 @@ enter ediff."
   :defer t
   :ensure t)
 
-(add-to-list 'load-path "~/.emacs.d/snippets")
-(require 'yasnippet)
-(yas-global-mode 1)
+  (add-to-list 'load-path "~/.emacs.d/snippets")
+  (require 'yasnippet)
+  (yas-global-mode 1)
 
 (with-eval-after-load 'warnings
   (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
@@ -361,7 +339,7 @@ enter ediff."
  ;;helm-M-x-fuzzy-match t
  ;;helm-recentf-fuzzy-match t
  ;;helm-apropos-fuzzy-match t
- ;;the more of these sources that I have, the slower helm will be
+;;the more of these sources that I have, the slower helm will be
  helm-for-files-preferred-list '(
                                  helm-source-buffers-list
                                  helm-source-recentf

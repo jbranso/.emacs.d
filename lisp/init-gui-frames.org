@@ -54,7 +54,7 @@ their file names, major modes, buffer positions, and so on—then subsequent Ema
 the desktop also tries to save the frame and window configuration. To disable this, set desktop-restore-frames to nil. (See that
 variable’s documentation for some related options that you can customize to fine-tune this behavior.)
 #+BEGIN_SRC emacs-lisp
-(desktop-save-mode 1)
+;;(desktop-save-mode 1)
 #+END_SRC
 
 * Save the position point was in

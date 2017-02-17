@@ -252,14 +252,7 @@ for a string you have to hit "t" when you first open gnus to get purdue working 
 
    (add-hook 'message-send-hook  'ispell-message)
 
-<<<<<<< variant A
-** COMMENT Asynchronous Email
-
-
-   Don't do this. The manual says not to use this feature.
->>>>>>> variant B
 ** Asynchronous Email
-======= end
 
    This might not be worth it. Make gnus load more than 1 email in the background. This seems to slow stuff down in the initial
    connection, and it doesn't seem all that fast once everything is opened.
@@ -456,15 +449,13 @@ BUT basically, if I have a bunch of email accounts, It would be nice that when I
            (address "bransoj@hotmail.com"))))
 #+END_SRC
 
-<<<<<<< variant A
->>>>>>> variant B
 #+BEGIN_SRC emacs-lisp
 (add-hook 'kill-emacs-hook #'(lambda ()
                                  (interactive)
                                  (when (eq nil (get-buffer "*Group*"))
                                    (gnus-group-exit))))
 #+END_SRC
-======= end
+
 ** read html mail
 
    You have 2 main options here.  You can use the elisp shr for this or you can use gnus-w3m if you have w3m installed.

@@ -42,195 +42,12 @@ This file just loads in tiny packages that don't really need to be in separate f
 #+BEGIN_SRC emacs-lisp
 ;;(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
 #+END_SRC
-* which-key
-:PROPERTIES:
-:ID:       6dd77f41-e39f-4c24-a2af-f46a6bd59398
-:END:
-this package is like guide-key, but better.  As you start to type a keychord, but then forget how to finish it,
-which-key will bring up a small buffer to show you possible completions.
-
-Which key displays your keybindings for your emacs major mode.  It might be better than guide-key.el
-
-#+CAPTION: Which key displays the current major mode's keybindings
-#+NAME:   fig:which-key
-[[~/.emacs.d/images/which-key.png]]
-
+* c-mode
+Open .defs files in c-mode.  These are found in the Hurd source code.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.defs?\\'" . c-mode))
 #+END_SRC
-* COMMENT some things I don't use
-** A register hydra
-(reqgister)
 
-;; Ieed to use (set-register register value)
-
-"
-regist is this:
-Alisments (NAME . CONTENTS), one for each Emacs register.
-NAMEaracter (a number).  CONTENTS is a string, number, marker, list
-or areturned by `registerv-make'.
-
-So m to register command must transform my NAME char into an ASCII number.  fun.
-"
-
-(defmber-to-register (number register)
-  (ive "n number: \nMregister: ")
-  ;;to-register number register)
-  ;;r to use
-  (ster register number))
-
-;; g is getting soo annoying and it's not working at all
-;;(pister-alist)
-
-(defsert-register (register)
-  (ive "Mregister: ")
-  (pister)
-  (igister register))
-
-(defcrement-register ())   (get-register "r")
-
-(defdra-register (:color pink :hint nil)
-  "
-^Sto                ^Insert^                       ^Increase^
-^^^^----------------------------------------------------------------
-_n_uregister        _i_nsert number register       _I_ncrease the register
-C-u  C-x r n R
-insebers left       C-x r i R                      C-u number C-x r + r
-  ofle              Insert _t_ext to register
-  C-                C-x r s R
-"
-  ;;
-  ("mber-to-register :exit t)
-  ("ngle-number-lines :exit t)
-
-  ;;
-  ("sert-register :exit t)          ; Show (expand) everything
-  ("to-register :exit t)          ; Show (expand) everything
-
-  ;;e
-  ("crement-register  :exit t)    ; Hide everything but the top-level headings
-
-  ("leave"))
-
-
-;; I set this hydra to a keybinding.  So I don't have to remember all of the keybindings
-(glokey (kbd "C-c C-r") 'hydra-register/body)
-;; aother modes try to set C-c C-r to a keybinding.  I am overriding them.
-(witfter-load 'org
-  (dy org-mode-map (kbd "C-c C-r") 'hydra-register/body))
-(witfter-load 'web-mode
-  (dy web-mode-map (kbd "C-c C-r") 'hydra-register/body))
-(witfter-load 'php-mode
-  (dy php-mode-map (kbd "C-c C-r") 'hydra-register/body))
-*** COMMENT rust
-http://emacsist.com/10425
-#+BEGIN_SRC emacs-lisp
-;;(use-package rust :ensure t)
-#+END_SRC
-*** COMMENT autocorrect
-:PROPERTIES:
-:ID:       ed63d49c-50d4-468a-9df2-8b578a823e90
-:END:
-
-My hacky Emacs autocorrect functionality, is not the best.  It changes things that I don't want changed all the time, etc.
-
-Until it's better, I don't want to use it
-
-#+BEGIN_SRC emacs-lisp
-(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
-#+END_SRC
-
-*** abbrev-mode
-:PROPERTIES:
-:ID:       6c870f0d-d805-4e4c-b6d6-09233397e444
-:END:
-Add abbrev-mode to text modes and program modes to turn on autocorrect like functionality.
-#+BEGIN_SRC emacs-lisp
-(dolist (hook '(org-mode-hook
-                prog-mode-hook
-                text-mode-hook))
-  (add-hook hook (lambda ()
-                   (abbrev-mode 1)
-                   (diminish 'abbrev-mode))))
-
-
-#+END_SRC
-
-*** logging the commands I use often.
-    this will be cool to monitor my commands.
-    But I have to initialize it...It will not record commands by default.
-    I don't really use this functionality.  I never see what commands I'm using.  So I'll ignore it for now.
-    (require-package 'mwe-log-commands)
-    (me:log-keyboard-commands)
-*** paradox
-    Paradox adds some nice features to emacs install packages
-    this sets up paradox to use my private token to access public repos.
-    #+BEGIN_SRC emacs-lisp
-    ;;(require 'init-paradox)
-    #+END_SRC
-*** sunrise is a alternative to flotilla
-    #+BEGIN_SRC emacs-lisp
-    (require 'init-sunrise)
-    #+END_SRC
-
-*** emacs can play music and stream it! (when streaming works)
-    #+BEGIN_SRC emacs-lisp
-    (require 'init-emms)
-    #+END_SRC
-*** python mode
-    #+BEGIN_SRC emacs-lisp
-    (require 'init-python-mode)
-    #+END_SRC
-*** github
-    #+BEGIN_SRC emacs-lisp
-    (require 'init-gitgub)
-    #+END_SRC
-*** I don't know what this is
-    http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html
-    (require 'init-darcs)
-*** stackexchange in emacs
-    I also hardly ever use this sx package, which is an amazing package!
-    searching stack exchange via emacs!  C-c S
-    (use-package sx :ensure t)
-*** downcase words like THe and BEautiful
-     This is probably how I can embed yasnippets into various modes
-    #+BEGIN_SRC emacs-lisp
-    (require 'init-dubcaps)
-    #+END_SRC
-*** I found this on the internet, but don't use it
-
-     reduce the frequency of garbage collection by making it happen on
-     each 50MB of allocated data (the default is on every 0.76MB)
-     this might help improve performance
-    ;;(setq gc-cons-threshold 50000000)
-
-*** COMMENT linum
-:PROPERTIES:
-:ID:       6f74055f-5351-453f-90cf-491045428704
-:END:
-   display line numbers in the fringe on the left of the page.
-
-   I'd love to globally enable linum mode, but it slows Emacs to a crawl on large org buffers.
-   #+BEGIN_SRC emacs-lisp
-     (dolist (hook '(
-                     c-mode-hook
-                     js2-mode-hook
-                     css-mode-hook
-                     php-mode-hook
-                     web-mode-hook
-                     emacs-lisp-mode-hook
-                     ))
-       (progn
-         (add-hook hook 'linum-mode)
-         (remove-hook hook 'linum-mode)))
-
-   #+END_SRC
-
-   I'd prefer to use nlinum mode, because it's faster.  BUT it also makes it that I cannot open a new Emacs frame.
-#+BEGIN_SRC emacs-lisp
-;; (use-package nlinum :ensure t)
-
-#+END_SRC
 * which-key
 :PROPERTIES:
 :ID:       6dd77f41-e39f-4c24-a2af-f46a6bd59398
@@ -246,16 +63,6 @@ Which key displays your keybindings for your emacs major mode.  It might be bett
 
 #+BEGIN_SRC emacs-lisp
   (use-package which-key :ensure t :config (which-key-mode))
-#+END_SRC
-
-* bug-hunter
-:PROPERTIES:
-:ID:       d8cff989-6fde-466e-bd25-2eca563979d7
-:END:
-
-Bug hunter lets you debug your init file when you've broken it somehow.  Just type M-x bug-hunter-init-file.
-#+BEGIN_SRC emacs-lisp
-(use-package bug-hunter :ensure t :defer t)
 #+END_SRC
 
 * enable flyspell for all program modes.
@@ -355,52 +162,10 @@ Here is an example of what you can do with async.
 :PROPERTIES:
 :ID:       4a51a12d-17e2-4083-878d-c5e216dd5168
 :END:
+    Let's check for poor writing style
    #+BEGIN_SRC emacs-lisp
-    ;; let's check for poor writing style
-    (require 'init-writegood)
+    (use-package writegood-mode :ensure t)
    #+END_SRC
-** ;;(require 'init-term)
-** ;; paradox adds some nice features to emacs install packages
-;; this sets up paradox to use my private token to access public repos.
-;;(require 'init-paradox)
-
-* COMMENT bookmark
-:PROPERTIES:
-:ID:       7f780f9c-3c32-4ac7-b733-885d3651b0e7
-:END:
-#+BEGIN_SRC emacs-lisp
-(require 'bookmark)
-(defhydra hydra-bookmark (:color pink :hint nil)
-  "
-^Edit^                   ^Jump^                    ^Set^
-^^^^^^------------------------------------------------------
-_e_: edit bookmarks     _j_ump to bookmark         _s_: set bookmark
-_r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
-"
-  ;; Edit
-  ("e" edit-bookmarks :exit t)                ; Up
-  ("r" helm-bookmark-rename :exit t)                ; Up
-
-  ;; Jump
-  ("j" bookmark-jump :exit t)          ; Show (expand) everything
-  ("J" gnus-bookmark-jump :exit t)          ; Show (expand) everything
-
-  ;; Set
-  ("s" bookmark-set :exit t)    ; Hide everything but the top-level headings
-  ("S" gnus-bookmark-set :exit t)    ; Hide everything but the top-level headings
-
-  ("z" nil "leave"))
-
-;; I want to set this hydra to a keybinding.  So I don't have to remember all of the keybindings
-(global-set-key (kbd "C-c C-b") 'hydra-bookmark/body)
-;; a ton of other modes try to set C-c C-b to a keybinding.  I am overriding them.
-(with-eval-after-load 'org
-  (define-key org-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
-(with-eval-after-load 'web-mode
-  (define-key web-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
-(with-eval-after-load 'php-mode
-  (define-key php-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
-#+END_SRC
 * vc-mode
 :PROPERTIES:
 :ID:       642acc9e-8521-4bfe-8fd0-6d30bc323e4d
@@ -408,12 +173,12 @@ _r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
  This shows you in the fringes of the buffer (this is the left column on the left side of your buffer)
  whick text in a buffer has not yet been committed.
  #+BEGIN_SRC emacs-lisp
-   (use-package diff-hl
-     :defer t
-     :ensure t)
+   (use-package diff-hl :defer t :ensure t)
    (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
    (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
  #+END_SRC
+
+
 * auth-source
 :PROPERTIES:
 :ID:       90ce5dc0-d72b-4263-a0c6-14cc88a5838c
@@ -889,7 +654,23 @@ Ido-ubiquitous is needed for completing magit via ido.
 
   (require-package 'fullframe)
   (after-load 'magit (fullframe magit-status magit-mode-quit-window))
+
+
 #+END_SRC
+
+In ediff mode, open up org-files in showall.  That way you don't have to tab open things.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'ediff-prepare-buffer-hook #'outline-show-all)
+#+END_SRC
+
+I also don't really need scroll-bar-mode enabled with ediff.
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'ediff-load-hook #'(lambda () (interactive) (scroll-bar-mode -1)))
+  (add-hook 'ediff-after-setup-windows-hook #'(lambda () (interactive) (scroll-bar-mode -1)))
+  (add-hook 'ediff-suspend-hook #'scroll-bar-mode)
+  (add-hook 'ediff-quit-hook #'scroll-bar-mode)
+#+END_SRC
+
 
 
 ;;; When we start working on git-backed files, use git-wip if available
@@ -982,15 +763,6 @@ Use eldoc for syntax hints
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
-#+END_SRC
-* COMMENT eldoc
-Show eldoc popups in pos-tips.  I got the idea [[https://www.topbug.net/blog/2016/11/03/emacs-display-function-or-variable-information-near-point-cursor/][here]].
-#+BEGIN_SRC emacs-lisp
-   (defun my-eldoc-display-message (format-string &rest args)
-    "Display eldoc message near point."
-    (when format-string
-      (pos-tip-show (apply 'format format-string args))))
-  (setq eldoc-message-function #'my-eldoc-display-message)
 #+END_SRC
 * all the icons
 :PROPERTIES:
@@ -1116,6 +888,230 @@ I should define some cool helm mini commands
 
  how do I get this to work?
  (define-key helm-find-files-map (kbd "s-h") 'helm-next-line)
+
+* COMMENT some things I don't use
+** A register hydra
+(reqgister)
+
+;; Ieed to use (set-register register value)
+
+"
+regist is this:
+Alisments (NAME . CONTENTS), one for each Emacs register.
+NAMEaracter (a number).  CONTENTS is a string, number, marker, list
+or areturned by `registerv-make'.
+
+So m to register command must transform my NAME char into an ASCII number.  fun.
+"
+
+(defmber-to-register (number register)
+  (ive "n number: \nMregister: ")
+  ;;to-register number register)
+  ;;r to use
+  (ster register number))
+
+;; g is getting soo annoying and it's not working at all
+;;(pister-alist)
+
+(defsert-register (register)
+  (ive "Mregister: ")
+  (pister)
+  (igister register))
+
+(defcrement-register ())   (get-register "r")
+
+(defdra-register (:color pink :hint nil)
+  "
+^Sto                ^Insert^                       ^Increase^
+^^^^----------------------------------------------------------------
+_n_uregister        _i_nsert number register       _I_ncrease the register
+C-u  C-x r n R
+insebers left       C-x r i R                      C-u number C-x r + r
+  ofle              Insert _t_ext to register
+  C-                C-x r s R
+"
+  ;;
+  ("mber-to-register :exit t)
+  ("ngle-number-lines :exit t)
+
+  ;;
+  ("sert-register :exit t)          ; Show (expand) everything
+  ("to-register :exit t)          ; Show (expand) everything
+
+  ;;e
+  ("crement-register  :exit t)    ; Hide everything but the top-level headings
+
+  ("leave"))
+
+
+;; I set this hydra to a keybinding.  So I don't have to remember all of the keybindings
+(glokey (kbd "C-c C-r") 'hydra-register/body)
+;; aother modes try to set C-c C-r to a keybinding.  I am overriding them.
+(witfter-load 'org
+  (dy org-mode-map (kbd "C-c C-r") 'hydra-register/body))
+(witfter-load 'web-mode
+  (dy web-mode-map (kbd "C-c C-r") 'hydra-register/body))
+(witfter-load 'php-mode
+  (dy php-mode-map (kbd "C-c C-r") 'hydra-register/body))
+*** COMMENT rust
+http://emacsist.com/10425
+#+BEGIN_SRC emacs-lisp
+;;(use-package rust :ensure t)
+#+END_SRC
+*** COMMENT autocorrect
+:PROPERTIES:
+:ID:       ed63d49c-50d4-468a-9df2-8b578a823e90
+:END:
+
+My hacky Emacs autocorrect functionality, is not the best.  It changes things that I don't want changed all the time, etc.
+
+Until it's better, I don't want to use it
+
+#+BEGIN_SRC emacs-lisp
+(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
+#+END_SRC
+
+*** abbrev-mode
+:PROPERTIES:
+:ID:       6c870f0d-d805-4e4c-b6d6-09233397e444
+:END:
+Add abbrev-mode to text modes and program modes to turn on autocorrect like functionality.
+#+BEGIN_SRC emacs-lisp
+(dolist (hook '(org-mode-hook
+                prog-mode-hook
+                text-mode-hook))
+  (add-hook hook (lambda ()
+                   (abbrev-mode 1)
+                   (diminish 'abbrev-mode))))
+
+
+#+END_SRC
+
+*** logging the commands I use often.
+    this will be cool to monitor my commands.
+    But I have to initialize it...It will not record commands by default.
+    I don't really use this functionality.  I never see what commands I'm using.  So I'll ignore it for now.
+    (require-package 'mwe-log-commands)
+    (me:log-keyboard-commands)
+*** paradox
+    Paradox adds some nice features to emacs install packages
+    this sets up paradox to use my private token to access public repos.
+    #+BEGIN_SRC emacs-lisp
+    ;;(require 'init-paradox)
+    #+END_SRC
+*** sunrise is a alternative to flotilla
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-sunrise)
+    #+END_SRC
+
+*** emacs can play music and stream it! (when streaming works)
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-emms)
+    #+END_SRC
+*** python mode
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-python-mode)
+    #+END_SRC
+*** github
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-gitgub)
+    #+END_SRC
+*** I don't know what this is
+    http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html
+    (require 'init-darcs)
+*** stackexchange in emacs
+    I also hardly ever use this sx package, which is an amazing package!
+    searching stack exchange via emacs!  C-c S
+    (use-package sx :ensure t)
+*** downcase words like THe and BEautiful
+     This is probably how I can embed yasnippets into various modes
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-dubcaps)
+    #+END_SRC
+*** I found this on the internet, but don't use it
+
+     reduce the frequency of garbage collection by making it happen on
+     each 50MB of allocated data (the default is on every 0.76MB)
+     this might help improve performance
+    ;;(setq gc-cons-threshold 50000000)
+
+*** COMMENT linum
+:PROPERTIES:
+:ID:       6f74055f-5351-453f-90cf-491045428704
+:END:
+   display line numbers in the fringe on the left of the page.
+
+   I'd love to globally enable linum mode, but it slows Emacs to a crawl on large org buffers.
+   #+BEGIN_SRC emacs-lisp
+     (dolist (hook '(
+                     c-mode-hook
+                     js2-mode-hook
+                     css-mode-hook
+                     php-mode-hook
+                     web-mode-hook
+                     emacs-lisp-mode-hook
+                     ))
+       (progn
+         (add-hook hook 'linum-mode)
+         (remove-hook hook 'linum-mode)))
+
+   #+END_SRC
+
+   I'd prefer to use nlinum mode, because it's faster.  BUT it also makes it that I cannot open a new Emacs frame.
+#+BEGIN_SRC emacs-lisp
+;; (use-package nlinum :ensure t)
+
+#+END_SRC
+** bookmark
+:PROPERTIES:
+:ID:       7f780f9c-3c32-4ac7-b733-885d3651b0e7
+:END:
+#+BEGIN_SRC emacs-lisp
+(require 'bookmark)
+(defhydra hydra-bookmark (:color pink :hint nil)
+  "
+^Edit^                   ^Jump^                    ^Set^
+^^^^^^------------------------------------------------------
+_e_: edit bookmarks     _j_ump to bookmark         _s_: set bookmark
+_r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
+"
+  ;; Edit
+  ("e" edit-bookmarks :exit t)                ; Up
+  ("r" helm-bookmark-rename :exit t)                ; Up
+
+  ;; Jump
+  ("j" bookmark-jump :exit t)          ; Show (expand) everything
+  ("J" gnus-bookmark-jump :exit t)          ; Show (expand) everything
+
+  ;; Set
+  ("s" bookmark-set :exit t)    ; Hide everything but the top-level headings
+  ("S" gnus-bookmark-set :exit t)    ; Hide everything but the top-level headings
+
+  ("z" nil "leave"))
+
+;; I want to set this hydra to a keybinding.  So I don't have to remember all of the keybindings
+(global-set-key (kbd "C-c C-b") 'hydra-bookmark/body)
+;; a ton of other modes try to set C-c C-b to a keybinding.  I am overriding them.
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
+(with-eval-after-load 'web-mode
+  (define-key web-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
+(with-eval-after-load 'php-mode
+  (define-key php-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
+#+END_SRC
+** eldoc
+Show eldoc popups in pos-tips.  I got the idea [[https://www.topbug.net/blog/2016/11/03/emacs-display-function-or-variable-information-near-point-cursor/][here]].
+#+BEGIN_SRC emacs-lisp
+   (defun my-eldoc-display-message (format-string &rest args)
+    "Display eldoc message near point."
+    (when format-string
+      (pos-tip-show (apply 'format format-string args))))
+  (setq eldoc-message-function #'my-eldoc-display-message)
+#+END_SRC
+** (require 'init-term)
+** paradox adds some nice features to emacs install packages
+ this sets up paradox to use my private token to access public repos.
+(require 'init-paradox)
 
 * provide this file
 :PROPERTIES:

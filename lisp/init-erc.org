@@ -16,6 +16,9 @@ VK06XF2d5WiN2dMDhCnAzg==
 -----END PGP MESSAGE-----
 
 * My ERC config
+:PROPERTIES:
+:ID:       ee526b6e-3820-41f7-8803-9fd3a33fce81
+:END:
 
 I can define some emacs testing of variables.  This will hopefully help me spot errors. cool.
 (ert-deftest pp-test-quote ()
