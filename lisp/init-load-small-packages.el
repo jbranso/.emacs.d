@@ -61,12 +61,9 @@
 
 (add-hook 'after-init-hook #'projectile-global-mode)
 
-;; let's check for poor writing style
-(require 'init-writegood)
+(use-package writegood-mode :ensure t)
 
-(use-package diff-hl
-  :defer t
-  :ensure t)
+(use-package diff-hl :defer t :ensure t)
 (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
 (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
 
@@ -277,6 +274,13 @@ enter ediff."
 
 (require-package 'fullframe)
 (after-load 'magit (fullframe magit-status magit-mode-quit-window))
+
+(add-hook 'ediff-prepare-buffer-hook #'outline-show-all)
+
+;;(add-hook 'ediff-after-setup-windows-hook #'(lambda () (scroll-bar-mode -1)))
+  (add-hook 'ediff-load-hook #'(lambda () (scroll-bar-mode -1)))
+  (add-hook 'ediff-suspend-hook #'scroll-bar-mode)
+  (add-hook 'ediff-quit-hook #'scroll-bar-mode)
 
 (after-load 'magit (diminish 'magit-auto-revert-mode))
 

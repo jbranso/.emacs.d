@@ -26,3 +26,5 @@ elpa/
 archive-contents
 elpa/*
 elpa/*
+/lisp/#init-javascript.org#
+/#recentf#
