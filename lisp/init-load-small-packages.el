@@ -17,32 +17,27 @@
   ;; What does that do?
   (setq avy-keys (number-sequence ?e ?t )))
 
-;;(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
-
 (add-to-list 'auto-mode-alist '("\\.defs?\\'" . c-mode))
 
 (use-package which-key :ensure t :config (which-key-mode))
 
 (add-hook 'prog-mode-hook (lambda ()
-                            (flyspell-prog-mode)
+                            (flyspell-prog-mode)))
                             ;;(unbind-key (kbd "C-c $") flyspell-mode-map)
                             ;;(global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev))
-                          ))
 
 ;; enable flyspell mode for all of my text modes.  This will enable flyspell to underline misspelled words.
 (add-hook 'text-mode-hook (lambda ()
-                            (flyspell-mode)
-                            ;;(unbind-key (kbd "C-c $") flyspell-mode-map)
-                            ;;(global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev))
-))
+                            (flyspell-mode)))
 
-;;(require 'ispell)
+;;(unbind-key (kbd "C-c $") flyspell-mode-map)
+;;(global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev))
 
-(use-package aggressive-indent :ensure t :defer t)
-;; it's probably a good idea NOT to enable aggressive indent mode globally.  web-mode has a hard time
-;; indenting everything when the file gets big
-(dolist (hook '(js2-mode-hook cc-mode css-mode emacs-lisp-mode-hook css-mode))
-  (add-hook hook #'aggressive-indent-mode))
+(use-package aggressive-indent :ensure t
+  :config
+  (add-to-list 'aggressive-indent-excluded-modes 'web-mode)
+  (add-to-list 'aggressive-indent-excluded-modes 'org-mode))
+(add-hook 'after-init-hook 'global-aggressive-indent-mode)
 
 (use-package async
   :ensure t
@@ -52,16 +47,14 @@
   (async-bytecomp-package-mode 1))
 
 (use-package helm-projectile :ensure t)
-
-(use-package projectile :ensure t
+(use-package projectile :diminish projectile-mode
   :config
   (setq projectile-enable-caching t)
+  (eval-after-load 'projectile-mode 'helm-projectile-on)
   (setq projectile-completion-system 'helm)
-  (helm-projectile-on))
+  :ensure t)
 
-(add-hook 'after-init-hook #'projectile-global-mode)
-
-(use-package writegood-mode :ensure t)
+  (add-hook 'after-init-hook #'projectile-global-mode)
 
 (use-package diff-hl :defer t :ensure t)
 (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
@@ -120,7 +113,6 @@ enter ediff."
 (defun my-recentf-startup ()
 "My configuration for recentf."
 (recentf-mode 1)
-
 (setq recentf-max-saved-items 1000
       recentf-exclude '("/tmp/"
             "^.*autoloads.*$"
@@ -133,28 +125,20 @@ enter ediff."
 
 (add-to-list 'recentf-keep "^.*php$//")
 (recentf-auto-cleanup))
-
 (add-hook 'after-init-hook 'my-recentf-startup)
 
 (setq-default grep-highlight-matches t
               grep-scroll-output t)
-
 ;; ag is the silver searcher.  It lets you search for stuff crazy fast
 (when (executable-find "ag")
-  (use-package ag
-    :defer t
-    :ensure t)
-  (use-package wgrep-ag
-    :defer t
-    :ensure t)
+  (use-package ag :defer t :ensure t)
+  (use-package wgrep-ag :defer t :ensure t)
   (setq-default ag-highlight-search t))
 
 (setenv "PAGER" "cat")
 
-(add-hook 'eshell-mode-hook (lambda ()
-                              (setq
-                               shell-aliases-file "~/.emacs.d/alias"
-                               )))
+(add-hook 'eshell-mode-hook '(lambda ()
+                              (setq shell-aliases-file "~/.emacs.d/alias")))
 
 (define-key Info-mode-map (kbd "C-w h") 'windmove-down)
 (define-key Info-mode-map (kbd "C-w t") 'windmove-up)
@@ -181,6 +165,40 @@ enter ediff."
   (wttrin))
 
 (add-hook 'after-init-hook 'global-prettify-symbols-mode)
+
+(defun my/add-extra-prettify-symbols ()
+  (mapc (lambda (pair) (push pair prettify-symbols-alist))
+        '(
+          (">=" . ?≥)
+          ("<=" . ?≤)
+          ("\\geq" . ?≥)
+          ("\\leq" . ?≤)
+          ("\\neg" . ?¬)
+          ("\\rightarrow" . ?→)
+          ("\\leftarrow" . ?←)
+          ("\\infty" . ?∞)
+          ("-->" . ?→)
+          ("<--" . ?←)
+          ("\\exists" . ?∃)
+          ("\\nexists" . ?∄)
+          ("\\forall" . ?∀)
+          ("\\or" . ?∨)
+          ("\\and" . ?∧)
+          (":)" . ?☺)
+          ("):" . ?☹)
+          (":D" . ?☺)
+          ("\\checkmark" . ?✓)
+          ("\\check" . ?✓)
+          ("1/4" . ?¼)
+          ("1/2" . ?½)
+          ("3/4" . ?¾)
+          ("1/7" . ?⅐)
+          ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
+          ("ae" . ?æ)
+          ("^_^" . ?☻)
+          ("function" .?ϝ)
+          ))
+  (add-hook 'after-init-hook 'my/add-extra-prettify-symbols))
 
 (use-package suggest :ensure t)
 
@@ -221,11 +239,10 @@ enter ediff."
 
 (use-package yasnippet
   :defer t
-  :ensure t)
-
-  (add-to-list 'load-path "~/.emacs.d/snippets")
-  (require 'yasnippet)
-  (yas-global-mode 1)
+  :ensure t
+  :init
+  (add-to-list 'load-path "~/.emacs.d/snippets"))
+  (add-hook 'after-init-hook 'yas-global-mode)
 
 (with-eval-after-load 'warnings
   (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
@@ -264,67 +281,60 @@ enter ediff."
 
 (use-package lua-mode :ensure t)
 
-(use-package ido-ubiquitous :ensure t)
+;;(use-package ido-ubiquitous :ensure t)
 (use-package magit :defer t :ensure t)
 (use-package git-blame :ensure t)
 
 (after-load 'magit
-  (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
-  (setq magit-completing-read-function 'magit-ido-completing-read))
+    (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
+    ;;I like the ido completing read function over the helm one, but then helm stops working so well
+    ;;(setq magit-completing-read-function 'magit-ido-completing-read)
+)
 
-(require-package 'fullframe)
-(after-load 'magit (fullframe magit-status magit-mode-quit-window))
+  (use-package fullframe :ensure t)
+  (after-load 'magit (fullframe magit-status magit-mode-quit-window))
 
 (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)
 
-;;(add-hook 'ediff-after-setup-windows-hook #'(lambda () (scroll-bar-mode -1)))
-  (add-hook 'ediff-load-hook #'(lambda () (scroll-bar-mode -1)))
-  (add-hook 'ediff-suspend-hook #'scroll-bar-mode)
-  (add-hook 'ediff-quit-hook #'scroll-bar-mode)
+(add-hook 'ediff-load-hook #'(lambda () (scroll-bar-mode -1)))
+(add-hook 'ediff-suspend-hook #'scroll-bar-mode)
+(add-hook 'ediff-quit-hook #'scroll-bar-mode)
 
 (after-load 'magit (diminish 'magit-auto-revert-mode))
+
+(setq-default
+ magit-save-some-buffers nil
+ magit-diff-refine-hunk t)
+
+(setq magit-process-popup-time 15)
 
 (use-package gitignore-mode  :defer t :ensure t)
 (use-package gitconfig-mode  :defer t :ensure t)
 
 (use-package git-timemachine :ensure t :defer t)
 
-(setq-default
- magit-save-some-buffers nil
- ;; if a command takes longer than 5 seconds, pop up the process buffer.
- magit-process-popup-time 5
- magit-diff-refine-hunk t)
+(use-package git-messenger :defer t :ensure t)
+(global-set-key (kbd "C-x v p") #'git-messenger:popup-message)
 
 (use-package rainbow-mode :ensure t :defer t)
 (dolist (hook '(css-mode-hook html-mode-hook sass-mode-hook))
   (add-hook hook 'rainbow-mode))
 
-(use-package sass-mode :ensure t :defer t)
-(use-package scss-mode :ensure t :defer t
-  :config
-  (setq-default scss-compile-at-save nil))
-
-(use-package less-css-mode :ensure t)
-;; I don't think I've ever used skewer-mode.
-;; (when (featurep 'js2-mode)
-;;   (use-package skewer-less))
-
 (use-package css-eldoc :ensure t :defer t)
+
 ;;(autoload 'turn-on-css-eldoc "css-eldoc")
-(add-hook 'css-mode-hook 'turn-on-css-eldoc)
+(add-hook 'css-mode-hook 'css-eldoc-enable)
 
-(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+(add-hook 'css-mode-hook 'emmet-mode) ;; enable Emmet's css abbreviation.
 
-(use-package all-the-icons :load-path "~/.emacs.d/lisp/all-the-icons.el/")
+(use-package all-the-icons :ensure t)
 
 (use-package better-shell :ensure t :defer t)
 
-(use-package helm-flx
-  :ensure t
-  :defer t
+(use-package helm-flx :ensure t :defer t
   :init (helm-flx-mode +1))
 
-(require 'helm-config)
+(add-hook 'after-init-hook '(lambda () (require 'helm-config)))
 
 (setq
  ;;don't let helm swoop guess what you want to search... It is normally wrong and annoying.
@@ -355,8 +365,6 @@ enter ediff."
                                  ;;helm-source-findutils
                                  ;;helm-source-files-in-all-dired
                                  ))
-
-(helm-mode 1)
 
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 

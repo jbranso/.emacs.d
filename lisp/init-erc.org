@@ -19,7 +19,10 @@ VK06XF2d5WiN2dMDhCnAzg==
 :PROPERTIES:
 :ID:       ee526b6e-3820-41f7-8803-9fd3a33fce81
 :END:
-
+** use-package declaration
+:PROPERTIES:
+:ID:       86aba916-f4a8-435e-875c-71912a5a55e5
+:END:
 I can define some emacs testing of variables.  This will hopefully help me spot errors. cool.
 (ert-deftest pp-test-quote ()
   "Tests the rendering of `quote' symbols in `pp-to-string'."
@@ -70,13 +73,9 @@ I can define some emacs testing of variables.  This will hopefully help me spot 
   :config
   (setq erc-join-buffer 'buffer))
 #+END_SRC
-
- Load authentication info from an external source.  Put sensitive
- passwords and the like in here.
- (load "~/.emacs.d/.erc-auth")
-
-;; This is an example of how to make a new command.  Type "/uptime" to
-;; use it.
+** making new commands
+This is an example of how to make a new command.  Type "/uptime" to use it.
+#+BEGIN_SRC emacs-lisp :tangle no
 (defun erc-cmd-UPTIME (&rest ignore)
   "Display the uptime of the system, as well as some load-related
 stuff, to the current ERC buffer."
@@ -92,34 +91,23 @@ stuff, to the current ERC buffer."
             (shell-command-to-string "uptime"))))))
     (erc-send-message
      (concat "{Uptime} [" uname-output "]"))))
-
+#+END_SRC
 
 This causes ERC to connect to the IRC server on your own machine (if
 you have one) upon hitting C-c e b.  Replace MYNICK with your IRC
 nick.  Often, people like to run bitlbee (http://bitlbee.org/) as an
 AIM/Jabber/MSN to IRC gateway, so that they can use ERC to chat with
 people on those networks.
+
+#+BEGIN_SRC emacs-lisp :tangle no
 (global-set-key "\C-ceb" (lambda () (interactive)
                            (erc :server "localhost" :port "6667"
                                 :nick "MYNICK")))
-
-Make C-c RET (or C-c C-RET) send messages instead of RET.  This has
-been commented out to avoid confusing new users.
-(define-key erc-mode-map (kbd "RET") nil)
-(define-key erc-mode-map (kbd "C-c RET") 'erc-send-current-line)
-(define-key erc-mode-map (kbd "C-c C-RET") 'erc-send-current-line)
-
- Options
-
-
-The following are commented out by default, but users of other
-non-Emacs IRC clients might find them useful.
-Kill buffers for channels after /part
-(setq erc-kill-buffer-on-part t)
-Kill buffers for private queries after quitting the server
-(setq erc-kill-queries-on-quit t)
-Kill buffers for server messages after quitting the server
-(setq erc-kill-server-buffer-on-quit t)
+#+END_SRC
+** provide init-erc
+:PROPERTIES:
+:ID:       085366e6-476e-4d36-92b1-2320c85ef41f
+:END:
 
 #+BEGIN_SRC emacs-lisp
 (provide 'init-erc)

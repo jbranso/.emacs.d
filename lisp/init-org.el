@@ -4,9 +4,7 @@
       (org-table-blank-field)
     (just-one-space)))
 
-(use-package org
-  :bind (:map org-mode-map
-              ("C-c SPC" . my-just-one-space))
+(use-package org :bind (:map org-mode-map ("C-c SPC" . my-just-one-space))
   :ensure org-plus-contrib)
 
 ;; define what files org opens
@@ -37,18 +35,55 @@
 ;;(org-mime-change-element-style
 ;;"blockquote" "border-left: 2px solid gray; padding-left: 4px;")))
 
+;; ob-http is needed to run http calls inside org-mode
+(use-package ob-http :ensure t)
+(setq geiser-default-implementation 'guile)
+
+(after-load 'org
+(org-babel-do-load-languages
+     'org-babel-load-languages
+     '(
+     (awk . t)
+     (calc . t)
+     (C . t)
+     (emacs-lisp . t)
+     (haskell . t)
+     ;;(http . t)
+     (gnuplot . t)
+     ;;(latex . t)
+     ;;(ledger . t)
+     (js . t)
+     ;;(perl . t)
+     (python . t)
+     (gnuplot . t)
+     ;;org-babel does not currently support php.  That is really sad.
+     ;;(php . t)
+     ;;(R . t)
+     (scheme . t)
+     (sh . t)
+     (sql . t)
+     ;;(sqlite . t)
+     )))
+
+       (setq org-latex-create-formula-image-program 'imagemagick)
+  ;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
+  ;;(ditaa . t)
+  ;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
+  ;; display inline images in org-mode
+  ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+
 (use-package org-invoice)
 
 (use-package org-inlinetask)
 
 (use-package org-habit)
 
-(require 'org-protocol)
+(add-hook 'org-mode-hook '(lambda ()
+                            (require 'org-protocol)))
 
-(require 'org-id)
-(setq org-id-link-to-org-use-id t)
-
-(use-package psysh :ensure t)
+(add-hook 'org-mode-hook '(lambda ()
+                            (require 'org-id)
+                            (setq org-id-link-to-org-use-id t)))
 
 (use-package gnuplot :ensure t)
 
@@ -56,66 +91,39 @@
     (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
 ;; I want to get write-good-mode set up again, because it's awesome.
-(use-package writegood-mode :ensure t :defer t)
+  (use-package writegood-mode :ensure t :defer t)
 
-(add-hook 'org-mode-hook '(lambda ()
+  (add-hook 'org-mode-hook '(lambda ()
 
-                                ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
-                                ;; but I can't get it to work
-                                ;; (require 'org-eldoc)
-                                ;;(org-eldoc-load)
-                                ;; (make-variable-buffer-local 'yas/trigger-key)
-                                ;;(setq yas/trigger-key [tab])
-                                ;;(add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-                                ;; (define-key yas/keymap [tab] 'yas/next-field)
-                                ;; make the lines in the buffer wrap around the edges of the screen.
-                                ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
-                                ;; to press C-c q  or fill-paragraph ever again!
-                                (visual-line-mode)
-                                (org-indent-mode)
-                                (require 'writegood-mode)
-                                ;; apparently this does the same thing as the above combined modes
-                                ;; this seems to work better than visual line mode.  Why have I not heard of this before?
-                                ;;(toggle-word-wrap)
-                                (org-bullets-mode 1)
-                                ;;make ">=" look like >=, etc.
-                                (push '(">=" . ?≥) prettify-symbols-alist)
-                                (push '("<=" . ?≤) prettify-symbols-alist)
-                                (push '("\\geq" . ?≥) prettify-symbols-alist)
-                                (push '("\\leq" . ?≤) prettify-symbols-alist)
-                                (push '("\\neg" . ?¬) prettify-symbols-alist)
-                                (push '("\\rightarrow" . ?→) prettify-symbols-alist)
-                                (push '("\\leftarrow" . ?←) prettify-symbols-alist)
-                                (push '("\\infty" . ?∞) prettify-symbols-alist)
-                                (push '("-->" . ?→) prettify-symbols-alist)
-                                (push '("<--" . ?←) prettify-symbols-alist)
-                                (push '("\\exists" . ?∃) prettify-symbols-alist)
-                                (push '("\\nexists" . ?∄) prettify-symbols-alist)
-                                (push '("\\forall" . ?∀) prettify-symbols-alist)
-                                (push '("\\or" . ?∨) prettify-symbols-alist)
-                                (push '("\\and" . ?∧) prettify-symbols-alist)
-                                (push '(":)" . ?☺) prettify-symbols-alist)
-                                (push '("):" . ?☹) prettify-symbols-alist)
-                                (push '(":D" . ?☺) prettify-symbols-alist)
-                                (push '("\\checkmark" . ?✓) prettify-symbols-alist)
-                                (push '("\\check" . ?✓) prettify-symbols-alist)
-                                (push '("1/4" . ?¼) prettify-symbols-alist)
-                                (push '("1/2" . ?½) prettify-symbols-alist)
-                                (push '("3/4" . ?¾) prettify-symbols-alist)
-                                (push '("1/7" . ?⅐) prettify-symbols-alist)
-                                ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
-                                (push '("ae" . ?æ) prettify-symbols-alist)
-                                (push '("^_^" . ?☻) prettify-symbols-alist)))
+                                  ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
+                                  ;; but I can't get it to work
+                                  ;; (require 'org-eldoc)
+                                  ;;(org-eldoc-load)
+                                  ;; (make-variable-buffer-local 'yas/trigger-key)
+                                  ;;(setq yas/trigger-key [tab])
+                                  ;;(add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+                                  ;; (define-key yas/keymap [tab] 'yas/next-field)
+                                  ;; make the lines in the buffer wrap around the edges of the screen.
+                                  ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
+                                  ;; to press C-c q  or fill-paragraph ever again!
+                                  (visual-line-mode)
+                                  (org-indent-mode)
+                                  (require 'writegood-mode)
+                                  ;; apparently this does the same thing as the above combined modes
+                                  ;; this seems to work better than visual line mode.  Why have I not heard of this before?
+                                  ;;(toggle-word-wrap)
+                                  (org-bullets-mode 1)
+                                  ;;make ">=" look like >=, etc.
+                                 (push '("^_^" . ?☻) prettify-symbols-alist)
+))
+
+(setq org-hide-leading-stars t)
+
+(setq org-ellipsis " ↴")
+
+(setq org-return-follows-link t)
 
 (setq
- ;; hide the leading stars in my org files
- org-hide-leading-stars t
- ;;seeing the ... that org mode does to how you that the heading continues in the text beneith it is kind of boring
- ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
- ;; Other interesting characters are ↴, ⬎, ⤷, and ⋱.
- org-ellipsis " ↴"
- ;; make RET follow a link
- org-return-follows-link t
  ;; only show times on items in the agenda, if we have an item at a specified time
  ;; if we set it to true, then we see all the times every 2 hours.  Takes up too much space.
  org-agenda-use-time-grid nil
@@ -161,7 +169,7 @@
  org-use-speed-commands t)
 
 ;;a visual hint to let you know what line you are in in org-mode agenda
-(add-hook 'org-agenda-finalize-hook (lambda () (hl-line-mode)))
+(add-hook 'org-agenda-finalize-hook '(lambda () (hl-line-mode)))
 
 (setq org-capture-templates
       '(

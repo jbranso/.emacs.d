@@ -44,15 +44,13 @@
 ;; let's get modal keybinding working!
 ;; And let's load it in quickly, so I can always use evil-mode
 ;; even when my config is broken.
-(require 'init-evil)
+(org-babel-load-file "~/.emacs.d/lisp/init-evil.org")
 ;;(require 'init-pdf-tools)
 ;; make opening specific types of files,
 ;; autoinsert a yasnippet
 (org-babel-load-file "~/.emacs.d/lisp/init-autoinsert.org")
 ;;load is many packages
 (org-babel-load-file 	"~/.emacs.d/lisp/init-load-small-packages.org")
-;; make emacs indent your code all the time, so you don't have to
-(org-babel-load-file 	"~/.emacs.d/lisp/init-aggressive-indent.org")
 ;; emacs can read email
 (org-babel-load-file 	"~/.emacs.d/lisp/init-gnus.org")
 ;; some graphical configurations
@@ -65,11 +63,9 @@
 ;;an irc client for Emacs
 (org-babel-load-file 	"~/.emacs.d/lisp/init-erc.org")
 
-
 ;; read email in emacs
 ;;(require 'init-mu4e)
 (require 'init-html)
-(require 'init-projectile)
 ;; let's write my wordpress blog in emacs
 ;;(require 'init-org2blog)
 (require 'init-defuns)

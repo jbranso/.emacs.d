@@ -28,38 +28,38 @@ Paredit tries to balance your parenthesis in your lispy languages.  It is pretty
 
 #+BEGIN_SRC emacs-lisp
   (use-package paredit
-  :ensure t
-  :defer t
-  :init
-  (defun paredit-barf-all-the-way-backward ()
-  (interactive)
-  (paredit-split-sexp)
-  (paredit-backward-down)
-  (paredit-splice-sexp))
-  (defun paredit-barf-all-the-way-forward ()
-  (interactive)
-  (paredit-split-sexp)
-  (paredit-forward-down)
-  (paredit-splice-sexp)
-  (if (eolp) (delete-horizontal-space)))
-  (defun paredit-slurp-all-the-way-backward ()
-  (interactive)
-  (catch 'done
-  (while (not (bobp))
-  (save-excursion
-  (paredit-backward-up)
-  (if (eq (char-before) ?\()
-  (throw 'done t)))
-  (paredit-backward-slurp-sexp))))
-  (defun paredit-slurp-all-the-way-forward ()
-  (interactive)
-  (catch 'done
-  (while (not (eobp))
-  (save-excursion
-  (paredit-forward-up)
-  (if (eq (char-after) ?\))
-  (throw 'done t)))
-  (paredit-forward-slurp-sexp)))))
+    :ensure t
+    :defer t
+    :init
+    (defun paredit-barf-all-the-way-backward ()
+      (interactive)
+      (paredit-split-sexp)
+      (paredit-backward-down)
+      (paredit-splice-sexp))
+    (defun paredit-barf-all-the-way-forward ()
+      (interactive)
+      (paredit-split-sexp)
+      (paredit-forward-down)
+      (paredit-splice-sexp)
+      (if (eolp) (delete-horizontal-space)))
+    (defun paredit-slurp-all-the-way-backward ()
+      (interactive)
+      (catch 'done
+        (while (not (bobp))
+          (save-excursion
+            (paredit-backward-up)
+            (if (eq (char-before) ?\()
+                (throw 'done t)))
+          (paredit-backward-slurp-sexp))))
+    (defun paredit-slurp-all-the-way-forward ()
+      (interactive)
+      (catch 'done
+        (while (not (eobp))
+          (save-excursion
+            (paredit-forward-up)
+            (if (eq (char-after) ?\))
+                (throw 'done t)))
+          (paredit-forward-slurp-sexp)))))
 #+END_SRC
 
 I have some specific keybindings for my paredit code
@@ -81,6 +81,9 @@ t)
 (paredit-mode +1))
 #+END_SRC
 ** requiring evil-paredit
+:PROPERTIES:
+:ID:       88eceed3-f78d-4616-88ff-ae3902d0c13e
+:END:
 #+BEGIN_SRC emacs-lisp
 (require 'evil-paredit)
 #+END_SRC

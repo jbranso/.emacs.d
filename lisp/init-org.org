@@ -27,9 +27,7 @@ just one space.
           (org-table-blank-field)
         (just-one-space)))
 
-    (use-package org
-      :bind (:map org-mode-map
-                  ("C-c SPC" . my-just-one-space))
+    (use-package org :bind (:map org-mode-map ("C-c SPC" . my-just-one-space))
       :ensure org-plus-contrib)
   #+END_SRC
 
@@ -53,8 +51,7 @@ just one space.
 :PROPERTIES:
 :ID:       c285b242-e60d-46c0-bd87-c10887f9448b
 :END:
-  encrypting text under a heading in org [[info:org#org-crypt][info:org#org-crypt]] Any text below a headline that has a `:crypt:' tag will be automatically be encrypted when the file is saved.  If you want to use a different tag just customize the `org-crypt-tag-matcher' setting. n To use org-crypt it is suggested that you have the following in your `.emacs':
-
+  Encrypting text under a heading in org [[info:org#org-crypt][info:org#org-crypt]] Any text below a headline that has a `:crypt:' tag will be automatically be encrypted when the file is saved.  If you want to use a different tag just customize the `org-crypt-tag-matcher' setting.
   So the following org heading would be encrypted
 
   #+BEGIN_SRC org
@@ -74,12 +71,16 @@ just one space.
       -----END PGP MESSAGE-----
   #+END_SRC
 
+To use org-crypt it is suggested that you have the following in your `.emacs':
+
   #+BEGIN_SRC emacs-lisp
     (use-package org-crypt
       :config
       (org-crypt-use-before-save-magic)
       (setq org-tags-exclude-from-inheritance (quote ("crypt"))))
   #+END_SRC
+
+  I personally don't use org-crypt too much anymore. [fn:2]  It automatically encrypts the text you are working on when you save the file.  I find it is easier just to encrypt the entire file via M-x epa-encrypt-file.
 
   #+RESULTS:
   | crypt |
@@ -147,7 +148,7 @@ just one space.
 
 end imported code
 
-** COMMENT org babel
+** org babel
 :PROPERTIES:
 :ID:       5fc7e3ce-61fb-47de-8517-29082f4d4340
 :END:
@@ -240,26 +241,23 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
   I would like to get this set up so that it shows pop-ups using a lua script.  That way I can set it up to use awesome's
   pop up library. At the moment it only notifies you when you have approaching deadlines and only certain ones.  It's a little odd.
  #+BEGIN_SRC emacs-lisp
+   (use-package org-notify
+     :config
+     (org-notify-add 'appt
+                     '(:time "-1s" :period "20s" :duration 10
+                             :actions (-message -ding))
+                     '(:time "15m" :period "2m" :duration 100
+                             :actions -notify)
+                     '(:time "2h" :period "5m" :actions -message)
+                     '(:time "3d" :actions -email)))
+   (add-hook 'after-init-hook 'org-notify-start)
 
-    (use-package org-notify)
-    (org-notify-start)
 
-    (org-notify-add 'appt
-                    '(:time "-1s" :period "20s" :duration 10
-                            :actions (-message -ding))
-                    '(:time "15m" :period "2m" :duration 100
-                            :actions -notify)
-                    '(:time "2h" :period "5m" :actions -message)
-                    '(:time "3d" :actions -email))
   #+END_SRC
 
   #+RESULTS:
   | default | ((:time 1h :actions -notify/window :period 2m :duration 60)) | appt | ((:time -1s :period 20s :duration 10 :actions (-message -ding)) (:time 15m :period 2m :duration 100 :actions -notify) (:time 2h :period 5m :actions -message) (:time 3d :actions -email)) |
 
-** org-google-wheather
-   I really want to get this set up at some point, but maybe not, because I'd be giving info to google.
-   https://julien.danjou.info/projects/emacs-packages#google-weather
-   (require 'org-google-weather)
 ** org-inlinetask
 :PROPERTIES:
 :ID:       ea415ac9-07b1-4eae-a8eb-3cd84d7f216c
@@ -320,7 +318,8 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
 Org protocal allows you to capture things from firefox or other applications!  Cool!
 
 #+BEGIN_SRC emacs-lisp
-(require 'org-protocol)
+  (add-hook 'org-mode-hook '(lambda ()
+                              (require 'org-protocol)))
 #+END_SRC
 
 #+RESULTS:
@@ -331,17 +330,20 @@ Org protocal allows you to capture things from firefox or other applications!  C
 :END:
 Org-id is a way to create unique IDs to org-mode files.  Each heading can have a unique ID.  Org can then create a link to that heading.  The link will still work, even if you move entry IDs between files.
 #+BEGIN_SRC emacs-lisp
-(require 'org-id)
-(setq org-id-link-to-org-use-id t)
+  (add-hook 'org-mode-hook '(lambda ()
+                              (require 'org-id)
+                              (setq org-id-link-to-org-use-id t)))
 #+END_SRC
-** org-php
+** COMMENT org-php
 :PROPERTIES:
 :ID:       ba5eaab7-14db-4c4a-9f23-81bc1d2895c7
 :END:
+This would be very cool if org-mode had this.
 I need to have a php REPL available if I am going to get an ob-php.
 #+BEGIN_SRC emacs-lisp
 (use-package psysh :ensure t)
 #+END_SRC
+
 ** org gnu-plot
 :PROPERTIES:
 :ID:       660f5c8d-f80d-43ea-a8ac-110be0a4d45f
@@ -369,7 +371,6 @@ Just type C-"g below.  Or ~org-plot/gnuplot~
 Org-mode does not play well with yasnippet.  So this function that I got here [[info:org#Conflicts][info:org#Conflicts]] should help
 with making yasnippet play well with org-mode.  It seems to 1st make TAB try to do any org expanding, then it'll
 try to expand a yasnippet.
-
 
 #+BEGIN_SRC emacs-lisp
 (defun yas/org-very-safe-expand ()
@@ -404,35 +405,9 @@ try to expand a yasnippet.
                                   ;;(toggle-word-wrap)
                                   (org-bullets-mode 1)
                                   ;;make ">=" look like >=, etc.
-                                  (push '(">=" . ?≥) prettify-symbols-alist)
-                                  (push '("<=" . ?≤) prettify-symbols-alist)
-                                  (push '("\\geq" . ?≥) prettify-symbols-alist)
-                                  (push '("\\leq" . ?≤) prettify-symbols-alist)
-                                  (push '("\\neg" . ?¬) prettify-symbols-alist)
-                                  (push '("\\rightarrow" . ?→) prettify-symbols-alist)
-                                  (push '("\\leftarrow" . ?←) prettify-symbols-alist)
-                                  (push '("\\infty" . ?∞) prettify-symbols-alist)
-                                  (push '("-->" . ?→) prettify-symbols-alist)
-                                  (push '("<--" . ?←) prettify-symbols-alist)
-                                  (push '("\\exists" . ?∃) prettify-symbols-alist)
-                                  (push '("\\nexists" . ?∄) prettify-symbols-alist)
-                                  (push '("\\forall" . ?∀) prettify-symbols-alist)
-                                  (push '("\\or" . ?∨) prettify-symbols-alist)
-                                  (push '("\\and" . ?∧) prettify-symbols-alist)
-                                  (push '(":)" . ?☺) prettify-symbols-alist)
-                                  (push '("):" . ?☹) prettify-symbols-alist)
-                                  (push '(":D" . ?☺) prettify-symbols-alist)
-                                  (push '("\\checkmark" . ?✓) prettify-symbols-alist)
-                                  (push '("\\check" . ?✓) prettify-symbols-alist)
-                                  (push '("1/4" . ?¼) prettify-symbols-alist)
-                                  (push '("1/2" . ?½) prettify-symbols-alist)
-                                  (push '("3/4" . ?¾) prettify-symbols-alist)
-                                  (push '("1/7" . ?⅐) prettify-symbols-alist)
-                                  ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
-                                  (push '("ae" . ?æ) prettify-symbols-alist)
-                                  (push '("^_^" . ?☻) prettify-symbols-alist)))
+                                 (push '("^_^" . ?☻) prettify-symbols-alist)
+))
 #+END_SRC
-
 #+RESULTS:
 | (lambda nil (require (quote org-eldoc)) (toggle-word-wrap) (org-bullets-mode 1) (push (quote (>= . 8805)) prettify-symbols-alist) (push (quote (<= . 8804)) prettify-symbols-alist) (push (quote (\geq . 8805)) prettify-symbols-alist) (push (quote (\leq . 8804)) prettify-symbols-alist) (push (quote (\neg . 172)) prettify-symbols-alist) (push (quote (\rightarrow . 8594)) prettify-symbols-alist) (push (quote (\leftarrow . 8592)) prettify-symbols-alist) (push (quote (\infty . 8734)) prettify-symbols-alist) (push (quote (--> . 8594)) prettify-symbols-alist) (push (quote (<-- . 8592)) prettify-symbols-alist) (push (quote (\exists . 8707)) prettify-symbols-alist) (push (quote (\nexists . 8708)) prettify-symbols-alist) (push (quote (\forall . 8704)) prettify-symbols-alist) (push (quote (\or . 8744)) prettify-symbols-alist) (push (quote (\and . 8743)) prettify-symbols-alist) (push (quote (:) . 9786)) prettify-symbols-alist) (push (quote (): . 9785)) prettify-symbols-alist) (push (quote (:D . 9786)) prettify-symbols-alist) (push (quote (\checkmark . 10003)) prettify-symbols-alist) (push (quote (\check . 10003)) prettify-symbols-alist) (push (quote (1/4 . 188)) prettify-symbols-alist) (push (quote (1/2 . 189)) prettify-symbols-alist) (push (quote (3/4 . 190)) prettify-symbols-alist) (push (quote (1/7 . 8528)) prettify-symbols-alist) (push (quote (ae . 230)) prettify-symbols-alist) (push (quote (^_^ . 9787)) prettify-symbols-alist)) | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-show-block-all append local] 5] | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | org-eldoc-load |
 
@@ -442,16 +417,26 @@ try to expand a yasnippet.
 :ID:       4725eb30-c909-4c64-b3cc-2be91448f927
 :END:
 
+Hide the leading stars in my org files.
+#+BEGIN_SRC emacs-lisp
+(setq org-hide-leading-stars t)
+#+END_SRC
+
+Seeing the ... that org mode does to how you that the heading continues in the text beneith it is kind of boring
+http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
+Other interesting characters are ↴, ⬎, ⤷, and ⋱.
+#+BEGIN_SRC emacs-lisp
+(setq org-ellipsis " ↴")
+
+#+END_SRC
+
+Make RET follow a link
+#+BEGIN_SRC emacs-lisp
+  (setq org-return-follows-link t)
+#+END_SRC
+
   #+BEGIN_SRC emacs-lisp
     (setq
-     ;; hide the leading stars in my org files
-     org-hide-leading-stars t
-     ;;seeing the ... that org mode does to how you that the heading continues in the text beneith it is kind of boring
-     ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
-     ;; Other interesting characters are ↴, ⬎, ⤷, and ⋱.
-     org-ellipsis " ↴"
-     ;; make RET follow a link
-     org-return-follows-link t
      ;; only show times on items in the agenda, if we have an item at a specified time
      ;; if we set it to true, then we see all the times every 2 hours.  Takes up too much space.
      org-agenda-use-time-grid nil
@@ -497,7 +482,7 @@ try to expand a yasnippet.
      org-use-speed-commands t)
 
     ;;a visual hint to let you know what line you are in in org-mode agenda
-    (add-hook 'org-agenda-finalize-hook (lambda () (hl-line-mode)))
+    (add-hook 'org-agenda-finalize-hook '(lambda () (hl-line-mode)))
   #+END_SRC
 
   #+RESULTS:
@@ -1032,7 +1017,7 @@ There is apparently a way to specify in your org agenda files where you have a s
 :PROPERTIES:
 :ID:       1a006baf-51cd-454a-950e-3af9ff1915c5
 :END:
-** COMMENT a hydra that I found online that lets you easily remember some of the org commands
+** a hydra that I found online that lets you easily remember some of the org commands
 :PROPERTIES:
 :ID:       721dc190-9af1-441d-b3fa-1cfc0a92bafb
 :END:
@@ -1154,6 +1139,8 @@ _ht_: subtree
     (provide 'init-org)
   #+END_SRC
 * Footnotes
+
+[fn:2] I do use org-crypt in my erc-file to save some sensitive information.
 
 [fn:1]  A project is an action that has multiple sequential steps.
 

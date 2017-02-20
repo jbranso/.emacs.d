@@ -48,13 +48,14 @@ this lets you scroll the emacs buffer rather smoothly
 #+END_SRC
 
 * COMMENT Open Emacs up like you had it last.
- this is SOOO useful!
+This is SOOO useful!
+
 Use the desktop library to save the state of Emacs from one session to another. Once you save the Emacs desktop—the buffers,
 their file names, major modes, buffer positions, and so on—then subsequent Emacs sessions reload the saved desktop. By default,
 the desktop also tries to save the frame and window configuration. To disable this, set desktop-restore-frames to nil. (See that
 variable’s documentation for some related options that you can customize to fine-tune this behavior.)
 #+BEGIN_SRC emacs-lisp
-;;(desktop-save-mode 1)
+(desktop-save-mode 1)
 #+END_SRC
 
 * Save the position point was in
@@ -62,11 +63,11 @@ variable’s documentation for some related options that you can customize to fi
 :ID:       d134e7d8-0081-45df-b9ef-e94725e39177
 :END:
 http://whattheemacsd.com/init.el-03.html
-save the position that point was in during the last emacs session
+Save the position that point was in during the last emacs session
 #+BEGIN_SRC emacs-lisp
-(require 'saveplace)
 (setq-default save-place t)
 (setq save-place-file (expand-file-name ".places" user-emacs-directory))
+(add-hook 'after-init-hook 'save-place-mode)
 #+END_SRC
 
 In Emacs 25.1,  I now have to just do
@@ -88,32 +89,32 @@ but ONLY on graphical displays.  It looks weird in the terminal
 :PROPERTIES:
 :ID:       8e3718b8-0b55-4e8e-833c-179b249119d3
 :END:
-make comments in most programming languages various colors. [[file:~/.bashrc::#x%20hello]]
+Make comments in most programming languages various colors. [[file:~/.bashrc::#x%20hello]]
 #+BEGIN_SRC emacs-lisp
-;;cr red
-;;cg green
-;;x like this
-(defface font-lock-comment-strike
-  '((t (:strike-through t)))
-  "For strike-through comments")
+  ;;cr red
+  ;;cg green
+  ;;x like this
+  (defface font-lock-comment-strike
+    '((t (:strike-through t)))
+    "For strike-through comments")
 
-(defface font-lock-comment-important
-  '((t (:foreground "#00ff00")))
-  "For important")
+  (defface font-lock-comment-important
+    '((t (:foreground "#00ff00")))
+    "For important")
 
-(defface font-lock-comment-todo
-  '((t (:foreground "#ff0000")))
-  "For todo comments")
+  (defface font-lock-comment-todo
+    '((t (:foreground "#ff0000")))
+    "For todo comments")
 
-(defun add-custom-keyw()
-  "adds a few special keywords"
-  (font-lock-add-keywords
-   nil
-   '(("\\s<+x[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-strike prepend)
-     ("\\s<+cr[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-todo prepend)
-     ("\\s<+cg[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-important prepend))))
+  (defun add-custom-keyw()
+    "adds a few special keywords"
+    (font-lock-add-keywords
+     nil
+     '(("\\s<+x[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-strike prepend)
+       ("\\s<+cr[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-todo prepend)
+       ("\\s<+cg[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-important prepend))))
 
-  (add-hook 'prog-mode-hook #'add-custom-keyw)
+    (add-hook 'prog-mode-hook #'add-custom-keyw)
 
 #+END_SRC
 * Provide this file

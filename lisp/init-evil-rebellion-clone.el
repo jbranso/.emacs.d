@@ -1,6 +1,4 @@
 ;;; Code:
-
-
 (evil-set-initial-state 'snake-mode 'emacs)
 (evil-set-initial-state 'comint-mode 'normal)
 (evil-set-initial-state 'eshell-mode 'emacs)
