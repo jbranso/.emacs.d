@@ -120,7 +120,6 @@ enter ediff."
 (defun my-recentf-startup ()
 "My configuration for recentf."
 (recentf-mode 1)
-
 (setq recentf-max-saved-items 1000
       recentf-exclude '("/tmp/"
             "^.*autoloads.*$"
@@ -133,28 +132,20 @@ enter ediff."
 
 (add-to-list 'recentf-keep "^.*php$//")
 (recentf-auto-cleanup))
-
 (add-hook 'after-init-hook 'my-recentf-startup)
 
 (setq-default grep-highlight-matches t
               grep-scroll-output t)
-
 ;; ag is the silver searcher.  It lets you search for stuff crazy fast
 (when (executable-find "ag")
-  (use-package ag
-    :defer t
-    :ensure t)
-  (use-package wgrep-ag
-    :defer t
-    :ensure t)
+  (use-package ag :defer t :ensure t)
+  (use-package wgrep-ag :defer t :ensure t)
   (setq-default ag-highlight-search t))
 
 (setenv "PAGER" "cat")
 
-(add-hook 'eshell-mode-hook (lambda ()
-                              (setq
-                               shell-aliases-file "~/.emacs.d/alias"
-                               )))
+(add-hook 'eshell-mode-hook '(lambda ()
+                              (setq shell-aliases-file "~/.emacs.d/alias")))
 
 (define-key Info-mode-map (kbd "C-w h") 'windmove-down)
 (define-key Info-mode-map (kbd "C-w t") 'windmove-up)
@@ -221,11 +212,10 @@ enter ediff."
 
 (use-package yasnippet
   :defer t
-  :ensure t)
-
-  (add-to-list 'load-path "~/.emacs.d/snippets")
-  (require 'yasnippet)
-  (yas-global-mode 1)
+  :ensure t
+  :init
+  (add-to-list 'load-path "~/.emacs.d/snippets"))
+  (add-hook 'after-init-hook 'yas-global-mode)
 
 (with-eval-after-load 'warnings
   (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
@@ -272,28 +262,27 @@ enter ediff."
   (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
   (setq magit-completing-read-function 'magit-ido-completing-read))
 
-(require-package 'fullframe)
+(use-package fullframe :ensure t)
 (after-load 'magit (fullframe magit-status magit-mode-quit-window))
 
 (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)
 
-;;(add-hook 'ediff-after-setup-windows-hook #'(lambda () (scroll-bar-mode -1)))
-  (add-hook 'ediff-load-hook #'(lambda () (scroll-bar-mode -1)))
-  (add-hook 'ediff-suspend-hook #'scroll-bar-mode)
-  (add-hook 'ediff-quit-hook #'scroll-bar-mode)
+(add-hook 'ediff-load-hook #'(lambda () (scroll-bar-mode -1)))
+(add-hook 'ediff-suspend-hook #'scroll-bar-mode)
+(add-hook 'ediff-quit-hook #'scroll-bar-mode)
 
 (after-load 'magit (diminish 'magit-auto-revert-mode))
+
+(setq-default
+ magit-save-some-buffers nil
+ magit-diff-refine-hunk t)
+
+(setq magit-process-popup-time 5)
 
 (use-package gitignore-mode  :defer t :ensure t)
 (use-package gitconfig-mode  :defer t :ensure t)
 
 (use-package git-timemachine :ensure t :defer t)
-
-(setq-default
- magit-save-some-buffers nil
- ;; if a command takes longer than 5 seconds, pop up the process buffer.
- magit-process-popup-time 5
- magit-diff-refine-hunk t)
 
 (use-package rainbow-mode :ensure t :defer t)
 (dolist (hook '(css-mode-hook html-mode-hook sass-mode-hook))

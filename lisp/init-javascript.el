@@ -1,4 +1,3 @@
-
 (use-package js2-mode
   :ensure t
   :defer t
@@ -41,18 +40,6 @@
 (use-package rainbow-delimiters :ensure t)
 (dolist (hook '(js2-mode-hook js-mode-hook json-mode-hook))
   (add-hook hook 'rainbow-delimiters-mode))
-
-(setq-default js-indent-level preferred-javascript-indent-level)
-
-(add-to-list 'interpreter-mode-alist (cons "node" preferred-javascript-mode))
-
-(use-package coffee-mode
-  :defer t
-  :config (setq coffee-js-mode preferred-javascript-mode
-                coffee-tab-width preferred-javascript-indent-level))
-
-(when (fboundp 'coffee-mode)
-  (add-to-list 'auto-mode-alist '("\\.coffee\\.erb\\'" . coffee-mode)))
 
 (setq inferior-js-program-command "js")
 
