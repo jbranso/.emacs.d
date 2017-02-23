@@ -442,6 +442,11 @@ try to expand a yasnippet.
 :ID:       4725eb30-c909-4c64-b3cc-2be91448f927
 :END:
 
+Make calendar highlight upcoming items
+#+BEGIN_SRC emacs-lisp
+(setq calendar-mark-diary-entries-flag t)
+#+END_SRC
+
   #+BEGIN_SRC emacs-lisp
     (setq
      ;; hide the leading stars in my org files
