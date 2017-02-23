@@ -286,13 +286,13 @@ enter ediff."
 (use-package git-blame :ensure t)
 
 (after-load 'magit
-    (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
-    ;;I like the ido completing read function over the helm one, but then helm stops working so well
-    ;;(setq magit-completing-read-function 'magit-ido-completing-read)
-)
+  (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
+  ;;I like the ido completing read function over the helm one, but then helm stops working so well
+  ;;(setq magit-completing-read-function 'magit-ido-completing-read)
+  )
 
-  (use-package fullframe :ensure t)
-  (after-load 'magit (fullframe magit-status magit-mode-quit-window))
+(use-package fullframe :ensure t)
+(after-load 'magit (fullframe magit-status magit-mode-quit-window))
 
 (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)
 

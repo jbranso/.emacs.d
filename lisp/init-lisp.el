@@ -36,20 +36,20 @@
         (paredit-forward-slurp-sexp)))))
 
 (defun elisp/turn-on-paredit ()
-(autoload 'enable-paredit-mode "paredit"
-"Turn on pseudo-structural editing of Lisp code."
-t)
-(define-key emacs-lisp-mode-map (kbd "C-c 0") 'paredit-forward-slurp-sexp)
-(define-key emacs-lisp-mode-map (kbd "C-c 9") 'paredit-backward-slurp-sexp)
-(define-key emacs-lisp-mode-map (kbd "C-c ]") 'paredit-forward-barf-sexp)
-(define-key emacs-lisp-mode-map (kbd "C-c [") 'paredit-backward-barf-sexp)
+  (autoload 'enable-paredit-mode "paredit"
+    "Turn on pseudo-structural editing of Lisp code."
+    t)
+  (define-key emacs-lisp-mode-map (kbd "C-c 0") 'paredit-forward-slurp-sexp)
+  (define-key emacs-lisp-mode-map (kbd "C-c 9") 'paredit-backward-slurp-sexp)
+  (define-key emacs-lisp-mode-map (kbd "C-c ]") 'paredit-forward-barf-sexp)
+  (define-key emacs-lisp-mode-map (kbd "C-c [") 'paredit-backward-barf-sexp)
 
-(define-key emacs-lisp-mode-map (kbd "C-c )") 'paredit-slurp-all-the-way-forward)
-(define-key emacs-lisp-mode-map (kbd "C-c }") 'paredit-barf-all-the-way-forward)
-(define-key emacs-lisp-mode-map (kbd "C-c (") 'paredit-slurp-all-the-way-backward)
-(define-key emacs-lisp-mode-map (kbd "C-c {") 'paredit-barf-all-the-way-backward)
-(evil-define-key 'normal evil-dvorak-mode-map (kbd "k") 'paredit-kill)
-(paredit-mode +1))
+  (define-key emacs-lisp-mode-map (kbd "C-c )") 'paredit-slurp-all-the-way-forward)
+  (define-key emacs-lisp-mode-map (kbd "C-c }") 'paredit-barf-all-the-way-forward)
+  (define-key emacs-lisp-mode-map (kbd "C-c (") 'paredit-slurp-all-the-way-backward)
+  (define-key emacs-lisp-mode-map (kbd "C-c {") 'paredit-barf-all-the-way-backward)
+  (evil-define-key 'normal evil-dvorak-mode-map (kbd "k") 'paredit-kill)
+  (paredit-mode +1))
 
 (require 'evil-paredit)
 
