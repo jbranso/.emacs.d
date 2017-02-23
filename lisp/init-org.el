@@ -103,6 +103,8 @@
                                 (push '("ae" . ?æ) prettify-symbols-alist)
                                 (push '("^_^" . ?☻) prettify-symbols-alist)))
 
+(setq calendar-mark-diary-entries-flag t)
+
 (setq
  ;; hide the leading stars in my org files
  org-hide-leading-stars t
