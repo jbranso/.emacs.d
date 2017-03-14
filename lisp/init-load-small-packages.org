@@ -4,6 +4,7 @@
 #+STARTUP: overview
 
 This file just loads in tiny packages that don't really need to be in separate files.
+
 * markdown
 :PROPERTIES:
 :ID:       4f12892e-8b3b-4b1e-b606-0be712f28f5b
@@ -914,6 +915,29 @@ I should define some cool helm mini commands
 
  how do I get this to work?
 (define-key helm-find-files-map (kbd "s-h") 'helm-next-line)
+* smart mode-line
+:PROPERTIES:
+:ID:       234a4918-8947-4e1c-85ed-77c0501fdcfb
+:END:
+Make the mode line look prettier
+#+BEGIN_SRC emacs-lisp
+(use-package smart-mode-line-powerline-theme :ensure t)
+#+END_SRC
+
+Smart mode line apparently is more active and works w/ just about anything
+#+BEGIN_SRC emacs-lisp
+(use-package smart-mode-line :ensure t
+  :init
+  (setq sml/theme 'powerline)
+  ;; emacs keeps prompting me to run the smart-mode-line-theme.  This is a word around that I found on github
+  (setq sml/no-confirm-load-theme t)
+  (setq powerline-arrow-shape 'curve)
+  (setq powerline-default-separator-dir '(right . left))
+  (setq sml/mode-width 0)
+  ;; this makes sure that the mode line doesn't go off the screen
+  (setq sml/name-width 40)
+  (sml/setup))
+#+END_SRC
 
 * COMMENT some things I don't use
 ** autocorrect

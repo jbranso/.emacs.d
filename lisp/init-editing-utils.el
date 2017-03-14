@@ -63,6 +63,8 @@
 (global-set-key (kbd "C-c t") #'transpose-chars)
 (global-set-key (kbd "C-c T") #'transpose-words)
 
+;;(global-set-key (kbd "C-x b" #'helm-buffers-list)
+
 (global-set-key (kbd "s-;") #'web-mode-comment-or-uncomment)
 (global-set-key (kbd "s-a") #'mark-whole-buffer)
 (global-set-key (kbd "s-d") #'my/downcase-word)

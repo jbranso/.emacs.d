@@ -32,7 +32,10 @@ I can't do the basic examples found here: https://github.com/timcharper/evil-sur
                      (push '(?/ . ("/" . "/")) evil-surround-pairs-alist)))))
 #+END_SRC
 
-* some minor config things
+* so
+
+
+me minor config things
 :PROPERTIES:
 :ID:       84667703-ff11-4c00-838f-c6ed56221b56
 :END:
@@ -146,7 +149,7 @@ Make evil-insert-mode allow emacs keybindings
 #+END_SRC
 
 * evil states
-** COMMENT evil normal state
+** evil normal state
 :PROPERTIES:
 :ID:       5ba35bc9-4961-46a0-bad5-4b59d1c53c62
 :END:

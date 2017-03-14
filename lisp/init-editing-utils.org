@@ -103,6 +103,11 @@ Transposing words and characters.
   (global-set-key (kbd "C-c T") #'transpose-words)
 #+END_SRC
 
+Helm switch buffers
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x b") #'helm-buffers-list)
+#+END_SRC
+
 ** My quick commands "C-c <char>"
 *** my modkey <letter> commands
 :PROPERTIES:

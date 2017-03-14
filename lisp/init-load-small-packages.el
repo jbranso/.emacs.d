@@ -286,13 +286,13 @@ enter ediff."
 (use-package git-blame :ensure t)
 
 (after-load 'magit
-  (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
-  ;;I like the ido completing read function over the helm one, but then helm stops working so well
-  ;;(setq magit-completing-read-function 'magit-ido-completing-read)
-  )
+    (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
+    ;;I like the ido completing read function over the helm one, but then helm stops working so well
+    ;;(setq magit-completing-read-function 'magit-ido-completing-read)
+)
 
-(use-package fullframe :ensure t)
-(after-load 'magit (fullframe magit-status magit-mode-quit-window))
+  (use-package fullframe :ensure t)
+  (after-load 'magit (fullframe magit-status magit-mode-quit-window))
 
 (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)
 
@@ -372,5 +372,19 @@ enter ediff."
 
 (define-key helm-map (kbd "<tab>")    'helm-execute-persistent-action)
 (define-key helm-map (kbd "<backtab>") 'helm-select-action)
+
+(use-package smart-mode-line-powerline-theme :ensure t)
+
+(use-package smart-mode-line :ensure t
+  :init
+  (setq sml/theme 'powerline)
+  ;; emacs keeps prompting me to run the smart-mode-line-theme.  This is a word around that I found on github
+  (setq sml/no-confirm-load-theme t)
+  (setq powerline-arrow-shape 'curve)
+  (setq powerline-default-separator-dir '(right . left))
+  (setq sml/mode-width 0)
+  ;; this makes sure that the mode line doesn't go off the screen
+  (setq sml/name-width 40)
+  (sml/setup))
 
 (provide 'init-load-small-packages)

@@ -7,7 +7,6 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
-
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 ;;(require 'init-benchmarking) ;; Measure startup time
 
@@ -21,7 +20,6 @@
 
 (require 'init-utils)
 (require 'init-elpa)     ;; Machinery for installing required packages
-
 
 ;;----------------------------------------------------------------------------
 ;; Allow users to provide an optional "init-preload-local.el"
@@ -62,29 +60,29 @@
 (org-babel-load-file 	"~/.emacs.d/lisp/init-editing-utils.org")
 ;;an irc client for Emacs
 (org-babel-load-file 	"~/.emacs.d/lisp/init-erc.org")
-
 ;; read email in emacs
 ;;(require 'init-mu4e)
-(require 'init-html)
+(org-babel-load-file "~/.emacs.d/lisp/init-html.org")
+
 ;; let's write my wordpress blog in emacs
 ;;(require 'init-org2blog)
-(require 'init-defuns)
-;; Let's make a smart mode-line
-(require 'init-smart-mode-line)
+(org-babel-load-file "~/.emacs.d/lisp/init-defuns.org")
+
 ;; Make my evil keybindings work pretty much everywhere
 (require 'init-evil-rebellion-clone)
 
+(org-babel-load-file "~/.emacs.d/lisp/init-erc.org")
 (org-babel-load-file 	"~/.emacs.d/lisp/init-misc.org")
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
 ;;----------------------------------------------------------------------------
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
 
 ;; ert is the emacs lisp regression test.  It lets you test that your lisp files
 ;; pass defined tests
-(require 'init-ert)
 
 ;;----------------------------------------------------------------------------
 ;; Locales (setting them earlier in this file doesn't work in X)
