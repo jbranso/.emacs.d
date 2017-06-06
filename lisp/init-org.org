@@ -1,4 +1,4 @@
-#+TITLE: My Org Initialization
+ #+TITLE: My Org Initialization
 #+AUTHOR: Joshua Branson
 #+PROPERTY: header-args :
 # this says that org mode will export up to the 4th level heading

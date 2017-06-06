@@ -375,7 +375,8 @@ I'm not sure if Lafayette
   :commands (wttrin)
   :init
   (setq wttrin-default-cities
-  '("West Lafayette")))
+  '("West Lafayette"))
+  (setq wttrin-default-accept-language '("Accept-Language" . "en-US")))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -789,7 +790,7 @@ Before we load any helm things, need to load helm-flx so it uses flx instead of 
 #+BEGIN_SRC emacs-lisp
 (require 'helm-config)
 #+END_SRC
-;; I've installed helm-ag, which might be cool.
+I've installed helm-ag, which might be cool.
 
 #+BEGIN_SRC emacs-lisp
 (setq
@@ -870,7 +871,6 @@ I should define some cool helm mini commands
 
  how do I get this to work?
  (define-key helm-find-files-map (kbd "s-h") 'helm-next-line)
-
 * COMMENT some things I don't use
 ** A register hydra
 (reqgister)

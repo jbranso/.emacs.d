@@ -20,6 +20,17 @@
                      (push '(?* . ("*" . "*")) evil-surround-pairs-alist)
                      (push '(?/ . ("/" . "/")) evil-surround-pairs-alist)))))
 
+(use-package evil-lion :ensure t :config (evil-lion-mode))
+
+;; glip= on this paragraph makes it
+;; snthtnsh = asnteuhaeontuh
+;; satnehnth = ansteuhnstaehu
+;; santeh = aseunthesnu
+
+;; snthtnsh  = asnteuhaeontuh
+;; satnehnth = ansteuhnstaehu
+;; santeh    = aseunthesnu
+
 ;;Do not move the cursor back when exiting insert mode.
 (setq evil-move-cursor-back nil)
 ;; This macro allows me to insert a space with the spacebar.

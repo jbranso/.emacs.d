@@ -164,7 +164,8 @@ enter ediff."
   :commands (wttrin)
   :init
   (setq wttrin-default-cities
-  '("West Lafayette")))
+  '("West Lafayette"))
+  (setq wttrin-default-accept-language '("Accept-Language" . "en-US")))
 
 (defun weather ()
   "Show the local weather via wttrin"
