@@ -4,7 +4,10 @@
 #+STARTUP: overview
 
 This file just loads in tiny packages that don't really need to be in separate files.
-
+* lexical binding
+#+BEGIN_SRC emacs-lisp
+;; -*- lexical-binding: t -*-
+#+END_SRC
 * markdown
 :PROPERTIES:
 :ID:       4f12892e-8b3b-4b1e-b606-0be712f28f5b
@@ -552,6 +555,31 @@ If I do want the details I can use ")" to show them and "(" to hide them again
   (add-hook 'dired-mode-hook 'dired-omit-mode))
 #+END_SRC
 
+*** Ediff two marked files
+
+#+BEGIN_SRC emacs-lisp
+(defun ora-ediff-files ()
+  (interactive)
+  (let ((files (dired-get-marked-files))
+        (wnd (current-window-configuration)))
+    (if (<= (length files) 2)
+        (let ((file1 (car files))
+              (file2 (if (cdr files)
+                         (cadr files)
+                       (read-file-name
+                        "file: "
+                        (dired-dwim-target-directory)))))
+          (if (file-newer-than-file-p file1 file2)
+              (ediff-files file2 file1)
+            (ediff-files file1 file2))
+          (add-hook 'ediff-after-quit-hook-internal
+                    (lambda ()
+                      (setq ediff-after-quit-hook-internal nil)
+                      (set-window-configuration wnd))))
+      (error "no more than 2 files should be marked"))))
+
+(define-key dired-mode-map "e" 'ora-ediff-files)
+#+END_SRC
 * yasnippet
 ** Set up yasnippet.
 :PROPERTIES:
@@ -915,6 +943,12 @@ I should define some cool helm mini commands
 
  how do I get this to work?
 (define-key helm-find-files-map (kbd "s-h") 'helm-next-line)
+* ledger
+#+BEGIN_SRC emacs-lisp
+(use-package ledger-mode :ensure t)
+
+(add-to-list 'auto-mode-alist '("\\.ledger?\\'" . ledger-mode))
+#+END_SRC
 * smart mode-line
 :PROPERTIES:
 :ID:       234a4918-8947-4e1c-85ed-77c0501fdcfb

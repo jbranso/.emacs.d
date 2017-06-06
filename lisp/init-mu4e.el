@@ -1,18 +1,15 @@
+(add-to-list 'load-path "~/programming/mu/mu4e")
 (require 'mu4e)
 
-;;(setq mu4e-maildir (expand-file-name "~/Mail"))
-
+;; tell Emacs where my maildir is
 (setq mu4e-maildir (expand-file-name "~/.mail/gmail/"))
-
-
 
 (setq mu4e-drafts-folder "/[Gmail].Drafts")
 (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
 (setq mu4e-trash-folder  "/[Gmail].Trash")
 
 ;; try to view the messages in html
-(setq mu4e-view-prefer-html t
-      mu4e-html2text-command "w3m -T text/html")
+;; (setq mu4e-view-prefer-html t mu4e-html2text-command "w3m -T text/html")
 
 ;; attempt to show images when viewing messages
 (setq mu4e-view-show-images t
@@ -22,7 +19,6 @@
 ;; use imagemagick, if available
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
-
 
 ;; This lets me know when the indexing sees something new... NOT just new mail though
 ;; (add-hook 'mu4e-index-updated-hook
@@ -45,7 +41,7 @@
         ("/[Gmail].Trash"     . ?t)))
 
 (setq
- user-mail-address "jbranson@waypoint.agency"
+ user-mail-address "jbranso91@gmail.com"
  user-full-name  "Joshua Branson"
  message-signature
  "<hr>\nJoshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\nhttps://www.gnu.org/software/emacs/")

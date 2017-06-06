@@ -51,9 +51,9 @@
      ;;(http . t)
      (gnuplot . t)
      ;;(latex . t)
-     ;;(ledger . t)
+     (ledger . t)
      (js . t)
-     ;;(perl . t)
+     (perl . t)
      (python . t)
      (gnuplot . t)
      ;;org-babel does not currently support php.  That is really sad.
@@ -71,6 +71,12 @@
   ;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
   ;; display inline images in org-mode
   ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+
+(defun org-babel-get-header (params key &optional others)
+  (delq nil
+        (mapcar
+         (lambda (p) (when (funcall (if others #'not #'identity) (eq (car p) key)) p))
+         params)))
 
 (use-package org-invoice)
 

@@ -1,6 +1,8 @@
 ;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
 
+;;(find-file "./init.el")
+
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -43,6 +45,8 @@
 ;; And let's load it in quickly, so I can always use evil-mode
 ;; even when my config is broken.
 (org-babel-load-file "~/.emacs.d/lisp/init-evil.org")
+;; Make my evil keybindings work pretty much everywhere
+(require 'init-evil-rebellion-clone)
 ;;(require 'init-pdf-tools)
 ;; make opening specific types of files,
 ;; autoinsert a yasnippet
@@ -61,15 +65,13 @@
 ;;an irc client for Emacs
 (org-babel-load-file 	"~/.emacs.d/lisp/init-erc.org")
 ;; read email in emacs
-;;(require 'init-mu4e)
+(require 'init-mu4e)
 (org-babel-load-file "~/.emacs.d/lisp/init-html.org")
 
 ;; let's write my wordpress blog in emacs
 ;;(require 'init-org2blog)
 (org-babel-load-file "~/.emacs.d/lisp/init-defuns.org")
 
-;; Make my evil keybindings work pretty much everywhere
-(require 'init-evil-rebellion-clone)
 
 (org-babel-load-file "~/.emacs.d/lisp/init-erc.org")
 (org-babel-load-file 	"~/.emacs.d/lisp/init-misc.org")

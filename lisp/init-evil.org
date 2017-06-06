@@ -300,12 +300,22 @@ Make evil-insert-mode allow emacs keybindings
   (define-key evil-insert-state-map (kbd "C-d") 'delete-char)
   (define-key evil-insert-state-map (kbd "C-z") 'evil-normal-state)
   ;; (kbd "ESC") 'evil-normal-state
-  (define-key evil-insert-state-map  (kbd "C-c r") 'evil-record-macro))
+  (define-key evil-insert-state-map  (kbd "C-c r") 'evil-record-macro)
+  (define-key evil-insert-state-map  (kbd "C-s") 'evil-forward-char)
+  (define-key evil-insert-state-map  (kbd "C-n") 'evil-backward-char))
 (add-hook 'evil-insert-state-entry-hook 'my-evil-dvorak-insert-state)
 #+END_SRC
 
 (local-unset-key (kbd "TAB"))
 
+** emacs state
+
+#+BEGIN_SRC emacs-lisp
+  (define-key evil-emacs-state-map  (kbd "C-w t") #'windmove-up)
+  (define-key evil-emacs-state-map  (kbd "C-w h") #'windmove-down)
+  (define-key evil-emacs-state-map  (kbd "C-w n") #'windmove-left)
+  (define-key evil-emacs-state-map  (kbd "C-w s") #'windmove-right)
+#+END_SRC
 * provide this file
 :PROPERTIES:
 :ID:       b3f9e7e5-04e2-44da-a340-96ecc4dfca9c

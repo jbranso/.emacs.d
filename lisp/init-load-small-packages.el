@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -237,6 +239,28 @@ enter ediff."
 (with-eval-after-load 'dired
   (add-hook 'dired-mode-hook 'dired-omit-mode))
 
+(defun ora-ediff-files ()
+  (interactive)
+  (let ((files (dired-get-marked-files))
+        (wnd (current-window-configuration)))
+    (if (<= (length files) 2)
+        (let ((file1 (car files))
+              (file2 (if (cdr files)
+                         (cadr files)
+                       (read-file-name
+                        "file: "
+                        (dired-dwim-target-directory)))))
+          (if (file-newer-than-file-p file1 file2)
+              (ediff-files file2 file1)
+            (ediff-files file1 file2))
+          (add-hook 'ediff-after-quit-hook-internal
+                    (lambda ()
+                      (setq ediff-after-quit-hook-internal nil)
+                      (set-window-configuration wnd))))
+      (error "no more than 2 files should be marked"))))
+
+(define-key dired-mode-map "e" 'ora-ediff-files)
+
 (use-package yasnippet
   :defer t
   :ensure t
@@ -372,6 +396,10 @@ enter ediff."
 
 (define-key helm-map (kbd "<tab>")    'helm-execute-persistent-action)
 (define-key helm-map (kbd "<backtab>") 'helm-select-action)
+
+(use-package ledger-mode :ensure t)
+
+(add-to-list 'auto-mode-alist '("\\.ledger?\\'" . ledger-mode))
 
 (use-package smart-mode-line-powerline-theme :ensure t)
 

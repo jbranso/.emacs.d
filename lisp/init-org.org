@@ -180,9 +180,9 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
 	 ;;(http . t)
          (gnuplot . t)
          ;;(latex . t)
-         ;;(ledger . t)
+         (ledger . t)
          (js . t)
-         ;;(perl . t)
+         (perl . t)
          (python . t)
          (gnuplot . t)
          ;;org-babel does not currently support php.  That is really sad.
@@ -203,7 +203,20 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
   #+END_SRC
 
   #+RESULTS:
+*** fixing babel
+:PROPERTIES:
+:ID:       d1892137-5437-4a45-8615-c7ec0836e2f4
+:END:
 
+New versions of org have removed org-babel get header.  Some plugins still use it.  So I'm defining it until they catch up.
+
+#+BEGIN_SRC emacs-lisp
+(defun org-babel-get-header (params key &optional others)
+  (delq nil
+        (mapcar
+         (lambda (p) (when (funcall (if others #'not #'identity) (eq (car p) key)) p))
+         params)))
+#+END_SRC
 ** org invoice
 :PROPERTIES:
 :ID:       4dc5cf24-8878-498c-a332-41f87ee08fda

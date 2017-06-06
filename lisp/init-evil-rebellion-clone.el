@@ -33,12 +33,13 @@
 ;; (setq evil-motion-state-modes nil)
 
 (evil-set-initial-state 'dired-mode 'emacs)
-(define-key dired-mode-map (kbd "n") #'dired-next-line)
-(define-key dired-mode-map (kbd "p") #'dired-previous-line)
-(define-key dired-mode-map (kbd "s") #'forward-char)
-;; "T" is normally bound to dired-do-touch
-(define-key dired-mode-map (kbd "T") #'dired-toggle-marks)
-(define-key dired-mode-map (kbd "S") #'dired-sort-toggle-or-edit)
+(with-eval-after-load 'dired 
+  (define-key dired-mode-map (kbd "n") #'dired-next-line)
+  (define-key dired-mode-map (kbd "p") #'dired-previous-line)
+  (define-key dired-mode-map (kbd "s") #'forward-char)
+  ;; "T" is normally bound to dired-do-touch
+  (define-key dired-mode-map (kbd "T") #'dired-toggle-marks)
+  (define-key dired-mode-map (kbd "S") #'dired-sort-toggle-or-edit))
 
 
 (evil-set-initial-state 'magit-branch-manager-mode 'emacs)
@@ -66,6 +67,7 @@
 ;;(evil-set-initial-state 'ggtags-tags-mode 'normal)
 ;; setting this to emacs makes opening up any new buffer set the evil state to emacs
 (evil-define-key 'normal org-mode-map (kbd "RET") 'org-return)
+(evil-define-key 'normal org-mode-map (kbd "TAB") 'org-cycle)
 (evil-set-initial-state 'ggtags-global-mode 'emacs)
 
 (add-hook 'edebug-setup-hook 'evil-emacs-state)

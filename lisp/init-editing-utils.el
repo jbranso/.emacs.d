@@ -63,7 +63,7 @@
 (global-set-key (kbd "C-c t") #'transpose-chars)
 (global-set-key (kbd "C-c T") #'transpose-words)
 
-;;(global-set-key (kbd "C-x b" #'helm-buffers-list)
+(global-set-key (kbd "C-x b") #'helm-buffers-list)
 
 (global-set-key (kbd "s-;") #'web-mode-comment-or-uncomment)
 (global-set-key (kbd "s-a") #'mark-whole-buffer)
@@ -74,10 +74,14 @@
 (global-set-key (kbd "s-i") (lambda () (interactive)
                               (erc :server "irc.freenode.net" :port "6667"
                                    :nick "jbranso")))
-(global-set-key (kbd "s-s") '(lambda ()
-                               (interactive)
-                               (save-some-buffers 1)))
+(defun my/save-all-buffers ()
+  (interactive)
+  (save-some-buffers 1))
+
+(global-set-key (kbd "s-s") 'my/save-all-buffers)
 (global-set-key (kbd "s-u") #'my/uppercase-word)
+
+(buffer-file-name)
 
 (global-set-key (kbd "C-c TAB") #'indent-whole-buffer)
 ;; when point is between two words, delete the space between them
@@ -197,9 +201,7 @@ If the input is non-empty, it is inserted at point."
 
 (global-set-key "\C-xQ" #'my-macro-query)
 
-(add-hook 'after-save-hook #'(lambda ()
-                               (interactive)
-                               (save-some-buffers 1)))
+(add-hook 'after-save-hook 'my/save-all-buffers)
 
 (defun narrow-or-widen-dwim (p)
   "Widen if buffer is narrowed, narrow-dwim otherwise.
@@ -284,18 +286,25 @@ be global."
 (defun my/delete-trailing-whitespace ()
   "This is just a defined function that deletes trailing whitespace"
   (interactive)
-  (delete-trailing-whitespace))
+  (when
+      ;; don't delete white space in my programming dirs
+      ;; where I may commit these changes to other projects.
+      (and
+       (not (s-match ".*programming/gnu.*" (buffer-file-name)))
+       (not (s-match ".*programming/web.*" (buffer-file-name))))
+  (delete-trailing-whitespace)))
 
-(defun my/leave-trailing-whitespace-hook  ()
-  "This defun leaves trailing whitespace"
-  (interactive)
-  (remove-hook 'before-save-hook 'my/delete-trailing-whitespace))
+ (defun my/leave-trailing-whitespace-hook  ()
+   "This defun leaves trailing whitespace"
+   (interactive)
+   (remove-hook 'before-save-hook 'my/delete-trailing-whitespace))
 
-(defun my/delete-trailing-whitespace-hook  ()
-  "This defun leaves trailing whitespace"
-  (interactive)
-  (add-hook 'before-save-hook 'my/delete-trailing-whitespace))
-  (my/delete-trailing-whitespace-hook)
+ (defun my/delete-trailing-whitespace-hook  ()
+   "This defun leaves trailing whitespace"
+   (interactive)
+   (add-hook 'before-save-hook 'my/delete-trailing-whitespace))
+
+   (my/delete-trailing-whitespace-hook)
 
 (require 'server)
 (when (not (server-running-p))

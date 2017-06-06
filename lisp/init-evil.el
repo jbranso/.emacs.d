@@ -187,8 +187,15 @@
   (define-key evil-insert-state-map (kbd "C-d") 'delete-char)
   (define-key evil-insert-state-map (kbd "C-z") 'evil-normal-state)
   ;; (kbd "ESC") 'evil-normal-state
-  (define-key evil-insert-state-map  (kbd "C-c r") 'evil-record-macro))
+  (define-key evil-insert-state-map  (kbd "C-c r") 'evil-record-macro)
+  (define-key evil-insert-state-map  (kbd "C-s") 'evil-forward-char)
+  (define-key evil-insert-state-map  (kbd "C-n") 'evil-backward-char))
 (add-hook 'evil-insert-state-entry-hook 'my-evil-dvorak-insert-state)
+
+(define-key evil-emacs-state-map  (kbd "C-w t") #'windmove-up)
+(define-key evil-emacs-state-map  (kbd "C-w h") #'windmove-down)
+(define-key evil-emacs-state-map  (kbd "C-w n") #'windmove-left)
+(define-key evil-emacs-state-map  (kbd "C-w s") #'windmove-right)
 
 (provide 'init-evil)
 ;;; evil-changes.el ends here
