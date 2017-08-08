@@ -53,8 +53,6 @@ t)
 
 (require 'evil-paredit)
 
-(require 'evil-paredit)
-
 (add-hook 'emacs-lisp-mode-hook '(lambda ()
                                    (rainbow-delimiters-mode 1)
                                    ;; You want to enable evil-paredit mode for evil, because it's SOOO helpful.

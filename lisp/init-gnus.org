@@ -1,4 +1,38 @@
-* Background information on Gnus
+* Gnus Quick Start
+
+   Gnus is designed to be a newsreader, and /not/ an email client. It is a bit different from your typical email client, but if you give Gnus a try and stick with it, it will really be worth it.
+
+ This quick start guide will help you set up gnus to manage one gmail account.
+
+** Telling Gnus who you are
+
+#+BEGIN_SRC emacs-lisp :tangle no
+(setq
+ user-mail-address	"joe@gmail.com"
+ user-full-name	"Joe Rogan")
+#+END_SRC
+
+** Define your gmail connection
+
+   Most email clients use IMAP.  IMAP is an email protocol that stores all of your email on the server and not on your local machine.  This can save you some disk space.  You just need to tell Gnus where your imap server is.
+
+   #+BEGIN_SRC emacs-lisp :tangle no
+     (setq gnus-select-method
+        '(nnimap "gmail"
+   	      (nnimap-address "imap.gmail.com")))
+   #+END_SRC
+
+** Starting Gnus for the first time
+
+   =M-x Gnus=
+
+   After Gnus loads you should see a mostly empty screen. This is your group buffer.  It displays all of your groups, which a normal email client would call folders. Gnus doesn't show you for email folders, because you need to tell Gnus which folders to use by default.  Press the =^=.
+
+You are now in the server buffer.  The server buffer shows you all of your email accounts and how you interact with each server.  If you use gnus with 5 different email accounts, then you will see 5 different servers.  Press RET on your email server.  If you are using gmail, your server will have gmail in the name.
+
+Now you should see your email folders or /groups/.  To subscribe to a /group/ press "u".  You should probably subscribe to your Inbox, Sent, Trash, and Draft folders.  When you are done subscribing to /groups/ (folders), press =q=.
+
+** Some more information
 
 read these pages:
 https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/gnus-guide-en.org
@@ -14,40 +48,13 @@ You also need to type j (jump) to a particular folder
 also sometimes your inboxes won't sure up (if they are contain no unread mail mail) so
 to see all inbex
 
-You can find the following guide here: http://www.emacswiki.org/emacs/GnusGmail#toc1
-Quickstart
-Put the following in ~/.profile (I put it in .bash_profile) :
-
-export EMAIL="<EMAIL_ADDRESS>"
-export NAME="<FULL NAME>"
-export SMTPSERVER="smtp.gmail.com"
-For example, if your name is John Smith and your email address is johnsmith@gmail.com:
-
-export EMAIL="johnsmith@gmail.com"
-export NAME="John Smith"
-export SMTPSERVER="smtp.gmail.com"
-Now put the following in your ~/.gnus file:
-
-(setq gnus-select-method
-      '(nnimap "gmail"
-	       (nnimap-address "imap.gmail.com")  ; it could also be imap.googlemail.com if that's your server.
-	       (nnimap-server-port "imaps")
-	       (nnimap-stream ssl)))
-
 (setq smtpmail-smtp-service 587
       gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
 Put the following in your ~/.authinfo file, replacing <USER> with your email address and replacing <PASSWORD> with your password—or your application-specific password:
 
-machine imap.gmail.com login <USER> password <PASSWORD> port imaps
-machine smtp.gmail.com login <USER> password <PASSWORD> port 587
-If you don’t wish to store your password there, just omit the “password <PASSWORD>” altogether and Gnus will prompt you when it needs your password.
-
-When sending your first email from gnus, you might get a STARTTLS error. If you’re using homebrew in Mac OS X, you can install
-the necessary package with brew install gnutls.
+When sending your first email from gnus, you might get a STARTTLS error. If you’re using homebrew in Mac OS X, you can install the necessary package with brew install gnutls.
 
 You can find more information in the following sections.
-
-Run ‘M-x gnus’ and enjoy.
 
 * Setting up Gnus
 
@@ -60,19 +67,31 @@ Run ‘M-x gnus’ and enjoy.
 
    I hope you don't mind that I'm not telling you my email address.  I'd rather that not be public info.
 
+   This files just sets up some variables that I use later on.
   #+BEGIN_SRC emacs-lisp
     (org-babel-load-file "~/.emacs.d/lisp/init-gnus-secret.org")
   #+END_SRC
 
-** My gnus signature
+** Posting Styles
+Changing my signature based on what email account I'm using.
 
-at the moment gnus org-mime-htmlize does not like this to be in my signature.  It won't let me send the mail.
+Posting an article is the same thing as sending an email, since gnus is a usenet reader, gnus uses usenet terminology.
 
-<a href=\"https://www.gnu.org/software/emacs/\"><img src=\"http://jbranso.me/images/Emacs-logo.svg\" style=\"width:100px\" ></a><br>
-   #+BEGIN_SRC emacs-lisp
-     (setq
-      message-signature
-      "<hr>\nJoshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\nhttps://www.gnu.org/software/emacs/")
+I can specify posting styles depending on the account.  So for example I can specify that when I reply to an article (email), I should use a specific From field.  That's what this next bit of code does.
+
+   #+BEGIN_SRC emacs-lisp :tangle no
+     (setq gnus-posting-styles
+           '(
+             ;; My default hotmail posting style
+             (".*"
+              (signature "some Cool Signature")
+              (address "someHotmailAccount@hotmail.com"))
+             ;; when I post to purdue stuff
+             (".*Some-string-that-matche-your-server.*"
+              (signature "Some Cool Signature\nThis is on a new line")
+              (address "someEmailAccount@gmail.com"))
+             ))
+
    #+END_SRC
 
 ** Making Gnus prettier
@@ -138,7 +157,7 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
             gnus-show-threads nil
             gnus-use-cross-reference nil)
     #+END_SRC
-** Encrypting Email
+** COMMENT Encrypting Email
 
    Here follows a short rant:
 
@@ -364,8 +383,7 @@ for a string you have to hit "t" when you first open gnus to get purdue working 
 
 ** ranking groups
 
-   When you exit the summary buffer, increase the score of that group.  This makes that group a little
-   bit more important.
+   Make Gnus sort the group buffer based on how often I read each group.  When you exit the summary buffer, increase the score of that group.  This makes that group a little bit more important.
 
    #+BEGIN_SRC emacs-lisp
    (add-hook 'gnus-summary-exit-hook 'gnus-summary-bubble-group)

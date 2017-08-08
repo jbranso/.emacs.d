@@ -28,3 +28,5 @@ elpa/*
 elpa/*
 /lisp/#init-javascript.org#
 /#recentf#
+lisp/init-gnus-secret.el
+lisp/init-gun-secret.org

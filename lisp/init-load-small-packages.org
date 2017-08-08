@@ -617,7 +617,7 @@ But it is probably not necessary.  When I am about to expand a snippet, I am typ
 :END:
 Ido-ubiquitous is needed for completing magit via ido.
 #+BEGIN_SRC emacs-lisp
-(use-package ido-ubiquitous :ensure t)
+;; (use-package ido-ubiquitous :ensure t)
 (use-package magit :defer t :ensure t)
 (use-package git-blame :ensure t)
 #+END_SRC
@@ -637,7 +637,8 @@ Ido-ubiquitous is needed for completing magit via ido.
 #+BEGIN_SRC emacs-lisp
   (after-load 'magit
     (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
-    (setq magit-completing-read-function 'magit-ido-completing-read))
+   ;; (setq magit-completing-read-function 'magit-ido-completing-read)
+    )
 
   (use-package fullframe :ensure t)
   (after-load 'magit (fullframe magit-status magit-mode-quit-window))

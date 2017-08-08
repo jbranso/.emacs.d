@@ -111,7 +111,7 @@ just one space.
   http://orgmode.org/worg/org-contrib/org-mime.html
   I want to figure out how to install this, because I could then write html emails trivially with gnus
   #+BEGIN_SRC emacs-lisp
-  (use-package org-mime)
+  (use-package org-mime :ensure t)
   #+END_SRC
 
   #+RESULTS:
@@ -167,16 +167,25 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
     (use-package ob-http :ensure t)
     (setq geiser-default-implementation 'guile)
 
+    ;; TODO FIXME this defun needs to be deleted
+    ;; the org-mode has removed org-babel-get-header
+    ;; ob-sh needs to update to use the new version.
+    (defun org-babel-get-header (params key &optional others)
+      (delq nil
+            (mapcar
+             (lambda (p) (when (funcall (if others #'not #'identity) (eq (car p) key)) p))
+             params)))
+
     (after-load 'org
-    (org-babel-do-load-languages
-         'org-babel-load-languages
-         '(
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '(
          (awk . t)
          (calc . t)
          (C . t)
          (emacs-lisp . t)
          (haskell . t)
-	 ;;(http . t)
+         ;;(http . t)
          (gnuplot . t)
          ;;(latex . t)
          ;;(ledger . t)
@@ -193,12 +202,12 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
          ;;(sqlite . t)
          )))
 
-           (setq org-latex-create-formula-image-program 'imagemagick)
-      ;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
-      ;;(ditaa . t)
-      ;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
-      ;; display inline images in org-mode
-      ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+    (setq org-latex-create-formula-image-program 'imagemagick)
+    ;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
+    ;;(ditaa . t)
+    ;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
+    ;; display inline images in org-mode
+    ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
   #+END_SRC
 
   #+RESULTS:

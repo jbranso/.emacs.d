@@ -255,13 +255,14 @@ enter ediff."
 
 (use-package lua-mode :ensure t)
 
-(use-package ido-ubiquitous :ensure t)
+;; (use-package ido-ubiquitous :ensure t)
 (use-package magit :defer t :ensure t)
 (use-package git-blame :ensure t)
 
 (after-load 'magit
   (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
-  (setq magit-completing-read-function 'magit-ido-completing-read))
+ ;; (setq magit-completing-read-function 'magit-ido-completing-read)
+  )
 
 (use-package fullframe :ensure t)
 (after-load 'magit (fullframe magit-status magit-mode-quit-window))

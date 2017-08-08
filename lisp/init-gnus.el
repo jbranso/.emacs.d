@@ -1,8 +1,24 @@
 (org-babel-load-file "~/.emacs.d/lisp/init-gnus-secret.org")
 
-(setq
- message-signature
- "<hr>\nJoshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\nhttps://www.gnu.org/software/emacs/")
+(setq gnus-parameters
+     '(
+     ("^.*owa.purdue.edu.*INBOX"
+          (expiry-target . "nnimap+owa.purdue.edu:Trash")
+     )
+
+     ("^.*help guix.*$"
+          (to-address . "help-guix@gnu.org")
+          (sieve address "sender" "help-guix@gnu.org")
+          )
+
+        ("^guix$"
+           (to-address . "guix-devel@gnu.org")
+           (sieve address "sender" "guix-devel@gnu.org")
+       )
+    ("Inbox"
+       (expiry-target . "Deleted")
+    )
+    ))
 
 (setq  gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n")
 
@@ -37,12 +53,6 @@
 (setq gnus-nov-is-evil nil
       gnus-show-threads nil
       gnus-use-cross-reference nil)
-
-(setq mm-verify-option 'known
- mm-decrypt-option 'known)
-
-(setq gnus-message-replysign t
- gnus-message-replyencrypt t)
 
 (setq spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
       spam-use-blacklist t)
