@@ -68,6 +68,7 @@
 (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
 
 (use-package f :ensure t)
+(require 'f)
 
 (cond
  ((string-equal system-name "antelope")

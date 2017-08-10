@@ -1,24 +1,10 @@
-(org-babel-load-file "~/.emacs.d/lisp/init-gnus-secret.org")
+(require 'gnus)
+;; (setq path  "~/.emacs.d/lisp/init-gnus-secret.org")
 
-(setq gnus-parameters
-     '(
-     ("^.*owa.purdue.edu.*INBOX"
-          (expiry-target . "nnimap+owa.purdue.edu:Trash")
-     )
-
-     ("^.*help guix.*$"
-          (to-address . "help-guix@gnu.org")
-          (sieve address "sender" "help-guix@gnu.org")
-          )
-
-        ("^guix$"
-           (to-address . "guix-devel@gnu.org")
-           (sieve address "sender" "guix-devel@gnu.org")
-       )
-    ("Inbox"
-       (expiry-target . "Deleted")
-    )
-    ))
+(let ((path "~/.emacs.d/lisp/init-gnus-secret.org"))
+  (when
+      (f-exists? path)
+    (org-babel-load-file path)))
 
 (setq  gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n")
 
@@ -54,19 +40,40 @@
       gnus-show-threads nil
       gnus-use-cross-reference nil)
 
+(defun gnus-demon-scan-news ()
+  (interactive)
+  (when gnus-plugged
+    (let ((win (current-window-configuration))
+          (gnus-read-active-file nil)
+          (gnus-check-new-newsgroups nil)
+          (gnus-verbose 2)
+          (gnus-verbose-backends 5))
+      (unwind-protect
+          (save-window-excursion
+            (when (gnus-alive-p)
+              (with-current-buffer gnus-group-buffer
+                (gnus-group-get-new-news gnus-activate-level))))
+        (set-window-configuration win)))))
+
+;;
+;;
+;; (with-eval-after-load 'gnus
+;;   (gnus-demon-add-handler 'gnus-demon-scan-news-2 5 2))
+
 (setq spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
       spam-use-blacklist t)
 (spam-initialize)
 
 (use-package nnir)
 
+(setq message-kill-buffer-on-exit t)
+
 ;; (require 'init-gnus-secret-smtp)
    ;; I am trying to use use-package so that emacs won't start on an error if someone tries to clone
    ;; my config
 ;;   (use-package init-gnus-secret-smtp)
 
-(use-package bbdb
-  :ensure t)
+(use-package bbdb :ensure t)
 
 (bbdb-initialize 'gnus 'message )
 

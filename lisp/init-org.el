@@ -22,7 +22,7 @@
 
 (setq auto-save-default nil)
 
-(use-package org-mime)
+(use-package org-mime :ensure t)
 
 ;; I'm having problems with this
 ;;(add-hook 'org-mime-html-hook
@@ -36,6 +36,52 @@
 ;;(lambda ()
 ;;(org-mime-change-element-style
 ;;"blockquote" "border-left: 2px solid gray; padding-left: 4px;")))
+
+;; ob-http is needed to run http calls inside org-mode
+(use-package ob-http :ensure t)
+(setq geiser-default-implementation 'guile)
+
+;; TODO FIXME this defun needs to be deleted
+;; the org-mode has removed org-babel-get-header
+;; ob-sh needs to update to use the new version.
+(defun org-babel-get-header (params key &optional others)
+  (delq nil
+        (mapcar
+         (lambda (p) (when (funcall (if others #'not #'identity) (eq (car p) key)) p))
+         params)))
+
+(after-load 'org
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '(
+     (awk . t)
+     (calc . t)
+     (C . t)
+     (emacs-lisp . t)
+     (haskell . t)
+     ;;(http . t)
+     (gnuplot . t)
+     ;;(latex . t)
+     ;;(ledger . t)
+     (js . t)
+     ;;(perl . t)
+     (python . t)
+     (gnuplot . t)
+     ;;org-babel does not currently support php.  That is really sad.
+     ;;(php . t)
+     ;;(R . t)
+     (scheme . t)
+     (sh . t)
+     (sql . t)
+     ;;(sqlite . t)
+     )))
+
+(setq org-latex-create-formula-image-program 'imagemagick)
+;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
+;;(ditaa . t)
+;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
+;; display inline images in org-mode
+;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
 (use-package org-invoice)
 
@@ -89,6 +135,7 @@
                                 (push '("\\infty" . ?∞) prettify-symbols-alist)
                                 (push '("-->" . ?→) prettify-symbols-alist)
                                 (push '("<--" . ?←) prettify-symbols-alist)
+                                (push '("\\lambda" . ?λ) prettify-symbols-alist)
                                 (push '("\\exists" . ?∃) prettify-symbols-alist)
                                 (push '("\\nexists" . ?∄) prettify-symbols-alist)
                                 (push '("\\forall" . ?∀) prettify-symbols-alist)
@@ -114,15 +161,16 @@
  org-hide-leading-stars t
  ;;seeing the ... that org mode does to how you that the heading continues in the text beneith it is kind of boring
  ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
- ;; Other interesting characters are ↴, ⬎, ⤷, and ⋱.
+ ;; Other interesting characters are ↴, ⬎, ⤷, ⋱, "⬎", and "⤵"
  org-ellipsis " ↴"
+ ;; make org show inline images by default
+ ;; This can be overridden by #+STARTUP: noinlineimages
+ org-startup-with-inline-images t
  ;; make RET follow a link
  org-return-follows-link t
  ;; only show times on items in the agenda, if we have an item at a specified time
  ;; if we set it to true, then we see all the times every 2 hours.  Takes up too much space.
  org-agenda-use-time-grid nil
- ;;org-ellipsis "⬎"
- ;; org-ellipsis "⤵"
  ;; don't let me accidentally delete text without realizing it in org.  ie: point is buried in a subtree, but you only
  ;; see the heading and you accidentally kill a line without knowing it.
  ;; this might not be supported for evil-mode
@@ -531,5 +579,24 @@ EXT is a list of the extensions of files to be included."
 ;;  (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
 (setq org-stuck-projects '("PROJECT" ("TODO NEXT") ("action") "\\<IGNORE\\>" ))
+
+(use-package mmm-mode :ensure t)
+
+(after-load 'org
+  (require 'mmm-mode)
+  (setq mmm-global-mode 'maybe)
+  (mmm-add-mode-ext-class 'org-mode "\\.org\\'" 'org-elisp)
+
+  ;; mmm-add-group is more useful for org-mode...probably
+  (mmm-add-classes
+   '(
+     (org-elisp
+      :submode 'emacs-lisp-mode
+      :face mmm-declaration-submode-face
+      :front "#+BEGIN_SRC emacs-lisp"
+      :back  "#+END_SRC"
+      )
+     )
+   ))
 
 (provide 'init-org)

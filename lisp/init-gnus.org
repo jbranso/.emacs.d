@@ -57,6 +57,9 @@ When sending your first email from gnus, you might get a STARTTLS error. If youâ
 You can find more information in the following sections.
 
 * Setting up Gnus
+  :PROPERTIES:
+  :ID:       6e745af2-398f-49a2-a695-59e0c979bd9e
+  :END:
 
   Let's tell gnus who we are.
   init-gnus-secret looks like:
@@ -69,7 +72,13 @@ You can find more information in the following sections.
 
    This files just sets up some variables that I use later on.
   #+BEGIN_SRC emacs-lisp
-    (org-babel-load-file "~/.emacs.d/lisp/init-gnus-secret.org")
+    (require 'gnus)
+    ;; (setq path  "~/.emacs.d/lisp/init-gnus-secret.org")
+
+    (let ((path "~/.emacs.d/lisp/init-gnus-secret.org"))
+      (when
+          (f-exists? path)
+        (org-babel-load-file path)))
   #+END_SRC
 
 ** Posting Styles
@@ -83,7 +92,7 @@ I can specify posting styles depending on the account.  So for example I can spe
      (setq gnus-posting-styles
            '(
              ;; My default hotmail posting style
-             (".*"
+             (.*
               (signature "some Cool Signature")
               (address "someHotmailAccount@hotmail.com"))
              ;; when I post to purdue stuff
@@ -95,6 +104,9 @@ I can specify posting styles depending on the account.  So for example I can spe
    #+END_SRC
 
 ** Making Gnus prettier
+   :PROPERTIES:
+   :ID:       cda56b7e-e071-4dd1-9619-fe7a317d70c0
+   :END:
    My default summary line format
    #+BEGIN_SRC emacs-lisp
      (setq  gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n")
@@ -132,6 +144,9 @@ I can specify posting styles depending on the account.  So for example I can spe
    #+END_SRC
 
 ** Make gnus startup faster
+   :PROPERTIES:
+   :ID:       65e0d067-88fe-4eb0-bfce-5d21c72411f7
+   :END:
    These two variables make gnus not check for any new newsgroups and stops gnus from trying to filter out
    outdated newsgroups.  After you've opened up gnus a couple of times, you don't need gnus to do these things.
    But you can always subscribe to new groups by pressing "U" in the group buffer.
@@ -146,6 +161,9 @@ I can specify posting styles depending on the account.  So for example I can spe
  (setq gnus-read-active-file nil)
 
 *** Fixing the Summary Buffer
+    :PROPERTIES:
+    :ID:       6c98f225-5cbc-424b-a32f-69e899d41327
+    :END:
     There's no need to recenter the summary buffer all the time.  It only slows gnus down.
     #+BEGIN_SRC emacs-lisp
       (setq gnus-auto-center-summary nil)
@@ -187,7 +205,40 @@ I can specify posting styles depending on the account.  So for example I can spe
        gnus-message-replyencrypt t)
     #+END_SRC
 
+** checking for new news
+   :PROPERTIES:
+   :ID:       15477e66-390a-4de9-955c-6290ce8937e5
+   :END:
+I got this code from John Wigley's .emacs
+
+I'm not sure if this function will tell you if you have new news.
+I'm also pretty sure that it won't flash an awesome popup window to tell you you have new news.
+#+BEGIN_SRC emacs-lisp
+  (defun gnus-demon-scan-news ()
+    (interactive)
+    (when gnus-plugged
+      (let ((win (current-window-configuration))
+            (gnus-read-active-file nil)
+            (gnus-check-new-newsgroups nil)
+            (gnus-verbose 2)
+            (gnus-verbose-backends 5))
+        (unwind-protect
+            (save-window-excursion
+              (when (gnus-alive-p)
+                (with-current-buffer gnus-group-buffer
+                  (gnus-group-get-new-news gnus-activate-level))))
+          (set-window-configuration win)))))
+
+  ;;
+  ;;
+  ;; (with-eval-after-load 'gnus
+  ;;   (gnus-demon-add-handler 'gnus-demon-scan-news-2 5 2))
+#+END_SRC
+
 ** Managing Spam
+   :PROPERTIES:
+   :ID:       c4f65821-d059-4f6d-ac7a-407e227e1bed
+   :END:
    Gnus comes with som enice spamming features
    #+BEGIN_SRC emacs-lisp
      (setq spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
@@ -196,11 +247,26 @@ I can specify posting styles depending on the account.  So for example I can spe
    #+END_SRC
 
 ** Searching in Gnus
+   :PROPERTIES:
+   :ID:       63ae4bc7-3e9b-4add-a364-db36ec2975e5
+   :END:
    set up search in GNUS
    http://www.emacswiki.org/emacs/GnusGmail#toc21
    #+BEGIN_SRC emacs-lisp
      (use-package nnir)
    #+END_SRC
+
+** Kill mail buffer after you send an email
+   :PROPERTIES:
+   :ID:       d7cbe98a-4be8-4ffb-87d8-ce8d62302ae2
+   :END:
+
+   Message mode is rather silly in that it does not kill the send message buffer after you send an email.  It's silly to still see
+   the sent buffer after you've sent it, so this fixes that.  After you send a message, the sent buffer disappears.
+
+#+BEGIN_SRC emacs-lisp
+(setq message-kill-buffer-on-exit t)
+#+END_SRC
 
 ** Setting up your email Account
 
@@ -227,6 +293,9 @@ for a string you have to hit "t" when you first open gnus to get purdue working 
       )
 
 ** Sending email
+   :PROPERTIES:
+   :ID:       f95e0dd4-7f74-403b-a1e4-ca2a14bb05e5
+   :END:
    #+BEGIN_SRC emacs-lisp
    ;; (require 'init-gnus-secret-smtp)
    ;; I am trying to use use-package so that emacs won't start on an error if someone tries to clone
@@ -301,6 +370,9 @@ for a string you have to hit "t" when you first open gnus to get purdue working 
    ;;(gnus-demon-init)
 
 ** Setting up Gnus to work with bbdb
+   :PROPERTIES:
+   :ID:       a6305580-2518-4fb1-ba39-b685694516f3
+   :END:
 
    get bbdb set up (insidious big brother database) it manages your mail contacts
    http://bbdb.sourceforge.net/bbdb.html#SEC13
@@ -316,8 +388,7 @@ for a string you have to hit "t" when you first open gnus to get purdue working 
    recipients.
 
    #+BEGIN_SRC emacs-lisp
-     (use-package bbdb
-       :ensure t)
+     (use-package bbdb :ensure t)
    #+END_SRC
 
     These are are needed to initial bbdb for gnus and message mode
@@ -382,6 +453,9 @@ for a string you have to hit "t" when you first open gnus to get purdue working 
    #+END_SRC
 
 ** ranking groups
+   :PROPERTIES:
+   :ID:       5e527dc8-9d1a-427c-a529-fd88fe080194
+   :END:
 
    Make Gnus sort the group buffer based on how often I read each group.  When you exit the summary buffer, increase the score of that group.  This makes that group a little bit more important.
 
@@ -390,6 +464,9 @@ for a string you have to hit "t" when you first open gnus to get purdue working 
    #+END_SRC
 
 ** displaying your topics when you enter gnus
+   :PROPERTIES:
+   :ID:       8264d472-e08d-4b10-95bc-0fee75c37a76
+   :END:
 
    #+BEGIN_SRC emacs-lisp
        (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
@@ -447,6 +524,9 @@ I used to have this say nnmail-split methods, but I'm not using the nnmail backe
            (setf nnmail-crosspost nil)
 
 ** Posting Styles aka change your "From" based on what you reply to
+   :PROPERTIES:
+   :ID:       7d6e5688-8ee6-43da-94ba-a5e55ac78f2f
+   :END:
 [[info:gnus#Posting%20Styles][info:gnus#Posting Styles]]
 
 This is quite complicated...
@@ -475,6 +555,9 @@ BUT basically, if I have a bunch of email accounts, It would be nice that when I
 #+END_SRC
 
 ** read html mail
+   :PROPERTIES:
+   :ID:       4150a9e8-5bcf-474c-ade4-cec758e7f427
+   :END:
 
    You have 2 main options here.  You can use the elisp shr for this or you can use gnus-w3m if you have w3m installed.
    Shr is written in elisp.  w3m is written in C or C++.  So I'm guessing that w3m is faster.  So I'm going to use gnus-w3m.
@@ -493,17 +576,26 @@ BUT basically, if I have a bunch of email accounts, It would be nice that when I
    #+END_SRC
 
 ** Delete mail immediately after it has been marked expired
+   :PROPERTIES:
+   :ID:       60caba9f-04ef-470c-9da9-40108bfd53b7
+   :END:
 
    #+BEGIN_SRC emacs-lisp
    (setq nnmail-expiry-wait 'immediate)
    #+END_SRC
 ** deleting boring headers from email
+   :PROPERTIES:
+   :ID:       48255cfb-8300-4800-8c14-16c5a3525ac4
+   :END:
    [[info:gnus#Hiding%20Headers][info:gnus#Hiding Headers]]
    #+BEGIN_SRC emacs-lisp
      (setq gnus-treat-hide-boring-headers 'head)
 
    #+END_SRC
 ** automatically configuring how my mail looks
+   :PROPERTIES:
+   :ID:       c4c986ea-5d81-49c0-9a1c-0d4049337525
+   :END:
 
    The following variables can have the following values:
    - nil   (don't do this treatment)
@@ -520,12 +612,18 @@ BUT basically, if I have a bunch of email accounts, It would be nice that when I
      (setq gnus-treat-emphasize 'head)
      #+END_SRC
 ** using gnus automatic scoring stuff
+   :PROPERTIES:
+   :ID:       3992d090-c903-4fb3-a078-a3d2dc2203b3
+   :END:
 
    Make gnus rank which articles are important to you.
    #+BEGIN_SRC emacs-lisp
      (setq gnus-use-adaptive-scoring t)
    #+END_SRC
 ** close gnus when you exit emacs.
+   :PROPERTIES:
+   :ID:       77120fe8-73f3-4b60-9ed5-055854429a5c
+   :END:
 That way gnus exits properly, and you don't have to read the active file when you open gnus again.
 
 #+BEGIN_SRC emacs-lisp
@@ -535,6 +633,9 @@ That way gnus exits properly, and you don't have to read the active file when yo
                                    (gnus-group-exit))))
 #+END_SRC
 ** Provide init-gnus
+   :PROPERTIES:
+   :ID:       2d4021b8-caa2-43fd-9652-e9df2340f70e
+   :END:
    #+BEGIN_SRC emacs-lisp
      (provide 'init-gnus)
    #+END_SRC

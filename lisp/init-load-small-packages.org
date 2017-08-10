@@ -189,6 +189,7 @@ Auth-source.el, lets you save your various logins and password for different ser
 Ensure that you have f.el
 #+BEGIN_SRC emacs-lisp
 (use-package f :ensure t)
+(require 'f)
 #+END_SRC
 
 

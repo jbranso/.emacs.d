@@ -35,6 +35,11 @@
   (evil-define-key 'emacs  erc-mode-map (kbd "C-w t") 'windmove-up)
   (evil-define-key 'emacs  erc-mode-map (kbd "C-w n") 'windmove-left)
   (evil-define-key 'emacs  erc-mode-map (kbd "C-w s") 'windmove-right)
+
+  (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w h") 'windmove-down)
+  (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w t") 'windmove-up)
+  (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w n") 'windmove-left)
+  (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w s") 'windmove-right)
   )
 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time

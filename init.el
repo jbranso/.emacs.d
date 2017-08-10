@@ -64,10 +64,11 @@
 ;;an irc client for Emacs
 (org-babel-load-file 	"~/.emacs.d/lisp/init-erc.org")
 
+;; load my web-mode configurations
+(org-babel-load-file "~/.emacs.d/lisp/init-html.org")
 
 ;; read email in emacs
 ;;(require 'init-mu4e)
-(require 'init-html)
 (require 'init-projectile)
 ;; let's write my wordpress blog in emacs
 ;;(require 'init-org2blog)
