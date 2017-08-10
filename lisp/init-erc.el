@@ -24,9 +24,9 @@
         ;; connections to the same server.
         erc-rename-buffers t
         ;; set the default nick
-        erc-nick "joshuaBPMan_"
+        erc-nick "joshuaBPMan"
         ;; don't prompt me for my password erc should know it
-        erc-prompt-for-password nil
+        erc-prompt-for-password t
 	;;erc-prompt-for-password t
         erc-hide-list '("JOIN" "PART" "QUIT")
         ;; don't let erc switch the active buffer when it connects to a new channel when erc is starting up
