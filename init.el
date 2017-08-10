@@ -58,16 +58,19 @@
 ;; some graphical configurations
 (org-babel-load-file 	"~/.emacs.d/lisp/init-gui-frames.org")
 ;; my org configurations
-(org-babel-load-file 	"~/.emacs.d/lisp/init-org.org")
+;;(org-babel-load-file 	"~/.emacs.d/lisp/init-org.org")
 (org-babel-load-file 	"~/.emacs.d/lisp/init-lisp.org")
-(org-babel-load-file 	"~/.emacs.d/lisp/init-javascript.org")
+;;(org-babel-load-file 	"~/.emacs.d/lisp/init-javascript.org")
 (org-babel-load-file 	"~/.emacs.d/lisp/init-editing-utils.org")
 ;;an irc client for Emacs
 (org-babel-load-file 	"~/.emacs.d/lisp/init-erc.org")
-;; read email in emacs
-(require 'init-mu4e)
+
+;; load my web-mode configurations
 (org-babel-load-file "~/.emacs.d/lisp/init-html.org")
 
+;; read email in emacs
+;;(require 'init-mu4e)
+(require 'init-projectile)
 ;; let's write my wordpress blog in emacs
 ;;(require 'init-org2blog)
 (org-babel-load-file "~/.emacs.d/lisp/init-defuns.org")

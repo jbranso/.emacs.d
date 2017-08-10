@@ -1,4 +1,5 @@
 ;;; Code:
+
 (evil-set-initial-state 'snake-mode 'emacs)
 (evil-set-initial-state 'comint-mode 'normal)
 (evil-set-initial-state 'eshell-mode 'emacs)
@@ -33,7 +34,7 @@
 ;; (setq evil-motion-state-modes nil)
 
 (evil-set-initial-state 'dired-mode 'emacs)
-(with-eval-after-load 'dired 
+(with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "n") #'dired-next-line)
   (define-key dired-mode-map (kbd "p") #'dired-previous-line)
   (define-key dired-mode-map (kbd "s") #'forward-char)

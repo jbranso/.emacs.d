@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: <css
+# key: <css
+# --
+#+BEGIN_SRC css
+$0
+#+END_SRC

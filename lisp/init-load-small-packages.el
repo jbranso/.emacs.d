@@ -14,7 +14,7 @@
   :defer t
   :config
   (setq avybackground t
-   avy-highlight-first t)
+        avy-highlight-first t)
   ;; https://github.com/abo-abo/avy
   ;; What does that do?
   (setq avy-keys (number-sequence ?e ?t )))
@@ -25,8 +25,8 @@
 
 (add-hook 'prog-mode-hook (lambda ()
                             (flyspell-prog-mode)))
-                            ;;(unbind-key (kbd "C-c $") flyspell-mode-map)
-                            ;;(global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev))
+;;(unbind-key (kbd "C-c $") flyspell-mode-map)
+;;(global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev))
 
 ;; enable flyspell mode for all of my text modes.  This will enable flyspell to underline misspelled words.
 (add-hook 'text-mode-hook (lambda ()
@@ -56,13 +56,14 @@
   (setq projectile-completion-system 'helm)
   :ensure t)
 
-  (add-hook 'after-init-hook #'projectile-global-mode)
+(add-hook 'after-init-hook #'projectile-global-mode)
 
 (use-package diff-hl :defer t :ensure t)
 (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
 (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
 
 (use-package f :ensure t)
+(require 'f)
 
 (cond
  ((string-equal system-name "antelope")
@@ -110,23 +111,23 @@ enter ediff."
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 (when (display-graphic-p)
-   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
 (defun my-recentf-startup ()
-"My configuration for recentf."
-(recentf-mode 1)
-(setq recentf-max-saved-items 1000
-      recentf-exclude '("/tmp/"
-            "^.*autoloads.*$"
-            "^.*TAGS.*$"
-            "^.*COMMIT.*$"
-            "^.*pacnew.*$"
-                        ;; in case I ever want to exclude shh files, I can add this next line.
-                        ;;  "/ssh:"
-            ))
+  "My configuration for recentf."
+  (recentf-mode 1)
+  (setq recentf-max-saved-items 1000
+        recentf-exclude '("/tmp/"
+                          "^.*autoloads.*$"
+                          "^.*TAGS.*$"
+                          "^.*COMMIT.*$"
+                          "^.*pacnew.*$"
+                          ;; in case I ever want to exclude shh files, I can add this next line.
+                          ;;  "/ssh:"
+                          ))
 
-(add-to-list 'recentf-keep "^.*php$//")
-(recentf-auto-cleanup))
+  (add-to-list 'recentf-keep "^.*php$//")
+  (recentf-auto-cleanup))
 (add-hook 'after-init-hook 'my-recentf-startup)
 
 (setq-default grep-highlight-matches t
@@ -140,7 +141,7 @@ enter ediff."
 (setenv "PAGER" "cat")
 
 (add-hook 'eshell-mode-hook '(lambda ()
-                              (setq shell-aliases-file "~/.emacs.d/alias")))
+                               (setq shell-aliases-file "~/.emacs.d/alias")))
 
 (define-key Info-mode-map (kbd "C-w h") 'windmove-down)
 (define-key Info-mode-map (kbd "C-w t") 'windmove-up)
@@ -159,7 +160,8 @@ enter ediff."
   :commands (wttrin)
   :init
   (setq wttrin-default-cities
-  '("West Lafayette")))
+        '("West Lafayette"))
+  (setq wttrin-default-accept-language '("Accept-Language" . "en-US")))
 
 (defun weather ()
   "Show the local weather via wttrin"
@@ -266,7 +268,7 @@ enter ediff."
   :ensure t
   :init
   (add-to-list 'load-path "~/.emacs.d/snippets"))
-  (add-hook 'after-init-hook 'yas-global-mode)
+(add-hook 'after-init-hook 'yas-global-mode)
 
 (with-eval-after-load 'warnings
   (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
@@ -305,18 +307,17 @@ enter ediff."
 
 (use-package lua-mode :ensure t)
 
-;;(use-package ido-ubiquitous :ensure t)
+;; (use-package ido-ubiquitous :ensure t)
 (use-package magit :defer t :ensure t)
 (use-package git-blame :ensure t)
 
 (after-load 'magit
-    (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
-    ;;I like the ido completing read function over the helm one, but then helm stops working so well
-    ;;(setq magit-completing-read-function 'magit-ido-completing-read)
-)
+  (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
+  ;; (setq magit-completing-read-function 'magit-ido-completing-read)
+  )
 
-  (use-package fullframe :ensure t)
-  (after-load 'magit (fullframe magit-status magit-mode-quit-window))
+(use-package fullframe :ensure t)
+(after-load 'magit (fullframe magit-status magit-mode-quit-window))
 
 (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)
 
@@ -377,7 +378,7 @@ enter ediff."
  ;;helm-M-x-fuzzy-match t
  ;;helm-recentf-fuzzy-match t
  ;;helm-apropos-fuzzy-match t
-;;the more of these sources that I have, the slower helm will be
+ ;;the more of these sources that I have, the slower helm will be
  helm-for-files-preferred-list '(
                                  helm-source-buffers-list
                                  helm-source-recentf

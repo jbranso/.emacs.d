@@ -28,7 +28,10 @@
         ;; connections to the same server.
         erc-rename-buffers t
         ;; set the default nick
-        erc-nick "joshuaBPMan_"
+        erc-nick "joshuaBPMan"
+        ;; don't prompt me for my password erc should know it
+        erc-prompt-for-password t
+        ;;erc-prompt-for-password t
         erc-hide-list '("JOIN" "PART" "QUIT")
         ;; don't let erc switch the active buffer when it connects to a new channel when erc is starting up
         ;; this gets annoying because when I'm starting up emacs, it'll switch to "#arch", then "#hurd", then "#org-mode".
@@ -39,7 +42,7 @@
         ;; Interpret mIRC-style color commands in IRC chats
         erc-interpret-mirc-color t)
 
-        ;; guixSD cannot read my gpg keys.  This way I can still use erc on GuixSD
+  ;; guixSD cannot read my gpg keys.  This way I can still use erc on GuixSD
   (if (equal system-name "parabola")
       (setq erc-prompt-for-password nil)
     (setq erc-prompt-for-password t))

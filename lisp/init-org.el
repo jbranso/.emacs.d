@@ -20,7 +20,7 @@
 
 (setq auto-save-default nil)
 
-(use-package org-mime)
+(use-package org-mime :ensure t)
 
 ;; I'm having problems with this
 ;;(add-hook 'org-mime-html-hook
@@ -40,9 +40,9 @@
 (setq geiser-default-implementation 'guile)
 
 (after-load 'org
-(org-babel-do-load-languages
-     'org-babel-load-languages
-     '(
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '(
      (awk . t)
      (calc . t)
      (C . t)
@@ -65,18 +65,12 @@
      ;;(sqlite . t)
      )))
 
-       (setq org-latex-create-formula-image-program 'imagemagick)
-  ;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
-  ;;(ditaa . t)
-  ;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
-  ;; display inline images in org-mode
-  ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
-
-(defun org-babel-get-header (params key &optional others)
-  (delq nil
-        (mapcar
-         (lambda (p) (when (funcall (if others #'not #'identity) (eq (car p) key)) p))
-         params)))
+(setq org-latex-create-formula-image-program 'imagemagick)
+;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
+;;(ditaa . t)
+;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
+;; display inline images in org-mode
+;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
 (use-package org-invoice)
 
@@ -94,47 +88,78 @@
 (use-package gnuplot :ensure t)
 
 (defun yas/org-very-safe-expand ()
-    (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+  (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
 ;; I want to get write-good-mode set up again, because it's awesome.
-  (use-package writegood-mode :ensure t :defer t)
+(use-package writegood-mode :ensure t :defer t)
 
-  (add-hook 'org-mode-hook '(lambda ()
+(add-hook 'org-mode-hook '(lambda ()
 
-                                  ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
-                                  ;; but I can't get it to work
-                                  ;; (require 'org-eldoc)
-                                  ;;(org-eldoc-load)
-                                  ;; (make-variable-buffer-local 'yas/trigger-key)
-                                  ;;(setq yas/trigger-key [tab])
-                                  ;;(add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-                                  ;; (define-key yas/keymap [tab] 'yas/next-field)
-                                  ;; make the lines in the buffer wrap around the edges of the screen.
-                                  ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
-                                  ;; to press C-c q  or fill-paragraph ever again!
-                                  (visual-line-mode)
-                                  (org-indent-mode)
-                                  (require 'writegood-mode)
-                                  ;; apparently this does the same thing as the above combined modes
-                                  ;; this seems to work better than visual line mode.  Why have I not heard of this before?
-                                  ;;(toggle-word-wrap)
-                                  (org-bullets-mode 1)
-                                  ;;make ">=" look like >=, etc.
-                                 (push '("^_^" . ?☻) prettify-symbols-alist)
-))
+                            ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
+                            ;; but I can't get it to work
+                            ;; (require 'org-eldoc)
+                            ;;(org-eldoc-load)
+                            ;; (make-variable-buffer-local 'yas/trigger-key)
+                            ;;(setq yas/trigger-key [tab])
+                            ;;(add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+                            ;; (define-key yas/keymap [tab] 'yas/next-field)
+                            ;; make the lines in the buffer wrap around the edges of the screen.
+                            ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
+                            ;; to press C-c q  or fill-paragraph ever again!
+                            (visual-line-mode)
+                            (org-indent-mode)
+                            (require 'writegood-mode)
+                            ;; apparently this does the same thing as the above combined modes
+                            ;; this seems to work better than visual line mode.  Why have I not heard of this before?
+                            ;;(toggle-word-wrap)
+                            (org-bullets-mode 1)
+                            ;;make ">=" look like >=, etc.
+                            (push '(">=" . ?≥) prettify-symbols-alist)
+                            (push '("<=" . ?≤) prettify-symbols-alist)
+                            (push '("\\geq" . ?≥) prettify-symbols-alist)
+                            (push '("\\leq" . ?≤) prettify-symbols-alist)
+                            (push '("\\neg" . ?¬) prettify-symbols-alist)
+                            (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+                            (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+                            (push '("\\infty" . ?∞) prettify-symbols-alist)
+                            (push '("-->" . ?→) prettify-symbols-alist)
+                            (push '("<--" . ?←) prettify-symbols-alist)
+                            (push '("\\lambda" . ?λ) prettify-symbols-alist)
+                            (push '("\\exists" . ?∃) prettify-symbols-alist)
+                            (push '("\\nexists" . ?∄) prettify-symbols-alist)
+                            (push '("\\forall" . ?∀) prettify-symbols-alist)
+                            (push '("\\or" . ?∨) prettify-symbols-alist)
+                            (push '("\\and" . ?∧) prettify-symbols-alist)
+                            (push '(":)" . ?☺) prettify-symbols-alist)
+                            (push '("):" . ?☹) prettify-symbols-alist)
+                            (push '(":D" . ?☺) prettify-symbols-alist)
+                            (push '("\\checkmark" . ?✓) prettify-symbols-alist)
+                            (push '("\\check" . ?✓) prettify-symbols-alist)
+                            (push '("1/4" . ?¼) prettify-symbols-alist)
+                            (push '("1/2" . ?½) prettify-symbols-alist)
+                            (push '("3/4" . ?¾) prettify-symbols-alist)
+                            (push '("1/7" . ?⅐) prettify-symbols-alist)
+                            ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
+                            (push '("ae" . ?æ) prettify-symbols-alist)
+                            (push '("^_^" . ?☻) prettify-symbols-alist)))
 
-(setq org-hide-leading-stars t)
-
-(setq org-ellipsis " ↴")
-
-(setq org-return-follows-link t)
+(setq calendar-mark-diary-entries-flag t)
 
 (setq
+ ;; hide the leading stars in my org files
+ org-hide-leading-stars t
+ ;;seeing the ... that org mode does to how you that the heading continues in the text beneith it is kind of boring
+ ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
+ ;; Other interesting characters are ↴, ⬎, ⤷, ⋱, "⬎", and "⤵"
+ org-ellipsis " ↴"
+ ;; make org show inline images by default
+ ;; This can be overridden by #+STARTUP: noinlineimages
+ org-startup-with-inline-images t
+ ;; make RET follow a link
+ org-return-follows-link t
  ;; only show times on items in the agenda, if we have an item at a specified time
  ;; if we set it to true, then we see all the times every 2 hours.  Takes up too much space.
  org-agenda-use-time-grid nil
- ;;org-ellipsis "⬎"
- ;; org-ellipsis "⤵"
  ;; don't let me accidentally delete text without realizing it in org.  ie: point is buried in a subtree, but you only
  ;; see the heading and you accidentally kill a line without knowing it.
  ;; this might not be supported for evil-mode
@@ -189,7 +214,7 @@
          "* TODO %?\nEntered on %U\n  %i\n  %a")
 
 
-         ;; Emacs things
+        ;; Emacs things
         ("ce" "Emacs")
 
         ("ceb" "bugs" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "Emacs bugs")
@@ -206,12 +231,12 @@
 
         ("ceo" "Org-mode" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "org-mode")
          "* TODO %?\n  %i\n  %a")
-         ("ceR" "Emacs Reference")
+        ("ceR" "Emacs Reference")
         ("ceRR" "Emacs Reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs reference")
          "* %?\nEntered on %U\n  %i\n  %a")
-         ("ceRe" "emacs evil reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "evil reference")
+        ("ceRe" "emacs evil reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "evil reference")
          "* TODO %?\n  %i\n  %a")
-         ("ceRg" "emacs gnus reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "gnus reference")
+        ("ceRg" "emacs gnus reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "gnus reference")
          "* TODO %?\n  %i\n  %a")
         ("ceRo" "emacs org reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "org reference")
          "* TODO %?\n  %i\n  %a")
@@ -220,7 +245,7 @@
         ("ceRt" "emacs tags reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "tags reference")
          "* TODO %?\n  %i\n  %a")
 
-         ("cet" "emacs Todo")
+        ("cet" "emacs Todo")
         ("cett" "emacs Todo" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs someday")
          "* TODO %?\n  %i\n  %a")
         ("cete" "emacs evil someday" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "evil someday")
@@ -237,7 +262,7 @@
          "* TODO %?\n  %i\n  %a")
         ("cetw" "web-mode someday" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "web-mode someday")
          "* TODO %?\n  %i\n  %a")
-         ;;End Emacs things
+        ;;End Emacs things
 
 
         ("cG" "Gimp Basics Reference" entry (file+headline "~/manuals/gimp.org" "Basic Concepts")
@@ -342,13 +367,13 @@
         ))
 
 (setq org-agenda-category-icon-alist '(
-                                  ("hacker"      "/home/joshua/pictures/org-icons/gnu-linux-icon.png" nil nil nil nil)
-                                  ("MAKING CASH"   "/home/joshua/pictures/org-icons/money.png" nil nil nil nil)
-                                  ("SEEKING GOD" "/home/joshua/pictures/org-icons/god.png" nil nil nil nil)
-                                  ("BILLS"    "/home/joshua/pictures/org-icons/bills.png" nil nil nil nil)
-                                  ("emacs"       "/home/joshua/pictures/org-icons/emacs.png" nil nil nil nil)
-                                  ("WORK"       "/home/joshua/pictures/org-icons/work.png" nil nil nil nil)
-                                  ))
+                                       ("hacker"      "/home/joshua/pictures/org-icons/gnu-linux-icon.png" nil nil nil nil)
+                                       ("MAKING CASH"   "/home/joshua/pictures/org-icons/money.png" nil nil nil nil)
+                                       ("SEEKING GOD" "/home/joshua/pictures/org-icons/god.png" nil nil nil nil)
+                                       ("BILLS"    "/home/joshua/pictures/org-icons/bills.png" nil nil nil nil)
+                                       ("emacs"       "/home/joshua/pictures/org-icons/emacs.png" nil nil nil nil)
+                                       ("WORK"       "/home/joshua/pictures/org-icons/work.png" nil nil nil nil)
+                                       ))
 
 (defun my-org-list-files (dirs ext)
   "Function to create list of org files in multiple subdirectories.
@@ -399,9 +424,9 @@ EXT is a list of the extensions of files to be included."
                           my-org-agenda-directories
                           my-org-agenda-extensions)
         ;;org-refile-targets (my-org-list-files
-          ;;                  my-org-agenda-directories
-            ;;                my-org-agenda-extensions
-                          ;;  )
+        ;;                  my-org-agenda-directories
+        ;;                my-org-agenda-extensions
+        ;;  )
         ))
 
 (my-org-set-agenda-files)
@@ -461,22 +486,22 @@ EXT is a list of the extensions of files to be included."
         ;; ("hk" tags "+home+Kim")
 
 
-      ;; ("H" "Office and Home Lists"
-      ;; ((agenda)
-      ;; (tags-todo "OFFICE")
-      ;; (tags-todo "HOME")
-      ;; (tags-todo "COMPUTER")
-      ;; (tags-todo "DVD")
-      ;; (tags-todo "READING")))
+        ;; ("H" "Office and Home Lists"
+        ;; ((agenda)
+        ;; (tags-todo "OFFICE")
+        ;; (tags-todo "HOME")
+        ;; (tags-todo "COMPUTER")
+        ;; (tags-todo "DVD")
+        ;; (tags-todo "READING")))
         )
       )
 
 (defun my/org-grading-myself-agenda ()
-"This function loads up my grading myself toolset."
-(interactive)
-(let (org-agenda-files)
-  (setq org-agenda-files '("/home/joshua/programming/org/projects/grading-myself.org"))
-  (org-agenda-list)))
+  "This function loads up my grading myself toolset."
+  (interactive)
+  (let (org-agenda-files)
+    (setq org-agenda-files '("/home/joshua/programming/org/projects/grading-myself.org"))
+    (org-agenda-list)))
 
 (org-defkey org-agenda-mode-map "g" 'org-agenda-filter-by-category)
 ;;(org-defkey global-map (kbd "C-c a g") 'org-agenda-filter-by-category)
@@ -489,8 +514,8 @@ EXT is a list of the extensions of files to be included."
   ;;how do you remove an element from a list?  I have no idea.
   )
 
-; Targets start with the file name - allows creating level 1 tasks
-  (setq org-refile-use-outline-path (quote file))
+                                        ; Targets start with the file name - allows creating level 1 tasks
+(setq org-refile-use-outline-path (quote file))
 
 (setq org-todo-keywords
       '((sequence "TODO(t!)" "PROJECT(r)" "STARTED(s!)"
@@ -543,5 +568,24 @@ EXT is a list of the extensions of files to be included."
 ;;  (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
 (setq org-stuck-projects '("PROJECT" ("TODO NEXT") ("action") "\\<IGNORE\\>" ))
+
+(use-package mmm-mode :ensure t)
+
+(after-load 'org
+  (require 'mmm-mode)
+  (setq mmm-global-mode 'maybe)
+  (mmm-add-mode-ext-class 'org-mode "\\.org\\'" 'org-elisp)
+
+  ;; mmm-add-group is more useful for org-mode...probably
+  (mmm-add-classes
+   '(
+     (org-elisp
+      :submode 'emacs-lisp-mode
+      :face mmm-declaration-submode-face
+      :front "#+BEGIN_SRC emacs-lisp"
+      :back  "#+END_SRC"
+      )
+     )
+   ))
 
 (provide 'init-org)

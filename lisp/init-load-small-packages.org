@@ -178,6 +178,7 @@ Auth-source.el, lets you save your various logins and password for different ser
 Ensure that you have f.el
 #+BEGIN_SRC emacs-lisp
 (use-package f :ensure t)
+(require 'f)
 #+END_SRC
 
 
@@ -356,12 +357,13 @@ Wtrin is a small emacs package that gets you the local weather forcast.  It pull
 [[~/.emacs.d/images/weather.png]]
 
 #+BEGIN_SRC emacs-lisp
-  (use-package wttrin
-    :ensure t
-    :commands (wttrin)
-    :init
-    (setq wttrin-default-cities
-    '("West Lafayette")))
+(use-package wttrin
+  :ensure t
+  :commands (wttrin)
+  :init
+  (setq wttrin-default-cities
+  '("West Lafayette"))
+  (setq wttrin-default-accept-language '("Accept-Language" . "en-US")))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -682,7 +684,7 @@ But it is probably not necessary.  When I am about to expand a snippet, I am typ
 :END:
 Ido-ubiquitous is needed for completing magit via ido, but when I use it, other things start using ido, when I prefer helm.
 #+BEGIN_SRC emacs-lisp
-;;(use-package ido-ubiquitous :ensure t)
+;; (use-package ido-ubiquitous :ensure t)
 (use-package magit :defer t :ensure t)
 (use-package git-blame :ensure t)
 #+END_SRC
@@ -702,9 +704,8 @@ Ido-ubiquitous is needed for completing magit via ido, but when I use it, other 
 #+BEGIN_SRC emacs-lisp
   (after-load 'magit
     (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
-    ;;I like the ido completing read function over the helm one, but then helm stops working so well
-    ;;(setq magit-completing-read-function 'magit-ido-completing-read)
-)
+   ;; (setq magit-completing-read-function 'magit-ido-completing-read)
+    )
 
   (use-package fullframe :ensure t)
   (after-load 'magit (fullframe magit-status magit-mode-quit-window))
@@ -867,7 +868,6 @@ According to the github repo this next line is all that I need to install helm
 #+BEGIN_SRC emacs-lisp
 (add-hook 'after-init-hook '(lambda () (require 'helm-config)))
 #+END_SRC
-
 I've installed helm-ag, which might be cool.
 
 #+BEGIN_SRC emacs-lisp

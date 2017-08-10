@@ -3,7 +3,7 @@
 Not so long ago I forked Steve Purcell's emacs config.  You can find the original config here: https://github.com/purcell/emacs.d
 
 My emacs config is still structured like Steve Purcell's.  All of my code for my init.el is in my lisp/ folder.  This config uses
-uses evil-mode with friendly dvorak keybindings.  *If you like the qwerty keyboard layout and the default non-modal behavior of
+evil-mode with friendly dvorak keybindings.  *If you like the qwerty keyboard layout and the default non-modal behavior of
 emacs, then you probably should not use this config. One last important note: I am an amateur programmer lacking Mr. Purcell's
 elisp experience.  His emacs config has been known to work on windows and mac.  I do not try to support those OSes, and my config
 is no where near as stable as his.  Your computer won't crash if you use my config, but emacs might crash occasionally.*
@@ -14,27 +14,30 @@ and css.  It offers no other major benefits to any other programming languages. 
 Here are some cool modes that my config offers:
 
 * Javascript (via js2-mode, which highlights syntax errors as you type)!
-* PHP (web-mode.el).
+* PHP (web-mode.el).  In my experience, there's nothing better.
 * evil-mode (vim like keybindings).
-* evil-dvorak-mode (My original mode that restructures vim's keybindings to work better for a dvorak keyboard layout).
+* Some personal customizations that make dvorak and evil play nicely.
 * helm (because ido is not nearly as cool).
 * projectile (which I'm still trying to learn how to use it, and it is currently broken).
-* GGtags, which let you tag function, property, and macro definitions, then quickly open the file containing the definition
+* dumb-jump, which is a lot less cooler version of ggtags, but I could never get ggtags to work properly.
 * EMMS. Play and stream music via emacs, which is pretty awesome. Though currently the sound quality, at least for me, is lacking.
 * emmet mode, which lets you write html blazingly fast.
 * auto-complete, which gives you suggestions to complete your current unfinished word.
 * yasnippet, which lets you expand abbreviations into predefined snippets.
 * gnus, which is emacs' own email reader, which I occasionally use.
 * powerline, which is an pretty looking mode line tool.
-Flycheck is used to immediately highlight syntax errors in Javascript.
+* Flycheck is used to immediately highlight syntax errors in Javascript.
 
 ## Requirements
 
-* Emacs 24.  I have not tested this config on emacs 23.  I've removed any of Purcell's hacks to support older versions of emacs.
+* A crap ton of patience and debugging.  You cannot currently clone my config.  It's very specific for my needs.  If you want to try to clone
+it, you'll have to wade your way through all of the issues that pop up.  My config assumes a lot of specific files are in certain places.  When
+you clone it, and run Emacs, Emacs will freak out.  So only a seasoned Emacs lisp programmer can probably use my config.
+* I use the latest stable version of Emacs, and you should too.  I've removed any of Purcell's hacks to support older versions of emacs.
 * To make the most of the programming language-specific support in this config, further programs will likely be required,
-  particularly those that [flycheck](https://github.com/flycheck/flycheck) uses to provide on-the-fly syntax checking.
-* To use the silver searcher, one will have to install the silver searcher
-* To use ggtags, one will have to install gnu global.
+particularly those that [flycheck](https://github.com/flycheck/flycheck) uses to provide on-the-fly syntax checking.  I also use
+yuicompressor and a google specific javascript minimizer.
+* To use the silver searcher, one will have to install the silver searcher, aka ag.  (I've also heard good things about ripgrep).
 * To use many of the packages that I use, will require manual configuration.  For example to stream music, you will have to
   edit provide your own configuration.  To use gnus, you'll have to edit the config file.  This is the case for a few other packages.
 
@@ -42,6 +45,12 @@ Flycheck is used to immediately highlight syntax errors in Javascript.
 
 To install, clone this repo to `~/.emacs.d`, i.e. ensure that the
 `init.el` contained in this repo ends up at `~/.emacs.d/init.el`:
+
+```
+git clone https://github.com/jbranso/.emacs.d.git
+```
+
+But when that won't work.  Go ahead and try using purcell's .emacs.d:
 
 ```
 git clone https://github.com/purcell/emacs.d.git ~/.emacs.d
@@ -54,18 +63,13 @@ right now.  Sept. 19, 2015.
 
 To get these things fixed,  these need to be addressed.
 
-* Currently, gnus will give you some errors, because I'm not including init-gnus-secret.el into my repo.  Because I don't want the
-internet to know my primary email addresses.
-* paradox won't work, because I'm not including my init-paradox.el file, which has my github token in it, since I don't want the
-provide the internet with a means to mess with my github account.
-* projectile doesn't work. I've no idea why.
+* projectile doesn't work. It keeps on trying to empty its cache and never can.
 * My init-org.el required invoice.org, which is a small useful package for creating invoices, but it is not on melpa.
-* evil mode does not work, because my minor mode evil-dvorak mode is not working properly. grrr.
 
 ## Important note about helm
 
 I use helm-mode instead of ido, and you should too. Helm mode is an incremental completion framework that is superior
-to idomode. Helm-swoop alone is super amazing (although swiper.el, is nice too).  This config uses "C-c h" as the default helm
+to ido-mode. Helm-swoop alone is super amazing (although swiper.el, is nice too).  This config uses "C-c h" as the default helm
 keybinding, "C-c C-h" call the traditional help package. Yeah, helm is better than emacs 'help.  Check out what you can do with helm
 here: https://tuhdo.github.io/helm-intro.html
 
@@ -102,7 +106,7 @@ Keybinding         | Description
 <kbd> C-c B </kbd> | use helm to browse the kill ring
 <kbd> C-c c </kbd> | org-capture
 <kbd> C-c d </kbd> | open dired in the current directory (dired-jump)
-<kbd> C-c D </kbd> | ggtags find the current definition of the function, macro, or property. VERY COOL
+<kbd> C-c D </kbd> | (dumb-jump-go), which finds the definition of thing at point.
 <kbd> C-c e </kbd> | use helm to select an emacs command (helm-M-x)
 <kbd> C-c E </kbd> | open eshell (eshell)
 <kbd> C-c f </kbd> | do a regexp search forward (isearch-forward-regexp)

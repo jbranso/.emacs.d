@@ -109,7 +109,11 @@
 ;; For example, with point on the following javascript function upcaseWord
 ;; var upcase =  upcaseWord (string);
 ;; And you type C-c D,  ggtags, when open the buffer where that function is defined
-(global-set-key (kbd "C-c D") 'ggtags-find-tag-dwim)
+;;(global-set-key (kbd "C-c D") 'ggtags-find-tag-dwim)
+
+;;use-package on dumb just doesn't work ...? why?
+(use-package dumb-jump :ensure t)
+(global-set-key (kbd "C-c D") #'dumb-jump-go)
 (global-set-key (kbd "C-c e") #'helm-M-x)
 (global-set-key (kbd "C-c E") #'eshell)
 (global-set-key (kbd "C-c f") #'isearch-forward-regexp)

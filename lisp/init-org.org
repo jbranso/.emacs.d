@@ -1,4 +1,4 @@
-#+TITLE: My Org Initialization
+ #+TITLE: My Org Initialization
 #+AUTHOR: Joshua Branson
 #+PROPERTY: header-args :
 # this says that org mode will export up to the 4th level heading
@@ -43,8 +43,6 @@ just one space.
 ;;(setq org-default-notes-file (concat org-directory "/notes.org"))
 #+END_SRC
 
-#+RESULTS:
-: ((\.\(org\|txt\)$ . org-mode) (/git-rebase-todo\' . git-rebase-mode) (\.gpg\(~\|\.~[0-9]+~\)?\' nil epa-file) (\.\(?:3fr\|a\(?:r[tw]\|vs\)\|bmp[23]?\|c\(?:als?\|myka?\|r[2w]\|u[rt]\)\|d\(?:c[mrx]\|ds\|ng\|px\)\|f\(?:ax\|its\)\|gif\(?:87\)?\|hrz\|ic\(?:on\|[bo]\)\|j\(?:\(?:pe\|[np]\)g\)\|k\(?:25\|dc\)\|m\(?:iff\|ng\|rw\|s\(?:l\|vg\)\|tv\)\|nef\|o\(?:rf\|tb\)\|p\(?:bm\|c\(?:ds\|[dltx]\)\|db\|ef\|gm\|i\(?:ct\|x\)\|jpeg\|n\(?:g\(?:24\|32\|8\)\|[gm]\)\|pm\|sd\|tif\|wp\)\|r\(?:a[fs]\|gb[ao]?\|l[ae]\)\|s\(?:c[rt]\|fw\|gi\|r[2f]\|un\|vgz?\)\|t\(?:ga\|i\(?:ff\(?:64\)?\|le\|m\)\|tf\)\|uyvy\|v\(?:da\|i\(?:car\|d\|ff\)\|st\)\|w\(?:bmp\|pg\)\|x\(?:3f\|bm\|cf\|pm\|wd\|[cv]\)\|y\(?:cbcra?\|uv\)\)\' . image-mode) (\.elc\' . emacs-lisp-byte-code-mode) (\.dz\' nil jka-compr) (\.xz\' nil jka-compr) (\.lzma\' nil jka-compr) (\.lz\' nil jka-compr) (\.g?z\' nil jka-compr) (\.bz2\' nil jka-compr) (\.Z\' nil jka-compr) (\.vr[hi]?\' . vera-mode) (\(?:\.rb\|ru\|rake\|thor\|jbuilder\|gemspec\|podspec\|/\(?:Gem\|Rake\|Cap\|Thor\|Vagrant\|Guard\|Pod\)file\)\' . ruby-mode) (\.re?st\' . rst-mode) (\.py\' . python-mode) (\.awk\' . awk-mode) (\.\(u?lpc\|pike\|pmod\(\.in\)?\)\' . pike-mode) (\.idl\' . idl-mode) (\.java\' . java-mode) (\.m\' . objc-mode) (\.ii\' . c++-mode) (\.i\' . c-mode) (\.lex\' . c-mode) (\.y\(acc\)?\' . c-mode) (\.[ch]\' . c-mode) (\.\(CC?\|HH?\)\' . c++-mode) (\.[ch]\(pp\|xx\|\+\+\)\' . c++-mode) (\.\(cc\|hh\)\' . c++-mode) (\.\(bat\|cmd\)\' . bat-mode) (\.[sx]?html?\(\.[a-zA-Z_]+\)?\' . html-mode) (\.svgz?\' . image-mode) (\.svgz?\' . xml-mode) (\.x[bp]m\' . image-mode) (\.x[bp]m\' . c-mode) (\.p[bpgn]m\' . image-mode) (\.tiff?\' . image-mode) (\.gif\' . image-mode) (\.png\' . image-mode) (\.jpe?g\' . image-mode) (\.te?xt\' . text-mode) (\.[tT]e[xX]\' . tex-mode) (\.ins\' . tex-mode) (\.ltx\' . latex-mode) (\.dtx\' . doctex-mode) (\.org\' . org-mode) (\.el\' . emacs-lisp-mode) (Project\.ede\' . emacs-lisp-mode) (\.\(scm\|stk\|ss\|sch\)\' . scheme-mode) (\.l\' . lisp-mode) (\.li?sp\' . lisp-mode) (\.[fF]\' . fortran-mode) (\.for\' . fortran-mode) (\.p\' . pascal-mode) (\.pas\' . pascal-mode) (\.\(dpr\|DPR\)\' . delphi-mode) (\.ad[abs]\' . ada-mode) (\.ad[bs].dg\' . ada-mode) (\.\([pP]\([Llm]\|erl\|od\)\|al\)\' . perl-mode) (Imakefile\' . makefile-imake-mode) (Makeppfile\(?:\.mk\)?\' . makefile-makepp-mode) (\.makepp\' . makefile-makepp-mode) (\.mk\' . makefile-gmake-mode) (\.make\' . makefile-gmake-mode) ([Mm]akefile\' . makefile-gmake-mode) (\.am\' . makefile-automake-mode) (\.texinfo\' . texinfo-mode) (\.te?xi\' . texinfo-mode) (\.[sS]\' . asm-mode) (\.asm\' . asm-mode) (\.css\' . css-mode) (\.mixal\' . mixal-mode) (\.gcov\' . compilation-mode) (/\.[a-z0-9-]*gdbinit . gdb-script-mode) (-gdb\.gdb . gdb-script-mode) ([cC]hange\.?[lL]og?\' . change-log-mode) ([cC]hange[lL]og[-.][0-9]+\' . change-log-mode) (\$CHANGE_LOG\$\.TXT . change-log-mode) (\.scm\.[0-9]*\' . scheme-mode) (\.[ck]?sh\'\|\.shar\'\|/\.z?profile\' . sh-mode) (\.bash\' . sh-mode) (\(/\|\`\)\.\(bash_\(profile\|history\|log\(in\|out\)\)\|z?log\(in\|out\)\)\' . sh-mode) (\(/\|\`\)\.\(shrc\|[kz]shrc\|bashrc\|t?cshrc\|esrc\)\' . sh-mode) (\(/\|\`\)\.\([kz]shenv\|xinitrc\|startxrc\|xsession\)\' . sh-mode) (\.m?spec\' . sh-mode) (\.m[mes]\' . nroff-mode) (\.man\' . nroff-mode) (\.sty\' . latex-mode) (\.cl[so]\' . latex-mode) (\.bbl\' . latex-mode) (\.bib\' . bibtex-mode) (\.bst\' . bibtex-style-mode) (\.sql\' . sql-mode) (\.m[4c]\' . m4-mode) (\.mf\' . metafont-mode) (\.mp\' . metapost-mode) (\.vhdl?\' . vhdl-mode) (\.article\' . text-mode) (\.letter\' . text-mode) (\.i?tcl\' . tcl-mode) (\.exp\' . tcl-mode) (\.itk\' . tcl-mode) (\.icn\' . icon-mode) (\.sim\' . simula-mode) (\.mss\' . scribe-mode) (\.f9[05]\' . f90-mode) (\.f0[38]\' . f90-mode) (\.indent\.pro\' . fundamental-mode) (\.\(pro\|PRO\)\' . idlwave-mode) (\.srt\' . srecode-template-mode) (\.prolog\' . prolog-mode) (\.tar\' . tar-mode) (\.\(arc\|zip\|lzh\|lha\|zoo\|[jew]ar\|xpi\|rar\|7z\|ARC\|ZIP\|LZH\|LHA\|ZOO\|[JEW]AR\|XPI\|RAR\|7Z\)\' . archive-mode) (\.oxt\' . archive-mode) (\.\(deb\|[oi]pk\)\' . archive-mode) (\`/tmp/Re . text-mode) (/Message[0-9]*\' . text-mode) (\`/tmp/fol/ . text-mode) (\.oak\' . scheme-mode) (\.sgml?\' . sgml-mode) (\.x[ms]l\' . xml-mode) (\.dbk\' . xml-mode) (\.dtd\' . sgml-mode) (\.ds\(ss\)?l\' . dsssl-mode) (\.js\' . javascript-mode) (\.json\' . javascript-mode) (\.[ds]?vh?\' . verilog-mode) (\.by\' . bovine-grammar-mode) (\.wy\' . wisent-grammar-mode) ([]>:/\]\..*\(emacs\|gnus\|viper\)\' . emacs-lisp-mode) (\`\..*emacs\' . emacs-lisp-mode) ([:/]_emacs\' . emacs-lisp-mode) (/crontab\.X*[0-9]+\' . shell-script-mode) (\.ml\' . lisp-mode) (\.ld[si]?\' . ld-script-mode) (ld\.?script\' . ld-script-mode) (\.xs\' . c-mode) (\.x[abdsru]?[cnw]?\' . ld-script-mode) (\.zone\' . dns-mode) (\.soa\' . dns-mode) (\.asd\' . lisp-mode) (\.\(asn\|mib\|smi\)\' . snmp-mode) (\.\(as\|mi\|sm\)2\' . snmpv2-mode) (\.\(diffs?\|patch\|rej\)\' . diff-mode) (\.\(dif\|pat\)\' . diff-mode) (\.[eE]?[pP][sS]\' . ps-mode) (\.\(?:PDF\|DVI\|OD[FGPST]\|DOCX?\|XLSX?\|PPTX?\|pdf\|djvu\|dvi\|od[fgpst]\|docx?\|xlsx?\|pptx?\)\' . doc-view-mode-maybe) (configure\.\(ac\|in\)\' . autoconf-mode) (\.s\(v\|iv\|ieve\)\' . sieve-mode) (BROWSE\' . ebrowse-tree-mode) (\.ebrowse\' . ebrowse-tree-mode) (#\*mail\* . mail-mode) (\.g\' . antlr-mode) (\.mod\' . m2-mode) (\.ses\' . ses-mode) (\.docbook\' . sgml-mode) (\.com\' . dcl-mode) (/config\.\(?:bat\|log\)\' . fundamental-mode) (\.\(?:[iI][nN][iI]\|[lL][sS][tT]\|[rR][eE][gG]\|[sS][yY][sS]\)\' . conf-mode) (\.\(?:desktop\|la\)\' . conf-unix-mode) (\.ppd\' . conf-ppd-mode) (java.+\.conf\' . conf-javaprop-mode) (\.properties\(?:\.[a-zA-Z0-9._-]+\)?\' . conf-javaprop-mode) (\`/etc/\(?:DIR_COLORS\|ethers\|.?fstab\|.*hosts\|lesskey\|login\.?de\(?:fs\|vperm\)\|magic\|mtab\|pam\.d/.*\|permissions\(?:\.d/.+\)?\|protocols\|rpc\|services\)\' . conf-space-mode) (\`/etc/\(?:acpid?/.+\|aliases\(?:\.d/.+\)?\|default/.+\|group-?\|hosts\..+\|inittab\|ksysguarddrc\|opera6rc\|passwd-?\|shadow-?\|sysconfig/.+\)\' . conf-mode) ([cC]hange[lL]og[-.][-0-9a-z]+\' . change-log-mode) (/\.?\(?:gnokiirc\|kde.*rc\|mime\.types\|wgetrc\)\' . conf-mode) (/\.\(?:enigma\|gltron\|gtk\|hxplayer\|net\|neverball\|qt/.+\|realplayer\|scummvm\|sversion\|sylpheed/.+\|xmp\)rc\' . conf-mode) (/\.\(?:gdbtkinit\|grip\|orbital/.+txt\|rhosts\|tuxracer/options\)\' . conf-mode) (/\.?X\(?:default\|resource\|re\)s\> . conf-xdefaults-mode) (/X11.+app-defaults/ . conf-xdefaults-mode) (/X11.+locale/.+/Compose\' . conf-colon-mode) (/X11.+locale/compose\.dir\' . conf-javaprop-mode) (\.~?[0-9]+\.[0-9][-.0-9]*~?\' nil t) (\.\(?:orig\|in\|[bB][aA][kK]\)\' nil t) ([/.]c\(?:on\)?f\(?:i?g\)?\(?:\.[a-zA-Z0-9._-]+\)?\' . conf-mode-maybe) (\.[1-9]\' . nroff-mode) (\.tgz\' . tar-mode) (\.tbz2?\' . tar-mode) (\.txz\' . tar-mode))
 
 * Setting up Org-plugins
 ** org-crypt
@@ -112,7 +110,7 @@ To use org-crypt it is suggested that you have the following in your `.emacs':
   http://orgmode.org/worg/org-contrib/org-mime.html
   I want to figure out how to install this, because I could then write html emails trivially with gnus
   #+BEGIN_SRC emacs-lisp
-  (use-package org-mime)
+  (use-package org-mime :ensure t)
   #+END_SRC
 
   #+RESULTS:
@@ -168,16 +166,25 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
     (use-package ob-http :ensure t)
     (setq geiser-default-implementation 'guile)
 
+    ;; TODO FIXME this defun needs to be deleted
+    ;; the org-mode has removed org-babel-get-header
+    ;; ob-sh needs to update to use the new version.
+    (defun org-babel-get-header (params key &optional others)
+      (delq nil
+            (mapcar
+             (lambda (p) (when (funcall (if others #'not #'identity) (eq (car p) key)) p))
+             params)))
+
     (after-load 'org
-    (org-babel-do-load-languages
-         'org-babel-load-languages
-         '(
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '(
          (awk . t)
          (calc . t)
          (C . t)
          (emacs-lisp . t)
          (haskell . t)
-	 ;;(http . t)
+         ;;(http . t)
          (gnuplot . t)
          ;;(latex . t)
          (ledger . t)
@@ -194,12 +201,12 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
          ;;(sqlite . t)
          )))
 
-           (setq org-latex-create-formula-image-program 'imagemagick)
-      ;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
-      ;;(ditaa . t)
-      ;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
-      ;; display inline images in org-mode
-      ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+    (setq org-latex-create-formula-image-program 'imagemagick)
+    ;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
+    ;;(ditaa . t)
+    ;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
+    ;; display inline images in org-mode
+    ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
   #+END_SRC
 
   #+RESULTS:
@@ -418,8 +425,39 @@ try to expand a yasnippet.
                                   ;;(toggle-word-wrap)
                                   (org-bullets-mode 1)
                                   ;;make ">=" look like >=, etc.
+<<<<<<< variant A
                                  (push '("^_^" . ?☻) prettify-symbols-alist)
 ))
+>>>>>>> variant B
+                                  (push '(">=" . ?≥) prettify-symbols-alist)
+                                  (push '("<=" . ?≤) prettify-symbols-alist)
+                                  (push '("\\geq" . ?≥) prettify-symbols-alist)
+                                  (push '("\\leq" . ?≤) prettify-symbols-alist)
+                                  (push '("\\neg" . ?¬) prettify-symbols-alist)
+                                  (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+                                  (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+                                  (push '("\\infty" . ?∞) prettify-symbols-alist)
+                                  (push '("-->" . ?→) prettify-symbols-alist)
+                                  (push '("<--" . ?←) prettify-symbols-alist)
+                                  (push '("\\lambda" . ?λ) prettify-symbols-alist)
+                                  (push '("\\exists" . ?∃) prettify-symbols-alist)
+                                  (push '("\\nexists" . ?∄) prettify-symbols-alist)
+                                  (push '("\\forall" . ?∀) prettify-symbols-alist)
+                                  (push '("\\or" . ?∨) prettify-symbols-alist)
+                                  (push '("\\and" . ?∧) prettify-symbols-alist)
+                                  (push '(":)" . ?☺) prettify-symbols-alist)
+                                  (push '("):" . ?☹) prettify-symbols-alist)
+                                  (push '(":D" . ?☺) prettify-symbols-alist)
+                                  (push '("\\checkmark" . ?✓) prettify-symbols-alist)
+                                  (push '("\\check" . ?✓) prettify-symbols-alist)
+                                  (push '("1/4" . ?¼) prettify-symbols-alist)
+                                  (push '("1/2" . ?½) prettify-symbols-alist)
+                                  (push '("3/4" . ?¾) prettify-symbols-alist)
+                                  (push '("1/7" . ?⅐) prettify-symbols-alist)
+                                  ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
+                                  (push '("ae" . ?æ) prettify-symbols-alist)
+                                  (push '("^_^" . ?☻) prettify-symbols-alist)))
+======= end
 #+END_SRC
 #+RESULTS:
 | (lambda nil (require (quote org-eldoc)) (toggle-word-wrap) (org-bullets-mode 1) (push (quote (>= . 8805)) prettify-symbols-alist) (push (quote (<= . 8804)) prettify-symbols-alist) (push (quote (\geq . 8805)) prettify-symbols-alist) (push (quote (\leq . 8804)) prettify-symbols-alist) (push (quote (\neg . 172)) prettify-symbols-alist) (push (quote (\rightarrow . 8594)) prettify-symbols-alist) (push (quote (\leftarrow . 8592)) prettify-symbols-alist) (push (quote (\infty . 8734)) prettify-symbols-alist) (push (quote (--> . 8594)) prettify-symbols-alist) (push (quote (<-- . 8592)) prettify-symbols-alist) (push (quote (\exists . 8707)) prettify-symbols-alist) (push (quote (\nexists . 8708)) prettify-symbols-alist) (push (quote (\forall . 8704)) prettify-symbols-alist) (push (quote (\or . 8744)) prettify-symbols-alist) (push (quote (\and . 8743)) prettify-symbols-alist) (push (quote (:) . 9786)) prettify-symbols-alist) (push (quote (): . 9785)) prettify-symbols-alist) (push (quote (:D . 9786)) prettify-symbols-alist) (push (quote (\checkmark . 10003)) prettify-symbols-alist) (push (quote (\check . 10003)) prettify-symbols-alist) (push (quote (1/4 . 188)) prettify-symbols-alist) (push (quote (1/2 . 189)) prettify-symbols-alist) (push (quote (3/4 . 190)) prettify-symbols-alist) (push (quote (1/7 . 8528)) prettify-symbols-alist) (push (quote (ae . 230)) prettify-symbols-alist) (push (quote (^_^ . 9787)) prettify-symbols-alist)) | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-show-block-all append local] 5] | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | org-eldoc-load |
@@ -430,7 +468,7 @@ try to expand a yasnippet.
 :ID:       4725eb30-c909-4c64-b3cc-2be91448f927
 :END:
 
-Hide the leading stars in my org files.
+Make calendar highlight upcoming items
 #+BEGIN_SRC emacs-lisp
 (setq org-hide-leading-stars t)
 #+END_SRC
@@ -450,11 +488,20 @@ Make RET follow a link
 
   #+BEGIN_SRC emacs-lisp
     (setq
+     ;; hide the leading stars in my org files
+     org-hide-leading-stars t
+     ;;seeing the ... that org mode does to how you that the heading continues in the text beneith it is kind of boring
+     ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
+     ;; Other interesting characters are ↴, ⬎, ⤷, ⋱, "⬎", and "⤵"
+     org-ellipsis " ↴"
+     ;; make org show inline images by default
+     ;; This can be overridden by #+STARTUP: noinlineimages
+     org-startup-with-inline-images t
+     ;; make RET follow a link
+     org-return-follows-link t
      ;; only show times on items in the agenda, if we have an item at a specified time
      ;; if we set it to true, then we see all the times every 2 hours.  Takes up too much space.
      org-agenda-use-time-grid nil
-     ;;org-ellipsis "⬎"
-     ;; org-ellipsis "⤵"
      ;; don't let me accidentally delete text without realizing it in org.  ie: point is buried in a subtree, but you only
      ;; see the heading and you accidentally kill a line without knowing it.
      ;; this might not be supported for evil-mode
@@ -1026,6 +1073,30 @@ There is apparently a way to specify in your org agenda files where you have a s
   (setq org-stuck-projects '("PROJECT" ("TODO NEXT") ("action") "\\<IGNORE\\>" ))
   #+END_SRC
 
+* trying to get mmm-mode to work
+:PROPERTIES:
+:ID:       e6804191-77c5-4daa-963c-092b4cb482b6
+:END:
+#+BEGIN_SRC emacs-lisp
+  (use-package mmm-mode :ensure t)
+
+  (after-load 'org
+    (require 'mmm-mode)
+    (setq mmm-global-mode 'maybe)
+    (mmm-add-mode-ext-class 'org-mode "\\.org\\'" 'org-elisp)
+
+    ;; mmm-add-group is more useful for org-mode...probably
+    (mmm-add-classes
+     '(
+       (org-elisp
+        :submode 'emacs-lisp-mode
+        :face mmm-declaration-submode-face
+        :front "#+BEGIN_SRC emacs-lisp"
+        :back  "#+END_SRC"
+        )
+       )
+     ))
+#+END_SRC
 * COMMENT misc
 :PROPERTIES:
 :ID:       1a006baf-51cd-454a-950e-3af9ff1915c5

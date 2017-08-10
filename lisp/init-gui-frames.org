@@ -12,26 +12,47 @@
 :ID:       124ab2a5-dfbe-4399-af27-4958f163537a
 :END:
 #+BEGIN_SRC emacs-lisp
-(add-hook 'evil-mode-hook '( lambda ()
-                             (define-key evil-emacs-state-map (kbd "C-w h") 'windmove-down)
-                             (define-key evil-emacs-state-map (kbd "C-w t") 'windmove-up)
-                             (define-key evil-emacs-state-map (kbd "C-w n") 'windmove-left)
-                             (define-key evil-emacs-state-map (kbd "C-w s") 'windmove-right)
-                             (define-key evil-normal-state-map (kbd "C-w h") 'windmove-down)
-                             (define-key evil-normal-state-map (kbd "C-w t") 'windmove-up)
-                             (define-key evil-normal-state-map (kbd "C-w n") 'windmove-left)
-                             (define-key evil-normal-state-map (kbd "C-w s") 'windmove-right)))
 
-;; (add-hook 'debugger-mode-hook '( lambda ()
-;;                                  (define-key debugger-mode-map (kbd "C-w h") 'windmove-down)
-;;                                  (define-key debugger-mode-map (kbd "C-w t") 'windmove-up)
-;;                                  (define-key debugger-mode-map (kbd "C-w n") 'windmove-left)
-;;                                  (define-key debugger-mode-map (kbd "C-w s") 'windmove-right)))
-;; (add-hook 'help-mode-map ( lambda ()
-;;                            (define-key help-mode-map (kbd "C-w h") 'windmove-down)
-;;                            (define-key help-mode-map (kbd "C-w t") 'windmove-up)
-;;                            (define-key help-mode-map (kbd "C-w n") 'windmove-left)
-;;                            (define-key help-mode-map (kbd "C-w s") 'windmove-right)))
+  (with-eval-after-load 'evil
+    (evil-define-key 'emacs evil-emacs-state-map (kbd "C-w h") 'windmove-down)
+    (evil-define-key 'emacs evil-emacs-state-map (kbd "C-w t") 'windmove-up)
+    (evil-define-key 'emacs evil-emacs-state-map (kbd "C-w n") 'windmove-left)
+    (evil-define-key 'emacs evil-emacs-state-map (kbd "C-w s") 'windmove-right)
+
+    (evil-define-key 'emacs evil-normal-state-map (kbd "C-w h") 'windmove-down)
+    (evil-define-key 'emacs evil-normal-state-map (kbd "C-w t") 'windmove-up)
+    (evil-define-key 'emacs evil-normal-state-map (kbd "C-w n") 'windmove-left)
+    (evil-define-key 'emacs evil-normal-state-map (kbd "C-w s") 'windmove-ri)
+
+    ;;I don't think this would ever really be useful
+    (evil-define-key 'normal help-mode-map (kbd "C-w h") 'windmove-down)
+    (evil-define-key 'normal help-mode-map (kbd "C-w t") 'windmove-up)
+    (evil-define-key 'normal help-mode-map (kbd "C-w n") 'windmove-left)
+    (evil-define-key 'normal help-mode-map (kbd "C-w s") 'windmove-right)
+    (evil-define-key 'emacs  help-mode-map (kbd "C-w h") 'windmove-down)
+    (evil-define-key 'emacs  help-mode-map (kbd "C-w t") 'windmove-up)
+    (evil-define-key 'emacs  help-mode-map (kbd "C-w n") 'windmove-left)
+    (evil-define-key 'emacs  help-mode-map (kbd "C-w s") 'windmove-right)
+
+    (evil-define-key 'normal debugger-mode-map (kbd "C-w h") 'windmove-down)
+    (evil-define-key 'normal debugger-mode-map (kbd "C-w t") 'windmove-up)
+    (evil-define-key 'normal debugger-mode-map (kbd "C-w n") 'windmove-left)
+    (evil-define-key 'normal debugger-mode-map (kbd "C-w s") 'windmove-right)
+    (evil-define-key 'emacs  debugger-mode-map (kbd "C-w h") 'windmove-down)
+    (evil-define-key 'emacs  debugger-mode-map (kbd "C-w t") 'windmove-up)
+    (evil-define-key 'emacs  debugger-mode-map (kbd "C-w n") 'windmove-left)
+    (evil-define-key 'emacs  debugger-mode-map (kbd "C-w s") 'windmove-right)
+
+    (evil-define-key 'emacs  erc-mode-map (kbd "C-w h") 'windmove-down)
+    (evil-define-key 'emacs  erc-mode-map (kbd "C-w t") 'windmove-up)
+    (evil-define-key 'emacs  erc-mode-map (kbd "C-w n") 'windmove-left)
+    (evil-define-key 'emacs  erc-mode-map (kbd "C-w s") 'windmove-right)
+
+    (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w h") 'windmove-down)
+    (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w t") 'windmove-up)
+    (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w n") 'windmove-left)
+    (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w s") 'windmove-right)
+    )
 
 #+END_SRC
 * improving the mouse experience
@@ -67,12 +88,8 @@ Save the position that point was in during the last emacs session
 #+BEGIN_SRC emacs-lisp
 (setq-default save-place t)
 (setq save-place-file (expand-file-name ".places" user-emacs-directory))
-(add-hook 'after-init-hook 'save-place-mode)
-#+END_SRC
-
-In Emacs 25.1,  I now have to just do
-(require 'saveplace)
 (save-place-mode)
+#+END_SRC
 
 * Highlight cursor's line
 :PROPERTIES:
@@ -89,7 +106,8 @@ but ONLY on graphical displays.  It looks weird in the terminal
 :PROPERTIES:
 :ID:       8e3718b8-0b55-4e8e-833c-179b249119d3
 :END:
-Make comments in most programming languages various colors. [[file:~/.bashrc::#x%20hello]]
+make comments in most programming languages various colors. [[file:~/.bashrc::#x%20hello]]
+
 #+BEGIN_SRC emacs-lisp
   ;;cr red
   ;;cg green
@@ -106,17 +124,19 @@ Make comments in most programming languages various colors. [[file:~/.bashrc::#x
     '((t (:foreground "#ff0000")))
     "For todo comments")
 
-  (defun add-custom-keyw()
-    "adds a few special keywords"
-    (font-lock-add-keywords
-     nil
-     '(("\\s<+x[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-strike prepend)
-       ("\\s<+cr[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-todo prepend)
-       ("\\s<+cg[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-important prepend))))
+(defun add-custom-keyw ()
+  "adds a few special keywords"
+  (font-lock-add-keywords
+   nil
+   '(("\\s<+x[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-strike prepend)
+     ("\\s<+cr[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-todo prepend)
+     ("\\s<+cg[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-important prepend))))
 
     (add-hook 'prog-mode-hook #'add-custom-keyw)
 
+
 #+END_SRC
+
 * Provide this file
 :PROPERTIES:
 :ID:       09c1f6fc-7c51-4de1-93d5-8870dc929c25

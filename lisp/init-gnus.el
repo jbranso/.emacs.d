@@ -1,8 +1,10 @@
-(org-babel-load-file "~/.emacs.d/lisp/init-gnus-secret.org")
+(require 'gnus)
+;; (setq path  "~/.emacs.d/lisp/init-gnus-secret.org")
 
-(setq
- message-signature
- "<hr>\nJoshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\nhttps://www.gnu.org/software/emacs/")
+(let ((path "~/.emacs.d/lisp/init-gnus-secret.org"))
+  (when
+      (f-exists? path)
+    (org-babel-load-file path)))
 
 (setq  gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n")
 
@@ -38,11 +40,25 @@
       gnus-show-threads nil
       gnus-use-cross-reference nil)
 
-(setq mm-verify-option 'known
- mm-decrypt-option 'known)
+(defun gnus-demon-scan-news ()
+  (interactive)
+  (when gnus-plugged
+    (let ((win (current-window-configuration))
+          (gnus-read-active-file nil)
+          (gnus-check-new-newsgroups nil)
+          (gnus-verbose 2)
+          (gnus-verbose-backends 5))
+      (unwind-protect
+          (save-window-excursion
+            (when (gnus-alive-p)
+              (with-current-buffer gnus-group-buffer
+                (gnus-group-get-new-news gnus-activate-level))))
+        (set-window-configuration win)))))
 
-(setq gnus-message-replysign t
- gnus-message-replyencrypt t)
+;;
+;;
+;; (with-eval-after-load 'gnus
+;;   (gnus-demon-add-handler 'gnus-demon-scan-news-2 5 2))
 
 (setq spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
       spam-use-blacklist t)
@@ -50,13 +66,14 @@
 
 (use-package nnir)
 
+(setq message-kill-buffer-on-exit t)
+
 ;; (require 'init-gnus-secret-smtp)
    ;; I am trying to use use-package so that emacs won't start on an error if someone tries to clone
    ;; my config
 ;;   (use-package init-gnus-secret-smtp)
 
-(use-package bbdb
-  :ensure t)
+(use-package bbdb :ensure t)
 
 (bbdb-initialize 'gnus 'message )
 

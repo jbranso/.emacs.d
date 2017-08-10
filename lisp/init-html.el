@@ -1,47 +1,33 @@
-(defun my-setup-indent (n)
-  ;; web development
-  (setq coffee-tab-width n) ; coffeescript
-  (setq javascript-indent-level n) ; javascript-mode
-  (setq js-indent-level n) ; js-mode
-  (setq js2-basic-offset n) ; js2-mode
-  (setq web-mode-markup-indent-offset n) ; web-mode, html tag in html file
-  (setq web-mode-css-indent-offset n) ; web-mode, css in html file
-  (setq web-mode-code-indent-offset n) ; web-mode, js code in html file
-  (setq css-indent-offset n) ; css-mode
+(use-package web-mode :ensure t :config
+
+  ;;I'm not sure what this does
+  (setq web-mode-extra-constants '(("php" . ("CONS1" "CONS2"))))
+  ;; <?php expands to <?php ?>
+  (setq web-mode-enable-auto-pairing t)
+  ;; Example - you may want to add hooks for your own modes.
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.phtml?\\'" . web-mode))
+  ;; I don't use php-mode and it is causing an error to load it in.
+  ;;(use-package php-mode :ensure t)
+  (add-to-list 'auto-mode-alist '("\\.php?\\'"  . web-mode))
+  ;; when I open a css file use css-mode that way I can set up flychech with it!
+  ;;(add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.css?\\'" . css-mode))
+  (setq web-mode-extra-auto-pairs
+        '(("erb"  . (("beg" "end")))
+          ("php"  . (("beg" "end")
+                     ("beg" "end")))
+          ))
+
+  (setq web-mode-engines-alist
+        '(("php"  . "\\.php\\.")
+          ("django"  . "\\.djhtml\\.")))
+
+
   )
 
-(defun my-coding-style ()
-  (interactive)
-  (message "My coding style!")
-  (setq indent-tabs-mode t) ; use tab instead of space
-  (my-setup-indent 4) ; indent 4 spaces width
-  )
-
-(use-package web-mode :ensure t :config)
-
-(setq web-mode-extra-constants '(("php" . ("CONS1" "CONS2"))))
-;; <?php expands to <?php ?>
-(setq web-mode-enable-auto-pairing t)
-
-;; Example - you may want to add hooks for your own modes.
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.phtml?\\'" . web-mode))
-;; I don't use php-mode and it is causing an error to load it in.
-;;(use-package php-mode :ensure t)
-(add-to-list 'auto-mode-alist '("\\.php?\\'"  . web-mode))
-;; when I open a css file use css-mode that way I can set up flychech with it!
-;;(add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.css?\\'" . css-mode))
-(setq web-mode-extra-auto-pairs
-      '(("erb"  . (("beg" "end")))
-        ("php"  . (("beg" "end")
-                   ("beg" "end")))
-        ))
-
-(setq web-mode-engines-alist
-      '(("php"  . "\\.php\\.")
-        ("django"  . "\\.djhtml\\.")))
+(use-package emmet-mode :ensure t)
 
 (add-hook 'web-mode-hook '(lambda ()
                             ;;(use-package emmet-mode :ensure t)
@@ -87,13 +73,6 @@
                             ;; unset web mode's C-c C-h command, because I want to use that for 'help
                             (local-unset-key (kbd "C-c C-h"))
                             (global-set-key (kbd "C-c C-h") 'help)))
-
-(use-package emmet-mode :ensure t)
-(use-package ggtags  :ensure t)
-
-(use-package tern :ensure t)
-
-(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
 
 (defun my-js-minify-function ()
   "Minifying my js files."
