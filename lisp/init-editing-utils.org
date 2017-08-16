@@ -152,6 +152,9 @@ All of my "C-c [letter]" commands
   ;; when point is between two words, delete the space between them
   (global-set-key (kbd "C-c \\") #'delete-horizontal-space)
   (global-set-key (kbd "C-c SPC") #'just-one-space)
+  (global-set-key (kbd "C-c $") #'org-archive-subtree)
+  (with-eval-after-load 'flyspell
+  (define-key flyspell-mode-map (kbd "C-c $") nil))
   ;; some modes my default / in normal mode is NOT bound to helm-swoop, BUT I REALLY LIKE helm-swoop
   (global-set-key (kbd "C-c /") #'helm-swoop)
   (global-set-key (kbd "C-c C-o") #'org-open-at-point-global)

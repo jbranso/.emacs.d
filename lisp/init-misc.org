@@ -23,7 +23,7 @@ I found this next line from
 http://emacslife.com/baby-steps-org.html#sec-9
 
 #+BEGIN_SRC emacs-lisp
-(find-file-noselect "/home/joshua/honorscollege/site-ideas/honors-college-gtd.org")
+;; (find-file-noselect "/home/joshua/honorscollege/site-ideas/honors-college-gtd.org")
 (org-agenda nil "a")
 #+END_SRC
 

@@ -7,10 +7,6 @@
 (use-package org :bind (:map org-mode-map ("C-c SPC" . my-just-one-space))
   :ensure org-plus-contrib)
 
-;; define what files org opens
-(add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
-;;(setq org-default-notes-file (concat org-directory "/notes.org"))
-
 (use-package org-crypt
   :config
   (org-crypt-use-before-save-magic)
@@ -38,6 +34,15 @@
 ;; ob-http is needed to run http calls inside org-mode
 (use-package ob-http :ensure t)
 (setq geiser-default-implementation 'guile)
+
+;; TODO FIXME this defun needs to be deleted
+;; the org-mode has removed org-babel-get-header
+;; ob-sh needs to update to use the new version.
+(defun org-babel-get-header (params key &optional others)
+  (delq nil
+        (mapcar
+         (lambda (p) (when (funcall (if others #'not #'identity) (eq (car p) key)) p))
+         params)))
 
 (after-load 'org
   (org-babel-do-load-languages
@@ -72,6 +77,12 @@
 ;; display inline images in org-mode
 ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
+(defun org-babel-get-header (params key &optional others)
+  (delq nil
+        (mapcar
+         (lambda (p) (when (funcall (if others #'not #'identity) (eq (car p) key)) p))
+         params)))
+
 (use-package org-invoice)
 
 (use-package org-inlinetask)
@@ -88,62 +99,66 @@
 (use-package gnuplot :ensure t)
 
 (defun yas/org-very-safe-expand ()
-  (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+    (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
 ;; I want to get write-good-mode set up again, because it's awesome.
 (use-package writegood-mode :ensure t :defer t)
 
 (add-hook 'org-mode-hook '(lambda ()
 
-                            ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
-                            ;; but I can't get it to work
-                            ;; (require 'org-eldoc)
-                            ;;(org-eldoc-load)
-                            ;; (make-variable-buffer-local 'yas/trigger-key)
-                            ;;(setq yas/trigger-key [tab])
-                            ;;(add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-                            ;; (define-key yas/keymap [tab] 'yas/next-field)
-                            ;; make the lines in the buffer wrap around the edges of the screen.
-                            ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
-                            ;; to press C-c q  or fill-paragraph ever again!
-                            (visual-line-mode)
-                            (org-indent-mode)
-                            (require 'writegood-mode)
-                            ;; apparently this does the same thing as the above combined modes
-                            ;; this seems to work better than visual line mode.  Why have I not heard of this before?
-                            ;;(toggle-word-wrap)
-                            (org-bullets-mode 1)
-                            ;;make ">=" look like >=, etc.
-                            (push '(">=" . ?≥) prettify-symbols-alist)
-                            (push '("<=" . ?≤) prettify-symbols-alist)
-                            (push '("\\geq" . ?≥) prettify-symbols-alist)
-                            (push '("\\leq" . ?≤) prettify-symbols-alist)
-                            (push '("\\neg" . ?¬) prettify-symbols-alist)
-                            (push '("\\rightarrow" . ?→) prettify-symbols-alist)
-                            (push '("\\leftarrow" . ?←) prettify-symbols-alist)
-                            (push '("\\infty" . ?∞) prettify-symbols-alist)
-                            (push '("-->" . ?→) prettify-symbols-alist)
-                            (push '("<--" . ?←) prettify-symbols-alist)
-                            (push '("\\lambda" . ?λ) prettify-symbols-alist)
-                            (push '("\\exists" . ?∃) prettify-symbols-alist)
-                            (push '("\\nexists" . ?∄) prettify-symbols-alist)
-                            (push '("\\forall" . ?∀) prettify-symbols-alist)
-                            (push '("\\or" . ?∨) prettify-symbols-alist)
-                            (push '("\\and" . ?∧) prettify-symbols-alist)
-                            (push '(":)" . ?☺) prettify-symbols-alist)
-                            (push '("):" . ?☹) prettify-symbols-alist)
-                            (push '(":D" . ?☺) prettify-symbols-alist)
-                            (push '("\\checkmark" . ?✓) prettify-symbols-alist)
-                            (push '("\\check" . ?✓) prettify-symbols-alist)
-                            (push '("1/4" . ?¼) prettify-symbols-alist)
-                            (push '("1/2" . ?½) prettify-symbols-alist)
-                            (push '("3/4" . ?¾) prettify-symbols-alist)
-                            (push '("1/7" . ?⅐) prettify-symbols-alist)
-                            ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
-                            (push '("ae" . ?æ) prettify-symbols-alist)
-                            (push '("^_^" . ?☻) prettify-symbols-alist)))
+                                ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
+                                ;; but I can't get it to work
+                                ;; (require 'org-eldoc)
+                                ;;(org-eldoc-load)
+                                ;; (make-variable-buffer-local 'yas/trigger-key)
+                                ;;(setq yas/trigger-key [tab])
+                                ;;(add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+                                ;; (define-key yas/keymap [tab] 'yas/next-field)
+                                ;; make the lines in the buffer wrap around the edges of the screen.
+                                ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
+                                ;; to press C-c q  or fill-paragraph ever again!
+                                (visual-line-mode)
+                                (org-indent-mode)
+                                (require 'writegood-mode)
+                                ;; apparently this does the same thing as the above combined modes
+                                ;; this seems to work better than visual line mode.  Why have I not heard of this before?
+                                ;;(toggle-word-wrap)
+                                (org-bullets-mode 1)
+                                ;;make ">=" look like >=, etc.
+                                (push '(">=" . ?≥) prettify-symbols-alist)
+                                (push '("<=" . ?≤) prettify-symbols-alist)
+                                (push '("\\geq" . ?≥) prettify-symbols-alist)
+                                (push '("\\leq" . ?≤) prettify-symbols-alist)
+                                (push '("\\neg" . ?¬) prettify-symbols-alist)
+                                (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+                                (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+                                (push '("\\infty" . ?∞) prettify-symbols-alist)
+                                (push '("-->" . ?→) prettify-symbols-alist)
+                                (push '("<--" . ?←) prettify-symbols-alist)
+                                (push '("\\lambda" . ?λ) prettify-symbols-alist)
+                                (push '("\\exists" . ?∃) prettify-symbols-alist)
+                                (push '("\\nexists" . ?∄) prettify-symbols-alist)
+                                (push '("\\forall" . ?∀) prettify-symbols-alist)
+                                (push '("\\or" . ?∨) prettify-symbols-alist)
+                                (push '("\\and" . ?∧) prettify-symbols-alist)
+                                (push '(":)" . ?☺) prettify-symbols-alist)
+                                (push '("):" . ?☹) prettify-symbols-alist)
+                                (push '(":D" . ?☺) prettify-symbols-alist)
+                                (push '("\\checkmark" . ?✓) prettify-symbols-alist)
+                                (push '("\\check" . ?✓) prettify-symbols-alist)
+                                (push '("1/4" . ?¼) prettify-symbols-alist)
+                                (push '("1/2" . ?½) prettify-symbols-alist)
+                                (push '("3/4" . ?¾) prettify-symbols-alist)
+                                (push '("1/7" . ?⅐) prettify-symbols-alist)
+                                ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
+                                (push '("ae" . ?æ) prettify-symbols-alist)
+                                (push '("^_^" . ?☻) prettify-symbols-alist)))
 
-(setq calendar-mark-diary-entries-flag t)
+(setq org-hide-leading-stars t)
+
+(setq org-ellipsis " ↴")
+
+(setq org-return-follows-link t)
 
 (setq
  ;; hide the leading stars in my org files
@@ -202,6 +217,10 @@
 ;;a visual hint to let you know what line you are in in org-mode agenda
 (add-hook 'org-agenda-finalize-hook '(lambda () (hl-line-mode)))
 
+;; define what files org opens
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
+;;(setq org-default-notes-file (concat org-directory "/notes.org"))
+
 (setq org-capture-templates
       '(
 
@@ -214,7 +233,7 @@
          "* TODO %?\nEntered on %U\n  %i\n  %a")
 
 
-        ;; Emacs things
+         ;; Emacs things
         ("ce" "Emacs")
 
         ("ceb" "bugs" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "Emacs bugs")
@@ -231,12 +250,12 @@
 
         ("ceo" "Org-mode" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "org-mode")
          "* TODO %?\n  %i\n  %a")
-        ("ceR" "Emacs Reference")
+         ("ceR" "Emacs Reference")
         ("ceRR" "Emacs Reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs reference")
          "* %?\nEntered on %U\n  %i\n  %a")
-        ("ceRe" "emacs evil reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "evil reference")
+         ("ceRe" "emacs evil reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "evil reference")
          "* TODO %?\n  %i\n  %a")
-        ("ceRg" "emacs gnus reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "gnus reference")
+         ("ceRg" "emacs gnus reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "gnus reference")
          "* TODO %?\n  %i\n  %a")
         ("ceRo" "emacs org reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "org reference")
          "* TODO %?\n  %i\n  %a")
@@ -245,7 +264,7 @@
         ("ceRt" "emacs tags reference" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "tags reference")
          "* TODO %?\n  %i\n  %a")
 
-        ("cet" "emacs Todo")
+         ("cet" "emacs Todo")
         ("cett" "emacs Todo" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "emacs someday")
          "* TODO %?\n  %i\n  %a")
         ("cete" "emacs evil someday" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "evil someday")
@@ -262,7 +281,7 @@
          "* TODO %?\n  %i\n  %a")
         ("cetw" "web-mode someday" entry (file+headline "~/programming/org/projects/become-an-awesome-hacker.org" "web-mode someday")
          "* TODO %?\n  %i\n  %a")
-        ;;End Emacs things
+         ;;End Emacs things
 
 
         ("cG" "Gimp Basics Reference" entry (file+headline "~/manuals/gimp.org" "Basic Concepts")
@@ -366,156 +385,8 @@
          "* %?\nEntered on %U\n  %i\n  %a")
         ))
 
-(setq org-agenda-category-icon-alist '(
-                                       ("hacker"      "/home/joshua/pictures/org-icons/gnu-linux-icon.png" nil nil nil nil)
-                                       ("MAKING CASH"   "/home/joshua/pictures/org-icons/money.png" nil nil nil nil)
-                                       ("SEEKING GOD" "/home/joshua/pictures/org-icons/god.png" nil nil nil nil)
-                                       ("BILLS"    "/home/joshua/pictures/org-icons/bills.png" nil nil nil nil)
-                                       ("emacs"       "/home/joshua/pictures/org-icons/emacs.png" nil nil nil nil)
-                                       ("WORK"       "/home/joshua/pictures/org-icons/work.png" nil nil nil nil)
-                                       ))
-
-(defun my-org-list-files (dirs ext)
-  "Function to create list of org files in multiple subdirectories.
-This can be called to generate a list of files for
-org-agenda-files or org-refile-targets.
-
-DIRS is a list of directories.
-
-EXT is a list of the extensions of files to be included."
-  (let ((dirs (if (listp dirs)
-                  dirs
-                (list dirs)))
-        (ext (if (listp ext)
-                 ext
-               (list ext)))
-        files)
-    (mapc
-     (lambda (x)
-       (mapc
-        (lambda (y)
-          (setq files
-                (append files
-                        (file-expand-wildcards
-                         (concat (file-name-as-directory x) "*" y)))))
-        ext))
-     dirs)
-    (mapc
-     (lambda (x)
-       (when (or (string-match "/.#" x)
-                 (string-match "#$" x))
-         (setq files (delete x files))))
-     files)
-    files))
-
-
-(defvar my-org-agenda-directories '("~/programming/org/")
-  "List of directories containing org files.")
-(defvar my-org-agenda-extensions '(".org")
-  "List of extensions of agenda files")
-
-(setq my-org-agenda-directories '("~/programming/org/" "~/programming/org/"
-                                  "~/programming/org/projects"))
-(setq my-org-agenda-extensions '(".org"))
-
-(defun my-org-set-agenda-files ()
-  (interactive)
-  (setq org-agenda-files (my-org-list-files
-                          my-org-agenda-directories
-                          my-org-agenda-extensions)
-        ;;org-refile-targets (my-org-list-files
-        ;;                  my-org-agenda-directories
-        ;;                my-org-agenda-extensions
-        ;;  )
-        ))
-
-(my-org-set-agenda-files)
-
-(setq org-refile-targets '((nil :maxlevel . 2)
-                           (org-agenda-files :tag . "capture")
-                           (org-agenda-files :maxlevel . 2)))
-(setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
-(setq org-refile-use-outline-path t)                  ; Show full paths for refiling
-
-(setq org-agenda-custom-commands
-      '(
-        ;; a global search for agenda entries planned this week/day
-        ("x" agenda)
-
-        ;; a global search for agenda entries planned this week/day, but
-        ;;only those with hour specifications
-        ("y" agenda*)
-
-        ;; a global searcher with "WAITING" as the TODO keywoard
-        ;; but I don't use waiting as a keyword
-        ;; ("w" todo "WAITING")
-        ;; ("w" todo "WAITING")
-
-        ("D" todo "DELEGATED" )
-
-        ;; the same search bit with searching for projects
-        ("P" todo "PROJECT")
-
-
-        ("S" todo "STARTED" )
-
-        ("c" todo "CHARGED")
-
-        ;; the same search but only in the current buffer and displaying the
-        ;; results as a sparse tree
-        ("W" todo-tree "WAITING")
-
-        ;; a global search for headlines marked :boss: bot not :urgent:
-        ("u" tags "+boss-urgent")
-
-        ;; The same search but limiting the search to items that are TODO items
-        ("v" tags-todo "+boss-urgent")
-
-        ;; the same search as C-c a u but only in the current buffer displaying
-        ;; the results in a sparse tree
-        ("U" tags-tree "+boss-urgent")
-
-        ;; Create a sparse tree in the current buffer with all entries containing
-        ;;the word FIXME
-        ("f" occur-tree "\\<FIXME\\>")
-
-        ;;
-        ;; ("h" . "HOME+Name tags searches") ; description for "h" prefix
-        ;; ("hl" tags "+home+Lisa")
-        ;; ("hp" tags "+home+Peter")
-        ;; ("hk" tags "+home+Kim")
-
-
-        ;; ("H" "Office and Home Lists"
-        ;; ((agenda)
-        ;; (tags-todo "OFFICE")
-        ;; (tags-todo "HOME")
-        ;; (tags-todo "COMPUTER")
-        ;; (tags-todo "DVD")
-        ;; (tags-todo "READING")))
-        )
-      )
-
-(defun my/org-grading-myself-agenda ()
-  "This function loads up my grading myself toolset."
-  (interactive)
-  (let (org-agenda-files)
-    (setq org-agenda-files '("/home/joshua/programming/org/projects/grading-myself.org"))
-    (org-agenda-list)))
-
-(org-defkey org-agenda-mode-map "g" 'org-agenda-filter-by-category)
-;;(org-defkey global-map (kbd "C-c a g") 'org-agenda-filter-by-category)
-
-(defun my/org-grading-myself-agenda-and-regular-agenda ()
-  "This function loads up my grading myself toolset."
-  (interactive)
-  (add-to-list 'org-agenda-files '"/home/joshua/programming/org/projects/grading-myself.org")
-  (org-agenda-list)
-  ;;how do you remove an element from a list?  I have no idea.
-  )
-
-                                        ; Targets start with the file name - allows creating level 1 tasks
-(setq org-refile-use-outline-path (quote file))
+; Targets start with the file name - allows creating level 1 tasks
+  (setq org-refile-use-outline-path (quote file))
 
 (setq org-todo-keywords
       '((sequence "TODO(t!)" "PROJECT(r)" "STARTED(s!)"

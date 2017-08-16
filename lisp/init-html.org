@@ -3,40 +3,14 @@
 #+LATEX_HEADER: \usepackage[QX]{fontenc}
 
 * html
-** COMMENT setting up default indent styles
-This will probably come in handy some day.
-(defun my-setup-indent (n)
-  ;; web development
-  (setq coffee-tab-width n) ; coffeescript
-  (setq javascript-indent-level n) ; javascript-mode
-  (setq js-indent-level n) ; js-mode
-  (setq js2-basic-offset n) ; js2-mode
-  (setq web-mode-markup-indent-offset n) ; web-mode, html tag in html file
-  (setq web-mode-css-indent-offset n) ; web-mode, css in html file
-  (setq web-mode-code-indent-offset n) ; web-mode, js code in html file
-  (setq css-indent-offset n) ; css-mode
-  )
-
-(defun my-coding-style ()
-  (interactive)
-  (message "My coding style!")
-  (setq indent-tabs-mode t) ; use tab instead of space
-  (my-setup-indent 4) ; indent 4 spaces width
-  )
-
-;;(use-package php-eldoc :ensure t)
-
-
-;; I haven't really figured out how to use ggtags
-;;(use-package ggtags  :ensure t)
 ** web-mode
 :PROPERTIES:
 :ID:       c29ded10-1cef-41ee-8e79-a7523d710a6c
 :END:
+
 #+BEGIN_SRC emacs-lisp
 
 (use-package web-mode :ensure t :config
-
   ;;I'm not sure what this does
   (setq web-mode-extra-constants '(("php" . ("CONS1" "CONS2"))))
   ;; <?php expands to <?php ?>
@@ -56,74 +30,27 @@ This will probably come in handy some day.
           ("php"  . (("beg" "end")
                      ("beg" "end")))
           ))
-
   (setq web-mode-engines-alist
         '(("php"  . "\\.php\\.")
           ("django"  . "\\.djhtml\\.")))
-
-
   )
-
 #+END_SRC
-
-
-  ;;(setq web-mode-ac-sources-alist '(("css" . (ac-source-css-property ac-source-html-bootstrap+)) ("html" . (ac-source-words-in-buffer ac-source-abbrev ac-source-emmet-html-aliases ac-source-emmet-html-snippets ac-source-html-tag ac-source-html-attribute ac-source-html-attribute-2 ac-source-files-in-current-dir))))
-
-  ;;("php" . (ac-source-words-in-buffer ac-source-filename))
-
-  ;; DO NOT SET ac-source yasnippet. autocomplete does NOT play nicely with ac-source yasnippet
-  ;; ac-source-yasnippet
-  ;; Here are some pages that talk about getting yas and autocomplete to play nicely together
-  ;; http://sethlakowske.com/why-i-use-emacs/fix-yasnippet-and-autocomplete-tab-key-collision/
-  ;; https://stackoverflow.com/questions/19900949/how-to-make-auto-complete-work-with-yasnippet-and-abbrev
-  ;; https://github.com/capitaomorte/yasnippet/issues/336
-  ;; https://emacs.stackexchange.com/questions/9670/yasnippet-not-working-with-auto-complete-mode
-  ;;I'm being more and more annoyed with ac-php
-  ;; https://github.com/xcwen/ac-php/
-  ;;ac-source-php
-
-  Emmet mode is awesome!  You can specify complex html structures like so:
-
-  ~div>.col-sm-3*4>a[href="www.google.com"]>img~
-
-  The above can be expanded into
-
-  #+BEGIN_SRC html
-    <div>
-        <div class="col-sm-3">
-            <a href="www.google.com"><img alt="" src=""/></a>
-        </div>
-        <div class="col-sm-3">
-            <a href="www.google.com"><img alt="" src=""/></a>
-        </div>
-        <div class="col-sm-3">
-            <a href="www.google.com"><img alt="" src=""/></a>
-        </div>
-        <div class="col-sm-3">
-            <a href="www.google.com"><img alt="" src=""/></a>
-        </div>
-    </div>
-  #+END_SRC
-
-
-  #+BEGIN_SRC emacs-lisp
-  (use-package emmet-mode :ensure t)
-  #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'web-mode-hook '(lambda ()
                             ;;(use-package emmet-mode :ensure t)
                             ;; I've installed http://phpmd.org/ to check my php code using flycheck
                             ;; BUT flycheck mode does NOT support web-mode
-                            (ggtags-mode 1)
+                            ;; I can't get ggtags mode to workwell.
+                            ;; (ggtags-mode 1)
+                            ;; (diminish 'ggtags-mode)
                             ;; I have abbrev turned on for all prog-modes and all text modes.
                             ;; (abbrev-mode 1)
-                            (diminish 'ggtags-mode)
                             ;;emmet mode for html % css related things
                             (emmet-mode)
+                            (diminish 'emmet-mode)
                             ;; turn urls into clickable links.
                             (goto-address-mode)
-                            (diminish 'emmet-mode)
                             (local-unset-key (kbd "C-<return>"))
                             (define-key web-mode-map (kbd "C-<return>") '(lambda ()
                                                                            (interactive)
@@ -158,69 +85,113 @@ This will probably come in handy some day.
 
 #+END_SRC
 
+*** Emmet mode is awesome!  You can specify complex html structures like so:
+    :PROPERTIES:
+    :ID:       29e58b30-1f2a-477f-96ba-10dc97754364
+    :END:
+
+  #+BEGIN_SRC emacs-lisp
+  (use-package emmet-mode :ensure t)
+  #+END_SRC
+
+  ~div>.col-sm-3*4>a[href="www.google.com"]>img~
+
+  The above can be expanded into
+
+  #+BEGIN_SRC html
+    <div>
+        <div class="col-sm-3">
+            <a href="www.google.com"><img alt="" src=""/></a>
+        </div>
+        <div class="col-sm-3">
+            <a href="www.google.com"><img alt="" src=""/></a>
+        </div>
+        <div class="col-sm-3">
+            <a href="www.google.com"><img alt="" src=""/></a>
+        </div>
+        <div class="col-sm-3">
+            <a href="www.google.com"><img alt="" src=""/></a>
+        </div>
+    </div>
+  #+END_SRC
+
 *** Trying to get web-mode to add italics to <em>
-;; <em>some italic text</em>
+    :PROPERTIES:
+    :ID:       e350f24c-5e32-42a8-aa43-0885599f2475
+    :END:
+    I want "some italic text" to be italic.  I can apparently do this with font-lock mode, via searching.
+<em>some italic text</em>
 
-;; design an optimized regexp, but this doesn't work very well.
-;; (regexp-opt '(
-;;               "<em>Hello how are you</em>"
-;;               "<em>What are you doing today?</em>"
-;;               "<em>My name is Earl.</em>"
-;;               "<em>stnh satneuh staeoh ntshaoe sntaheu </em>"
-;;               "<em>James bond is awesome </em>"
-;;               "<em>lorum ipsum this can't keep going on.</em>"
-;;               "<em> WHAT!? Come on! </em>"
-;;               "<em> anything sing silly text .*<em>"
-;;               ))
+I'm supposed to use regexp-opt function to help me design a regexp, but this function doesn't help too much.
+It just says, if you see this string, or this string, or this string, ...
 
-;; I'd like web-mode <em>text text text</em> to be italic.
-;; I'd also like to do <b> bold text </b>
-;; font-lock is not working out so well....
-;; (font-lock-add-keywords 'web-mode '(("<em>\\([a-zA-Z0-9 ]+\\)</em>" . web-mode-italic-face)))
-;;                                                                       web-mode-italic-face
+I've tried to get it to make an optimized regexp, but no such luck.
 
-;; (add-hook 'web-mode-hook
-;;           (lambda ()
-;;             (font-lock-add-keywords nil '("<em>\\([a-zA-Z0-9 ]+\\)</em>" . web-mode-italic-face))))
-;; "<em>\\([a-zA-Z0-9 ]+\\)</em>"
+#+BEGIN_SRC emacs-lisp :exports none
+ (regexp-opt '(
+               "<em>Hello how are you</em>"
+               "<em>What are you doing today?</em>"
+               "<em>My name is Earl.</em>"
+               "<em>stnh satneuh staeoh ntshaoe sntaheu </em>"
+               "<em>James bond is awesome </em>"
+               "<em>lorum ipsum this can't keep going on.</em>"
+               "<em> WHAT!? Come on! </em>"
+               "<em> anything sing silly text .*<em>"
+               ))
 
-** COMMENT php-mode
-I don't use php-mode.  php-mode cannot indent html and js code embedded in the buffer.
+(regexp-opt '("<em>\\([a-zA-Z0-9 ]+\\)</em>"))
 
-;; use flycheck in php buffers as well. it's a real shame that flycheck doesn't support web-mode
-;; (add-hook 'php-mode-hook (lambda ()
-;;                            ;; I have abbrev mode turned on for all prog-modes and all text-modes
-;;                            ;; (abbrev-mode 1)
-;;                            (define-key php-mode-map (kbd "C-<return>") '(lambda ()
-;;                                                                           (interactive)
-;;                                                                           (newline)
-;;                                                                           (evil-open-above 0)))
-;;                            ;;(push '("function" . ?𝆑) prettify-symbols-alist)
-;;                            (push '(">=" . ?≥) prettify-symbols-alist)
-;;                            (push '("<=" . ?≤) prettify-symbols-alist)
-;;                            (push '("->" . ?⟶) prettify-symbols-alist)
-;;                            (push '("=>" . ?⟹) prettify-symbols-alist)
-;;                            (push '("\\geq" . ?≥) prettify-symbols-alist)
-;;                            (push '("\\leq" . ?≤) prettify-symbols-alist)
-;;                            (push '("\\neg" . ?¬) prettify-symbols-alist)
-;;                            (push '("\\rightarrow" . ?→) prettify-symbols-alist)
-;;                            (push '("\\leftarrow" . ?←) prettify-symbols-alist)
-;;                            (push '("\\infty" . ?∞) prettify-symbols-alist)
-;;                            ;; this would make a comment look really weird <--  right-arrow
-;;                            ;;(push '("-->" . ?→) prettify-symbols-alist)
-;;                            (push '("<--" . ?←) prettify-symbols-alist)
-;;                            (push '("\\exists" . ?∃) prettify-symbols-alist)
-;;                            (push '("\\nexists" . ?∄) prettify-symbols-alist)
-;;                            (push '("\\forall" . ?∀) prettify-symbols-alist)
-;;                            (push '("\\or" . ?∨) prettify-symbols-alist)
-;;                            (push '("\\and" . ?∧) prettify-symbols-alist)
-;;                            (push '(":)" . ?☺) prettify-symbols-alist)
-;;                            ;;(push '("):" . ?☹) prettify-symbols-alist)
-;;                            (push '(":D" . ?☺) prettify-symbols-alist)
-;;                            (push '("^_^" . ?☻) prettify-symbols-alist)
-;;                            ;;(setq ac-sources '(ac-source-filename ac-source-words-in-buffer))
-;;                            ))
+(regexp-opt '("<em></em>"))
+#+END_SRC
 
+I accomplish highlighting comments with this bit of [[file:init-gui-frames.org::*color%20various%20comments][code.]]
+
+#+BEGIN_SRC emacs-lisp :exports none
+(add-hook 'web-mode-hook
+          (lambda ()
+            (font-lock-add-keywords nil '("<em>\\([a-zA-Z0-9 ]+\\)</em>" . web-mode-italic-face))))
+"<em>\\([a-zA-Z0-9 ]+\\)</em>"
+
+#+END_SRC
+
+Probably the best way to do is to use font-lock-add-keywords and specify the mode I want.
+
+=(font-lock-add-keywords MODE KEYWORDS & optional HOW)=
+
+MODE has to be a symbol like ='web-mode=, but KEYWORDS has several options.
+
+MATCHER
+(MATCHER . SUBEXP)
+(MATCHER . FACENAME)
+(MATCHER . HIGHLIGHT)
+(MATCHER HIGHTLIGHT ...)
+(eval . FORM)
+
+List faces display, lists all of the faces that one can use.
+
+#+BEGIN_SRC emacs-lisp
+  (font-lock-add-keywords 'web-mode
+                          '(("<em>\\([a-zA-Z0-9 ]+\\)</em>" . 'web-mode-italic-face)
+                            ("<b>\\([a-zA-Z0-9 ]+\\)</b>"   . 'web-mode-bold-face)))
+
+#+END_SRC
+
+*** COMMENT some ac complete stuff that I don't really use
+
+;; (setq web-mode-ac-sources-alist '(("css" . (ac-source-css-property ac-source-html-bootstrap+)) ("html" . (ac-source-words-in-buffer ac-source-abbrev ac-source-emmet-html-aliases ac-source-emmet-html-snippets ac-source-html-tag ac-source-html-attribute ac-source-html-attribute-2 ac-source-files-in-current-dir))))
+
+  ;;("php" . (ac-source-words-in-buffer ac-source-filename))
+
+  ;; DO NOT SET ac-source yasnippet. autocomplete does NOT play nicely with ac-source yasnippet
+  ;; ac-source-yasnippet
+  ;; Here are some pages that talk about getting yas and autocomplete to play nicely together
+  ;; http://sethlakowske.com/why-i-use-emacs/fix-yasnippet-and-autocomplete-tab-key-collision/
+  ;; https://stackoverflow.com/questions/19900949/how-to-make-auto-complete-work-with-yasnippet-and-abbrev
+  ;; https://github.com/capitaomorte/yasnippet/issues/336
+  ;; https://emacs.stackexchange.com/questions/9670/yasnippet-not-working-with-auto-complete-mode
+  ;;I'm being more and more annoyed with ac-php
+  ;; https://github.com/xcwen/ac-php/
+  ;;ac-source-php
 ** js
 :PROPERTIES:
 :ID:       c43e0d11-b82e-4d8a-998f-c235d4511808
@@ -266,6 +237,69 @@ I don't use php-mode.  php-mode cannot indent html and js code embedded in the b
                             (add-hook 'after-save-hook 'my-css-minify-function nil t)))
 #+END_SRC
 
+** COMMENT setting up default indent styles
+This will probably come in handy some day.
+(defun my-setup-indent (n)
+  ;; web development
+  (setq coffee-tab-width n) ; coffeescript
+  (setq javascript-indent-level n) ; javascript-mode
+  (setq js-indent-level n) ; js-mode
+  (setq js2-basic-offset n) ; js2-mode
+  (setq web-mode-markup-indent-offset n) ; web-mode, html tag in html file
+  (setq web-mode-css-indent-offset n) ; web-mode, css in html file
+  (setq web-mode-code-indent-offset n) ; web-mode, js code in html file
+  (setq css-indent-offset n) ; css-mode
+  )
+
+(defun my-coding-style ()
+  (interactive)
+  (message "My coding style!")
+  (setq indent-tabs-mode t) ; use tab instead of space
+  (my-setup-indent 4) ; indent 4 spaces width
+  )
+
+;;(use-package php-eldoc :ensure t)
+
+
+;; I haven't really figured out how to use ggtags
+;;(use-package ggtags  :ensure t)
+
+** COMMENT php-mode
+I don't use php-mode.  php-mode cannot indent html and js code embedded in the buffer.
+
+;; use flycheck in php buffers as well. it's a real shame that flycheck doesn't support web-mode
+;; (add-hook 'php-mode-hook (lambda ()
+;;                            ;; I have abbrev mode turned on for all prog-modes and all text-modes
+;;                            ;; (abbrev-mode 1)
+;;                            (define-key php-mode-map (kbd "C-<return>") '(lambda ()
+;;                                                                           (interactive)
+;;                                                                           (newline)
+;;                                                                           (evil-open-above 0)))
+;;                            ;;(push '("function" . ?𝆑) prettify-symbols-alist)
+;;                            (push '(">=" . ?≥) prettify-symbols-alist)
+;;                            (push '("<=" . ?≤) prettify-symbols-alist)
+;;                            (push '("->" . ?⟶) prettify-symbols-alist)
+;;                            (push '("=>" . ?⟹) prettify-symbols-alist)
+;;                            (push '("\\geq" . ?≥) prettify-symbols-alist)
+;;                            (push '("\\leq" . ?≤) prettify-symbols-alist)
+;;                            (push '("\\neg" . ?¬) prettify-symbols-alist)
+;;                            (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+;;                            (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+;;                            (push '("\\infty" . ?∞) prettify-symbols-alist)
+;;                            ;; this would make a comment look really weird <--  right-arrow
+;;                            ;;(push '("-->" . ?→) prettify-symbols-alist)
+;;                            (push '("<--" . ?←) prettify-symbols-alist)
+;;                            (push '("\\exists" . ?∃) prettify-symbols-alist)
+;;                            (push '("\\nexists" . ?∄) prettify-symbols-alist)
+;;                            (push '("\\forall" . ?∀) prettify-symbols-alist)
+;;                            (push '("\\or" . ?∨) prettify-symbols-alist)
+;;                            (push '("\\and" . ?∧) prettify-symbols-alist)
+;;                            (push '(":)" . ?☺) prettify-symbols-alist)
+;;                            ;;(push '("):" . ?☹) prettify-symbols-alist)
+;;                            (push '(":D" . ?☺) prettify-symbols-alist)
+;;                            (push '("^_^" . ?☻) prettify-symbols-alist)
+;;                            ;;(setq ac-sources '(ac-source-filename ac-source-words-in-buffer))
+;;                            ))
 ** provide this file
 :PROPERTIES:
 :ID:       0d7159ea-750a-4fce-9d5b-c8c77257b94c

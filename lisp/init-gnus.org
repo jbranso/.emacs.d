@@ -534,23 +534,9 @@ This is quite complicated...
 BUT basically, if I have a bunch of email accounts, It would be nice that when I reply or post new articles (email), than Gnus will change the From automatically.  This method will definitely work for posting articles, but will to work when replying to articles?
 
 #+BEGIN_SRC emacs-lisp
-  (setq gnus-posting-styles
-        ;; default posting style
-        '((".*"
-           (signature "Sent from Emacs and Gnus"))
-           ;; My purdue inbox
-          ("Inbox"
-           (signature "Joshua Branson\nPurdue Honors College\nWeb Developer\nSent From Emacs and Gnus")
-           (address "bransoj@hotmail.com"))
-          (".*hotmail.*"
-           (signature "Joshua Branson\nSent From Emacs and Gnus")
-           (address "bransoj@hotmail.com"))))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-(add-hook 'kill-emacs-hook #'(lambda ()
+  (add-hook 'kill-emacs-hook #'(lambda ()
                                  (interactive)
-                                 (when (eq nil (get-buffer "*Group*"))
+                                 (when (get-buffer "*Group*")
                                    (gnus-group-exit))))
 #+END_SRC
 

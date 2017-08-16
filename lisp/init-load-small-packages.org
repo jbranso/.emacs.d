@@ -592,8 +592,12 @@ If I do want the details I can use ")" to show them and "(" to hide them again
     :defer t
     :ensure t
     :init
-    (add-to-list 'load-path "~/.emacs.d/snippets"))
-    (add-hook 'after-init-hook 'yas-global-mode)
+    (add-to-list 'load-path "~/.emacs.d/snippets")
+    ;; (define-key company-mode-map (kbd "TAB") #'yas-expand)
+
+    ;; (define-key company-mode-map (kbd "<tab>") #'yas-expand)
+    )
+  (add-hook 'after-init-hook 'yas-global-mode)
 #+END_SRC
 
 If I modify a buffer via a yasnippet with a back-ticks like ~`SOME ELISP CODE `~, then yasnippet will issue a warning.  Let's tell yasnippet to ignore that.
@@ -613,21 +617,26 @@ But it is probably not necessary.  When I am about to expand a snippet, I am typ
 
 #+END_SRC
 
+
 * company mode
 ** download company mode
 :PROPERTIES:
 :ID:       8ed6b2f0-bcf6-4bcb-9960-8128383be671
 :END:
 
+Company mode has bound tab to complete the common part between two snippets.  I'd rather have tab mean select the first snippet. I'm getting some of the code from this gist: https://gist.github.com/nonsequitur/265010
+
 #+BEGIN_SRC emacs-lisp
   (use-package company :ensure t
     :config
     (setq company-idle-delay .2)
     (define-key company-active-map "\C-n" #'company-select-next)
-    (define-key company-active-map "\C-p" #'company-select-previous))
+    (define-key company-active-map "\C-p" #'company-select-previous)
+    (define-key company-active-map (kbd "<tab>") #'company-complete-selection))
 
-  (add-hook 'after-init-hook 'global-company-mode)
+    (add-hook 'after-init-hook 'global-company-mode)
 #+END_SRC
+
 ** show yasnippets in company mode
 :PROPERTIES:
 :ID:       f9dba9a6-e011-48cb-8a14-6a365fe78c1c

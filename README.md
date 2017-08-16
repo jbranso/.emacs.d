@@ -30,16 +30,15 @@ Here are some cool modes that my config offers:
 
 ## Requirements
 
-* A crap ton of patience and debugging.  You cannot currently clone my config.  It's very specific for my needs.  If you want to try to clone
-it, you'll have to wade your way through all of the issues that pop up.  My config assumes a lot of specific files are in certain places.  When
-you clone it, and run Emacs, Emacs will freak out.  So only a seasoned Emacs lisp programmer can probably use my config.
-* I use the latest stable version of Emacs, and you should too.  I've removed any of Purcell's hacks to support older versions of emacs.
+* A crap ton of patience and debugging.  You cannot currently use my config as your default .emacs.d.  This .emacs.d is very specific for my needs.  If you want to try to clone
+it, you'll have to wade your way through all of the issues that pop up.  My config assumes a lot of specific files are in certain places, when emacs can't find those files, Emacs will freak out.  So only a seasoned Emacs lisp programmer can probably use my config.
+* I use the latest stable version of Emacs, and you should too.  I've removed most of Purcell's hacks to support older versions of emacs.
 * To make the most of the programming language-specific support in this config, further programs will likely be required,
 particularly those that [flycheck](https://github.com/flycheck/flycheck) uses to provide on-the-fly syntax checking.  I also use
-yuicompressor and a google specific javascript minimizer.
-* To use the silver searcher, one will have to install the silver searcher, aka ag.  (I've also heard good things about ripgrep).
+[yuicompressor](https://yui.github.io/yuicompressor/) and a google specific javascript minimizer.
+* To use the silver searcher, one will have to install the silver searcher, aka ag.
 * To use many of the packages that I use, will require manual configuration.  For example to stream music, you will have to
-  edit provide your own configuration.  To use gnus, you'll have to edit the config file.  This is the case for a few other packages.
+  edit provide your own configuration.  To use gnus, you'll have to create the init-gnus-secret.org config file.  This is the case for a few other packages.
 
 ## Installation
 
@@ -50,7 +49,7 @@ To install, clone this repo to `~/.emacs.d`, i.e. ensure that the
 git clone https://github.com/jbranso/.emacs.d.git
 ```
 
-But when that won't work.  Go ahead and try using purcell's .emacs.d:
+But when running emacs fails for you, go ahead and try using purcell's .emacs.d:
 
 ```
 git clone https://github.com/purcell/emacs.d.git ~/.emacs.d
@@ -83,10 +82,6 @@ Update the config with `git pull`. You'll probably also want/need to update
 the third-party packages regularly too:
 
 <kbd>M-x package-list-packages</kbd>, then <kbd>U</kbd> followed by <kbd>x</kbd>.
-
-Or if you want to be a cool emacs user, execute the following:
-
-<kbd>M-x paradox-list-packages</kbd>, then <kbd>U</kbd> followed by <kbd>x</kbd>.
 
 ## Default C-c <key> bindings
 

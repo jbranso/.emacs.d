@@ -1,5 +1,4 @@
 (use-package web-mode :ensure t :config
-
   ;;I'm not sure what this does
   (setq web-mode-extra-constants '(("php" . ("CONS1" "CONS2"))))
   ;; <?php expands to <?php ?>
@@ -19,60 +18,82 @@
           ("php"  . (("beg" "end")
                      ("beg" "end")))
           ))
-
   (setq web-mode-engines-alist
         '(("php"  . "\\.php\\.")
           ("django"  . "\\.djhtml\\.")))
-
-
   )
-
-(use-package emmet-mode :ensure t)
 
 (add-hook 'web-mode-hook '(lambda ()
                             ;;(use-package emmet-mode :ensure t)
                             ;; I've installed http://phpmd.org/ to check my php code using flycheck
                             ;; BUT flycheck mode does NOT support web-mode
-                            (ggtags-mode 1)
+                            ;; I can't get ggtags mode to workwell.
+                            ;; (ggtags-mode 1)
+                            ;; (diminish 'ggtags-mode)
                             ;; I have abbrev turned on for all prog-modes and all text modes.
                             ;; (abbrev-mode 1)
-                            (diminish 'ggtags-mode)
                             ;;emmet mode for html % css related things
                             (emmet-mode)
+                            (diminish 'emmet-mode)
                             ;; turn urls into clickable links.
                             (goto-address-mode)
-                            (diminish 'emmet-mode)
                             (local-unset-key (kbd "C-<return>"))
                             (define-key web-mode-map (kbd "C-<return>") '(lambda ()
                                                                            (interactive)
                                                                            (newline)
                                                                            (evil-open-above 0)))
                             ;;(push '("function" . ?𝆑) prettify-symbols-alist)
-                            ;; (push '(">=" . ?≥) prettify-symbols-alist)
-                            ;; (push '("<=" . ?≤) prettify-symbols-alist)
-                            ;; (push '("\\geq" . ?≥) prettify-symbols-alist)
-                            ;; (push '("\\leq" . ?≤) prettify-symbols-alist)
-                            ;; (push '("\\neg" . ?¬) prettify-symbols-alist)
-                            ;; (push '("\\rightarrow" . ?→) prettify-symbols-alist)
-                            ;; (push '("\\leftarrow" . ?←) prettify-symbols-alist)
-                            ;; (push '("\\infty" . ?∞) prettify-symbols-alist)
-                            ;; ;; this would make a comment look really weird <--  right-arrow
-                            ;; ;;(push '("-->" . ?→) prettify-symbols-alist)
-                            ;; (push '("<--" . ?←) prettify-symbols-alist)
-                            ;; (push '("\\exists" . ?∃) prettify-symbols-alist)
-                            ;; (push '("\\nexists" . ?∄) prettify-symbols-alist)
-                            ;; (push '("\\forall" . ?∀) prettify-symbols-alist)
-                            ;; (push '("\\or" . ?∨) prettify-symbols-alist)
-                            ;; (push '("\\and" . ?∧) prettify-symbols-alist)
-                            ;; (push '(":)" . ?☺) prettify-symbols-alist)
-                            ;; ;;(push '("):" . ?☹) prettify-symbols-alist)
-                            ;; (push '(":D" . ?☺) prettify-symbols-alist)
-                            ;; (push '("^_^" . ?☻) prettify-symbols-alist)
+                            (push '(">=" . ?≥) prettify-symbols-alist)
+                            (push '("<=" . ?≤) prettify-symbols-alist)
+                            (push '("\\geq" . ?≥) prettify-symbols-alist)
+                            (push '("\\leq" . ?≤) prettify-symbols-alist)
+                            (push '("\\neg" . ?¬) prettify-symbols-alist)
+                            (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+                            (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+                            (push '("\\infty" . ?∞) prettify-symbols-alist)
+                            ;; this would make a comment look really weird <--  right-arrow
+                            ;;(push '("-->" . ?→) prettify-symbols-alist)
+                            (push '("<--" . ?←) prettify-symbols-alist)
+                            (push '("\\exists" . ?∃) prettify-symbols-alist)
+                            (push '("\\nexists" . ?∄) prettify-symbols-alist)
+                            (push '("\\forall" . ?∀) prettify-symbols-alist)
+                            (push '("\\or" . ?∨) prettify-symbols-alist)
+                            (push '("\\and" . ?∧) prettify-symbols-alist)
+                            (push '(":)" . ?☺) prettify-symbols-alist)
+                            ;;(push '("):" . ?☹) prettify-symbols-alist)
+                            (push '(":D" . ?☺) prettify-symbols-alist)
+                            (push '("^_^" . ?☻) prettify-symbols-alist)
                             ;; I should not enable aggressive indent mode for soihub files.
                             ;; There's no need to have lots of git diffs with files.
                             ;; unset web mode's C-c C-h command, because I want to use that for 'help
                             (local-unset-key (kbd "C-c C-h"))
                             (global-set-key (kbd "C-c C-h") 'help)))
+
+(use-package emmet-mode :ensure t)
+
+(regexp-opt '(
+               "<em>Hello how are you</em>"
+               "<em>What are you doing today?</em>"
+               "<em>My name is Earl.</em>"
+               "<em>stnh satneuh staeoh ntshaoe sntaheu </em>"
+               "<em>James bond is awesome </em>"
+               "<em>lorum ipsum this can't keep going on.</em>"
+               "<em> WHAT!? Come on! </em>"
+               "<em> anything sing silly text .*<em>"
+               ))
+
+(regexp-opt '("<em>\\([a-zA-Z0-9 ]+\\)</em>"))
+
+(regexp-opt '("<em></em>"))
+
+(add-hook 'web-mode-hook
+          (lambda ()
+            (font-lock-add-keywords nil '("<em>\\([a-zA-Z0-9 ]+\\)</em>" . web-mode-italic-face))))
+"<em>\\([a-zA-Z0-9 ]+\\)</em>"
+
+(font-lock-add-keywords 'web-mode
+                        '(("<em>\\([a-zA-Z0-9 ]+\\)</em>" . 'web-mode-italic-face)
+                          ("<b>\\([a-zA-Z0-9 ]+\\)</b>"   . 'web-mode-bold-face)))
 
 (defun my-js-minify-function ()
   "Minifying my js files."
@@ -80,6 +101,7 @@
   (async-shell-command (concat (format "closure --js  %s --js_output_file "
                                        (buffer-file-name))
                                (s-replace ".js" ".min.js" buffer-file-name)) "*js minifying*"))
+
 (add-hook 'js2-mode-hook '(lambda ()
                             ;; I have abbrev turned on for all prog and text modes
                             ;; (abbrev-mode 1)

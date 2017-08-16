@@ -107,22 +107,10 @@
 
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
-(setq gnus-posting-styles
-      ;; default posting style
-      '((".*"
-         (signature "Sent from Emacs and Gnus"))
-         ;; My purdue inbox
-        ("Inbox"
-         (signature "Joshua Branson\nPurdue Honors College\nWeb Developer\nSent From Emacs and Gnus")
-         (address "bransoj@hotmail.com"))
-        (".*hotmail.*"
-         (signature "Joshua Branson\nSent From Emacs and Gnus")
-         (address "bransoj@hotmail.com"))))
-
 (add-hook 'kill-emacs-hook #'(lambda ()
-                                 (interactive)
-                                 (when (eq nil (get-buffer "*Group*"))
-                                   (gnus-group-exit))))
+                               (interactive)
+                               (when (get-buffer "*Group*")
+                                 (gnus-group-exit))))
 
 ;;(use-package w3m :ensure t)
 ;;(setq mm-text-html-renderer 'w3m)

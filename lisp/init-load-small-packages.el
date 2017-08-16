@@ -14,7 +14,7 @@
   :defer t
   :config
   (setq avybackground t
-        avy-highlight-first t)
+   avy-highlight-first t)
   ;; https://github.com/abo-abo/avy
   ;; What does that do?
   (setq avy-keys (number-sequence ?e ?t )))
@@ -25,8 +25,8 @@
 
 (add-hook 'prog-mode-hook (lambda ()
                             (flyspell-prog-mode)))
-;;(unbind-key (kbd "C-c $") flyspell-mode-map)
-;;(global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev))
+                            ;;(unbind-key (kbd "C-c $") flyspell-mode-map)
+                            ;;(global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev))
 
 ;; enable flyspell mode for all of my text modes.  This will enable flyspell to underline misspelled words.
 (add-hook 'text-mode-hook (lambda ()
@@ -56,7 +56,7 @@
   (setq projectile-completion-system 'helm)
   :ensure t)
 
-(add-hook 'after-init-hook #'projectile-global-mode)
+  (add-hook 'after-init-hook #'projectile-global-mode)
 
 (use-package diff-hl :defer t :ensure t)
 (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
@@ -111,23 +111,23 @@ enter ediff."
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 (when (display-graphic-p)
-  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
+   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
 (defun my-recentf-startup ()
-  "My configuration for recentf."
-  (recentf-mode 1)
-  (setq recentf-max-saved-items 1000
-        recentf-exclude '("/tmp/"
-                          "^.*autoloads.*$"
-                          "^.*TAGS.*$"
-                          "^.*COMMIT.*$"
-                          "^.*pacnew.*$"
-                          ;; in case I ever want to exclude shh files, I can add this next line.
-                          ;;  "/ssh:"
-                          ))
+"My configuration for recentf."
+(recentf-mode 1)
+(setq recentf-max-saved-items 1000
+      recentf-exclude '("/tmp/"
+            "^.*autoloads.*$"
+            "^.*TAGS.*$"
+            "^.*COMMIT.*$"
+            "^.*pacnew.*$"
+                        ;; in case I ever want to exclude shh files, I can add this next line.
+                        ;;  "/ssh:"
+            ))
 
-  (add-to-list 'recentf-keep "^.*php$//")
-  (recentf-auto-cleanup))
+(add-to-list 'recentf-keep "^.*php$//")
+(recentf-auto-cleanup))
 (add-hook 'after-init-hook 'my-recentf-startup)
 
 (setq-default grep-highlight-matches t
@@ -141,7 +141,7 @@ enter ediff."
 (setenv "PAGER" "cat")
 
 (add-hook 'eshell-mode-hook '(lambda ()
-                               (setq shell-aliases-file "~/.emacs.d/alias")))
+                              (setq shell-aliases-file "~/.emacs.d/alias")))
 
 (define-key Info-mode-map (kbd "C-w h") 'windmove-down)
 (define-key Info-mode-map (kbd "C-w t") 'windmove-up)
@@ -160,7 +160,7 @@ enter ediff."
   :commands (wttrin)
   :init
   (setq wttrin-default-cities
-        '("West Lafayette"))
+  '("West Lafayette"))
   (setq wttrin-default-accept-language '("Accept-Language" . "en-US")))
 
 (defun weather ()
@@ -267,7 +267,11 @@ enter ediff."
   :defer t
   :ensure t
   :init
-  (add-to-list 'load-path "~/.emacs.d/snippets"))
+  (add-to-list 'load-path "~/.emacs.d/snippets")
+  ;; (define-key company-mode-map (kbd "TAB") #'yas-expand)
+
+  ;; (define-key company-mode-map (kbd "<tab>") #'yas-expand)
+  )
 (add-hook 'after-init-hook 'yas-global-mode)
 
 (with-eval-after-load 'warnings
@@ -277,9 +281,10 @@ enter ediff."
   :config
   (setq company-idle-delay .2)
   (define-key company-active-map "\C-n" #'company-select-next)
-  (define-key company-active-map "\C-p" #'company-select-previous))
+  (define-key company-active-map "\C-p" #'company-select-previous)
+  (define-key company-active-map (kbd "<tab>") #'company-complete-selection))
 
-(add-hook 'after-init-hook 'global-company-mode)
+  (add-hook 'after-init-hook 'global-company-mode)
 
 (dolist (hook '(prog-mode-hook
                 text-mode-hook
@@ -313,7 +318,7 @@ enter ediff."
 
 (after-load 'magit
   (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
-  ;; (setq magit-completing-read-function 'magit-ido-completing-read)
+ ;; (setq magit-completing-read-function 'magit-ido-completing-read)
   )
 
 (use-package fullframe :ensure t)
@@ -378,7 +383,7 @@ enter ediff."
  ;;helm-M-x-fuzzy-match t
  ;;helm-recentf-fuzzy-match t
  ;;helm-apropos-fuzzy-match t
- ;;the more of these sources that I have, the slower helm will be
+;;the more of these sources that I have, the slower helm will be
  helm-for-files-preferred-list '(
                                  helm-source-buffers-list
                                  helm-source-recentf

@@ -64,26 +64,29 @@ Paredit tries to balance your parenthesis in your lispy languages.  It is pretty
 
 I have some specific keybindings for my paredit code
 #+BEGIN_SRC emacs-lisp
-(defun elisp/turn-on-paredit ()
-(autoload 'enable-paredit-mode "paredit"
-"Turn on pseudo-structural editing of Lisp code."
-t)
-(define-key emacs-lisp-mode-map (kbd "C-c 0") 'paredit-forward-slurp-sexp)
-(define-key emacs-lisp-mode-map (kbd "C-c 9") 'paredit-backward-slurp-sexp)
-(define-key emacs-lisp-mode-map (kbd "C-c ]") 'paredit-forward-barf-sexp)
-(define-key emacs-lisp-mode-map (kbd "C-c [") 'paredit-backward-barf-sexp)
+  (defun elisp/turn-on-paredit ()
+    (autoload 'enable-paredit-mode "paredit"
+      "Turn on pseudo-structural editing of Lisp code."
+      t)
+    (define-key emacs-lisp-mode-map (kbd "C-c 0") 'paredit-forward-slurp-sexp)
+    (define-key emacs-lisp-mode-map (kbd "C-c 9") 'paredit-backward-slurp-sexp)
+    (define-key emacs-lisp-mode-map (kbd "C-c ]") 'paredit-forward-barf-sexp)
+    (define-key emacs-lisp-mode-map (kbd "C-c [") 'paredit-backward-barf-sexp)
 
-(define-key emacs-lisp-mode-map (kbd "C-c )") 'paredit-slurp-all-the-way-forward)
-(define-key emacs-lisp-mode-map (kbd "C-c }") 'paredit-barf-all-the-way-forward)
-(define-key emacs-lisp-mode-map (kbd "C-c (") 'paredit-slurp-all-the-way-backward)
-(define-key emacs-lisp-mode-map (kbd "C-c {") 'paredit-barf-all-the-way-backward)
-(evil-define-key 'normal evil-dvorak-mode-map (kbd "k") 'paredit-kill)
-(paredit-mode +1))
+    (define-key emacs-lisp-mode-map (kbd "C-c )") 'paredit-slurp-all-the-way-forward)
+    (define-key emacs-lisp-mode-map (kbd "C-c }") 'paredit-barf-all-the-way-forward)
+    (define-key emacs-lisp-mode-map (kbd "C-c (") 'paredit-slurp-all-the-way-backward)
+    (define-key emacs-lisp-mode-map (kbd "C-c {") 'paredit-barf-all-the-way-backward)
+    (evil-define-key 'normal evil-dvorak-mode-map (kbd "k") 'paredit-kill)
+    (paredit-mode +1))
 #+END_SRC
 ** requiring evil-paredit
+   Evil-paredit is not available on melpa.  I should probably fix this.
+
 :PROPERTIES:
 :ID:       88eceed3-f78d-4616-88ff-ae3902d0c13e
 :END:
+
 #+BEGIN_SRC emacs-lisp
 (require 'evil-paredit)
 #+END_SRC

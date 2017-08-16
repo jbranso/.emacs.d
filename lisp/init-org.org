@@ -33,17 +33,6 @@ just one space.
 
   #+RESULTS:
 
-* what files org-mode opens
-:PROPERTIES:
-:ID:       f217c699-23c2-4a58-bb59-73b639c8447a
-:END:
-#+BEGIN_SRC emacs-lisp
-;; define what files org opens
-(add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
-;;(setq org-default-notes-file (concat org-directory "/notes.org"))
-#+END_SRC
-
-
 * Setting up Org-plugins
 ** org-crypt
 :PROPERTIES:
@@ -425,10 +414,6 @@ try to expand a yasnippet.
                                   ;;(toggle-word-wrap)
                                   (org-bullets-mode 1)
                                   ;;make ">=" look like >=, etc.
-<<<<<<< variant A
-                                 (push '("^_^" . ?☻) prettify-symbols-alist)
-))
->>>>>>> variant B
                                   (push '(">=" . ?≥) prettify-symbols-alist)
                                   (push '("<=" . ?≤) prettify-symbols-alist)
                                   (push '("\\geq" . ?≥) prettify-symbols-alist)
@@ -457,10 +442,7 @@ try to expand a yasnippet.
                                   ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
                                   (push '("ae" . ?æ) prettify-symbols-alist)
                                   (push '("^_^" . ?☻) prettify-symbols-alist)))
-======= end
 #+END_SRC
-#+RESULTS:
-| (lambda nil (require (quote org-eldoc)) (toggle-word-wrap) (org-bullets-mode 1) (push (quote (>= . 8805)) prettify-symbols-alist) (push (quote (<= . 8804)) prettify-symbols-alist) (push (quote (\geq . 8805)) prettify-symbols-alist) (push (quote (\leq . 8804)) prettify-symbols-alist) (push (quote (\neg . 172)) prettify-symbols-alist) (push (quote (\rightarrow . 8594)) prettify-symbols-alist) (push (quote (\leftarrow . 8592)) prettify-symbols-alist) (push (quote (\infty . 8734)) prettify-symbols-alist) (push (quote (--> . 8594)) prettify-symbols-alist) (push (quote (<-- . 8592)) prettify-symbols-alist) (push (quote (\exists . 8707)) prettify-symbols-alist) (push (quote (\nexists . 8708)) prettify-symbols-alist) (push (quote (\forall . 8704)) prettify-symbols-alist) (push (quote (\or . 8744)) prettify-symbols-alist) (push (quote (\and . 8743)) prettify-symbols-alist) (push (quote (:) . 9786)) prettify-symbols-alist) (push (quote (): . 9785)) prettify-symbols-alist) (push (quote (:D . 9786)) prettify-symbols-alist) (push (quote (\checkmark . 10003)) prettify-symbols-alist) (push (quote (\check . 10003)) prettify-symbols-alist) (push (quote (1/4 . 188)) prettify-symbols-alist) (push (quote (1/2 . 189)) prettify-symbols-alist) (push (quote (3/4 . 190)) prettify-symbols-alist) (push (quote (1/7 . 8528)) prettify-symbols-alist) (push (quote (ae . 230)) prettify-symbols-alist) (push (quote (^_^ . 9787)) prettify-symbols-alist)) | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-show-block-all append local] 5] | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | org-eldoc-load |
 
 * My org-mode preferences
 ** A big setq
@@ -545,8 +527,16 @@ Make RET follow a link
     (add-hook 'org-agenda-finalize-hook '(lambda () (hl-line-mode)))
   #+END_SRC
 
-  #+RESULTS:
-  | lambda | nil | (hl-line-mode) |
+
+** what files org-mode opens
+:PROPERTIES:
+:ID:       f217c699-23c2-4a58-bb59-73b639c8447a
+:END:
+#+BEGIN_SRC emacs-lisp
+;; define what files org opens
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
+;;(setq org-default-notes-file (concat org-directory "/notes.org"))
+#+END_SRC
 
 ** my org capure templates
 :PROPERTIES:
@@ -725,7 +715,7 @@ Make RET follow a link
   #+RESULTS:
   | B | Things I want to buy | entry | (file+headline ~/programming/org/projects/managing-my-monies.org things I want to buy) | * %? |
 
-** Agenda Configuration
+** COMMENT Agenda Configuration
 *** Agenda icons via Category
 :PROPERTIES:
 :ID:       1f343138-b49f-447e-8f34-2a1d05bc3af2
@@ -770,61 +760,64 @@ But I haven't been able to figure out how to do it.
 
   #+BEGIN_SRC emacs-lisp
 
-(defun my-org-list-files (dirs ext)
-  "Function to create list of org files in multiple subdirectories.
-This can be called to generate a list of files for
-org-agenda-files or org-refile-targets.
+    (defun my-org-list-files (dirs ext)
+      "Function to create list of org files in multiple subdirectories.
+    This can be called to generate a list of files for
+    org-agenda-files or org-refile-targets.
 
-DIRS is a list of directories.
+    DIRS is a list of directories.
 
-EXT is a list of the extensions of files to be included."
-  (let ((dirs (if (listp dirs)
-                  dirs
-                (list dirs)))
-        (ext (if (listp ext)
-                 ext
-               (list ext)))
-        files)
-    (mapc
-     (lambda (x)
-       (mapc
-        (lambda (y)
-          (setq files
-                (append files
-                        (file-expand-wildcards
-                         (concat (file-name-as-directory x) "*" y)))))
-        ext))
-     dirs)
-    (mapc
-     (lambda (x)
-       (when (or (string-match "/.#" x)
-                 (string-match "#$" x))
-         (setq files (delete x files))))
-     files)
-    files))
+    EXT is a list of the extensions of files to be included."
+      (let ((dirs (if (listp dirs)
+                      dirs
+                    (list dirs)))
+            (ext (if (listp ext)
+                     ext
+                   (list ext)))
+            files)
+        (mapc
+         (lambda (x)
+           (mapc
+            (lambda (y)
+              (setq files
+                    (append files
+                            (file-expand-wildcards
+                             (concat (file-name-as-directory x) "*" y)))))
+            ext))
+         dirs)
+        (mapc
+         (lambda (x)
+           (when (or (string-match "/.#" x)
+                     (string-match "#$" x))
+             (setq files (delete x files))))
+         files)
+        files))
 
 
-(defvar my-org-agenda-directories '("~/programming/org/")
-  "List of directories containing org files.")
-(defvar my-org-agenda-extensions '(".org")
-  "List of extensions of agenda files")
+    (defvar my-org-agenda-directories '("~/programming/org/")
+      "List of directories containing org files.")
+    (defvar my-org-agenda-extensions '(".org")
+      "List of extensions of agenda files")
 
-(setq my-org-agenda-directories '("~/programming/org/" "~/programming/org/"
-                                  "~/programming/org/projects"))
-(setq my-org-agenda-extensions '(".org"))
+    (setq my-org-agenda-directories '(
+                                      "~/gtd/"
+                                      "~/programming/org/"
+                                      "~/programming/org/"
+                                      "~/programming/org/projects"))
+    (setq my-org-agenda-extensions '(".org"))
 
-(defun my-org-set-agenda-files ()
-  (interactive)
-  (setq org-agenda-files (my-org-list-files
-                          my-org-agenda-directories
-                          my-org-agenda-extensions)
-        ;;org-refile-targets (my-org-list-files
-          ;;                  my-org-agenda-directories
+    (defun my-org-set-agenda-files ()
+      (interactive)
+      (setq org-agenda-files (my-org-list-files
+                              my-org-agenda-directories
+                              my-org-agenda-extensions)
+            ;;org-refile-targets (my-org-list-files
+            ;;                  my-org-agenda-directories
             ;;                my-org-agenda-extensions
-                          ;;  )
-        ))
+            ;;  )
+            ))
 
-(my-org-set-agenda-files)
+    (my-org-set-agenda-files)
 
   #+END_SRC
 
@@ -915,7 +908,7 @@ EXT is a list of the extensions of files to be included."
               )
             )
     #+END_SRC
-
+***** COMMENT grading myself file.
     I have a file that keeps tracks of the things that I want to do often.  This opens that.
     #+BEGIN_SRC emacs-lisp
       (defun my/org-grading-myself-agenda ()
