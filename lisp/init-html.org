@@ -8,6 +8,10 @@
 :ID:       c29ded10-1cef-41ee-8e79-a7523d710a6c
 :END:
 
+*** use package-definition
+:PROPERTIES:
+:ID:       25e8d609-4ebf-460d-8fc5-ddf3a26d0f74
+:END:
 #+BEGIN_SRC emacs-lisp
 
 (use-package web-mode :ensure t :config
@@ -36,6 +40,10 @@
   )
 #+END_SRC
 
+*** web-mode hook
+:PROPERTIES:
+:ID:       ed2ace18-5e60-4ca7-9350-fd1a86a25749
+:END:
 #+BEGIN_SRC emacs-lisp
 (add-hook 'web-mode-hook '(lambda ()
                             ;;(use-package emmet-mode :ensure t)
@@ -115,7 +123,7 @@
     </div>
   #+END_SRC
 
-*** Trying to get web-mode to add italics to <em>
+*** COMMENT Trying to get web-mode to add italics to <em>
     :PROPERTIES:
     :ID:       e350f24c-5e32-42a8-aa43-0885599f2475
     :END:

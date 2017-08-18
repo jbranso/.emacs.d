@@ -62,7 +62,6 @@
 (org-babel-load-file 	"~/.emacs.d/lisp/init-editing-utils.org")
 ;;an irc client for Emacs
 (org-babel-load-file 	"~/.emacs.d/lisp/init-erc.org")
-
 ;; load my web-mode configurations
 (org-babel-load-file "~/.emacs.d/lisp/init-html.org")
 

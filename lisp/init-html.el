@@ -71,30 +71,6 @@
 
 (use-package emmet-mode :ensure t)
 
-(regexp-opt '(
-               "<em>Hello how are you</em>"
-               "<em>What are you doing today?</em>"
-               "<em>My name is Earl.</em>"
-               "<em>stnh satneuh staeoh ntshaoe sntaheu </em>"
-               "<em>James bond is awesome </em>"
-               "<em>lorum ipsum this can't keep going on.</em>"
-               "<em> WHAT!? Come on! </em>"
-               "<em> anything sing silly text .*<em>"
-               ))
-
-(regexp-opt '("<em>\\([a-zA-Z0-9 ]+\\)</em>"))
-
-(regexp-opt '("<em></em>"))
-
-(add-hook 'web-mode-hook
-          (lambda ()
-            (font-lock-add-keywords nil '("<em>\\([a-zA-Z0-9 ]+\\)</em>" . web-mode-italic-face))))
-"<em>\\([a-zA-Z0-9 ]+\\)</em>"
-
-(font-lock-add-keywords 'web-mode
-                        '(("<em>\\([a-zA-Z0-9 ]+\\)</em>" . 'web-mode-italic-face)
-                          ("<b>\\([a-zA-Z0-9 ]+\\)</b>"   . 'web-mode-bold-face)))
-
 (defun my-js-minify-function ()
   "Minifying my js files."
   (interactive)

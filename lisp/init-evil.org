@@ -33,6 +33,9 @@ I can't do the basic examples found here: https://github.com/timcharper/evil-sur
 #+END_SRC
 
 * so
+:PROPERTIES:
+:ID:       f0a63a4f-ed7c-44fa-879d-42f70b1b54e9
+:END:
 
 
 me minor config things
@@ -103,49 +106,51 @@ Make evil-insert-mode allow emacs keybindings
   (define-key evil-normal-state-map "K" 'evil-jump-out-args))
 #+END_SRC
 
-* evil mode for web-mode
+* add web-mode bindings for web-mode
 :PROPERTIES:
 :ID:       ea4a07e2-bc66-439a-a2a4-0a7ace21c4cd
 :END:
+
+Web-mode has some awesome commands for manipulating elements.  But their default keybindings are odd.  So instead I just bind them to H-<char1>-<char2>.
+
+H stands for HTML.
+
+Char1 is t, e, or a.  They stand for tag, element, or attribute.
+
 #+BEGIN_SRC emacs-lisp
+  (evil-define-key 'normal web-mode-map (kbd "Hta") 'web-mode-tag-attributes-sort)
+  (evil-define-key 'normal web-mode-map (kbd "Htb") 'web-mode-tag-beginning)
+  (evil-define-key 'normal web-mode-map (kbd "Hte") 'web-mode-tag-end)
+  (evil-define-key 'normal web-mode-map (kbd "Htm") 'web-mode-tag-match)
+  (evil-define-key 'normal web-mode-map (kbd "Htn") 'web-mode-tag-next)
+  (evil-define-key 'normal web-mode-map (kbd "Htp") 'web-mode-tag-previous)
+  (evil-define-key 'normal web-mode-map (kbd "Hts") 'web-mode-tag-select)
+  (evil-define-key 'normal web-mode-map (kbd "Hek") 'web-mode-element-kill)
+  (evil-define-key 'normal web-mode-map (kbd "Hev") 'web-mode-element-vanish)
+  (evil-define-key 'normal web-mode-map (kbd "Hea") 'web-mode-element-content-select)
+  (evil-define-key 'normal web-mode-map (kbd "Hec") 'web-mode-element-clone)
+  (evil-define-key 'normal web-mode-map (kbd "Heb") 'web-mode-element-beginning)
+  (evil-define-key 'normal web-mode-map (kbd "Hed") 'web-mode-element-child)
+  (evil-define-key 'normal web-mode-map (kbd "Hee") 'web-mode-element-end)
+  (evil-define-key 'normal web-mode-map (kbd "Hef") 'web-mode-element-children-fold-or-unfold)
+  (evil-define-key 'normal web-mode-map (kbd "Hei") 'web-mode-element-insert)
+  (evil-define-key 'normal web-mode-map (kbd "Hem") 'web-mode-element-mute-blanks)
+  (evil-define-key 'normal web-mode-map (kbd "Hen") 'web-mode-element-next)
+  (evil-define-key 'normal web-mode-map (kbd "Hep") 'web-mode-element-previous)
+  (evil-define-key 'normal web-mode-map (kbd "Her") 'web-mode-element-rename)
+  (evil-define-key 'normal web-mode-map (kbd "Hes") 'web-mode-element-select)
+  (evil-define-key 'normal web-mode-map (kbd "He;") 'web-mode-comment-or-uncomment)
+  (evil-define-key 'normal web-mode-map (kbd "Het") 'web-mode-element-transpose)
+  (evil-define-key 'normal web-mode-map (kbd "Heu") 'web-mode-element-parent)
+  (evil-define-key 'normal web-mode-map (kbd "Hew") 'web-mode-element-wrap)
+  (evil-define-key 'normal web-mode-map (kbd "Hab") 'web-mode-attribute-beginning)
+  (evil-define-key 'normal web-mode-map (kbd "Hae") 'web-mode-attribute-end)
+  (evil-define-key 'normal web-mode-map (kbd "Hai") 'web-mode-attribute-insert)
+  (evil-define-key 'normal web-mode-map (kbd "Hak") 'web-mode-attribute-kill)
+  (evil-define-key 'normal web-mode-map (kbd "Han") 'web-mode-attribute-next)
+  (evil-define-key 'normal web-mode-map (kbd "Has") 'web-mode-attribute-select)
+  (evil-define-key 'normal web-mode-map (kbd "Hat") 'web-mode-attribute-transpose)
 
-(defun evil-dvorak-turn-on-web-mode-keys ()
-  "This turns on the evil-dvorak web-mode keyboard shortcuts."
-  (interactive)
-  (define-key evil-normal-state-map (kbd "Hta") 'web-mode-tag-attributes-sort)
-  (define-key evil-normal-state-map (kbd "Htb") 'web-mode-tag-beginning)
-  (define-key evil-normal-state-map (kbd "Hte") 'web-mode-tag-end)
-  (define-key evil-normal-state-map (kbd "Htm") 'web-mode-tag-match)
-  (define-key evil-normal-state-map (kbd "Htn") 'web-mode-tag-next)
-  (define-key evil-normal-state-map (kbd "Htp") 'web-mode-tag-previous)
-  (define-key evil-normal-state-map (kbd "Hts") 'web-mode-tag-select)
-  (define-key evil-normal-state-map (kbd "Hek") 'web-mode-element-kill)
-  (define-key evil-normal-state-map (kbd "Hev") 'web-mode-element-vanish)
-  (define-key evil-normal-state-map (kbd "Hea") 'web-mode-element-content-select)
-  (define-key evil-normal-state-map (kbd "Hec") 'web-mode-element-clone)
-  (define-key evil-normal-state-map (kbd "Heb") 'web-mode-element-beginning)
-  (define-key evil-normal-state-map (kbd "Hed") 'web-mode-element-child)
-  (define-key evil-normal-state-map (kbd "Hee") 'web-mode-element-end)
-  (define-key evil-normal-state-map (kbd "Hef") 'web-mode-element-children-fold-or-unfold)
-  (define-key evil-normal-state-map (kbd "Hei") 'web-mode-element-insert)
-  (define-key evil-normal-state-map (kbd "Hem") 'web-mode-element-mute-blanks)
-  (define-key evil-normal-state-map (kbd "Hen") 'web-mode-element-next)
-  (define-key evil-normal-state-map (kbd "Hep") 'web-mode-element-previous)
-  (define-key evil-normal-state-map (kbd "Her") 'web-mode-element-rename)
-  (define-key evil-normal-state-map (kbd "Hes") 'web-mode-element-select)
-  (define-key evil-normal-state-map (kbd "He;") 'web-mode-comment-or-uncomment)
-  (define-key evil-normal-state-map (kbd "Het") 'web-mode-element-transpose)
-  (define-key evil-normal-state-map (kbd "Heu") 'web-mode-element-parent)
-  (define-key evil-normal-state-map (kbd "Hew") 'web-mode-element-wrap)
-  (define-key evil-normal-state-map (kbd "Hab") 'web-mode-attribute-beginning)
-  (define-key evil-normal-state-map (kbd "Hae") 'web-mode-attribute-end)
-  (define-key evil-normal-state-map (kbd "Hai") 'web-mode-attribute-insert)
-  (define-key evil-normal-state-map (kbd "Hak") 'web-mode-attribute-kill)
-  (define-key evil-normal-state-map (kbd "Han") 'web-mode-attribute-next)
-  (define-key evil-normal-state-map (kbd "Has") 'web-mode-attribute-select)
-  (define-key evil-normal-state-map (kbd "Hat") 'web-mode-attribute-transpose))
-
-(add-hook 'web-mode-hook 'evil-dvorak-turn-on-web-mode-keys)
 #+END_SRC
 
 * evil states
@@ -309,6 +314,9 @@ Make evil-insert-mode allow emacs keybindings
 (local-unset-key (kbd "TAB"))
 
 ** emacs state
+:PROPERTIES:
+:ID:       a7e1ed22-eb76-4cae-b2fc-269aa7e28b67
+:END:
 
 #+BEGIN_SRC emacs-lisp
   (define-key evil-emacs-state-map  (kbd "C-w t") #'windmove-up)
