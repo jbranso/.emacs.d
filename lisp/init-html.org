@@ -123,19 +123,29 @@
     </div>
   #+END_SRC
 
-*** COMMENT Trying to get web-mode to add italics to <em>
+*** Trying to get web-mode to add italics to <em>
     :PROPERTIES:
     :ID:       e350f24c-5e32-42a8-aa43-0885599f2475
     :END:
     I want "some italic text" to be italic.  I can apparently do this with font-lock mode, via searching.
 <em>some italic text</em>
 
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'web-mode-hook 'my/add-web-mode-richtext)
+
+  (defun my/add-web-mode-richtext ()
+    "Add bold and italic text with <b> and <em> tags."
+    (interactive)
+    (highlight-regexp "<em>\\([-_a-zA-Z0-9@!?$&* ]+\\)</em>" 'web-mode-italic-face)
+    (highlight-regexp "<b>\\([-_a-zA-Z0-9@!?$&* ]+\\)</b>" 'web-mode-bold-face))
+#+END_SRC
+
 I'm supposed to use regexp-opt function to help me design a regexp, but this function doesn't help too much.
 It just says, if you see this string, or this string, or this string, ...
 
 I've tried to get it to make an optimized regexp, but no such luck.
 
-#+BEGIN_SRC emacs-lisp :exports none
+#+BEGIN_SRC emacs-lisp :exports none :tangle no
  (regexp-opt '(
                "<em>Hello how are you</em>"
                "<em>What are you doing today?</em>"
@@ -154,13 +164,6 @@ I've tried to get it to make an optimized regexp, but no such luck.
 
 I accomplish highlighting comments with this bit of [[file:init-gui-frames.org::*color%20various%20comments][code.]]
 
-#+BEGIN_SRC emacs-lisp :exports none
-(add-hook 'web-mode-hook
-          (lambda ()
-            (font-lock-add-keywords nil '("<em>\\([a-zA-Z0-9 ]+\\)</em>" . web-mode-italic-face))))
-"<em>\\([a-zA-Z0-9 ]+\\)</em>"
-
-#+END_SRC
 
 Probably the best way to do is to use font-lock-add-keywords and specify the mode I want.
 
@@ -177,7 +180,7 @@ MATCHER
 
 List faces display, lists all of the faces that one can use.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (font-lock-add-keywords 'web-mode
                           '(("<em>\\([a-zA-Z0-9 ]+\\)</em>" . 'web-mode-italic-face)
                             ("<b>\\([a-zA-Z0-9 ]+\\)</b>"   . 'web-mode-bold-face)))
@@ -308,6 +311,11 @@ I don't use php-mode.  php-mode cannot indent html and js code embedded in the b
 ;;                            (push '("^_^" . ?☻) prettify-symbols-alist)
 ;;                            ;;(setq ac-sources '(ac-source-filename ac-source-words-in-buffer))
 ;;                            ))
+** COMMENT spell checking
+
+http://blog.binchen.org/posts/effective-spell-check-in-emacs.html
+
+Do some spell checking in web-mode.  I suppose it's possible.
 ** provide this file
 :PROPERTIES:
 :ID:       0d7159ea-750a-4fce-9d5b-c8c77257b94c

@@ -71,6 +71,14 @@
 
 (use-package emmet-mode :ensure t)
 
+(add-hook 'web-mode-hook 'my/add-web-mode-richtext)
+
+(defun my/add-web-mode-richtext ()
+  "Add bold and italic text with <b> and <em> tags."
+  (interactive)
+  (highlight-regexp "<em>\\([-_a-zA-Z0-9@!?$&* ]+\\)</em>" 'web-mode-italic-face)
+  (highlight-regexp "<b>\\([-_a-zA-Z0-9@!?$&* ]+\\)</b>" 'web-mode-bold-face))
+
 (defun my-js-minify-function ()
   "Minifying my js files."
   (interactive)
