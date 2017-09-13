@@ -1,5 +1,4 @@
-(use-package rainbow-delimiters
-:ensure t)
+(use-package rainbow-delimiters :ensure t)
 
 (use-package paredit
   :ensure t
@@ -50,6 +49,8 @@
   (define-key emacs-lisp-mode-map (kbd "C-c {") 'paredit-barf-all-the-way-backward)
   (evil-define-key 'normal evil-dvorak-mode-map (kbd "k") 'paredit-kill)
   (paredit-mode +1))
+
+(require 'evil-paredit)
 
 (require 'evil-paredit)
 

@@ -81,8 +81,6 @@
 (global-set-key (kbd "s-s") 'my/save-all-buffers)
 (global-set-key (kbd "s-u") #'my/uppercase-word)
 
-(buffer-file-name)
-
 (global-set-key (kbd "C-c TAB") #'indent-whole-buffer)
 ;; when point is between two words, delete the space between them
 (global-set-key (kbd "C-c \\") #'delete-horizontal-space)

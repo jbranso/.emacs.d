@@ -50,18 +50,18 @@
 ;; autoinsert a yasnippet
 (org-babel-load-file "~/.emacs.d/lisp/init-autoinsert.org")
 ;;load is many packages
-(org-babel-load-file 	"~/.emacs.d/lisp/init-load-small-packages.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-load-small-packages.org")
 ;; emacs can read email
-(org-babel-load-file 	"~/.emacs.d/lisp/init-gnus.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-gnus.org")
 ;; some graphical configurations
-(org-babel-load-file 	"~/.emacs.d/lisp/init-gui-frames.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-gui-frames.org")
 ;; my org configurations
-(org-babel-load-file 	"~/.emacs.d/lisp/init-org.org")
-(org-babel-load-file 	"~/.emacs.d/lisp/init-lisp.org")
-;;(org-babel-load-file 	"~/.emacs.d/lisp/init-javascript.org")
-(org-babel-load-file 	"~/.emacs.d/lisp/init-editing-utils.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-org.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-lisp.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-javascript.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-editing-utils.org")
 ;;an irc client for Emacs
-(org-babel-load-file 	"~/.emacs.d/lisp/init-erc.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-erc.org")
 ;; load my web-mode configurations
 (org-babel-load-file "~/.emacs.d/lisp/init-html.org")
 
@@ -70,7 +70,6 @@
 ;; let's write my wordpress blog in emacs
 ;;(require 'init-org2blog)
 (org-babel-load-file "~/.emacs.d/lisp/init-defuns.org")
-
 (org-babel-load-file "~/.emacs.d/lisp/init-erc.org")
 (org-babel-load-file "~/.emacs.d/lisp/init-misc.org")
 ;;----------------------------------------------------------------------------

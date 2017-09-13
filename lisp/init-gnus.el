@@ -37,7 +37,7 @@
 (setq gnus-auto-center-summary nil)
 
 (setq gnus-nov-is-evil nil
-      gnus-show-threads nil
+      gnus-show-threads t
       gnus-use-cross-reference nil)
 
 (defun gnus-demon-scan-news ()
@@ -75,8 +75,6 @@
 
 (use-package bbdb :ensure t)
 
-(bbdb-initialize 'gnus 'message )
-
 (require 'bbdb)
 (bbdb-initialize 'gnus 'message)
 
@@ -107,10 +105,17 @@
 
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
-(add-hook 'kill-emacs-hook #'(lambda ()
-                               (interactive)
-                               (when (get-buffer "*Group*")
-                                 (gnus-group-exit))))
+(setq gnus-posting-styles
+        '(
+          ;; My default hotmail posting style
+          (".*"
+           (signature "Joshua\nSent From Emacs")
+           (address "joeRoegan@hotmail.com"))
+          ;; when I post to purdue stuff
+          (".*gmail.*"
+           (signature "Joshua Branson\nPurdue Univeristy\nHonors College\nSent From Emacs")
+           (address "someGmailAccount@gmail.com"))
+          ))
 
 ;;(use-package w3m :ensure t)
 ;;(setq mm-text-html-renderer 'w3m)
@@ -126,11 +131,18 @@
 (setq gnus-treat-display-smileys t)
 (setq gnus-treat-emphasize 'head)
 
-(setq gnus-use-adaptive-scoring t)
+(defun make-gnus-frame ()
+  "Make a gnus frame, and make the title Gnus and show the gnus bitmap image."
+  (interactive)
+  (when window-system
+    (with-selected-frame
+        (make-frame '((name . "Gnus") (title . "Gnus") (icon-type . "/home/joshua/pictures/emacs/gnus.bmp")))
+      (gnus))))
 
-(add-hook 'kill-emacs-hook #'(lambda ()
-                               (interactive)
-                               (when (get-buffer "*Group*")
-                                 (gnus-group-exit))))
+(add-hook 'after-init-hook 'make-gnus-frame)
+
+;;(select-frame-by-name "Gnus")
+
+(setq gnus-use-adaptive-scoring t)
 
 (provide 'init-gnus)

@@ -2,49 +2,82 @@
 :PROPERTIES:
 :ID:       6427284b-565d-418a-a57a-995f36b1175d
 :END:
+** js syntax
+:PROPERTIES:
+:ID:       2eaabd4c-b506-4077-aefa-3ce1cec0f8a7
+:END:
+
 #+BEGIN_SRC emacs-lisp
-(use-package js2-mode
-  :ensure t
-  :defer t
-  :config
-  ;; Disable js2 mode's syntax error highlighting by default...
-  (setq-default js2-mode-show-parse-errors nil
-                js2-mode-show-strict-warnings nil)
-  ;; ... but enable it if flycheck can't handle javascript
-  (autoload 'flycheck-get-checker-for-buffer "flycheck")
-  (defun sanityinc/disable-js2-checks-if-flycheck-active ()
-    (unless (flycheck-get-checker-for-buffer)
-      (set (make-local-variable 'js2-mode-show-parse-errors) t)
-      (set (make-local-variable 'js2-mode-show-strict-warnings) t)))
-  (add-hook 'js2-mode-hook 'sanityinc/disable-js2-checks-if-flycheck-active)
+  (use-package js2-mode
+    :ensure t
+    :defer t
+    :config
+    ;; Disable js2 mode's syntax error highlighting by default...
+    (setq-default js2-mode-show-parse-errors nil
+                  js2-mode-show-strict-warnings nil)
+    ;; ... but enable it if flycheck can't handle javascript
+    (autoload 'flycheck-get-checker-for-buffer "flycheck")
 
-  (add-hook 'js2-mode-hook (lambda () (setq mode-name "JS2")))
+    (defun sanityinc/disable-js2-checks-if-flycheck-active ()
+      (unless (flycheck-get-checker-for-buffer)
+        (set (make-local-variable 'js2-mode-show-parse-errors) t)
+        (set (make-local-variable 'js2-mode-show-strict-warnings) t)))
+    (add-hook 'js2-mode-hook 'sanityinc/disable-js2-checks-if-flycheck-active)
 
-  (setq-default
-   js2-basic-offset preferred-javascript-indent-level
-   js2-bounce-indent-p nil)
-  ;; make >= look like ≥
-  (push '(">=" . ?≥) prettify-symbols-alist)
-  (push '("<=" . ?≤) prettify-symbols-alist)
-  (js2-imenu-extras-setup))
+    (add-hook 'js2-mode-hook (lambda () (setq mode-name "JS2")))
+
+
+
+    ;; (defvar preferred-javascript-indent-level 2)
+
+    (setq-default
+     ;; js2-basic-offset preferred-javascript-indent-level
+     js2-bounce-indent-p nil)
+    ;; make >= look like ≥
+    (push '(">=" . ?≥) prettify-symbols-alist)
+    (push '("<=" . ?≤) prettify-symbols-alist)
+    (js2-imenu-extras-setup)
+
+    :mode
+    ("\\.js?\\'" . js2-mode))
+
 
 #+END_SRC
 
+** js2-mode-hook
+:PROPERTIES:
+:ID:       1f024860-16b8-4e48-ae68-358ac629c0fa
+:END:
 
 #+BEGIN_SRC emacs-lisp
-(defcustom preferred-javascript-mode
-  (first (remove-if-not #'fboundp '(js2-mode js-mode)))
-  "Javascript mode to use for .js files."
-  :type 'symbol
-  :group 'programming
-  :options '(js2-mode js-mode))
-(defvar preferred-javascript-indent-level 2)
+(defun my-js-minify-function ()
+  "Minifying my js files."
+  (interactive)
+  (async-shell-command (concat (format "closure --js  %s --js_output_file "
+                                       (buffer-file-name))
+                               (s-replace ".js" ".min.js" buffer-file-name)) "*js minifying*"))
+
+(add-hook 'js2-mode-hook '(lambda ()
+                            ;; I have abbrev turned on for all prog and text modes
+                            ;; (abbrev-mode 1)
+                            ;; (skewer-mode)
+                            (ggtags-mode 1)
+                            ;;(push '("function" . ?𝆑) prettify-symbols-alist)
+                            (push '(">=" . ?≥) prettify-symbols-alist)
+                            (push '("<=" . ?≤) prettify-symbols-alist)
+                            (diminish 'ggtags-mode)
+                            (add-hook 'after-save-hook 'my-js-minify-function nil t)))
+
+(add-to-list 'display-buffer-alist (cons "\\\*js minifying\\\*" (cons #'display-buffer-no-window nil)))
 #+END_SRC
+
+** COMMENT prefeered javascript
 
 ;; Need to first remove from list if present, since elpa adds entries too, which
 ;; may be in an arbitrary order
 #+BEGIN_SRC emacs-lisp
 (eval-when-compile (require 'cl))
+
 (setq auto-mode-alist (cons `("\\.js\\(\\.erb\\)?\\'" . ,preferred-javascript-mode)
                             (loop for entry in auto-mode-alist
                                   unless (eq preferred-javascript-mode (cdr entry))
@@ -56,7 +89,7 @@
 :ID:       5671bd7d-efd1-460f-b8e2-c09fd812313f
 :END:
 #+BEGIN_SRC emacs-lisp
-(use-package rainbow-delimiters :ensure t)
+(use-package rainbow-delimiters :ensure t :defer t)
 (dolist (hook '(js2-mode-hook js-mode-hook json-mode-hook))
   (add-hook hook 'rainbow-delimiters-mode))
 #+END_SRC

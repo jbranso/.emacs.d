@@ -26,6 +26,7 @@
 
 (use-package evil-args
   :ensure t
+
   :config
   ;; bind evil-args text objects
   (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)

@@ -99,8 +99,7 @@ I think that some of these commands are not needed.
     (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w t") 'windmove-up)
     (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w n") 'windmove-left)
     (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w s") 'windmove-right)
-    (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w C-t") 'my/toggle-window-split)
-    )
+    (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w C-t") 'my/toggle-window-split))
 
 #+END_SRC
 * improving the mouse experience

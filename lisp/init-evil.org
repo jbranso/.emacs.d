@@ -31,32 +31,40 @@ I can't do the basic examples found here: https://github.com/timcharper/evil-sur
                      (push '(?* . ("*" . "*")) evil-surround-pairs-alist)
                      (push '(?/ . ("/" . "/")) evil-surround-pairs-alist)))))
 #+END_SRC
+* COMMENT evil goggles
 
-* so
+This might be a cool package to use someday.
+https://github.com/edkolev/evil-goggles
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-goggles :ensure t
+    :config
+    (evil-goggles-mode))
+#+END_SRC
+* so very random things
 :PROPERTIES:
 :ID:       f0a63a4f-ed7c-44fa-879d-42f70b1b54e9
 :END:
 
-
-me minor config things
-:PROPERTIES:
-:ID:       84667703-ff11-4c00-838f-c6ed56221b56
-:END:
 Do not move the cursor back when exiting insert mode.
+
 #+BEGIN_SRC emacs-lisp
 (setq evil-move-cursor-back nil)
 #+END_SRC
 
 This macro allows me to insert a space with the spacebar.
+
 #+BEGIN_SRC emacs-lisp
 (fset 'viper-space "\C-z \C-z")
 #+END_SRC
 
 Make evil-insert-mode allow emacs keybindings
+
 #+BEGIN_SRC emacs-lisp
 (setcdr evil-insert-state-map nil)
 #+END_SRC
 
+** more random things
 ;; use % to go traverse code in most languages
 ;; https://github.com/redguardtoo/evil-matchit
 ;; da% deletes all of the stuff between matches
@@ -86,9 +94,11 @@ Make evil-insert-mode allow emacs keybindings
 :PROPERTIES:
 :ID:       b939cd51-e0e9-46fe-b32f-1882612d0967
 :END:
+
 #+BEGIN_SRC emacs-lisp
 (use-package evil-args
   :ensure t
+
   :config
   ;; bind evil-args text objects
   (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)

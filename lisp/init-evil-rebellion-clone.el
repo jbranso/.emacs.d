@@ -8,6 +8,7 @@
 (evil-set-initial-state 'git-rebase-mode 'emacs)
 (evil-set-initial-state 'git-timemachine-mode 'emacs)
 (evil-set-initial-state 'term-mode 'emacs)
+(evil-set-initial-state 'bubbles-mode 'emacs)
 ;; why is this not working?
 (evil-set-initial-state 'info-mode 'emacs)
 (evil-set-initial-state 'help-mode 'emacs)

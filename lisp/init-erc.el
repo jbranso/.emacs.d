@@ -52,6 +52,8 @@
   ;;erc-prompt-for-password t
 
   :config
-  (setq erc-join-buffer 'buffer))
+  (setq erc-join-buffer 'buffer)
+
+  :defer t)
 
 (provide 'init-erc)

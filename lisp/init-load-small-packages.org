@@ -5,6 +5,9 @@
 
 This file just loads in tiny packages that don't really need to be in separate files.
 * lexical binding
+:PROPERTIES:
+:ID:       15a3435c-73db-412c-adcb-58483e9cffb5
+:END:
 #+BEGIN_SRC emacs-lisp
 ;; -*- lexical-binding: t -*-
 #+END_SRC
@@ -73,7 +76,8 @@ This will highlight words that are misspelled.  Flyspell-prog-mode will do this 
 [[~/.emacs.d/images/flyspell.png]]
 
 Also flyspell binds C-c $ to flyspell fix word before point.  BUT I used to prefer that to be bound to endless/ispell-word-then-abbrev.
-BUT my hacky autocorrect functionality doesn't work well
+BUT my hacky autocorrect functionality doesn't work well.
+
 #+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook (lambda ()
                               (flyspell-prog-mode)))
@@ -90,6 +94,7 @@ BUT my hacky autocorrect functionality doesn't work well
 #+END_SRC
 
 Oddly enough web-mode doesn't seem to support flyspell.
+
 #+BEGIN_SRC emacs-lisp :tangle no
 (add-hook 'web-mode-hook 'flyspell-mode)
 (add-hook 'web-mode-hook 'flyspell-prog-mode)
@@ -99,13 +104,16 @@ Oddly enough web-mode doesn't seem to support flyspell.
 :PROPERTIES:
 :ID:       97237f5e-8877-4168-8d77-264c1e46cd13
 :END:
+
 Aggressive indent attempts to aggressively indent you code after you change various aspects of it.  It doesn't work well with org-mode and web-mode.
+
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-indent :ensure t
     :config
     (add-to-list 'aggressive-indent-excluded-modes 'web-mode)
     (add-to-list 'aggressive-indent-excluded-modes 'org-mode))
-  (add-hook 'after-init-hook 'global-aggressive-indent-mode)
+  ;;(add-hook 'after-init-hook 'global-aggressive-indent-mode)
+  (add-hook 'prog-mode-hook #'aggressive-indent-mode)
 #+END_SRC
 
 * async
@@ -116,9 +124,10 @@ Aggressive indent attempts to aggressively indent you code after you change vari
 (use-package async
   :ensure t
   :defer t
-  :config
+  ;;:config
   ;; enable async compilation of melpa packages
-  (async-bytecomp-package-mode 1))
+  ;;(async-bytecomp-package-mode 1)
+)
 #+END_SRC
 
 Here is an example of what you can do with async.
@@ -253,6 +262,7 @@ when I quit ediff.
 
   (add-hook 'ediff-quit-merge-hook #'golden-ratio)
 #+END_SRC
+
 * force emacs to use utf8 in all possible situations
 :PROPERTIES:
 :ID:       2aafacc4-bc8a-4683-a1d3-63cce3f72f84
@@ -451,6 +461,19 @@ You can read more [[http://www.wilfred.me.uk/blog/2016/07/30/example-driven-deve
 (setq uniquify-after-kill-buffer-p t)
 (setq uniquify-ignore-buffers-re "^\\*")
  #+END_SRC
+* all the icons
+:PROPERTIES:
+:ID:       19d20513-a02a-42fc-91b2-76f7c32df062
+:END:
+You can learn more about [[https://github.com/domtronn/all-the-icons.el][all the icons]] here.
+
+[[~/.emacs.d/images/all-the-icons.png]]
+
+You need the icons for this to work dummy.
+#+BEGIN_SRC emacs-lisp
+(use-package all-the-icons :ensure t)
+(use-package all-the-icons-dired :ensure t)
+#+END_SRC
 * dired
   :PROPERTIES:
   :ID:       425e59a0-c254-44df-b50b-d008d5258df8
@@ -554,10 +577,14 @@ If I do want the details I can use ")" to show them and "(" to hide them again
         ([mouse2] . dired-find-file)))
 
 (with-eval-after-load 'dired
-  (add-hook 'dired-mode-hook 'dired-omit-mode))
+  (add-hook 'dired-mode-hook 'dired-omit-mode)
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 #+END_SRC
 
 *** Ediff two marked files
+:PROPERTIES:
+:ID:       05dc8ce4-1d7e-411e-be77-924078a92ed0
+:END:
 
 #+BEGIN_SRC emacs-lisp
 (defun ora-ediff-files ()
@@ -616,7 +643,17 @@ But it is probably not necessary.  When I am about to expand a snippet, I am typ
     (advice-add 'evil-insert-state :after 'yas-expand))
 
 #+END_SRC
+* nov mode
+:PROPERTIES:
+:ID:       0eed7f37-c991-4795-ba26-ba477afdaab2
+:END:
 
+This mode lets you read epub documents inside Emacs.  How cool is that?
+
+#+BEGIN_SRC emacs-lisp
+  (use-package nov :ensure t
+    :config (push '("\\.epub\\'" . nov-mode) auto-mode-alist))
+#+END_SRC
 
 * company mode
 ** download company mode
@@ -788,7 +825,6 @@ Type this command on any line of a repo.  It'll tell you the commit when it appe
 (use-package git-messenger :defer t :ensure t)
 (global-set-key (kbd "C-x v p") #'git-messenger:popup-message)
 #+END_SRC
-
 * css
 :PROPERTIES:
 :ID:       b88f1e6b-66f1-4209-b41e-19a06357db1c
@@ -838,18 +874,6 @@ https://github.com/smihica/emmet-mode#css-abbreviations
 #+BEGIN_SRC emacs-lisp
 (add-hook 'css-mode-hook 'emmet-mode) ;; enable Emmet's css abbreviation.
 #+END_SRC
-* all the icons
-:PROPERTIES:
-:ID:       19d20513-a02a-42fc-91b2-76f7c32df062
-:END:
-You can learn more about [[https://github.com/domtronn/all-the-icons.el][all the icons]] here.
-
-[[~/.emacs.d/images/all-the-icons.png]]
-
-You need the icons for this to work dummy.
-#+BEGIN_SRC emacs-lisp
-(use-package all-the-icons :ensure t)
-#+END_SRC
 * better shell remote open
 :PROPERTIES:
 :ID:       0a0f0129-5e8f-40e7-a2fc-ae3c9b7f6622
@@ -868,6 +892,7 @@ Helm mode is an incremental completion framework, that is much better than ido-m
 [[~/.emacs.d/images/helm-buffers-list.gif]]
 
 Before we load any helm things, need to load helm-flx so it uses flx instead of helm's fuzzy matching.
+
 #+BEGIN_SRC emacs-lisp
 (use-package helm-flx :ensure t :defer t
   :init (helm-flx-mode +1))
@@ -877,6 +902,7 @@ According to the github repo this next line is all that I need to install helm
 #+BEGIN_SRC emacs-lisp
 (add-hook 'after-init-hook '(lambda () (require 'helm-config)))
 #+END_SRC
+
 I've installed helm-ag, which might be cool.
 
 #+BEGIN_SRC emacs-lisp
@@ -912,6 +938,7 @@ I've installed helm-ag, which might be cool.
 #+END_SRC
 
 For whatever reason, helm is looking for files with "C-x f" and not "C-x C-f"
+
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 #+END_SRC
@@ -925,7 +952,6 @@ For whatever reason, helm is looking for files with "C-x f" and not "C-x C-f"
 (define-key helm-map (kbd "<tab>")    'helm-execute-persistent-action)
 (define-key helm-map (kbd "<backtab>") 'helm-select-action)
 #+END_SRC
-
 
 (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
  the next command will add another C-j command for helm
@@ -952,22 +978,54 @@ I should define some cool helm mini commands
 
  how do I get this to work?
 (define-key helm-find-files-map (kbd "s-h") 'helm-next-line)
-* ledger
-#+BEGIN_SRC emacs-lisp
-(use-package ledger-mode :ensure t)
+* z-present
 
-(add-to-list 'auto-mode-alist '("\\.ledger?\\'" . ledger-mode))
+Slides inside Emacs
+
+#+BEGIN_SRC emacs-lisp
+(use-package zpresent :ensure t :defer t)
+#+END_SRC
+
+Create an org-file and M-x turns the file into a presentation.  "n" is for next slide and "p" is for previous slide.
+
+#+BEGIN_SRC org
+  ,* First Slide
+  Opening paragraph
+  ,** Sub title 1
+  Some more information on the first slide
+  ,** sub title 2
+  ,* Second Slide
+  Opening paragraph
+  ,** sub title 1
+  More info
+  ,** sub title 2
+  Lots more info.
+#+END_SRC
+
+
+* ledger
+:PROPERTIES:
+:ID:       ddcf601b-75ac-46ce-ab16-c442158afdf6
+:END:
+#+BEGIN_SRC emacs-lisp
+  (use-package ledger-mode :ensure t
+    :mode
+    ("\\.ledger?\\'" . ledger-mode))
+
 #+END_SRC
 * smart mode-line
 :PROPERTIES:
 :ID:       234a4918-8947-4e1c-85ed-77c0501fdcfb
 :END:
+
 Make the mode line look prettier
+
 #+BEGIN_SRC emacs-lisp
 (use-package smart-mode-line-powerline-theme :ensure t)
 #+END_SRC
 
 Smart mode line apparently is more active and works w/ just about anything
+
 #+BEGIN_SRC emacs-lisp
 (use-package smart-mode-line :ensure t
   :init
@@ -983,6 +1041,17 @@ Smart mode line apparently is more active and works w/ just about anything
 #+END_SRC
 
 * COMMENT some things I don't use
+** paradox
+    Paradox adds some nice features to emacs install packages
+    this sets up paradox to use my private token to access public repos.
+    #+BEGIN_SRC emacs-lisp
+    ;;(require 'init-paradox)
+    #+END_SRC
+** sunrise is a alternative to flotilla
+    #+BEGIN_SRC emacs-lisp
+    (require 'init-sunrise)
+    #+END_SRC
+
 ** autocorrect
 :PROPERTIES:
 :ID:       ed63d49c-50d4-468a-9df2-8b578a823e90
@@ -1084,7 +1153,6 @@ Add abbrev-mode to text modes and program modes to turn on autocorrect like func
                    (abbrev-mode 1)
                    (diminish 'abbrev-mode))))
 
-
 #+END_SRC
 
 *** logging the commands I use often.
@@ -1093,21 +1161,16 @@ Add abbrev-mode to text modes and program modes to turn on autocorrect like func
     I don't really use this functionality.  I never see what commands I'm using.  So I'll ignore it for now.
     (require-package 'mwe-log-commands)
     (me:log-keyboard-commands)
-*** paradox
-    Paradox adds some nice features to emacs install packages
-    this sets up paradox to use my private token to access public repos.
-    #+BEGIN_SRC emacs-lisp
-    ;;(require 'init-paradox)
-    #+END_SRC
-*** sunrise is a alternative to flotilla
-    #+BEGIN_SRC emacs-lisp
-    (require 'init-sunrise)
-    #+END_SRC
-
 *** emacs can play music and stream it! (when streaming works)
     #+BEGIN_SRC emacs-lisp
-    (require 'init-emms)
+      (use-package emms :ensure t
+        :defer t
+        :config
+        (require 'emms-setup)
+        (emms-all)
+        (emms-default-players))
     #+END_SRC
+
 *** python mode
     #+BEGIN_SRC emacs-lisp
     (require 'init-python-mode)

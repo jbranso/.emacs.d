@@ -17,8 +17,7 @@
 :END:
 For example, the lambda's parenthesis, within a function will have a different color than the function's parenthesis.
 #+BEGIN_SRC emacs-lisp
-  (use-package rainbow-delimiters
-  :ensure t)
+  (use-package rainbow-delimiters :ensure t)
   #+END_SRC
 * Paredit
 :PROPERTIES:

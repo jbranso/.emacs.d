@@ -23,12 +23,14 @@ VK06XF2d5WiN2dMDhCnAzg==
 :PROPERTIES:
 :ID:       86aba916-f4a8-435e-875c-71912a5a55e5
 :END:
+
 I can define some emacs testing of variables.  This will hopefully help me spot errors. cool.
 (ert-deftest pp-test-quote ()
   "Tests the rendering of `quote' symbols in `pp-to-string'."
   (should (equal (pp-to-string '(quote quote)) "'quote"))
   (should (equal (pp-to-string '((quote a) (quote b))) "('a 'b)\n"))
   (should (equal (pp-to-string '('a 'b)) "('a 'b)\n")))
+
 #+BEGIN_SRC emacs-lisp
   (use-package erc
     :init
@@ -54,27 +56,27 @@ I can define some emacs testing of variables.  This will hopefully help me spot 
                                         ;;("freenode.net" "#debian-hurd")
                                         )
 
-        ;; Rename server buffers to reflect the current network name instead
-        ;; of SERVER:PORT. (e.g. "freenode" instead of "irc.freenode.net:6667"). This
-        ;; is useful when using a bouncer like ZNC where you have multiple
-        ;; connections to the same server.
-        erc-rename-buffers t
-        ;; set the default nick
-        erc-nick "joshuaBPMan"
-        ;; don't prompt me for my password erc should know it
-        erc-prompt-for-password t
-	;;erc-prompt-for-password t
-        erc-hide-list '("JOIN" "PART" "QUIT")
-        ;; don't let erc switch the active buffer when it connects to a new channel when erc is starting up
-        ;; this gets annoying because when I'm starting up emacs, it'll switch to "#arch", then "#hurd", then "#org-mode".
-        ;; it's very weird.  But after erc has loaded and those initial buffers come up, I want erc to jump to a new channel
-        ;; when I try to join it
-        erc-join-buffer 'bury
+          ;; Rename server buffers to reflect the current network name instead
+          ;; of SERVER:PORT. (e.g. "freenode" instead of "irc.freenode.net:6667"). This
+          ;; is useful when using a bouncer like ZNC where you have multiple
+          ;; connections to the same server.
+          erc-rename-buffers t
+          ;; set the default nick
+          erc-nick "joshuaBPMan"
+          ;; don't prompt me for my password erc should know it
+          erc-prompt-for-password t
+          ;;erc-prompt-for-password t
+          erc-hide-list '("JOIN" "PART" "QUIT")
+          ;; don't let erc switch the active buffer when it connects to a new channel when erc is starting up
+          ;; this gets annoying because when I'm starting up emacs, it'll switch to "#arch", then "#hurd", then "#org-mode".
+          ;; it's very weird.  But after erc has loaded and those initial buffers come up, I want erc to jump to a new channel
+          ;; when I try to join it
+          erc-join-buffer 'bury
 
           ;; Interpret mIRC-style color commands in IRC chats
           erc-interpret-mirc-color t)
 
-          ;; guixSD cannot read my gpg keys.  This way I can still use erc on GuixSD
+    ;; guixSD cannot read my gpg keys.  This way I can still use erc on GuixSD
     (if (equal system-name "parabola")
         (setq erc-prompt-for-password nil)
       (setq erc-prompt-for-password t))
@@ -84,9 +86,11 @@ I can define some emacs testing of variables.  This will hopefully help me spot 
     ;;erc-prompt-for-password t
 
     :config
-    (setq erc-join-buffer 'buffer))
+    (setq erc-join-buffer 'buffer)
+
+    :defer t)
 #+END_SRC
-** making new commands
+** COMMENT making new commands
 This is an example of how to make a new command.  Type "/uptime" to use it.
 #+BEGIN_SRC emacs-lisp :tangle no
 (defun erc-cmd-UPTIME (&rest ignore)

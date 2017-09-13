@@ -39,14 +39,16 @@
   :config
   (add-to-list 'aggressive-indent-excluded-modes 'web-mode)
   (add-to-list 'aggressive-indent-excluded-modes 'org-mode))
-(add-hook 'after-init-hook 'global-aggressive-indent-mode)
+;;(add-hook 'after-init-hook 'global-aggressive-indent-mode)
+(add-hook 'prog-mode-hook #'aggressive-indent-mode)
 
 (use-package async
   :ensure t
   :defer t
-  :config
+  ;;:config
   ;; enable async compilation of melpa packages
-  (async-bytecomp-package-mode 1))
+  ;;(async-bytecomp-package-mode 1)
+)
 
 (use-package helm-projectile :ensure t)
 (use-package projectile :diminish projectile-mode
@@ -213,6 +215,9 @@ enter ediff."
 (setq uniquify-after-kill-buffer-p t)
 (setq uniquify-ignore-buffers-re "^\\*")
 
+(use-package all-the-icons :ensure t)
+(use-package all-the-icons-dired :ensure t)
+
 (after-load 'dired
   (autoload 'dired-async-mode "dired-async.el" nil t)
   (dired-async-mode 1))
@@ -239,7 +244,8 @@ enter ediff."
         ([mouse2] . dired-find-file)))
 
 (with-eval-after-load 'dired
-  (add-hook 'dired-mode-hook 'dired-omit-mode))
+  (add-hook 'dired-mode-hook 'dired-omit-mode)
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 
 (defun ora-ediff-files ()
   (interactive)
@@ -276,6 +282,9 @@ enter ediff."
 
 (with-eval-after-load 'warnings
   (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
+
+(use-package nov :ensure t
+  :config (push '("\\.epub\\'" . nov-mode) auto-mode-alist))
 
 (use-package company :ensure t
   :config
@@ -357,8 +366,6 @@ enter ediff."
 
 (add-hook 'css-mode-hook 'emmet-mode) ;; enable Emmet's css abbreviation.
 
-(use-package all-the-icons :ensure t)
-
 (use-package better-shell :ensure t :defer t)
 
 (use-package helm-flx :ensure t :defer t
@@ -403,9 +410,9 @@ enter ediff."
 (define-key helm-map (kbd "<tab>")    'helm-execute-persistent-action)
 (define-key helm-map (kbd "<backtab>") 'helm-select-action)
 
-(use-package ledger-mode :ensure t)
-
-(add-to-list 'auto-mode-alist '("\\.ledger?\\'" . ledger-mode))
+(use-package ledger-mode :ensure t
+  :mode
+  ("\\.ledger?\\'" . ledger-mode))
 
 (use-package smart-mode-line-powerline-theme :ensure t)
 
