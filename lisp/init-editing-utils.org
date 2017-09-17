@@ -30,6 +30,7 @@ This does something too, but I'm not sure what.
    ;;browse-url-browser-function (quote browse-url-chromium)
    browse-url-browser-function (quote browse-url-firefox)
    bookmark-default-file (expand-file-name ".bookmarks.el" user-emacs-directory)
+   bookmark-save-flag 1
    ;;original value was 30.  A large number slows down emacs a bit apparently
    buffers-menu-max-size 20
    case-fold-search t
@@ -125,14 +126,6 @@ My modkey is "command" on a macbook.
   (global-set-key (kbd "s-i") (lambda () (interactive)
                                 (erc :server "irc.freenode.net" :port "6667"
                                      :nick "jbranso")))
-  (defun my/save-all-buffers ()
-    (interactive)
-    (save-some-buffers 1))
-
-  (global-set-key (kbd "s-s") 'my/save-all-buffers)
-  (global-set-key (kbd "s-u") #'my/uppercase-word)
-
-  (buffer-file-name)
 #+END_SRC
 
 *** My reserved keychords.  "C-c [a-zA-Z]"
@@ -274,90 +267,6 @@ add to the list of file names NOT to complete
           "Notes.bib" "auto/"))
 #+END_SRC
 
-* Enabling modes
-** Autorevert
-:PROPERTIES:
-:ID:       5361bf81-5d82-4e45-8534-fadd8e575b76
-:END:
-If a file has changed on disk, then automatically revert the buffer and don't complain about it
-#+BEGIN_SRC emacs-lisp
-  (global-auto-revert-mode 1)
-#+END_SRC
-
-Be quiet about reverting files.
-#+BEGIN_SRC emacs-lisp
-  (setq auto-revert-verbose nil)
-#+END_SRC
-
-
-This apparently also updates dired buffers too.
-#+BEGIN_SRC emacs-lisp
-  (setq global-auto-revert-non-file-buffers t)
-#+END_SRC
-
-** Parenthesis
-*** Show matching parens
-:PROPERTIES:
-:ID:       46d36ead-f555-4a6f-abcf-201ece93a489
-:END:
- Show matching parens
-              #+BEGIN_SRC emacs-lisp
-                (show-paren-mode 1)
- #+END_SRC
-*** Electric pair mode
-:PROPERTIES:
-:ID:       1672d05c-1f83-48b0-a5d8-c9f838c1a954
-:END:
- When you type an open parenthsis, electric pair mode types the second one for you,
- leaving point between them
-  #+BEGIN_SRC emacs-lisp
-    (electric-pair-mode t)
- #+END_SRC
-** page break line modes
-:PROPERTIES:
-:ID:       ce614852-2e6c-4c4d-9011-a478bc5e96f9
-:END:
-This turn ^L into nice long lines.
-#+BEGIN_SRC emacs-lisp
-  (use-package page-break-lines
-    :ensure t
-    :diminish page-break-lines-mode
-    :config (global-page-break-lines-mode))
-
-#+END_SRC
-** Emacs's default query-replace sucks.  Let's use anzu!
-:PROPERTIES:
-:ID:       b93b547a-2b97-4896-af4b-e6f4c783457e
-:END:
-Anzu is amazing!  It highlight the words that you wish to replace.
-#+BEGIN_SRC emacs-lisp
-  (use-package anzu
-    :ensure t
-    :diminish anzu-mode)
-
-  (global-anzu-mode +1)
-#+END_SRC
-
-** visual line mode
-:PROPERTIES:
-:ID:       c65ee7c6-61e4-46a5-b09f-70ff12cc14eb
-:END:
-Filling is what one does to insert actual or invisible newlines at a really long sentence to make a paragraph.
-For example:
-
-This is a really long sentence, but when you call fill paragraph on it, with point inside it, it might look something like this:
-
-This is a really long sentence,
-but when you call fill paragraph
-on it, with point inside it, it
-might look something like this:
-
-You probably know that programs like MS-word has this turned on by default, BUT most people, who use emacs, are programmers, NOT writers.  Most programmers DO not want emacs to insert default newline characters.  SO if you would like emacs to insert invisible newline characters just add the following to your .emacs
-
-#+BEGIN_SRC emacs-lisp
-  (global-visual-line-mode)
-  (global-set-key (kbd "C-c q") #'fill-paragraph)
-#+END_SRC
 * Making the default macro better  C-x Q
 :PROPERTIES:
 :ID:       7dc7b53c-de3e-460c-92b1-62ebb1aee20d
@@ -388,7 +297,13 @@ You probably know that programs like MS-word has this turned on by default, BUT 
 :PROPERTIES:
 :ID:       24a0d075-a63a-44b1-be8b-560834b85145
 :END:
+
 #+BEGIN_SRC emacs-lisp
+
+  (defun my/save-all-buffers ()
+    (interactive)
+    (save-some-buffers 1))
+
   (add-hook 'after-save-hook 'my/save-all-buffers)
 #+END_SRC
 
@@ -555,28 +470,29 @@ var howIMetYourMother = 29;
 
 Delete any trailing whitespace before save.
 #+BEGIN_SRC emacs-lisp
-      (defun my/delete-trailing-whitespace ()
-        "This is just a defined function that deletes trailing whitespace"
-        (interactive)
-        (when
-            ;; don't delete white space in my programming dirs
-            ;; where I may commit these changes to other projects.
-            (and
-             (not (s-match ".*programming/gnu.*" (buffer-file-name)))
-             (not (s-match ".*programming/web.*" (buffer-file-name))))
-        (delete-trailing-whitespace)))
+  (defun my/delete-trailing-whitespace ()
+    "This is just a defined function that deletes trailing whitespace"
+    (interactive)
+    (when
+        ;; don't delete white space in my programming dirs
+        ;; where I may commit these changes to other projects.
+        (and
+         (not (s-match ".*programming/guix.*" (buffer-file-name)))
+         (not (s-match ".*programming/gnu.*" (buffer-file-name)))
+         (not (s-match ".*programming/web.*" (buffer-file-name))))
+      (delete-trailing-whitespace)))
 
-       (defun my/leave-trailing-whitespace-hook  ()
-         "This defun leaves trailing whitespace"
-         (interactive)
-         (remove-hook 'before-save-hook 'my/delete-trailing-whitespace))
+  (defun my/leave-trailing-whitespace-hook  ()
+    "This defun leaves trailing whitespace"
+    (interactive)
+    (remove-hook 'before-save-hook 'my/delete-trailing-whitespace))
 
-       (defun my/delete-trailing-whitespace-hook  ()
-         "This defun leaves trailing whitespace"
-         (interactive)
-         (add-hook 'before-save-hook 'my/delete-trailing-whitespace))
+  (defun my/delete-trailing-whitespace-hook  ()
+    "This defun leaves trailing whitespace"
+    (interactive)
+    (add-hook 'before-save-hook 'my/delete-trailing-whitespace))
 
-         (my/delete-trailing-whitespace-hook)
+  (my/delete-trailing-whitespace-hook)
 #+END_SRC
 
 * start the emacs server

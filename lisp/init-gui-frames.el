@@ -79,6 +79,11 @@
   (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w s") 'windmove-right)
   (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w C-t") 'my/toggle-window-split))
 
+(define-key Info-mode-map (kbd "C-w h") 'windmove-down)
+(define-key Info-mode-map (kbd "C-w t") 'windmove-up)
+(define-key Info-mode-map (kbd "C-w n") 'windmove-left)
+(define-key Info-mode-map (kbd "C-w s") 'windmove-right)
+
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
@@ -89,7 +94,7 @@
 (save-place-mode)
 
 (when (display-graphic-p)
-  (global-hl-line-mode 1))
+  (add-hook 'after-init-hook 'global-hl-line-mode))
 
 ;;cr red
   ;;cg green

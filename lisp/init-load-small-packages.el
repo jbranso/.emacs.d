@@ -1,5 +1,28 @@
 ;; -*- lexical-binding: t -*-
 
+(global-auto-revert-mode 1)
+
+(setq auto-revert-verbose nil)
+
+(setq global-auto-revert-non-file-buffers t)
+
+(add-hook 'after-init-hook 'show-paren-mode)
+;;(show-paren-mode 1)
+
+(add-hook 'after-init-hook 'electric-pair-mode)
+;;(electric-pair-mode t)
+
+(use-package anzu
+    :ensure t
+    :diminish anzu-mode
+    :config (global-anzu-mode 1)
+    :defer t)
+
+;;(add-hook 'after-init-hook 'global-anzu-mode)
+
+(add-hook 'after-init-hook 'global-visual-line-mode)
+(global-set-key (kbd "C-c q") #'fill-paragraph)
+
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -36,11 +59,13 @@
 ;;(global-set-key (kbd "C-c $") #'endless/ispell-word-then-abbrev))
 
 (use-package aggressive-indent :ensure t
-  :config
-  (add-to-list 'aggressive-indent-excluded-modes 'web-mode)
-  (add-to-list 'aggressive-indent-excluded-modes 'org-mode))
-;;(add-hook 'after-init-hook 'global-aggressive-indent-mode)
-(add-hook 'prog-mode-hook #'aggressive-indent-mode)
+    :defer t
+    :config
+    (add-to-list 'aggressive-indent-excluded-modes 'web-mode)
+    (add-to-list 'aggressive-indent-excluded-modes 'org-mode))
+    (aggressive-indent-mode 1)
+    ;;(add-hook 'after-init-hook 'global-aggressive-indent-mode)
+;;    (add-hook 'prog-mode-hook #'aggressive-indent-mode)
 
 (use-package async
   :ensure t
@@ -50,15 +75,16 @@
   ;;(async-bytecomp-package-mode 1)
 )
 
-(use-package helm-projectile :ensure t)
+(use-package helm-projectile :ensure t :defer t)
 (use-package projectile :diminish projectile-mode
   :config
   (setq projectile-enable-caching t)
   (eval-after-load 'projectile-mode 'helm-projectile-on)
   (setq projectile-completion-system 'helm)
+  (projectile-global-mode)
   :ensure t)
 
-  (add-hook 'after-init-hook #'projectile-global-mode)
+;;(add-hook 'after-init-hook #'projectile-global-mode)
 
 (use-package diff-hl :defer t :ensure t)
 (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
@@ -88,10 +114,12 @@
   :ensure t
   ;;let's not use golden ratio on various modes
   :config (setq golden-ratio-exclude-modes
-                '( "sr-mode" "ediff-mode" "ediff-meta-mode" "ediff-set-merge-mode" "gnus-summary-mode"
-                   "magit-status-mode" "magit-popup-mode" "org-export-stack-mode"))
-  :diminish golden-ratio-mode)
-(add-hook 'after-init-hook 'golden-ratio-mode)
+                  '( "sr-mode" "ediff-mode" "ediff-meta-mode" "ediff-set-merge-mode" "gnus-summary-mode"
+                     "magit-status-mode" "magit-popup-mode" "org-export-stack-mode"))
+                     (golden-ratio-mode)
+
+                     :diminish golden-ratio-mode)
+;;  (add-hook 'after-init-hook 'golden-ratio-mode)
 
 (defun my-ediff-turn-off-golden-ratio ()
   "This function turns off golden ratio mode, when I
@@ -145,11 +173,6 @@ enter ediff."
 (add-hook 'eshell-mode-hook '(lambda ()
                               (setq shell-aliases-file "~/.emacs.d/alias")))
 
-(define-key Info-mode-map (kbd "C-w h") 'windmove-down)
-(define-key Info-mode-map (kbd "C-w t") 'windmove-up)
-(define-key Info-mode-map (kbd "C-w n") 'windmove-left)
-(define-key Info-mode-map (kbd "C-w s") 'windmove-right)
-
 (use-package smart-comment
   :ensure t
   :bind ("C-c ;" . smart-comment)
@@ -157,22 +180,8 @@ enter ediff."
   (with-eval-after-load 'org
     (local-unset-key "C-c ;")))
 
-(use-package wttrin
-  :ensure t
-  :commands (wttrin)
-  :init
-  (setq wttrin-default-cities
-  '("West Lafayette"))
-  (setq wttrin-default-accept-language '("Accept-Language" . "en-US")))
-
-(defun weather ()
-  "Show the local weather via wttrin"
-  (interactive)
-  (wttrin))
-
-(add-hook 'after-init-hook 'global-prettify-symbols-mode)
-
 (defun my/add-extra-prettify-symbols ()
+  (global-prettify-symbols-mode 1)
   (mapc (lambda (pair) (push pair prettify-symbols-alist))
         '(
           (">=" . ?≥)
@@ -203,10 +212,10 @@ enter ediff."
           ("ae" . ?æ)
           ("^_^" . ?☻)
           ("function" .?ϝ)
-          ))
-  (add-hook 'after-init-hook 'my/add-extra-prettify-symbols))
+          )))
+(add-hook 'after-init-hook 'my/add-extra-prettify-symbols)
 
-(use-package suggest :ensure t)
+(use-package suggest :ensure t :defer t)
 
 (require 'uniquify)
 
@@ -215,16 +224,14 @@ enter ediff."
 (setq uniquify-after-kill-buffer-p t)
 (setq uniquify-ignore-buffers-re "^\\*")
 
-(use-package all-the-icons :ensure t)
-(use-package all-the-icons-dired :ensure t)
+(use-package all-the-icons :ensure t :defer t)
+(use-package all-the-icons-dired :ensure t :defer)
 
 (after-load 'dired
   (autoload 'dired-async-mode "dired-async.el" nil t)
   (dired-async-mode 1))
 
 (use-package dired+ :ensure t)
-
-(use-package dired-sort :ensure t)
 
 (use-package dired-details :ensure t
   :config
@@ -270,30 +277,31 @@ enter ediff."
 (define-key dired-mode-map "e" 'ora-ediff-files)
 
 (use-package yasnippet
-  :defer t
-  :ensure t
-  :init
-  (add-to-list 'load-path "~/.emacs.d/snippets")
-  ;; (define-key company-mode-map (kbd "TAB") #'yas-expand)
+:defer t
+:ensure t
+:init
+(add-to-list 'load-path "~/.emacs.d/snippets")
+;; (define-key company-mode-map (kbd "TAB") #'yas-expand)
 
-  ;; (define-key company-mode-map (kbd "<tab>") #'yas-expand)
-  )
-(add-hook 'after-init-hook 'yas-global-mode)
+;; (define-key company-mode-map (kbd "<tab>") #'yas-expand)
+:config (yas-global-mode 1))
+;; (add-hook 'after-init-hook 'yas-global-mode)
 
 (with-eval-after-load 'warnings
   (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
 
 (use-package nov :ensure t
-  :config (push '("\\.epub\\'" . nov-mode) auto-mode-alist))
+  :mode ("\\.epub\\'" . nov-mode))
 
 (use-package company :ensure t
   :config
   (setq company-idle-delay .2)
   (define-key company-active-map "\C-n" #'company-select-next)
   (define-key company-active-map "\C-p" #'company-select-previous)
-  (define-key company-active-map (kbd "<tab>") #'company-complete-selection))
+  (define-key company-active-map (kbd "<tab>") #'company-complete-selection)
+  (global-company-mode 1))
 
-  (add-hook 'after-init-hook 'global-company-mode)
+  ;;(add-hook 'after-init-hook 'global-company-mode)
 
 (dolist (hook '(prog-mode-hook
                 text-mode-hook
@@ -315,22 +323,21 @@ enter ediff."
   :config
   (flycheck-color-mode-line-mode)
   (flycheck-pos-tip-mode)
-  (flycheck-status-emoji-mode))
+  (flycheck-status-emoji-mode)
+  (global-flycheck-mode
+  ))
 
-(add-hook 'after-init-hook 'global-flycheck-mode)
+  ;; (add-hook 'after-init-hook 'global-flycheck-mode)
 
-(use-package lua-mode :ensure t)
+(use-package lua-mode :ensure t
+    :mode ("\\.lua\\'" . lua-mode))
 
 ;; (use-package ido-ubiquitous :ensure t)
+
 (use-package magit :defer t :ensure t)
-(use-package git-blame :ensure t)
+;;(use-package git-blame :ensure t :defer t)
 
-(after-load 'magit
-  (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
- ;; (setq magit-completing-read-function 'magit-ido-completing-read)
-  )
-
-(use-package fullframe :ensure t)
+(use-package fullframe :ensure t :defer t)
 (after-load 'magit (fullframe magit-status magit-mode-quit-window))
 
 (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)
@@ -368,10 +375,21 @@ enter ediff."
 
 (use-package better-shell :ensure t :defer t)
 
+(use-package helm :ensure t :defer t)
+(use-package helm-swoop :ensure t :defer t)
 (use-package helm-flx :ensure t :defer t
   :init (helm-flx-mode +1))
 
-(add-hook 'after-init-hook '(lambda () (require 'helm-config)))
+(defun my/config-helm-function ()
+  "This just sets up helm."
+  (require 'helm-config)
+  (helm-mode 1)
+  ;;(define-key helm-map (kbd "C-<return>") 'helm-execute-persistent-action)
+  ;;(define-key helm-find-files-map (kbd "<tab>") 'helm-ff-RET)
+  ;;(define-key helm-map (kbd "<backtab>") 'helm-select-action)
+  (global-set-key (kbd "C-x r b") #'helm-bookmarks))
+
+(add-hook 'after-init-hook 'my/config-helm-function)
 
 (setq
  ;;don't let helm swoop guess what you want to search... It is normally wrong and annoying.
@@ -405,10 +423,7 @@ enter ediff."
 
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
-(define-key helm-map (kbd "C-<return>") 'helm-execute-persistent-action)
-
-(define-key helm-map (kbd "<tab>")    'helm-execute-persistent-action)
-(define-key helm-map (kbd "<backtab>") 'helm-select-action)
+(use-package zpresent :ensure t :defer t)
 
 (use-package ledger-mode :ensure t
   :mode
@@ -427,5 +442,29 @@ enter ediff."
   ;; this makes sure that the mode line doesn't go off the screen
   (setq sml/name-width 40)
   (sml/setup))
+
+(use-package emms :ensure t
+  :defer t
+  :config
+  (require 'emms-setup)
+  (emms-all)
+  (emms-default-players))
+
+(dolist (hook '(
+c-mode-hook
+js2-mode-hook
+css-mode-hook
+php-mode-hook
+web-mode-hook
+emacs-lisp-mode-hook
+))
+  (progn
+    (add-hook hook 'linum-mode)
+    ;;(remove-hook hook 'linum-mode)
+    ))
+
+;; (use-package nlinum :ensure t)
+
+(use-package debbugs :ensure t :defer t)
 
 (provide 'init-load-small-packages)

@@ -12,6 +12,8 @@
 :ID:       124ab2a5-dfbe-4399-af27-4958f163537a
 :END:
 
+(use-package windmove :ensure t)
+
 Windmove makes it easy to move point to a different buffer, especially when the window displays more than 1 buffer.
 
 This might be a good thing for a hydra here.
@@ -102,6 +104,16 @@ I think that some of these commands are not needed.
     (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w C-t") 'my/toggle-window-split))
 
 #+END_SRC
+
+
+This lets you use the windmove commands inside an info buffer!!!! sooo cool!
+  #+BEGIN_SRC emacs-lisp
+  (define-key Info-mode-map (kbd "C-w h") 'windmove-down)
+  (define-key Info-mode-map (kbd "C-w t") 'windmove-up)
+  (define-key Info-mode-map (kbd "C-w n") 'windmove-left)
+  (define-key Info-mode-map (kbd "C-w s") 'windmove-right)
+  #+END_SRC
+
 * improving the mouse experience
 :PROPERTIES:
 :ID:       4b82a889-e8a4-40de-bacd-7f772003b886
@@ -145,8 +157,8 @@ Save the position that point was in during the last emacs session
 show a nice highlight where-ever your cursor is
 but ONLY on graphical displays.  It looks weird in the terminal
 #+BEGIN_SRC emacs-lisp
-(when (display-graphic-p)
-  (global-hl-line-mode 1))
+  (when (display-graphic-p)
+    (add-hook 'after-init-hook 'global-hl-line-mode))
 #+END_SRC
 
 * color various comments

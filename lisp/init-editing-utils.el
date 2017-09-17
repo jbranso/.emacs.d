@@ -14,6 +14,7 @@
  ;;browse-url-browser-function (quote browse-url-chromium)
  browse-url-browser-function (quote browse-url-firefox)
  bookmark-default-file (expand-file-name ".bookmarks.el" user-emacs-directory)
+ bookmark-save-flag 1
  ;;original value was 30.  A large number slows down emacs a bit apparently
  buffers-menu-max-size 20
  case-fold-search t
@@ -74,12 +75,6 @@
 (global-set-key (kbd "s-i") (lambda () (interactive)
                               (erc :server "irc.freenode.net" :port "6667"
                                    :nick "jbranso")))
-(defun my/save-all-buffers ()
-  (interactive)
-  (save-some-buffers 1))
-
-(global-set-key (kbd "s-s") 'my/save-all-buffers)
-(global-set-key (kbd "s-u") #'my/uppercase-word)
 
 (global-set-key (kbd "C-c TAB") #'indent-whole-buffer)
 ;; when point is between two words, delete the space between them
@@ -166,30 +161,6 @@
         "-pkg.el" "-autoloads.el"
         "Notes.bib" "auto/"))
 
-(global-auto-revert-mode 1)
-
-(setq auto-revert-verbose nil)
-
-(setq global-auto-revert-non-file-buffers t)
-
-(show-paren-mode 1)
-
-(electric-pair-mode t)
-
-(use-package page-break-lines
-  :ensure t
-  :diminish page-break-lines-mode
-  :config (global-page-break-lines-mode))
-
-(use-package anzu
-  :ensure t
-  :diminish anzu-mode)
-
-(global-anzu-mode +1)
-
-(global-visual-line-mode)
-(global-set-key (kbd "C-c q") #'fill-paragraph)
-
 (defun my-macro-query (arg)
   "Prompt for input using minibuffer during kbd macro execution.
 With prefix argument, allows you to select what prompt string to use.
@@ -205,6 +176,10 @@ If the input is non-empty, it is inserted at point."
     (unless (string= "" input) (insert input))))
 
 (global-set-key "\C-xQ" #'my-macro-query)
+
+(defun my/save-all-buffers ()
+  (interactive)
+  (save-some-buffers 1))
 
 (add-hook 'after-save-hook 'my/save-all-buffers)
 
@@ -295,21 +270,22 @@ be global."
       ;; don't delete white space in my programming dirs
       ;; where I may commit these changes to other projects.
       (and
+       (not (s-match ".*programming/guix.*" (buffer-file-name)))
        (not (s-match ".*programming/gnu.*" (buffer-file-name)))
        (not (s-match ".*programming/web.*" (buffer-file-name))))
-  (delete-trailing-whitespace)))
+    (delete-trailing-whitespace)))
 
- (defun my/leave-trailing-whitespace-hook  ()
-   "This defun leaves trailing whitespace"
-   (interactive)
-   (remove-hook 'before-save-hook 'my/delete-trailing-whitespace))
+(defun my/leave-trailing-whitespace-hook  ()
+  "This defun leaves trailing whitespace"
+  (interactive)
+  (remove-hook 'before-save-hook 'my/delete-trailing-whitespace))
 
- (defun my/delete-trailing-whitespace-hook  ()
-   "This defun leaves trailing whitespace"
-   (interactive)
-   (add-hook 'before-save-hook 'my/delete-trailing-whitespace))
+(defun my/delete-trailing-whitespace-hook  ()
+  "This defun leaves trailing whitespace"
+  (interactive)
+  (add-hook 'before-save-hook 'my/delete-trailing-whitespace))
 
-   (my/delete-trailing-whitespace-hook)
+(my/delete-trailing-whitespace-hook)
 
 (require 'server)
 (when (not (server-running-p))

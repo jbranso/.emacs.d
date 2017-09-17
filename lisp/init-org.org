@@ -1,4 +1,4 @@
- #+TITLE: My Org Initialization
+#+TITLE: My Org Initialization
 #+AUTHOR: Joshua Branson
 #+PROPERTY: header-args :
 # this says that org mode will export up to the 4th level heading
@@ -1160,7 +1160,7 @@ There is apparently a way to specify in your org agenda files where you have a s
   this is not working?
   we want to remember the org keyboard navigation commands eh?
   https://github.com/abo-abo/hydra/wiki/Emacs
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
 
 (defhydra hydra-outline (:color pink :hint nil)
   "

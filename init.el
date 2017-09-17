@@ -72,6 +72,11 @@
 (org-babel-load-file "~/.emacs.d/lisp/init-defuns.org")
 (org-babel-load-file "~/.emacs.d/lisp/init-erc.org")
 (org-babel-load-file "~/.emacs.d/lisp/init-misc.org")
+
+(org-babel-load-file "~/.emacs.d/lisp/init-flycheck.org")
+
+
+
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
 ;;----------------------------------------------------------------------------

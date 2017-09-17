@@ -11,6 +11,99 @@ This file just loads in tiny packages that don't really need to be in separate f
 #+BEGIN_SRC emacs-lisp
 ;; -*- lexical-binding: t -*-
 #+END_SRC
+* Autorevert
+:PROPERTIES:
+:ID:       5361bf81-5d82-4e45-8534-fadd8e575b76
+:END:
+If a file has changed on disk, then automatically revert the buffer and don't complain about it
+#+BEGIN_SRC emacs-lisp
+  (global-auto-revert-mode 1)
+#+END_SRC
+
+Be quiet about reverting files.
+
+#+BEGIN_SRC emacs-lisp
+  (setq auto-revert-verbose nil)
+#+END_SRC
+
+This apparently also updates dired buffers too.
+#+BEGIN_SRC emacs-lisp
+  (setq global-auto-revert-non-file-buffers t)
+#+END_SRC
+
+* Parenthesis
+*** Show matching parens
+:PROPERTIES:
+:ID:       46d36ead-f555-4a6f-abcf-201ece93a489
+:END:
+ Show matching parens
+ #+BEGIN_SRC emacs-lisp
+ (add-hook 'after-init-hook 'show-paren-mode)
+ ;;(show-paren-mode 1)
+ #+END_SRC
+*** Electric pair mode
+:PROPERTIES:
+:ID:       1672d05c-1f83-48b0-a5d8-c9f838c1a954
+:END:
+ When you type an open parenthsis, electric pair mode types the second one for you, leaving point between them.
+  #+BEGIN_SRC emacs-lisp
+  (add-hook 'after-init-hook 'electric-pair-mode)
+  ;;(electric-pair-mode t)
+ #+END_SRC
+* Emacs's default query-replace sucks.  Let's use anzu!
+:PROPERTIES:
+:ID:       b93b547a-2b97-4896-af4b-e6f4c783457e
+:END:
+Anzu is amazing!  It highlight the words that you wish to replace.
+#+BEGIN_SRC emacs-lisp
+  (use-package anzu
+    :ensure t
+    :diminish anzu-mode
+    :config (global-anzu-mode 1)
+    :defer t)
+
+;;(add-hook 'after-init-hook 'global-anzu-mode)
+#+END_SRC
+
+* visual line mode
+:PROPERTIES:
+:ID:       c65ee7c6-61e4-46a5-b09f-70ff12cc14eb
+:END:
+
+Filling is what one does to insert actual or invisible newlines at a really long sentence to make a paragraph.
+For example:
+
+This is a really long sentence, but when you call fill paragraph on it, with point inside it, it might look something like this:
+
+This is a really long sentence,
+but when you call fill paragraph
+on it, with point inside it, it
+might look something like this:
+
+Emacs by default does not automatically call fill paragraph for you.  Instead, it shows your visual characters to show you that your text is too big for the buffer.   It looks like this:
+
+#+BEGIN_SRC org
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi bibendum elit sodales ↵
+  sapien porta, ut aliquet orci volutpat. Nulla non est vel ante pulvinar elementum eu ac  ↵
+  neque. Aliquam dapibus ipsum vulputate varius faucibus. Proin finibus rhoncus diam in ↵
+  interdum. Nullam a elit auctor felis eleifend rutrum. Fusce odio quam, vehicula vitae ↵
+  ullamcorper sit amet, consectetur ac elit. Nunc at rutrum risus, quis ullamcorper risus. ↵
+#+END_SRC
+
+Global visual line mode, will automatically remove those arrows and make it looks like this:
+
+#+BEGIN_SRC org
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi bibendum elit sodales
+  sapien porta, ut aliquet orci volutpat. Nulla non est vel ante pulvinar elementum eu ac
+  neque. Aliquam dapibus ipsum vulputate varius faucibus. Proin finibus rhoncus diam in
+  interdum. Nullam a elit auctor felis eleifend rutrum. Fusce odio quam, vehicula vitae
+  ullamcorper sit amet, consectetur ac elit. Nunc at rutrum risus, quis ullamcorper risus.
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'after-init-hook 'global-visual-line-mode)
+  (global-set-key (kbd "C-c q") #'fill-paragraph)
+#+END_SRC
 * markdown
 :PROPERTIES:
 :ID:       4f12892e-8b3b-4b1e-b606-0be712f28f5b
@@ -25,11 +118,19 @@ This file just loads in tiny packages that don't really need to be in separate f
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 #+END_SRC
+* testing out ivy
+  (use-package ivy :ensure t
+:config
+(setq ivy-height 30))
+
+(use-package counsel :ensure t)
+
 * avy-mode
 :PROPERTIES:
 :ID:       b0fe4e52-38b9-4846-b737-7ac2b025527f
 :END:
  I use avy mode for avy jump to char, which is a little nicer than ace-jump mode, but not by much.
+
  #+BEGIN_SRC emacs-lisp
 (use-package avy
   :ensure t
@@ -96,8 +197,8 @@ BUT my hacky autocorrect functionality doesn't work well.
 Oddly enough web-mode doesn't seem to support flyspell.
 
 #+BEGIN_SRC emacs-lisp :tangle no
-(add-hook 'web-mode-hook 'flyspell-mode)
-(add-hook 'web-mode-hook 'flyspell-prog-mode)
+;; (add-hook 'web-mode-hook 'flyspell-mode)
+;; (add-hook 'web-mode-hook 'flyspell-prog-mode)
 #+END_SRC
 
 * aggressive indent
@@ -109,17 +210,22 @@ Aggressive indent attempts to aggressively indent you code after you change vari
 
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-indent :ensure t
+    :defer t
     :config
     (add-to-list 'aggressive-indent-excluded-modes 'web-mode)
     (add-to-list 'aggressive-indent-excluded-modes 'org-mode))
-  ;;(add-hook 'after-init-hook 'global-aggressive-indent-mode)
-  (add-hook 'prog-mode-hook #'aggressive-indent-mode)
+    (aggressive-indent-mode 1)
+    ;;(add-hook 'after-init-hook 'global-aggressive-indent-mode)
+;;    (add-hook 'prog-mode-hook #'aggressive-indent-mode)
 #+END_SRC
 
-* async
+
 :PROPERTIES:
 :ID:       9d7b0209-dda3-4155-aef7-0e3dbdc5398e
 :END:
+
+Async uses another Emacs to async-ously execute emacs lisp code.
+
 #+BEGIN_SRC emacs-lisp
 (use-package async
   :ensure t
@@ -151,16 +257,17 @@ Here is an example of what you can do with async.
 Projectile is a package that attempts to make it easier for Emacs to do various commands that are specific to your repositories.
 
 #+BEGIN_SRC emacs-lisp
-(use-package helm-projectile :ensure t)
-(use-package projectile :diminish projectile-mode
-  :config
-  (setq projectile-enable-caching t)
-  (eval-after-load 'projectile-mode 'helm-projectile-on)
-  (setq projectile-completion-system 'helm)
-  :ensure t)
+  (use-package helm-projectile :ensure t :defer t)
+  (use-package projectile :diminish projectile-mode
+    :config
+    (setq projectile-enable-caching t)
+    (eval-after-load 'projectile-mode 'helm-projectile-on)
+    (setq projectile-completion-system 'helm)
+    (projectile-global-mode)
+    :ensure t)
 
-  (add-hook 'after-init-hook #'projectile-global-mode)
-#+END_SRC
+  ;;(add-hook 'after-init-hook #'projectile-global-mode)
+  #+END_SRC
 * vc-mode
 :PROPERTIES:
 :ID:       642acc9e-8521-4bfe-8fd0-6d30bc323e4d
@@ -181,6 +288,9 @@ Projectile is a package that attempts to make it easier for Emacs to do various 
 :ID:       90ce5dc0-d72b-4263-a0c6-14cc88a5838c
 :END:
 If I have a .authinfo, .authinfo.gpg, or .netrc, then load auth-source.el
+
+How to use auth-source and gpg to encrypt files.  Also how to transfer keys between machines.
+https://www.masteringemacs.org/article/keeping-secrets-in-emacs-gnupg-auth-sources
 
 Auth-source.el, lets you save your various logins and password for different servers in one file.  For someone like me, who has never gotten ssh keys to work (it always ALWAYS ANNOYING prompts me for a password), I just have my information stored in .authinfo.gpg, which is an encrypted file.
 
@@ -228,16 +338,18 @@ At the moment I dual boot Parabola GNU/Linux and GuixSD.  At some point, I want 
 :END:
 https://github.com/roman/golden-ratio.el
 #+BEGIN_SRC emacs-lisp
-  (use-package golden-ratio
+    (use-package golden-ratio
     :defer t
     :ensure t
     ;;let's not use golden ratio on various modes
     :config (setq golden-ratio-exclude-modes
-                  '( "sr-mode" "ediff-mode" "ediff-meta-mode" "ediff-set-merge-mode" "gnus-summary-mode"
-                     "magit-status-mode" "magit-popup-mode" "org-export-stack-mode"))
-    :diminish golden-ratio-mode)
-  (add-hook 'after-init-hook 'golden-ratio-mode)
-#+END_SRC
+                    '( "sr-mode" "ediff-mode" "ediff-meta-mode" "ediff-set-merge-mode" "gnus-summary-mode"
+                       "magit-status-mode" "magit-popup-mode" "org-export-stack-mode"))
+                       (golden-ratio-mode)
+
+                       :diminish golden-ratio-mode)
+  ;;  (add-hook 'after-init-hook 'golden-ratio-mode)
+  #+END_SRC
 
 I had to find the source code for turning off golden-ratio-mode.  Because
 ~(golden-ratio-mode nil)~ does not turn off golden-ratio-mode.
@@ -330,17 +442,6 @@ it is only activated if you start to type a file like
 (add-hook 'eshell-mode-hook '(lambda ()
                               (setq shell-aliases-file "~/.emacs.d/alias")))
 #+END_SRC
-* Make windows commands work with info
-:PROPERTIES:
-:ID:       7b1a8457-6561-4a36-a2d2-c2f93baffd86
-:END:
-  This lets you use the windmove commands inside an info buffer!!!! sooo cool!
-  #+BEGIN_SRC emacs-lisp
-  (define-key Info-mode-map (kbd "C-w h") 'windmove-down)
-  (define-key Info-mode-map (kbd "C-w t") 'windmove-up)
-  (define-key Info-mode-map (kbd "C-w n") 'windmove-left)
-  (define-key Info-mode-map (kbd "C-w s") 'windmove-right)
-  #+END_SRC
 * smart comment
    :PROPERTIES:
    :ID:       a5a5f993-e0a8-48c5-b80f-ccab9781591e
@@ -358,7 +459,7 @@ it is only activated if you start to type a file like
        (with-eval-after-load 'org
          (local-unset-key "C-c ;")))
    #+END_SRC
-* Wttrin
+* COMMENT Wttrin
 :PROPERTIES:
 :ID:       764c4eb4-fc8f-497d-89af-ad8db03e0f75
 :END:
@@ -387,17 +488,14 @@ Wtrin is a small emacs package that gets you the local weather forcast.  It pull
 :ID:       9aa51c7a-fd2c-4984-88d7-f54f702a3a1d
 :END:
 Make "-->" look like --> and ">=" look >= cool utf-8 characters.
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'after-init-hook 'global-prettify-symbols-mode)
-#+END_SRC
 
 Add some more characters cool characters.  You can get some cool ideas from [[https://ekaschalk.github.io/post/prettify-mode/][prettymode]]
-
 The characters end up looking like:
 
 [[~/.emacs.d/images/pretty-mode.png]]
 #+BEGIN_SRC emacs-lisp
   (defun my/add-extra-prettify-symbols ()
+    (global-prettify-symbols-mode 1)
     (mapc (lambda (pair) (push pair prettify-symbols-alist))
           '(
             (">=" . ?≥)
@@ -428,9 +526,10 @@ The characters end up looking like:
             ("ae" . ?æ)
             ("^_^" . ?☻)
             ("function" .?ϝ)
-            ))
-    (add-hook 'after-init-hook 'my/add-extra-prettify-symbols))
+            )))
+  (add-hook 'after-init-hook 'my/add-extra-prettify-symbols)
 #+END_SRC
+
 * suggest
 :PROPERTIES:
 :ID:       93090d59-9fb2-43ca-aff8-f9a3f58a27dd
@@ -443,7 +542,7 @@ This is a program that lets suggests valid elisp functions to use. It is SO cool
 You can read more [[http://www.wilfred.me.uk/blog/2016/07/30/example-driven-development/][here]].
 
 #+BEGIN_SRC emacs-lisp
-(use-package suggest :ensure t)
+(use-package suggest :ensure t :defer t)
 #+END_SRC
 * uniquify
 :PROPERTIES:
@@ -470,14 +569,17 @@ You can learn more about [[https://github.com/domtronn/all-the-icons.el][all the
 [[~/.emacs.d/images/all-the-icons.png]]
 
 You need the icons for this to work dummy.
+
 #+BEGIN_SRC emacs-lisp
-(use-package all-the-icons :ensure t)
-(use-package all-the-icons-dired :ensure t)
+(use-package all-the-icons :ensure t :defer t)
+(use-package all-the-icons-dired :ensure t :defer)
 #+END_SRC
+
 * dired
   :PROPERTIES:
   :ID:       425e59a0-c254-44df-b50b-d008d5258df8
   :END:
+
 Dired is the Emacs file manager.  It looks like this:
 
 [[~/.emacs.d/images/dired.png]]
@@ -535,7 +637,7 @@ https://truongtx.me/2013/04/02/emacs-async-file-copying-in-dired-using-rsync
 ;;; bind it to C-c C-r
 (define-key dired-mode-map (kbd "C-c C-r") 'tmtxt/dired-rsync)
 #+END_SRC
-** Dired sort
+** COMMENT Dired sort
 :PROPERTIES:
 :ID:       2adfc507-73e7-46c5-9cea-35d84a0917fa
 :END:
@@ -562,6 +664,7 @@ If I do want the details I can use ")" to show them and "(" to hide them again
 :PROPERTIES:
 :ID:       b316742c-74f3-4393-82a1-c51860523e7c
 :END:
+
 #+BEGIN_SRC emacs-lisp
 (use-package dired
   ;; before loading dired, set these variables
@@ -616,16 +719,16 @@ If I do want the details I can use ")" to show them and "(" to hide them again
 :END:
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
-    :defer t
-    :ensure t
-    :init
-    (add-to-list 'load-path "~/.emacs.d/snippets")
-    ;; (define-key company-mode-map (kbd "TAB") #'yas-expand)
+  :defer t
+  :ensure t
+  :init
+  (add-to-list 'load-path "~/.emacs.d/snippets")
+  ;; (define-key company-mode-map (kbd "TAB") #'yas-expand)
 
-    ;; (define-key company-mode-map (kbd "<tab>") #'yas-expand)
-    )
-  (add-hook 'after-init-hook 'yas-global-mode)
-#+END_SRC
+  ;; (define-key company-mode-map (kbd "<tab>") #'yas-expand)
+  :config (yas-global-mode 1))
+  ;; (add-hook 'after-init-hook 'yas-global-mode)
+  #+END_SRC
 
 If I modify a buffer via a yasnippet with a back-ticks like ~`SOME ELISP CODE `~, then yasnippet will issue a warning.  Let's tell yasnippet to ignore that.
 #+BEGIN_SRC emacs-lisp
@@ -652,7 +755,7 @@ This mode lets you read epub documents inside Emacs.  How cool is that?
 
 #+BEGIN_SRC emacs-lisp
   (use-package nov :ensure t
-    :config (push '("\\.epub\\'" . nov-mode) auto-mode-alist))
+    :mode ("\\.epub\\'" . nov-mode))
 #+END_SRC
 
 * company mode
@@ -664,15 +767,16 @@ This mode lets you read epub documents inside Emacs.  How cool is that?
 Company mode has bound tab to complete the common part between two snippets.  I'd rather have tab mean select the first snippet. I'm getting some of the code from this gist: https://gist.github.com/nonsequitur/265010
 
 #+BEGIN_SRC emacs-lisp
-  (use-package company :ensure t
-    :config
-    (setq company-idle-delay .2)
-    (define-key company-active-map "\C-n" #'company-select-next)
-    (define-key company-active-map "\C-p" #'company-select-previous)
-    (define-key company-active-map (kbd "<tab>") #'company-complete-selection))
+(use-package company :ensure t
+  :config
+  (setq company-idle-delay .2)
+  (define-key company-active-map "\C-n" #'company-select-next)
+  (define-key company-active-map "\C-p" #'company-select-previous)
+  (define-key company-active-map (kbd "<tab>") #'company-complete-selection)
+  (global-company-mode 1))
 
-    (add-hook 'after-init-hook 'global-company-mode)
-#+END_SRC
+  ;;(add-hook 'after-init-hook 'global-company-mode)
+  #+END_SRC
 
 ** show yasnippets in company mode
 :PROPERTIES:
@@ -712,16 +816,19 @@ Company mode has bound tab to complete the common part between two snippets.  I'
   :config
   (flycheck-color-mode-line-mode)
   (flycheck-pos-tip-mode)
-  (flycheck-status-emoji-mode))
+  (flycheck-status-emoji-mode)
+  (global-flycheck-mode
+  ))
 
-(add-hook 'after-init-hook 'global-flycheck-mode)
-#+END_SRC
+  ;; (add-hook 'after-init-hook 'global-flycheck-mode)
+  #+END_SRC
 * lua
 :PROPERTIES:
 :ID:       d9846cc0-b907-4703-98e9-1fc189a6dca5
 :END:
 #+BEGIN_SRC emacs-lisp
-(use-package lua-mode :ensure t)
+(use-package lua-mode :ensure t
+    :mode ("\\.lua\\'" . lua-mode))
 #+END_SRC
 * git
 ** magit
@@ -731,8 +838,9 @@ Company mode has bound tab to complete the common part between two snippets.  I'
 Ido-ubiquitous is needed for completing magit via ido, but when I use it, other things start using ido, when I prefer helm.
 #+BEGIN_SRC emacs-lisp
 ;; (use-package ido-ubiquitous :ensure t)
+
 (use-package magit :defer t :ensure t)
-(use-package git-blame :ensure t)
+;;(use-package git-blame :ensure t :defer t)
 #+END_SRC
 
 ;; (use-package git-commit-mode
@@ -748,12 +856,7 @@ Ido-ubiquitous is needed for completing magit via ido, but when I use it, other 
 ;;(use-package git-rebase-mode :defer t :ensure t)
 
 #+BEGIN_SRC emacs-lisp
-  (after-load 'magit
-    (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-goto-parent-section)
-   ;; (setq magit-completing-read-function 'magit-ido-completing-read)
-    )
-
-  (use-package fullframe :ensure t)
+  (use-package fullframe :ensure t :defer t)
   (after-load 'magit (fullframe magit-status magit-mode-quit-window))
 #+END_SRC
 
@@ -770,17 +873,17 @@ I also don't really need scroll-bar-mode enabled with ediff, but I can't get scr
 #+END_SRC
 
 
-;;; When we start working on git-backed files, use git-wip if available
+When we start working on git-backed files, use git-wip if available.  This auto saves git files in a wip in progress branch on the current progress.  You can learn more here: https://magit.vc/manual/2.1/magit/Wip-Modes.html
 
-;; (after-load 'magit
-;;   ;;(global-magit-wip-save-mode)
-;;   ;; (diminish 'magit-wip-save-mode)
-;;   )
+#+BEGIN_SRC emacs-lisp :tangle no
+(after-load 'magit
+   (global-magit-wip-save-mode)
+   (diminish 'magit-wip-save-mode))
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp
 (after-load 'magit (diminish 'magit-auto-revert-mode))
 #+END_SRC
-
 
 #+BEGIN_SRC emacs-lisp
 (setq-default
@@ -797,7 +900,9 @@ If a command takes longer than 5 seconds, pop up the process buffer.
 :PROPERTIES:
 :ID:       94749d5b-1577-4932-af4f-d6e786056cf6
 :END:
+
 Major mode for editing gitignore files
+
 #+BEGIN_SRC emacs-lisp
 (use-package gitignore-mode  :defer t :ensure t)
 (use-package gitconfig-mode  :defer t :ensure t)
@@ -814,7 +919,6 @@ previous and next verions. w copies the git hash of the current buffer, and q qu
 (use-package git-timemachine :ensure t :defer t)
 #+END_SRC
 
-;; since I'm using helm-mode, magit will use helm-completion for stuff! awesome!
 
 ** git messenger
    :PROPERTIES:
@@ -825,6 +929,7 @@ Type this command on any line of a repo.  It'll tell you the commit when it appe
 (use-package git-messenger :defer t :ensure t)
 (global-set-key (kbd "C-x v p") #'git-messenger:popup-message)
 #+END_SRC
+;; since I'm using helm-mode, magit will use helm-completion for stuff! awesome!
 * css
 :PROPERTIES:
 :ID:       b88f1e6b-66f1-4209-b41e-19a06357db1c
@@ -883,6 +988,7 @@ https://github.com/smihica/emmet-mode#css-abbreviations
 #+END_SRC
 
 better-shell-remote-open
+
 * helm
 :PROPERTIES:
 :ID:       a077141f-fed4-4e16-92fb-5c31ae849737
@@ -894,13 +1000,25 @@ Helm mode is an incremental completion framework, that is much better than ido-m
 Before we load any helm things, need to load helm-flx so it uses flx instead of helm's fuzzy matching.
 
 #+BEGIN_SRC emacs-lisp
+(use-package helm :ensure t :defer t)
+(use-package helm-swoop :ensure t :defer t)
 (use-package helm-flx :ensure t :defer t
   :init (helm-flx-mode +1))
 #+END_SRC
 
 According to the github repo this next line is all that I need to install helm
+
 #+BEGIN_SRC emacs-lisp
-(add-hook 'after-init-hook '(lambda () (require 'helm-config)))
+  (defun my/config-helm-function ()
+    "This just sets up helm."
+    (require 'helm-config)
+    (helm-mode 1)
+    ;;(define-key helm-map (kbd "C-<return>") 'helm-execute-persistent-action)
+    ;;(define-key helm-find-files-map (kbd "<tab>") 'helm-ff-RET)
+    ;;(define-key helm-map (kbd "<backtab>") 'helm-select-action)
+    (global-set-key (kbd "C-x r b") #'helm-bookmarks))
+
+  (add-hook 'after-init-hook 'my/config-helm-function)
 #+END_SRC
 
 I've installed helm-ag, which might be cool.
@@ -943,15 +1061,6 @@ For whatever reason, helm is looking for files with "C-x f" and not "C-x C-f"
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-(define-key helm-map (kbd "C-<return>") 'helm-execute-persistent-action)
-#+END_SRC
-;; also "C-r" does the same thing.
-
-#+BEGIN_SRC emacs-lisp
-(define-key helm-map (kbd "<tab>")    'helm-execute-persistent-action)
-(define-key helm-map (kbd "<backtab>") 'helm-select-action)
-#+END_SRC
 
 (define-key helm-find-files-map (kbd "C-f") 'helm-execute-persistent-action)
  the next command will add another C-j command for helm
@@ -967,17 +1076,6 @@ I should define some cool helm mini commands
                  (defhydra hydra-helm (:color pink)
                    "helm"
                    ("r" helm-resume)))
-
- (defhydra hydra-test (hint :nil)
-   ("r" helm-resume))
-
- (defhydra hydra-zoom (global-map "<f2>")
-   "zoom"
-   ("g" text-scale-increase "in")
-   ("l" text-scale-decrease "out"))
-
- how do I get this to work?
-(define-key helm-find-files-map (kbd "s-h") 'helm-next-line)
 * z-present
 
 Slides inside Emacs
@@ -1001,7 +1099,6 @@ Create an org-file and M-x turns the file into a presentation.  "n" is for next 
   ,** sub title 2
   Lots more info.
 #+END_SRC
-
 
 * ledger
 :PROPERTIES:
@@ -1040,6 +1137,52 @@ Smart mode line apparently is more active and works w/ just about anything
   (sml/setup))
 #+END_SRC
 
+** emacs can play music and stream it! (when streaming works)
+    #+BEGIN_SRC emacs-lisp
+      (use-package emms :ensure t
+        :defer t
+        :config
+        (require 'emms-setup)
+        (emms-all)
+        (emms-default-players))
+    #+END_SRC
+
+* linum
+:PROPERTIES:
+:ID:       6f74055f-5351-453f-90cf-491045428704
+:END:
+   display line numbers in the fringe on the left of the page.
+
+   I'd love to globally enable linum mode, but it slows Emacs to a crawl on large org buffers.
+   #+BEGIN_SRC emacs-lisp
+     (dolist (hook '(
+     c-mode-hook
+     js2-mode-hook
+     css-mode-hook
+     php-mode-hook
+     web-mode-hook
+     emacs-lisp-mode-hook
+     ))
+       (progn
+         (add-hook hook 'linum-mode)
+         ;;(remove-hook hook 'linum-mode)
+         ))
+
+         #+END_SRC
+
+   I'd prefer to use nlinum mode, because it's faster.  BUT it also makes it that I cannot open a new Emacs frame.
+#+BEGIN_SRC emacs-lisp
+;; (use-package nlinum :ensure t)
+
+#+END_SRC
+* debbugs
+
+  If I want to look at Emacs bugs, I debbugs is useful for this.
+
+  #+BEGIN_SRC emacs-lisp
+  (use-package debbugs :ensure t :defer t)
+  #+END_SRC
+
 * COMMENT some things I don't use
 ** paradox
     Paradox adds some nice features to emacs install packages
@@ -1049,14 +1192,15 @@ Smart mode line apparently is more active and works w/ just about anything
     #+END_SRC
 ** sunrise is a alternative to flotilla
     #+BEGIN_SRC emacs-lisp
-    (require 'init-sunrise)
+;;    (require 'init-sunrise)
     #+END_SRC
 
 ** autocorrect
 :PROPERTIES:
 :ID:       ed63d49c-50d4-468a-9df2-8b578a823e90
 :END:
-#+BEGIN_SRC emacs-lisp
+
+#+BEGIN_SRC emacs-lisp :tangle no
 ;;(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
 #+END_SRC
 ** A register hydra
@@ -1137,7 +1281,7 @@ My hacky Emacs autocorrect functionality, is not the best.  It changes things th
 Until it's better, I don't want to use it
 
 #+BEGIN_SRC emacs-lisp
-(org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
+;; (org-babel-load-file "/home/joshua/programming/emacs/autocorrect/autocorrect.org" )
 #+END_SRC
 
 *** abbrev-mode
@@ -1161,24 +1305,14 @@ Add abbrev-mode to text modes and program modes to turn on autocorrect like func
     I don't really use this functionality.  I never see what commands I'm using.  So I'll ignore it for now.
     (require-package 'mwe-log-commands)
     (me:log-keyboard-commands)
-*** emacs can play music and stream it! (when streaming works)
-    #+BEGIN_SRC emacs-lisp
-      (use-package emms :ensure t
-        :defer t
-        :config
-        (require 'emms-setup)
-        (emms-all)
-        (emms-default-players))
-    #+END_SRC
-
 *** python mode
-    #+BEGIN_SRC emacs-lisp
+
     (require 'init-python-mode)
-    #+END_SRC
+
 *** github
-    #+BEGIN_SRC emacs-lisp
+
     (require 'init-gitgub)
-    #+END_SRC
+
 *** I don't know what this is
     http://alexott.net/en/writings/emacs-vcs/EmacsDarcs.html
     (require 'init-darcs)
@@ -1188,9 +1322,9 @@ Add abbrev-mode to text modes and program modes to turn on autocorrect like func
     (use-package sx :ensure t)
 *** downcase words like THe and BEautiful
      This is probably how I can embed yasnippets into various modes
-    #+BEGIN_SRC emacs-lisp
+
     (require 'init-dubcaps)
-    #+END_SRC
+
 *** I found this on the internet, but don't use it
 
      reduce the frequency of garbage collection by making it happen on
@@ -1198,38 +1332,11 @@ Add abbrev-mode to text modes and program modes to turn on autocorrect like func
      this might help improve performance
     ;;(setq gc-cons-threshold 50000000)
 
-*** COMMENT linum
-:PROPERTIES:
-:ID:       6f74055f-5351-453f-90cf-491045428704
-:END:
-   display line numbers in the fringe on the left of the page.
-
-   I'd love to globally enable linum mode, but it slows Emacs to a crawl on large org buffers.
-   #+BEGIN_SRC emacs-lisp
-     (dolist (hook '(
-                     c-mode-hook
-                     js2-mode-hook
-                     css-mode-hook
-                     php-mode-hook
-                     web-mode-hook
-                     emacs-lisp-mode-hook
-                     ))
-       (progn
-         (add-hook hook 'linum-mode)
-         (remove-hook hook 'linum-mode)))
-
-   #+END_SRC
-
-   I'd prefer to use nlinum mode, because it's faster.  BUT it also makes it that I cannot open a new Emacs frame.
-#+BEGIN_SRC emacs-lisp
-;; (use-package nlinum :ensure t)
-
-#+END_SRC
 ** bookmark
 :PROPERTIES:
 :ID:       7f780f9c-3c32-4ac7-b733-885d3651b0e7
 :END:
-#+BEGIN_SRC emacs-lisp
+
 (require 'bookmark)
 (defhydra hydra-bookmark (:color pink :hint nil)
   "
@@ -1261,20 +1368,25 @@ _r_: rename             _J_ump to gnus bookmark    _S_: set a gnus bookmark
   (define-key web-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
 (with-eval-after-load 'php-mode
   (define-key php-mode-map (kbd "C-c C-b") 'hydra-bookmark/body))
-#+END_SRC
+
 ** eldoc
 Show eldoc popups in pos-tips.  I got the idea [[https://www.topbug.net/blog/2016/11/03/emacs-display-function-or-variable-information-near-point-cursor/][here]].
-#+BEGIN_SRC emacs-lisp
    (defun my-eldoc-display-message (format-string &rest args)
     "Display eldoc message near point."
     (when format-string
       (pos-tip-show (apply 'format format-string args))))
   (setq eldoc-message-function #'my-eldoc-display-message)
-#+END_SRC
 ** (require 'init-term)
-** paradox adds some nice features to emacs install packages
- this sets up paradox to use my private token to access public repos.
-(require 'init-paradox)
+** page break line modes
+:PROPERTIES:
+:ID:       ce614852-2e6c-4c4d-9011-a478bc5e96f9
+:END:
+This turn ^L into nice long lines.
+
+  (use-package page-break-lines
+    :ensure t
+    :diminish page-break-lines-mode
+    :config (global-page-break-lines-mode))
 
 * provide this file
 :PROPERTIES:
