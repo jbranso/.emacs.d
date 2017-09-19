@@ -208,7 +208,7 @@ At the moment I dual boot Parabola GNU/Linux and GuixSD.  At some point, I want 
 #+BEGIN_SRC emacs-lisp
   (when (and (display-graphic-p) (f-file? "~/.authinfo.gpg"))
     ;; only use the encrypted file.
-    (setq auth-sources '("~/.authinfo.gpg"))
+    (setq auth-sources '("~/.authinfo.gpg" "~/.authinfo"))
     ;;(require 'auth-source)
     )
 #+END_SRC
@@ -945,7 +945,7 @@ I should define some cool helm mini commands
 (define-key helm-find-files-map (kbd "s-h") 'helm-next-line)
 * ledger
 #+BEGIN_SRC emacs-lisp
-(use-package ledger-mode :ensure t)
+(use-package ledger-mode :ensure t :defer t)
 
 (add-to-list 'auto-mode-alist '("\\.ledger?\\'" . ledger-mode))
 #+END_SRC

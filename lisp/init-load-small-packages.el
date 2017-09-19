@@ -76,7 +76,7 @@
 
 (when (and (display-graphic-p) (f-file? "~/.authinfo.gpg"))
   ;; only use the encrypted file.
-  (setq auth-sources '("~/.authinfo.gpg"))
+  (setq auth-sources '("~/.authinfo.gpg" "~/.authinfo"))
   ;;(require 'auth-source)
   )
 
@@ -397,7 +397,7 @@ enter ediff."
 (define-key helm-map (kbd "<tab>")    'helm-execute-persistent-action)
 (define-key helm-map (kbd "<backtab>") 'helm-select-action)
 
-(use-package ledger-mode :ensure t)
+(use-package ledger-mode :ensure t :defer t)
 
 (add-to-list 'auto-mode-alist '("\\.ledger?\\'" . ledger-mode))
 

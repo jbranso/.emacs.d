@@ -2,19 +2,6 @@
  user-mail-address	"bransoj@hotmail.com"
  user-full-name	"Joshua Branson")
 
-(setq gnus-select-method
-      '(nnimap "imap-mail.outlook.com"
-               ;; (nnimap-address "mymail.purdue.edu")  ; it could also be imap.googlemail.com if that's your server.
-               ;;(nnimap-server-port "993")
-               ;;(nnimap-stream ssl)
-               ;;(nnir-search-engine imap)
-               ))
-
-(setq gnus-secondary-select-methods
-      ;; '((nnimap "mymail.purdue.edu"))
-      '(())
-      )
-
 (require 'smtpmail)
 ;; smtp hotmail uses STARTTLS
 (setq message-send-mail-function 'smtpmail-send-it

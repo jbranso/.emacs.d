@@ -42,8 +42,13 @@
  mm-verify-option 'known
  mm-decrypt-option 'known)
 
-(setq gnus-message-replysign t
- gnus-message-replyencrypt t)
+(setq
+ mm-verify-option 'never
+ mm-decrypt-option 'never)
+
+(setq
+ gnus-message-replysign nil
+ gnus-message-replyencrypt nil)
 
 (setq spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
       spam-use-blacklist t)
@@ -51,10 +56,29 @@
 
 (use-package nnir)
 
+(setq gnus-select-method
+   '(nnimap "imap.gmail.com"
+	   ;; (nnimap-address "imap.gmail.com")  ; it could also be imap.googlemail.com if that's your server.
+	    (nnimap-server-port "993")
+	    (nnimap-stream ssl)
+        (nnir-search-engine imap)
+        ))
+
 ;; (require 'init-gnus-secret-smtp)
-   ;; I am trying to use use-package so that emacs won't start on an error if someone tries to clone
-   ;; my config
-;;   (use-package init-gnus-secret-smtp)
+;; I am trying to use use-package so that emacs won't start on an error if someone tries to clone
+;; my config
+;; (use-package init-gnus-secret-smtp)
+
+(require 'smtpmail)
+(setq message-send-mail-function 'smtpmail-send-it
+    smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+    smtpmail-auth-credentials '(("smtp.gmail.com" 587 "jbranso91@gmail.com" nil))
+    smtpmail-default-smtp-server "smtp.gmail.com"
+    smtpmail-smtp-server "smtp.gmail.com"
+    smtpmail-smtp-service 587)
+
+(setq user-mail-address "jbranso91@gmail.com")
+(setq send-mail-function 'smtpmail-send-it)
 
 (use-package bbdb
   :ensure t)

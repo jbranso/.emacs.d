@@ -154,22 +154,32 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
 *** sign and encrypt messages
     [[info:gnus#Signing%20and%20encrypting][info:gnus#Signing and encrypting]]
 
+Until I get newer gpg keys, I'll go ahead and not encrypt stuff
+
     Let's go ahead and sign and encrypt messages if I recognize the senders by default
     #+BEGIN_SRC emacs-lisp
-      (setq mm-verify-option 'known
+      (setq
+       mm-verify-option 'known
        mm-decrypt-option 'known)
     #+END_SRC
+
+    #+begin_src emacs-lisp
+      (setq
+       mm-verify-option 'never
+       mm-decrypt-option 'never)
+    #+end_src
 
 *** On reply encrypt my email
     Let's reply and encrypt/sign messages if you know the user by default and if that message is encrypted
     https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
     #+BEGIN_SRC emacs-lisp
-      (setq gnus-message-replysign t
-       gnus-message-replyencrypt t)
+      (setq
+       gnus-message-replysign nil
+       gnus-message-replyencrypt nil)
     #+END_SRC
 
 ** Managing Spam
-   Gnus comes with som enice spamming features
+   Gnus comes with some nice spamming features, but it's not great.
    #+BEGIN_SRC emacs-lisp
      (setq spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
            spam-use-blacklist t)
@@ -177,17 +187,21 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
    #+END_SRC
 
 ** Searching in Gnus
-   set up search in GNUS
+   Set up search in GNUS
    http://www.emacswiki.org/emacs/GnusGmail#toc21
    #+BEGIN_SRC emacs-lisp
      (use-package nnir)
    #+END_SRC
 
+** setting up email lists
+I guess gnus can set up to respond to mailing lists better.
+[[info:message#Mailing%20Lists][info:message#Mailing Lists]]
 ** Setting up your email Account
 
 Tell gnus to use my purdue email, and to enable searching my inbox typing GG in the buffer group, lets me search the current group
 for a string you have to hit "t" when you first open gnus to get purdue working again uncomment this whole thing
 
+#+BEGIN_SRC emacs-lisp
    (setq gnus-select-method
       '(nnimap "imap.gmail.com"
 	      ;; (nnimap-address "imap.gmail.com")  ; it could also be imap.googlemail.com if that's your server.
@@ -195,6 +209,7 @@ for a string you have to hit "t" when you first open gnus to get purdue working 
 	       (nnimap-stream ssl)
            (nnir-search-engine imap)
            ))
+#+END_SRC
 
    The variable smtpmail-stream-type controls what form of connection the SMTP library uses. The default value is nil, which
    means to use a plain connection, but try to switch to a STARTTLS encrypted connection if the server supports it. Other
@@ -212,20 +227,22 @@ for a string you have to hit "t" when you first open gnus to get purdue working 
    ;; (require 'init-gnus-secret-smtp)
    ;; I am trying to use use-package so that emacs won't start on an error if someone tries to clone
    ;; my config
-;;   (use-package init-gnus-secret-smtp)
+   ;; (use-package init-gnus-secret-smtp)
    #+END_SRC
 
   init-gnus-secret-smtp looks like
+  #+BEGIN_SRC emacs-lisp
   (require 'smtpmail)
   (setq message-send-mail-function 'smtpmail-send-it
       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-      smtpmail-auth-credentials '(("smtp.gmail.com" 587 "<your gmail address>" nil))
+      smtpmail-auth-credentials '(("smtp.gmail.com" 587 "jbranso91@gmail.com" nil))
       smtpmail-default-smtp-server "smtp.gmail.com"
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587)
 
-  (setq user-mail-address "<your gmail address>")
+  (setq user-mail-address "jbranso91@gmail.com")
   (setq send-mail-function 'smtpmail-send-it)
+  #+END_SRC
 
    Apparently this will spell check my messages before I send them, which is quite nice.
 

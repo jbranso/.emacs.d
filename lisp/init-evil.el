@@ -90,9 +90,9 @@
     ;; emacs keys for moving up and down a line.
     ;; "t" 'evil-previous-line
     ;; "h" 'evil-next-line
-    (define-key evil-normal-state-map "t" 'previous-line)
-    (define-key evil-normal-state-map  "h" 'next-line)
-    (define-key evil-normal-state-map  "n" 'evil-backward-char)
+    (define-key evil-normal-state-map "n" 'previous-line)
+    (define-key evil-normal-state-map  "t" 'next-line)
+    (define-key evil-normal-state-map  "h" 'evil-backward-char)
     (define-key evil-normal-state-map  "s" 'evil-forward-char)
     (define-key evil-normal-state-map  (kbd "ESC") 'nil)
     (define-key evil-normal-state-map  (kbd "C-s") 'evil-substitute)
