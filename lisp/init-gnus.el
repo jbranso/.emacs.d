@@ -38,7 +38,8 @@
       gnus-show-threads nil
       gnus-use-cross-reference nil)
 
-(setq mm-verify-option 'known
+(setq
+ mm-verify-option 'known
  mm-decrypt-option 'known)
 
 (setq gnus-message-replysign t

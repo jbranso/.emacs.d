@@ -316,6 +316,7 @@ Make evil-insert-mode allow emacs keybindings
   (define-key evil-emacs-state-map  (kbd "C-w n") #'windmove-left)
   (define-key evil-emacs-state-map  (kbd "C-w s") #'windmove-right)
 #+END_SRC
+
 * provide this file
 :PROPERTIES:
 :ID:       b3f9e7e5-04e2-44da-a340-96ecc4dfca9c
