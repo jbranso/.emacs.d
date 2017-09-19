@@ -73,6 +73,8 @@
    ;; my config
 ;;   (use-package init-gnus-secret-smtp)
 
+(gnus-demon-add-handler 'gnus-demon-add-scanmail nil 2)
+
 (use-package bbdb :ensure t)
 
 (require 'bbdb)
@@ -104,18 +106,6 @@
 (add-hook 'gnus-summary-exit-hook 'gnus-summary-bubble-group)
 
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
-
-(setq gnus-posting-styles
-        '(
-          ;; My default hotmail posting style
-          (".*"
-           (signature "Joshua\nSent From Emacs")
-           (address "joeRoegan@hotmail.com"))
-          ;; when I post to purdue stuff
-          (".*gmail.*"
-           (signature "Joshua Branson\nPurdue Univeristy\nHonors College\nSent From Emacs")
-           (address "someGmailAccount@gmail.com"))
-          ))
 
 ;;(use-package w3m :ensure t)
 ;;(setq mm-text-html-renderer 'w3m)

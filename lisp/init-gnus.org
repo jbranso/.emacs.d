@@ -64,7 +64,7 @@ You can find more information in the following sections.
   Let's tell gnus who we are.
   init-gnus-secret looks like:
 
-(setq
+  (setq
    user-mail-address	"<your email address>"
    user-full-name	"<Your Full Name>")
 
@@ -240,9 +240,9 @@ I'm also pretty sure that it won't flash an awesome popup window to tell you you
    Message mode is rather silly in that it does not kill the send message buffer after you send an email.  It's silly to still see
    the sent buffer after you've sent it, so this fixes that.  After you send a message, the sent buffer disappears.
 
-#+BEGIN_SRC emacs-lisp
-(setq message-kill-buffer-on-exit t)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+     (setq message-kill-buffer-on-exit t)
+   #+END_SRC
 
 ** Setting up your email Account
 
@@ -326,6 +326,26 @@ for a string you have to hit "t" when you first open gnus to get purdue working 
    gnus-asynchronous t
    ;; fetch 15 messages by default
    gnus-use-article-prefetch 15)
+** scanning news with gnus daemon
+   :PROPERTIES:
+   :ID:       50a08919-f279-419e-abe6-9c179130a872
+   :END:
+   [[info:gnus#Daemons][info:gnus#Daemons]]
+
+   Gnus Demon lets you do various tasks at certain points in time.  For example, suppose you want Gnus to check for new email.  You can do that fairly easily with a ready made handler called gnus-demon-scanmail.  The following will check for news email after Emacs has been idle for two minutes, but it may only show updates in Emacs.  To get an awesome popup, I'll have to do more fiddling.  Filezilla is able to show me updates when it's done uploading files.  At least it has in the past.  BUT in order to show updates, I need to have dbus.  GuixSD may not have dbus.
+
+   #+BEGIN_SRC emacs-lisp
+     (gnus-demon-add-handler 'gnus-demon-add-scanmail nil 2)
+   #+END_SRC
+
+These links below will help me to figure this out.
+
+http://www.thregr.org/~wavexx/software/gnus-desktop-notify.el/
+
+https://github.com/jwiegley/alert
+
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Desktop-Notifications.html
+
 ** COMMENT Encrypting Email
 
    Here follows a short rant:
@@ -549,7 +569,7 @@ This is quite complicated...
 BUT basically, if I have a bunch of email accounts, It would be nice that when I reply or post new articles (email), than Gnus will change the From automatically.  This method will definitely work for posting articles, but will to work when replying to articles?
 
 
-   #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp :tangle no
    (setq gnus-posting-styles
            '(
              ;; My default hotmail posting style

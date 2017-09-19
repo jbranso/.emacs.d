@@ -6,18 +6,7 @@
 
 Org-mode is Emacs' organizational mode, and it is amazing!  [[http://doc.norang.ca/org-mode.html][Here]] is an online example configuration that is a little more thorough than this configuration.
 
-* COMMENT Org's 8.3 stable version
-
-Org-mode has just updated to a stable version.  release notes are here: http://orgmode.org/Changes.html
-
-Property drawers now have to be under a headline and its scheduling line.
-
-Org-babel mode now supports sed!
-
-* Org is at version 9.1
-
-It has deleted org-bullets from contrib.
-
+* I am using Org version 9.1
 * My org use-package declaration
 :PROPERTIES:
 :ID:       e5893542-ca4c-44b6-be5f-d6bcbe365f36
@@ -399,7 +388,10 @@ This should besntaeh at least it ought to be eh? very very very cool This should
 #+END_SRC
 
 Turn on org bullets mode for Emacs.  It turns all the *** into utf-8 bullets.
-#+BEGIN_SRC emacs-lisp
+
+Unfortunately, org-bullets was removed from org-contrib.  I'm not sure why.
+
+#+BEGIN_SRC emacs-lisp :tangle no
 (add-hook 'org-mode-hook 'org-bullets-mode)
 #+END_SRC
 

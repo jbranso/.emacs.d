@@ -90,6 +90,8 @@
 (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
 (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
 
+(use-package alert :ensure t :defer t)
+
 (use-package f :ensure t)
 (require 'f)
 

@@ -85,8 +85,6 @@
 
 (add-hook 'org-mode-hook 'my/auto-call-fill-paragraph-for-org-mode)
 
-(add-hook 'org-mode-hook 'org-bullets-mode)
-
 (defun my/turn-strings-into-utf8-chars ()
   "Turn strings like '<=' into '≤'."
   (push '(">=" . ?≥) prettify-symbols-alist)

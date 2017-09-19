@@ -282,7 +282,10 @@ Projectile is a package that attempts to make it easier for Emacs to do various 
    (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
    (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
  #+END_SRC
-
+* alert
+#+BEGIN_SRC emacs-lisp
+(use-package alert :ensure t :defer t)
+#+END_SRC
 * auth-source
 :PROPERTIES:
 :ID:       90ce5dc0-d72b-4263-a0c6-14cc88a5838c
