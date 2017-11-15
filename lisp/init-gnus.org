@@ -71,7 +71,7 @@ You can find more information in the following sections.
    I hope you don't mind that I'm not telling you my email address.  I'd rather that not be public info.
 
    This files just sets up some variables that I use later on.
-  #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
     (require 'gnus)
     ;; (setq path  "~/.emacs.d/lisp/init-gnus-secret.org")
 
@@ -215,8 +215,12 @@ I'm also pretty sure that it won't flash an awesome popup window to tell you you
    :PROPERTIES:
    :ID:       c4f65821-d059-4f6d-ac7a-407e227e1bed
    :END:
-   Gnus comes with som enice spamming features
-   #+BEGIN_SRC emacs-lisp
+Don't use gnus' spamming filters.  You want your mail server (aka fastmail.com), to deal with spam, NOT your email client.
+
+
+   Gnus comes with some spamming features.
+
+  #+BEGIN_SRC emacs-lisp :tangle no
      (setq spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
            spam-use-blacklist t)
      (spam-initialize)
@@ -228,6 +232,7 @@ I'm also pretty sure that it won't flash an awesome popup window to tell you you
    :END:
    set up search in GNUS
    http://www.emacswiki.org/emacs/GnusGmail#toc21
+
    #+BEGIN_SRC emacs-lisp
      (use-package nnir)
    #+END_SRC
@@ -454,6 +459,41 @@ I used to have this say nnmail-split methods, but I'm not using the nnmail backe
                                  (when (get-buffer "*Group*")
                                    (gnus-group-exit))))
 #+END_SRC
+** Making gnus check if I want to add an attachment
+
+https://www.topbug.net/blog/2016/12/09/attachment-reminder-in-emacs-message-mode/
+
+(defun my-message-current-line-cited-p ()
+  "Indicate whether the line at point is a cited line."
+  (save-match-data
+    (string-match (concat "^" message-cite-prefix-regexp)
+                  (buffer-substring (line-beginning-position) (line-end-position)))))
+
+(defun my-message-says-attachment-p ()
+  "Return t if the message suggests there can be an attachment."
+  (save-excursion
+    (goto-char (point-min))
+    (save-match-data
+      (let (search-result)
+        (while
+            (and (setq search-result (re-search-forward "\\(attach\\|pdf\\|file\\)" nil t))
+                 (my-message-current-line-cited-p)))
+        search-result))))
+
+(defun my-message-has-attachment-p ()
+  "Return t if the message has an attachment."
+  (save-excursion
+    (goto-char (point-min))
+    (save-match-data
+      (re-search-forward "<#part" nil t))))
+
+(defun my-message-pre-send-check-attachment ()
+  (when (and (my-message-says-attachment-p)
+             (not (my-message-has-attachment-p)))
+    (unless
+        (y-or-n-p "The message suggests that you may want to attach something, but no attachment is found. Send anyway?")
+      (error "It seems that an attachment is needed, but none was found. Aborting sending."))))
+(add-hook 'message-send-hook 'my-message-pre-send-check-attachment)
 
 ** Setting up Gnus to work with bbdb
    :PROPERTIES:
@@ -538,6 +578,14 @@ I used to have this say nnmail-split methods, but I'm not using the nnmail backe
    (bbdb-mua-auto-update-init 'message)
    #+END_SRC
 
+** Summary Buffer
+
+[[info:gnus#Summary%20Sorting][info:gnus#Summary Sorting]]
+
+Sorting the summary buffer by most recent date:
+
+I'm not sure how to do this, but I would like this set up for my Purdue email account.
+
 ** ranking groups
    :PROPERTIES:
    :ID:       5e527dc8-9d1a-427c-a529-fd88fe080194
@@ -553,6 +601,9 @@ I used to have this say nnmail-split methods, but I'm not using the nnmail backe
 :PROPERTIES:
    :ID:       8264d472-e08d-4b10-95bc-0fee75c37a76
    :END:
+
+Gnus can put various email in certain topic headings.  For instance if you have a lot of email
+from different email servers, you can organize them according to topic "Fastmail" and topic "Roundcube".
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
@@ -605,14 +656,37 @@ BUT basically, if I have a bunch of email accounts, It would be nice that when I
    (setq mm-text-html-renderer 'shr)
    #+END_SRC
 
-** Delete mail immediately after it has been marked expired
+** Expiring Mail
+
+Mail/email marked as expire-able means that gnus will delete the email after a period of time.  I like gnus to delete the email after 30 days, but it might be better if the email server did this too...idk.
+
+When you press "E" on a mail item in the summary buffer, this marks it as expire-able.
+
+*** Delete mail marked expire-able after 30 days.
    :PROPERTIES:
    :ID:       60caba9f-04ef-470c-9da9-40108bfd53b7
    :END:
 
+All email that I mark with an E will be deleted in 30 days.
+
    #+BEGIN_SRC emacs-lisp
-   (setq nnmail-expiry-wait 'immediate)
+   (setq nnmail-expiry-wait 30)
    #+END_SRC
+
+*** Auto expire v. total expire
+
+It's pretty tedious to have to press E on every article that I read.  The Gnus manual recommends to use auto-expire.
+
+Auto-expire is probably faster and gives you greater flexibility.
+
+Total-expire does not work well with adaptive scoring.
+
+I'm going to try to use auto-expire and make gnus press E for me everytime I select an article.
+
+Though I'm not sure how to turn on auto-expiry. I think you specify it via group parameters.
+
+https://www.gnu.org/software/emacs/manual/html_node/gnus/Expiring-Mail.html
+
 ** deleting boring headers from email
    :PROPERTIES:
    :ID:       48255cfb-8300-4800-8c14-16c5a3525ac4

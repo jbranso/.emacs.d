@@ -7,7 +7,7 @@
 (use-package org :bind (:map org-mode-map ("C-c SPC" . my-just-one-space))
   :ensure org-plus-contrib)
 
-(use-package org-mime :ensure t)
+(use-package org-mime :ensure t :defer t)
 
 ;; I'm having problems with this
 ;;(add-hook 'org-mime-html-hook

@@ -70,6 +70,7 @@
 ;; let's write my wordpress blog in emacs
 ;;(require 'init-org2blog)
 (org-babel-load-file "~/.emacs.d/lisp/init-defuns.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-honorscollege.org")
 (org-babel-load-file "~/.emacs.d/lisp/init-erc.org")
 (org-babel-load-file "~/.emacs.d/lisp/init-misc.org")
 

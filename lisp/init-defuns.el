@@ -43,27 +43,4 @@
   (interactive)
   (start-process "testing-awesome" "test-of-awesome" "test-awesome.bash"))
 
-(defun purdue-view-this-buffer-in-browser ()
-  "View the current file in your browser.  Since anything under community is now wordpress, then if the user wants to
-view o community page, show him the qa server."
-  (interactive)
-  (require 's)
-  (let (url dev-string qa-string)
-    (setq dev-string "https://dev.honors.purdue.edu/")
-    (setq qa-string  "https://qa.honors.purdue.edu/")
-    (if (s-match "community" buffer-file-name)
-        (setq url (concat qa-string (s-chop-prefix "/srv/http/honorscollege/" buffer-file-name)))
-      (setq url (concat dev-string  (s-chop-prefix "/srv/http/honorscollege/" buffer-file-name))))
-    (browse-url url)))
-
-(defun purdue-view-this-buffer-locally ()
-  "View the current file in your browser.  Since anything under community is now wordpress, then if the user wants to
-view o community page, show him the qa server."
-  (interactive)
-  (require 's)
-  (let (url local-string)
-    (setq local-string "localhost/honorscollege/")
-    (setq url (concat local-string  (s-chop-prefix "/srv/http/honorscollege/" buffer-file-name)))
-    (browse-url url)))
-
 (provide 'init-defuns)

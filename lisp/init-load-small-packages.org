@@ -283,9 +283,25 @@ Projectile is a package that attempts to make it easier for Emacs to do various 
    (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
  #+END_SRC
 * alert
+:PROPERTIES:
+:ID:       fba16a4d-42f0-4f36-95b0-214fc73c2e85
+:END:
 #+BEGIN_SRC emacs-lisp
 (use-package alert :ensure t :defer t)
 #+END_SRC
+* restclient
+:PROPERTIES:
+:ID:       4b48cf48-f613-4f29-ba05-912ad9ec08e3
+:END:
+https://github.com/pashky/restclient.el
+
+I can get GETs and POSTs from websites now!  Very cool!
+
+#+BEGIN_SRC emacs-lisp
+  (use-package restclient :ensure t
+    :mode (("\\.http\\'" . restclient-mode)))
+#+END_SRC
+
 * auth-source
 :PROPERTIES:
 :ID:       90ce5dc0-d72b-4263-a0c6-14cc88a5838c
@@ -364,8 +380,10 @@ I had to find the source code for turning off golden-ratio-mode.  Because
     (remove-hook 'window-configuration-change-hook 'golden-ratio)
     (remove-hook 'post-command-hook 'golden-ratio--post-command-hook)
     (remove-hook 'mouse-leave-buffer-hook 'golden-ratio--mouse-leave-buffer-hook)
-    (ad-deactivate 'other-window)
-    (ad-deactivate 'pop-to-buffer))
+    ;; I'm not sure what these functions did, but I guess golden ratio doesn't need them anymore?
+    ;;(ad-deactivate 'other-window)
+    ;;(ad-deactivate 'pop-to-buffer)
+)
 
 #+END_SRC
 
@@ -577,6 +595,35 @@ You need the icons for this to work dummy.
 (use-package all-the-icons :ensure t :defer t)
 (use-package all-the-icons-dired :ensure t :defer)
 #+END_SRC
+* json-mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package json-mode :ensure t
+    :mode
+    ("\\.json\\'" . json-mode))
+#+END_SRC
+
+* hideshow
+Emacs minor mode to hide or display structured section of code.  VERY COOL!
+
+Try to get hs-minor-mode to work with JSON, because that would be super cool!
+
+#+BEGIN_SRC emacs-lisp
+(use-package hideshow
+  :bind (("C-x C-h" . hs-toggle-hiding)
+         ("C-x C-S-+" . hs-show-all))
+  :init (add-hook #'prog-mode-hook #'hs-minor-mode)
+  :diminish hs-minor-mode
+  :config
+  (setq hs-special-modes-alist
+        (mapcar 'purecopy
+                '((c-mode "{" "}" "/[*/]" nil nil)
+                  (c++-mode "{" "}" "/[*/]" nil nil)
+                  (java-mode "{" "}" "/[*/]" nil nil)
+                  (js-mode "{" "}" "/[*/]" nil)
+                  (json-mode "{" "}" "/[*/]" nil)
+                  (javascript-mode  "{" "}" "/[*/]" nil)))))
+#+END_SRC
 
 * dired
   :PROPERTIES:
@@ -677,6 +724,7 @@ If I do want the details I can use ")" to show them and "(" to hide them again
                       dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$")
   :config ;; after loading dired, do this stuff
   (load "dired-x")
+  (setq wdired-allow-to-change-permissions t)
   :bind
   (:map dired-mode-map
         ("/" . helm-swoop)
@@ -715,6 +763,13 @@ If I do want the details I can use ")" to show them and "(" to hide them again
 
 (define-key dired-mode-map "e" 'ora-ediff-files)
 #+END_SRC
+* ebdb
+
+This is a port of BBDB to EIEIO, which is emacs lisp's OO library.  It has a nice manual, and maybe someday I'll use it.
+
+#+BEGIN_SRC emacs-lisp
+(use-package ebdb :ensure t :defer t)
+#+END_SRC
 * yasnippet
 ** Set up yasnippet.
 :PROPERTIES:
@@ -722,7 +777,8 @@ If I do want the details I can use ")" to show them and "(" to hide them again
 :END:
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
-  :defer t
+  ;;adding defer t makes yasnippet NOT be loaded
+;;  :defer t
   :ensure t
   :init
   (add-to-list 'load-path "~/.emacs.d/snippets")
@@ -992,10 +1048,14 @@ https://github.com/smihica/emmet-mode#css-abbreviations
 
 better-shell-remote-open
 
+This command is actually quite cool:  Try out better-shell-remote-open RET USERNAME@HOST RET PASSWORD RET
+
 * helm
 :PROPERTIES:
 :ID:       a077141f-fed4-4e16-92fb-5c31ae849737
 :END:
+
+By default helm-do-git-grep, searching the current directory.  C-u helm-do-git-grep searches the entire project.
 
 Helm mode is an incremental completion framework, that is much better than ido-mode.
 [[~/.emacs.d/images/helm-buffers-list.gif]]
@@ -1080,6 +1140,9 @@ I should define some cool helm mini commands
                    "helm"
                    ("r" helm-resume)))
 * z-present
+:PROPERTIES:
+:ID:       ebfd37dd-dc32-4c0e-8b9a-9074e37740dc
+:END:
 
 Slides inside Emacs
 
@@ -1141,6 +1204,9 @@ Smart mode line apparently is more active and works w/ just about anything
 #+END_SRC
 
 ** emacs can play music and stream it! (when streaming works)
+:PROPERTIES:
+:ID:       0d7835d6-b2b4-403a-8238-19781c899328
+:END:
     #+BEGIN_SRC emacs-lisp
       (use-package emms :ensure t
         :defer t
@@ -1179,6 +1245,9 @@ Smart mode line apparently is more active and works w/ just about anything
 
 #+END_SRC
 * debbugs
+:PROPERTIES:
+:ID:       003c766a-9684-41b3-93a4-0deea880fffd
+:END:
 
   If I want to look at Emacs bugs, I debbugs is useful for this.
 

@@ -93,11 +93,8 @@ To use org-crypt it is suggested that you have the following in your `.emacs':
   http://orgmode.org/worg/org-contrib/org-mime.html
   I want to figure out how to install this, because I could then write html emails trivially with gnus
   #+BEGIN_SRC emacs-lisp
-  (use-package org-mime :ensure t)
+  (use-package org-mime :ensure t :defer t)
   #+END_SRC
-
-  #+RESULTS:
-  : org-mime
 
    imported code from http://orgmode.org/worg/org-contrib/org-mime.html
 

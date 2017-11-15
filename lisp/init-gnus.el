@@ -60,10 +60,6 @@
 ;; (with-eval-after-load 'gnus
 ;;   (gnus-demon-add-handler 'gnus-demon-scan-news-2 5 2))
 
-(setq spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
-      spam-use-blacklist t)
-(spam-initialize)
-
 (use-package nnir)
 
 (setq message-kill-buffer-on-exit t)
@@ -111,7 +107,7 @@
 ;;(setq mm-text-html-renderer 'w3m)
 (setq mm-text-html-renderer 'shr)
 
-(setq nnmail-expiry-wait 'immediate)
+(setq nnmail-expiry-wait 30)
 
 (setq gnus-treat-hide-boring-headers 'head)
 

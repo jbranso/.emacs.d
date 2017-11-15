@@ -92,6 +92,9 @@
 
 (use-package alert :ensure t :defer t)
 
+(use-package restclient :ensure t
+  :mode (("\\.http\\'" . restclient-mode)))
+
 (use-package f :ensure t)
 (require 'f)
 
@@ -124,14 +127,16 @@
 ;;  (add-hook 'after-init-hook 'golden-ratio-mode)
 
 (defun my-ediff-turn-off-golden-ratio ()
-  "This function turns off golden ratio mode, when I
-enter ediff."
-  (interactive)
-  (remove-hook 'window-configuration-change-hook 'golden-ratio)
-  (remove-hook 'post-command-hook 'golden-ratio--post-command-hook)
-  (remove-hook 'mouse-leave-buffer-hook 'golden-ratio--mouse-leave-buffer-hook)
-  (ad-deactivate 'other-window)
-  (ad-deactivate 'pop-to-buffer))
+    "This function turns off golden ratio mode, when I
+  enter ediff."
+    (interactive)
+    (remove-hook 'window-configuration-change-hook 'golden-ratio)
+    (remove-hook 'post-command-hook 'golden-ratio--post-command-hook)
+    (remove-hook 'mouse-leave-buffer-hook 'golden-ratio--mouse-leave-buffer-hook)
+    ;; I'm not sure what these functions did, but I guess golden ratio doesn't need them anymore?
+    ;;(ad-deactivate 'other-window)
+    ;;(ad-deactivate 'pop-to-buffer)
+)
 
 (add-hook 'ediff-mode-hook #'my-ediff-turn-off-golden-ratio)
 
@@ -229,6 +234,25 @@ enter ediff."
 (use-package all-the-icons :ensure t :defer t)
 (use-package all-the-icons-dired :ensure t :defer)
 
+(use-package json-mode :ensure t
+  :mode
+  ("\\.json\\'" . json-mode))
+
+(use-package hideshow
+  :bind (("C-x C-h" . hs-toggle-hiding)
+         ("C-x C-S-+" . hs-show-all))
+  :init (add-hook #'prog-mode-hook #'hs-minor-mode)
+  :diminish hs-minor-mode
+  :config
+  (setq hs-special-modes-alist
+        (mapcar 'purecopy
+                '((c-mode "{" "}" "/[*/]" nil nil)
+                  (c++-mode "{" "}" "/[*/]" nil nil)
+                  (java-mode "{" "}" "/[*/]" nil nil)
+                  (js-mode "{" "}" "/[*/]" nil)
+                  (json-mode "{" "}" "/[*/]" nil)
+                  (javascript-mode  "{" "}" "/[*/]" nil)))))
+
 (after-load 'dired
   (autoload 'dired-async-mode "dired-async.el" nil t)
   (dired-async-mode 1))
@@ -247,6 +271,7 @@ enter ediff."
                       dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$")
   :config ;; after loading dired, do this stuff
   (load "dired-x")
+  (setq wdired-allow-to-change-permissions t)
   :bind
   (:map dired-mode-map
         ("/" . helm-swoop)
@@ -278,16 +303,19 @@ enter ediff."
 
 (define-key dired-mode-map "e" 'ora-ediff-files)
 
-(use-package yasnippet
-:defer t
-:ensure t
-:init
-(add-to-list 'load-path "~/.emacs.d/snippets")
-;; (define-key company-mode-map (kbd "TAB") #'yas-expand)
+(use-package ebdb :ensure t :defer t)
 
-;; (define-key company-mode-map (kbd "<tab>") #'yas-expand)
-:config (yas-global-mode 1))
-;; (add-hook 'after-init-hook 'yas-global-mode)
+(use-package yasnippet
+  ;;adding defer t makes yasnippet NOT be loaded
+;;  :defer t
+  :ensure t
+  :init
+  (add-to-list 'load-path "~/.emacs.d/snippets")
+  ;; (define-key company-mode-map (kbd "TAB") #'yas-expand)
+
+  ;; (define-key company-mode-map (kbd "<tab>") #'yas-expand)
+  :config (yas-global-mode 1))
+  ;; (add-hook 'after-init-hook 'yas-global-mode)
 
 (with-eval-after-load 'warnings
   (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))

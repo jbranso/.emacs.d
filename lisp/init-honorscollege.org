@@ -1,0 +1,155 @@
+#+AUTHOR:Joshua Branson
+#+LATEX_HEADER: \usepackage{lmodern}
+#+LATEX_HEADER: \usepackage[QX]{fontenc}
+
+* honorscollege
+
+** honors college  functions for viewing the current file in the browser
+:PROPERTIES:
+:ID:       04d49c2f-8850-484f-af9d-2b2487da3426
+:END:
+
+View the current buffer on https:://honors.purdue.edu
+#+BEGIN_SRC emacs-lisp
+  (defun purdue-view-this-file-in-dev-server ()
+    "View the current file in your browser.  Since anything under community is now wordpress, then if the user wants to
+  view the community page, show him the qa server."
+    (interactive)
+    (require 's)
+    (let (url dev-string qa-string)
+      (setq dev-string "https://dev.honors.purdue.edu/")
+      (setq qa-string  "https://qa.honors.purdue.edu/")
+      (if (s-match "community" buffer-file-name)
+          (setq url (concat qa-string (s-chop-prefix "/srv/http/honorscollege/" buffer-file-name)))
+        (setq url (concat dev-string  (s-chop-prefix "/srv/http/honorscollege/" buffer-file-name))))
+      (browse-url url)))
+
+#+END_SRC
+
+
+View the current buffer on localhost
+#+BEGIN_SRC emacs-lisp
+  (defun purdue-view-this-file-locally ()
+    "View the current file in your browser.  Since anything under community is now wordpress, then if the user wants to
+  view o community page, show him the qa server."
+    (interactive)
+    (require 's)
+    (let (url local-string wd prefix) ;; wd == working directory
+      (setq wd (pwd))
+      (setq local-string "localhost/honorscollege/")
+      (if (s-contains? "/srv" buffer-file-name)
+          (setq prefix "/srv/http/honorscollege/")
+        (setq prefix "/home/joshua/honorscollege/"))
+      (setq url (concat local-string
+                        (s-chop-prefix prefix buffer-file-name)))
+      (browse-url url)))
+#+END_SRC
+
+
+** Rsync all honorscollege files to the dev server
+:PROPERTIES:
+:ID:       ba25f901-a5e3-42da-a485-48f2f28024ba
+:END:
+
+Copy all local changes to the ITaP dev server via rsync.
+
+to Push: rsync [OPTION...] SRC... jbranso@HOST:DEST
+
+rsync /home/joshua/honorscollege/ jbranso@dev.www.purdue.edu:
+
+
+Make rysnc update the php, css, html, and js files
+#+BEGIN_SRC sh :results output :exports both
+rsync -vrc --exclude="*gitignore" --exclude="*git" --exclude="*assets" /home/joshua/honorscollege/ jbranso@dev.www.purdue.edu:/home/users/jbranso/HTML/honorscollege/
+#+END_SRC
+
+Make rsync update the asset directory.  The "-c" only updates files if they are different checksums.
+#+BEGIN_SRC sh :results output :exports both
+rsync -vrc --exclude="*gitignore" --exclude="*git"  /home/joshua/honorscollege/ jbranso@dev.www.purdue.edu:/home/users/jbranso/HTML/honorscollege/
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (defun my-rsync-honors-purdue-edu-function ()
+    "Minifying my css files."
+    (interactive)
+    (async-shell-command (concat (format "yuicompressor --type css  %s -o "
+                                         (buffer-file-name))
+                                 (s-replace ".css" ".min.css" buffer-file-name)) "*css minifying*"))
+
+  ;; (start-process "my-process" "foo" "ls" "-l" "/home/joshua/")
+
+  ;; (get-process "foo")
+  ;; (get-process "my-process")
+  ;; (list-processes)
+
+  ;; (process-status "my-process")
+  ;; (process-status (get-buffer "my-honors-purdue-edu-rysnc-buffer"))
+
+  ;; rsync -vrn /home/joshua/honorscollege/ jbranso@dev.www.purdue.edu:/home/users/jbranso/HTML/honorscollege/
+
+  ;; (start-process "my-honors-purdue-edu-rsync" "my-honors-purdue-edu-rsync-buffer"
+  ;;                "rsync" "-vr" "--exclude=*gitignore" "--exclude=*git" "--exclude=*assets" "/home/joshua/honorscollege/" "jbranso@dev.www.purdue.edu:/home/users/jbranso/HTML/honorscollege/" )
+
+
+
+  ;; (auth-source-search :host "dev.www.purdue.edu"
+  ;;                     ;;:type 'netrc :max 1
+  ;;                     ;;:P "pppp" :Q "qqqq"
+  ;;                     :require '(:secret)
+  ;;                     )
+
+
+  (setq auth-source-debug t)
+  ;;(setq auth-sources '("~/.authinfo"))
+
+  (defun get-secret-password ()
+    (interactive)
+    (let ((found
+           (if (fboundp 'auth-source-search)
+
+               (auth-source-search
+                ;;:max 1
+                :host "dev.www.purdue.edu"
+                ;;:require '(:secret)
+                )
+             )))
+      (if found
+          (let ((secret (plist-get found :secret)))
+            (if (functionp secret)
+                (funcall secret)
+              secret))
+        ;; (let ((prompt (format "Jabber password for %s: " bare-jid)))
+        ;;   (if (require 'password-cache nil t)
+        ;;       ;; Need to copy the password, as sasl.el wants to erase it.
+        ;;       (copy-sequence
+        ;;        (password-read prompt (jabber-password-key bare-jid)))
+        ;;     (read-passwd prompt)))
+        )
+      ))
+
+
+
+  ;;(add-hook 'css-mode-hook '(lambda ()
+  ;;(add-hook 'after-save-hook 'my-rsync-honors-purdue-edu-function nil t)))
+
+#+END_SRC
+
+
+               (auth-source-search :host "dev.www.purdue.edu")
+               (auth-source-search :user "jbranso")
+
+** some helpful links
+https://www.gnu.org/software/emacs/manual/html_node/tramp/Remote-processes.html
+https://www.slac.stanford.edu/comp/unix/gnu-info/elisp_34.html
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Processes.html#Processes
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Process-Information.html#Process-Information
+http://enthusiasm.cozy.org/archives/2014/07/auth-source-getting-my-secrets-out-of-my-emacs-init-file
+https://github.com/legoscia/emacs-jabber/commit/5c7d80f3aa92cc5a27e3fb553ca291173516b763
+
+** provide this file
+:PROPERTIES:
+:ID:       68c7aedd-8269-46e4-9851-4c2b8afcf20d
+:END:
+#+BEGIN_SRC emacs-lisp
+(provide 'init-honorscollege)
+#+END_SRC

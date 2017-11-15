@@ -76,94 +76,109 @@
 (evil-define-key 'normal web-mode-map (kbd "Has") 'web-mode-attribute-select)
 (evil-define-key 'normal web-mode-map (kbd "Hat") 'web-mode-attribute-transpose)
 
+(fset 'create\ mailto\ link
+      (lambda (&optional arg) "Keyboard macro."
+        (interactive "p")
+        (kmacro-exec-ring-item
+         (quote ([121 105 87 118 105 87 83 60 97 62 72 97 105 104 114 101 102 return 109 97 105 108 116 111 58 25 return] 0 "%d")) arg)))
+
+
 (defun my-evil-dvorak-normal-state ()
-    "These are the non-standard customizations, that I've done to my evil-dvorak.
+  "These are the non-standard customizations, that I've done to my evil-dvorak.
     These are my various changes that I initially had in evil-dvorak, but I'm removing them to help out the spacemacs devs."
-    (interactive)
-    ;;normal mode customizations
+  (interactive)
+  ;;normal mode customizations
 
-    ;; the default evil-mode does NOT play well with visual line mode!  Until that is figured out, I'm going to use the
-    ;; emacs keys for moving up and down a line.
-    ;; "t" 'evil-previous-line
-    ;; "h" 'evil-next-line
-    (define-key evil-normal-state-map "t" 'previous-line)
-    (define-key evil-normal-state-map  "h" 'next-line)
-    (define-key evil-normal-state-map  "n" 'evil-backward-char)
-    (define-key evil-normal-state-map  "s" 'evil-forward-char)
-    (define-key evil-normal-state-map  (kbd "ESC") 'nil)
-    (define-key evil-normal-state-map  (kbd "C-s") 'evil-substitute)
-    (define-key evil-normal-state-map  (kbd "C-c r") 'evil-record-macro)
-    (define-key evil-normal-state-map  "," 'undo-tree-undo)
-    (define-key evil-normal-state-map  "/" 'helm-swoop)
-    (define-key evil-normal-state-map  (kbd "<backspace>") 'avy-goto-char)
-    ;; (kbd "<return>") 'newline-and-indent
-    ;; usually
-    ;; RET means newline, BUT RET in org-mode should mean to org-indent.
-    ;; now if you press RET on an org link, you follow it!  cool eh?
-    (define-key evil-normal-state-map  (kbd "<return>") #'(lambda ()
-                                                            "Usually do newline and indent, but in org buffers, do org-indent"
-                                                            (interactive)
-                                                            (if (equal 'org-mode major-mode)
-                                                                (org-return)
-                                                              (newline-and-indent))))
-    (define-key evil-normal-state-map  "Q" 'anzu-query-replace-regexp)
-    (define-key evil-normal-state-map  "I" 'evil-append)
-    (define-key evil-normal-state-map  "$" 'ispell-word)
-    ;; (kbd "a") 'evil-first-non-blank
-    (define-key evil-normal-state-map  (kbd "a") 'move-beginning-of-line)
-    (define-key evil-normal-state-map  (kbd "A") 'evil-insert-line)
-    ;; (kbd "u") 'evil-end-of-line
-    (define-key evil-normal-state-map  (kbd "u") 'move-end-of-line)
-    (define-key evil-normal-state-map  (kbd "U") 'evil-append-line)
-    ;;(define-key evil-normal-state-map  (kbd "q") '(lambda ()
-    ;; "q saves the current buffer, then kills it.  I should add a checking mechanism... If the buffer name starts and ends with *, then do not save the buffer"
-      ;;                                              (interactive)
-        ;;                                            (save-buffer)
-          ;;                                          (let (kill-buffer-query-functions) (kill-buffer))))
-    (define-key evil-normal-state-map  (kbd "l") 'recenter-top-bottom)
-    ;;there is no need to set return to newline-and-indent, because electric-indent-mode is now on by default.
-    ;;at least so the documentation claimed
-    (define-key evil-normal-state-map  (kbd "C-d") 'delete-char)
-    (define-key evil-normal-state-map  (kbd "<") 'beginning-of-buffer)
-    (define-key evil-normal-state-map  (kbd ">") 'end-of-buffer)
-    (define-key evil-normal-state-map  (kbd "SPC") 'viper-space)
-    (define-key evil-normal-state-map  (kbd "C-a") 'mark-whole-buffer)
+  ;; the default evil-mode does NOT play well with visual line mode!  Until that is figured out, I'm going to use the
+  ;; emacs keys for moving up and down a line.
+  ;; "t" 'evil-previous-line
+  ;; "h" 'evil-next-line
+  (define-key evil-normal-state-map "n" 'previous-line)
+  (define-key evil-normal-state-map  "t" 'next-line)
+  (define-key evil-normal-state-map  "h" 'evil-backward-char)
+  (define-key evil-normal-state-map  "s" 'evil-forward-char)
+  ;; I'm getting a weird error.  maybe this will help
+  ;;(define-key evil-normal-state-map  (kbd "ESC") 'nil)
+  ;;(define-key evil-normal-state-map  (kbd "C-s") 'evil-substitute)
+  (define-key evil-normal-state-map  (kbd "C-c r") 'evil-record-macro)
+  (define-key evil-normal-state-map  "," 'undo-tree-undo)
+  ;; I'm trying to replace this with "C-c /"
+  ;;(define-key evil-normal-state-map  "/" 'helm-swoop)
+  (define-key evil-normal-state-map  (kbd "<backspace>") 'avy-goto-char)
+  ;; (kbd "<return>") 'newline-and-indent
+  ;; usually
+  ;; RET means newline, BUT RET in org-mode should mean to org-indent.
+  ;; now if you press RET on an org link, you follow it!  cool eh?
+  (define-key evil-normal-state-map  (kbd "<return>") #'(lambda ()
+                                                          "Usually do newline and indent, but in org buffers, do org-indent"
+                                                          (interactive)
+                                                          (if (equal 'org-mode major-mode)
+                                                              (org-return)
+                                                            (newline-and-indent))))
+  (define-key evil-normal-state-map  "Q" 'anzu-query-replace-regexp)
+  ;; I'm trying to get used to normal vim commands
+  ;;(define-key evil-normal-state-map  "I" 'evil-append)
+  ;; I'm trying to get used to normal vim commands
+  ;;(define-key evil-normal-state-map  "$" 'ispell-word)
+  ;; (kbd "a") 'evil-first-non-blank
+  ;; I'm trying to get used to more default vim behavior
+  ;;(define-key evil-normal-state-map  (kbd "a") 'move-beginning-of-line)
+  ;;(define-key evil-normal-state-map  (kbd "A") 'evil-insert-line)
+  ;; (kbd "u") 'evil-end-of-line
 
-    ;;Miscellaneous
-    (define-key evil-normal-state-map  (kbd "TAB") #'indent-for-tab-command)
-    (define-key evil-normal-state-map  (kbd "s-z") #'evil-emacs-state)
+  ;; I'm trying to get used to default vim behavior
+  ;; (define-key evil-normal-state-map  (kbd "u") 'move-end-of-line)
+  ;; (define-key evil-normal-state-map  (kbd "U") 'evil-append-line)
+  ;;(define-key evil-normal-state-map  (kbd "q") '(lambda ()
+  ;; "q saves the current buffer, then kills it.  I should add a checking mechanism... If the buffer name starts and ends with *, then do not save the buffer"
+  ;;                                              (interactive)
+  ;;                                            (save-buffer)
+  ;;                                          (let (kill-buffer-query-functions) (kill-buffer))))
+  ;; I'm trying to get used to normal vim behavior
+  ;;(define-key evil-normal-state-map  (kbd "l") 'recenter-top-bottom)
+  ;;there is no need to set return to newline-and-indent, because electric-indent-mode is now on by default.
+  ;;at least so the documentation claimed
+  (define-key evil-normal-state-map  (kbd "C-d") 'delete-char)
+  (define-key evil-normal-state-map  (kbd "<") 'beginning-of-buffer)
+  (define-key evil-normal-state-map  (kbd ">") 'end-of-buffer)
+  (define-key evil-normal-state-map  (kbd "SPC") 'viper-space)
+  (define-key evil-normal-state-map  (kbd "C-a") 'mark-whole-buffer)
 
-    ;;moving point from top
-    (define-key evil-normal-state-map  (kbd "C-w t") #'windmove-up)
-    (define-key evil-normal-state-map  (kbd "C-w h") #'windmove-down)
-    (define-key evil-normal-state-map  (kbd "C-w n") #'windmove-left)
-    (define-key evil-normal-state-map  (kbd "C-w s") #'windmove-right)
-    ;; this breaks the regular use of the vim letter "b", which move back by one word.
-    ;; (kbd "b") #'(lambda ()
-    ;;               "Switch to the previous buffer"
-    ;;               (interactive)
-    ;;               (switch-to-buffer nil))
+  ;;Miscellaneous
+  (define-key evil-normal-state-map  (kbd "TAB") #'indent-for-tab-command)
+  (define-key evil-normal-state-map  (kbd "s-z") #'evil-emacs-state)
 
-    (define-key evil-normal-state-map (kbd "C-t") 'evil-open-above)
-    (define-key evil-normal-state-map (kbd "C-h") 'evil-open-below)
-    (define-key evil-normal-state-map (kbd "J") 'join-line)
-    (define-key evil-normal-state-map (kbd "j") #'(lambda ()
-                                                    (interactive)
-                                                    "join this line at the end of the line below"
-                                                    (join-line 1)
-                                                    ))
-)
+  ;;moving point from top
+  (define-key evil-normal-state-map  (kbd "C-w t") #'windmove-up)
+  (define-key evil-normal-state-map  (kbd "C-w h") #'windmove-down)
+  (define-key evil-normal-state-map  (kbd "C-w n") #'windmove-left)
+  (define-key evil-normal-state-map  (kbd "C-w s") #'windmove-right)
+  ;; this breaks the regular use of the vim letter "b", which move back by one word.
+  ;; (kbd "b") #'(lambda ()
+  ;;               "Switch to the previous buffer"
+  ;;               (interactive)
+  ;;               (switch-to-buffer nil))
 
-  (add-hook 'evil-normal-state-entry-hook 'my-evil-dvorak-normal-state)
+  (define-key evil-normal-state-map (kbd "C-t") 'evil-open-above)
+  (define-key evil-normal-state-map (kbd "C-h") 'evil-open-below)
+  (define-key evil-normal-state-map (kbd "J") 'join-line)
+  (define-key evil-normal-state-map (kbd "j") #'(lambda ()
+                                                  (interactive)
+                                                  "join this line at the end of the line below"
+                                                  (join-line 1)
+                                                  ))
+  )
+
+(add-hook 'evil-normal-state-entry-hook 'my-evil-dvorak-normal-state)
 
 (defun my-evil-dvorak-visual-state ()
   "These are the non-standard customizations, that I've done to my evil-dvorak.
   These are my various changes that I initially had in evil-dvorak, but I'm removing them to help out the spacemacs devs."
   (interactive)
   ;;visual state map
-  (define-key evil-visual-state-map "h" 'evil-next-line)
-  (define-key evil-visual-state-map  "t" 'evil-previous-line)
-  (define-key evil-visual-state-map  "n" 'evil-backward-char)
+  (define-key evil-visual-state-map "t" 'evil-next-line)
+  (define-key evil-visual-state-map  "n" 'evil-previous-line)
+  (define-key evil-visual-state-map  "h" 'evil-backward-char)
   (define-key evil-visual-state-map  "s" 'evil-forward-char)
 
   ;; I had used this before, but now that I am learning evil, I'm not going to use those.h
@@ -185,7 +200,7 @@
   ;; (kbd "ESC") 'evil-normal-state
   (define-key evil-insert-state-map  (kbd "C-c r") 'evil-record-macro)
   (define-key evil-insert-state-map  (kbd "C-s") 'evil-forward-char)
-  (define-key evil-insert-state-map  (kbd "C-n") 'evil-backward-char))
+  (define-key evil-insert-state-map  (kbd "C-h") 'evil-backward-char))
 (add-hook 'evil-insert-state-entry-hook 'my-evil-dvorak-insert-state)
 
 (define-key evil-emacs-state-map  (kbd "C-w t") #'windmove-up)
