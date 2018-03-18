@@ -1,8 +1,6 @@
 ;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
 
-;;(find-file "./init.el")
-
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -17,7 +15,7 @@
 ;;----------------------------------------------------------------------------
 
 ;; this is supposed to be a big performance win
-;; https://www.reddit.com/r/emacs/comments/4c0mi3/the_biggest_performance_improvement_to_emacs_ive/h
+;; https://www.reddit.com/r/emacs/comments/4c0mi3/the_biggest_performance_improvement_to_emacs_ive/
 ;; (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
 (require 'init-utils)
@@ -52,29 +50,34 @@
 ;; autoinsert a yasnippet
 (org-babel-load-file "~/.emacs.d/lisp/init-autoinsert.org")
 ;;load is many packages
-(org-babel-load-file 	"~/.emacs.d/lisp/init-load-small-packages.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-load-small-packages.org")
 ;; emacs can read email
-(org-babel-load-file 	"~/.emacs.d/lisp/init-gnus.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-gnus.org")
 ;; some graphical configurations
-(org-babel-load-file 	"~/.emacs.d/lisp/init-gui-frames.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-gui-frames.org")
 ;; my org configurations
-(org-babel-load-file 	"~/.emacs.d/lisp/init-org.org")
-(org-babel-load-file 	"~/.emacs.d/lisp/init-lisp.org")
-(org-babel-load-file 	"~/.emacs.d/lisp/init-javascript.org")
-(org-babel-load-file 	"~/.emacs.d/lisp/init-editing-utils.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-org.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-lisp.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-javascript.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-editing-utils.org")
 ;;an irc client for Emacs
-(org-babel-load-file 	"~/.emacs.d/lisp/init-erc.org")
-;; read email in emacs
-(require 'init-mu4e)
+(org-babel-load-file "~/.emacs.d/lisp/init-erc.org")
+;; load my web-mode configurations
 (org-babel-load-file "~/.emacs.d/lisp/init-html.org")
 
+;; read email in emacs
+;;(require 'init-mu4e)
 ;; let's write my wordpress blog in emacs
 ;;(require 'init-org2blog)
 (org-babel-load-file "~/.emacs.d/lisp/init-defuns.org")
-
-
+(org-babel-load-file "~/.emacs.d/lisp/init-honorscollege.org")
 (org-babel-load-file "~/.emacs.d/lisp/init-erc.org")
-(org-babel-load-file 	"~/.emacs.d/lisp/init-misc.org")
+(org-babel-load-file "~/.emacs.d/lisp/init-misc.org")
+
+(org-babel-load-file "~/.emacs.d/lisp/init-flycheck.org")
+
+
+
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
 ;;----------------------------------------------------------------------------

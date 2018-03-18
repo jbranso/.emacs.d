@@ -6,13 +6,7 @@
 
 Org-mode is Emacs' organizational mode, and it is amazing!  [[http://doc.norang.ca/org-mode.html][Here]] is an online example configuration that is a little more thorough than this configuration.
 
-* COMMENT Org's 8.3 stable version
-
-Org-mode has just updated to a stable version.  release notes are here: http://orgmode.org/Changes.html
-
-Property drawers now have to be under a headline and its scheduling line.
-
-Org-babel mode now supports sed!
+* I am using Org version 9.1
 * My org use-package declaration
 :PROPERTIES:
 :ID:       e5893542-ca4c-44b6-be5f-d6bcbe365f36
@@ -33,21 +27,8 @@ just one space.
 
   #+RESULTS:
 
-* what files org-mode opens
-:PROPERTIES:
-:ID:       f217c699-23c2-4a58-bb59-73b639c8447a
-:END:
-#+BEGIN_SRC emacs-lisp
-;; define what files org opens
-(add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
-;;(setq org-default-notes-file (concat org-directory "/notes.org"))
-#+END_SRC
-
-#+RESULTS:
-: ((\.\(org\|txt\)$ . org-mode) (/git-rebase-todo\' . git-rebase-mode) (\.gpg\(~\|\.~[0-9]+~\)?\' nil epa-file) (\.\(?:3fr\|a\(?:r[tw]\|vs\)\|bmp[23]?\|c\(?:als?\|myka?\|r[2w]\|u[rt]\)\|d\(?:c[mrx]\|ds\|ng\|px\)\|f\(?:ax\|its\)\|gif\(?:87\)?\|hrz\|ic\(?:on\|[bo]\)\|j\(?:\(?:pe\|[np]\)g\)\|k\(?:25\|dc\)\|m\(?:iff\|ng\|rw\|s\(?:l\|vg\)\|tv\)\|nef\|o\(?:rf\|tb\)\|p\(?:bm\|c\(?:ds\|[dltx]\)\|db\|ef\|gm\|i\(?:ct\|x\)\|jpeg\|n\(?:g\(?:24\|32\|8\)\|[gm]\)\|pm\|sd\|tif\|wp\)\|r\(?:a[fs]\|gb[ao]?\|l[ae]\)\|s\(?:c[rt]\|fw\|gi\|r[2f]\|un\|vgz?\)\|t\(?:ga\|i\(?:ff\(?:64\)?\|le\|m\)\|tf\)\|uyvy\|v\(?:da\|i\(?:car\|d\|ff\)\|st\)\|w\(?:bmp\|pg\)\|x\(?:3f\|bm\|cf\|pm\|wd\|[cv]\)\|y\(?:cbcra?\|uv\)\)\' . image-mode) (\.elc\' . emacs-lisp-byte-code-mode) (\.dz\' nil jka-compr) (\.xz\' nil jka-compr) (\.lzma\' nil jka-compr) (\.lz\' nil jka-compr) (\.g?z\' nil jka-compr) (\.bz2\' nil jka-compr) (\.Z\' nil jka-compr) (\.vr[hi]?\' . vera-mode) (\(?:\.rb\|ru\|rake\|thor\|jbuilder\|gemspec\|podspec\|/\(?:Gem\|Rake\|Cap\|Thor\|Vagrant\|Guard\|Pod\)file\)\' . ruby-mode) (\.re?st\' . rst-mode) (\.py\' . python-mode) (\.awk\' . awk-mode) (\.\(u?lpc\|pike\|pmod\(\.in\)?\)\' . pike-mode) (\.idl\' . idl-mode) (\.java\' . java-mode) (\.m\' . objc-mode) (\.ii\' . c++-mode) (\.i\' . c-mode) (\.lex\' . c-mode) (\.y\(acc\)?\' . c-mode) (\.[ch]\' . c-mode) (\.\(CC?\|HH?\)\' . c++-mode) (\.[ch]\(pp\|xx\|\+\+\)\' . c++-mode) (\.\(cc\|hh\)\' . c++-mode) (\.\(bat\|cmd\)\' . bat-mode) (\.[sx]?html?\(\.[a-zA-Z_]+\)?\' . html-mode) (\.svgz?\' . image-mode) (\.svgz?\' . xml-mode) (\.x[bp]m\' . image-mode) (\.x[bp]m\' . c-mode) (\.p[bpgn]m\' . image-mode) (\.tiff?\' . image-mode) (\.gif\' . image-mode) (\.png\' . image-mode) (\.jpe?g\' . image-mode) (\.te?xt\' . text-mode) (\.[tT]e[xX]\' . tex-mode) (\.ins\' . tex-mode) (\.ltx\' . latex-mode) (\.dtx\' . doctex-mode) (\.org\' . org-mode) (\.el\' . emacs-lisp-mode) (Project\.ede\' . emacs-lisp-mode) (\.\(scm\|stk\|ss\|sch\)\' . scheme-mode) (\.l\' . lisp-mode) (\.li?sp\' . lisp-mode) (\.[fF]\' . fortran-mode) (\.for\' . fortran-mode) (\.p\' . pascal-mode) (\.pas\' . pascal-mode) (\.\(dpr\|DPR\)\' . delphi-mode) (\.ad[abs]\' . ada-mode) (\.ad[bs].dg\' . ada-mode) (\.\([pP]\([Llm]\|erl\|od\)\|al\)\' . perl-mode) (Imakefile\' . makefile-imake-mode) (Makeppfile\(?:\.mk\)?\' . makefile-makepp-mode) (\.makepp\' . makefile-makepp-mode) (\.mk\' . makefile-gmake-mode) (\.make\' . makefile-gmake-mode) ([Mm]akefile\' . makefile-gmake-mode) (\.am\' . makefile-automake-mode) (\.texinfo\' . texinfo-mode) (\.te?xi\' . texinfo-mode) (\.[sS]\' . asm-mode) (\.asm\' . asm-mode) (\.css\' . css-mode) (\.mixal\' . mixal-mode) (\.gcov\' . compilation-mode) (/\.[a-z0-9-]*gdbinit . gdb-script-mode) (-gdb\.gdb . gdb-script-mode) ([cC]hange\.?[lL]og?\' . change-log-mode) ([cC]hange[lL]og[-.][0-9]+\' . change-log-mode) (\$CHANGE_LOG\$\.TXT . change-log-mode) (\.scm\.[0-9]*\' . scheme-mode) (\.[ck]?sh\'\|\.shar\'\|/\.z?profile\' . sh-mode) (\.bash\' . sh-mode) (\(/\|\`\)\.\(bash_\(profile\|history\|log\(in\|out\)\)\|z?log\(in\|out\)\)\' . sh-mode) (\(/\|\`\)\.\(shrc\|[kz]shrc\|bashrc\|t?cshrc\|esrc\)\' . sh-mode) (\(/\|\`\)\.\([kz]shenv\|xinitrc\|startxrc\|xsession\)\' . sh-mode) (\.m?spec\' . sh-mode) (\.m[mes]\' . nroff-mode) (\.man\' . nroff-mode) (\.sty\' . latex-mode) (\.cl[so]\' . latex-mode) (\.bbl\' . latex-mode) (\.bib\' . bibtex-mode) (\.bst\' . bibtex-style-mode) (\.sql\' . sql-mode) (\.m[4c]\' . m4-mode) (\.mf\' . metafont-mode) (\.mp\' . metapost-mode) (\.vhdl?\' . vhdl-mode) (\.article\' . text-mode) (\.letter\' . text-mode) (\.i?tcl\' . tcl-mode) (\.exp\' . tcl-mode) (\.itk\' . tcl-mode) (\.icn\' . icon-mode) (\.sim\' . simula-mode) (\.mss\' . scribe-mode) (\.f9[05]\' . f90-mode) (\.f0[38]\' . f90-mode) (\.indent\.pro\' . fundamental-mode) (\.\(pro\|PRO\)\' . idlwave-mode) (\.srt\' . srecode-template-mode) (\.prolog\' . prolog-mode) (\.tar\' . tar-mode) (\.\(arc\|zip\|lzh\|lha\|zoo\|[jew]ar\|xpi\|rar\|7z\|ARC\|ZIP\|LZH\|LHA\|ZOO\|[JEW]AR\|XPI\|RAR\|7Z\)\' . archive-mode) (\.oxt\' . archive-mode) (\.\(deb\|[oi]pk\)\' . archive-mode) (\`/tmp/Re . text-mode) (/Message[0-9]*\' . text-mode) (\`/tmp/fol/ . text-mode) (\.oak\' . scheme-mode) (\.sgml?\' . sgml-mode) (\.x[ms]l\' . xml-mode) (\.dbk\' . xml-mode) (\.dtd\' . sgml-mode) (\.ds\(ss\)?l\' . dsssl-mode) (\.js\' . javascript-mode) (\.json\' . javascript-mode) (\.[ds]?vh?\' . verilog-mode) (\.by\' . bovine-grammar-mode) (\.wy\' . wisent-grammar-mode) ([]>:/\]\..*\(emacs\|gnus\|viper\)\' . emacs-lisp-mode) (\`\..*emacs\' . emacs-lisp-mode) ([:/]_emacs\' . emacs-lisp-mode) (/crontab\.X*[0-9]+\' . shell-script-mode) (\.ml\' . lisp-mode) (\.ld[si]?\' . ld-script-mode) (ld\.?script\' . ld-script-mode) (\.xs\' . c-mode) (\.x[abdsru]?[cnw]?\' . ld-script-mode) (\.zone\' . dns-mode) (\.soa\' . dns-mode) (\.asd\' . lisp-mode) (\.\(asn\|mib\|smi\)\' . snmp-mode) (\.\(as\|mi\|sm\)2\' . snmpv2-mode) (\.\(diffs?\|patch\|rej\)\' . diff-mode) (\.\(dif\|pat\)\' . diff-mode) (\.[eE]?[pP][sS]\' . ps-mode) (\.\(?:PDF\|DVI\|OD[FGPST]\|DOCX?\|XLSX?\|PPTX?\|pdf\|djvu\|dvi\|od[fgpst]\|docx?\|xlsx?\|pptx?\)\' . doc-view-mode-maybe) (configure\.\(ac\|in\)\' . autoconf-mode) (\.s\(v\|iv\|ieve\)\' . sieve-mode) (BROWSE\' . ebrowse-tree-mode) (\.ebrowse\' . ebrowse-tree-mode) (#\*mail\* . mail-mode) (\.g\' . antlr-mode) (\.mod\' . m2-mode) (\.ses\' . ses-mode) (\.docbook\' . sgml-mode) (\.com\' . dcl-mode) (/config\.\(?:bat\|log\)\' . fundamental-mode) (\.\(?:[iI][nN][iI]\|[lL][sS][tT]\|[rR][eE][gG]\|[sS][yY][sS]\)\' . conf-mode) (\.\(?:desktop\|la\)\' . conf-unix-mode) (\.ppd\' . conf-ppd-mode) (java.+\.conf\' . conf-javaprop-mode) (\.properties\(?:\.[a-zA-Z0-9._-]+\)?\' . conf-javaprop-mode) (\`/etc/\(?:DIR_COLORS\|ethers\|.?fstab\|.*hosts\|lesskey\|login\.?de\(?:fs\|vperm\)\|magic\|mtab\|pam\.d/.*\|permissions\(?:\.d/.+\)?\|protocols\|rpc\|services\)\' . conf-space-mode) (\`/etc/\(?:acpid?/.+\|aliases\(?:\.d/.+\)?\|default/.+\|group-?\|hosts\..+\|inittab\|ksysguarddrc\|opera6rc\|passwd-?\|shadow-?\|sysconfig/.+\)\' . conf-mode) ([cC]hange[lL]og[-.][-0-9a-z]+\' . change-log-mode) (/\.?\(?:gnokiirc\|kde.*rc\|mime\.types\|wgetrc\)\' . conf-mode) (/\.\(?:enigma\|gltron\|gtk\|hxplayer\|net\|neverball\|qt/.+\|realplayer\|scummvm\|sversion\|sylpheed/.+\|xmp\)rc\' . conf-mode) (/\.\(?:gdbtkinit\|grip\|orbital/.+txt\|rhosts\|tuxracer/options\)\' . conf-mode) (/\.?X\(?:default\|resource\|re\)s\> . conf-xdefaults-mode) (/X11.+app-defaults/ . conf-xdefaults-mode) (/X11.+locale/.+/Compose\' . conf-colon-mode) (/X11.+locale/compose\.dir\' . conf-javaprop-mode) (\.~?[0-9]+\.[0-9][-.0-9]*~?\' nil t) (\.\(?:orig\|in\|[bB][aA][kK]\)\' nil t) ([/.]c\(?:on\)?f\(?:i?g\)?\(?:\.[a-zA-Z0-9._-]+\)?\' . conf-mode-maybe) (\.[1-9]\' . nroff-mode) (\.tgz\' . tar-mode) (\.tbz2?\' . tar-mode) (\.txz\' . tar-mode))
-
 * Setting up Org-plugins
-** org-crypt
+** COMMENT org-crypt
 :PROPERTIES:
 :ID:       c285b242-e60d-46c0-bd87-c10887f9448b
 :END:
@@ -112,11 +93,8 @@ To use org-crypt it is suggested that you have the following in your `.emacs':
   http://orgmode.org/worg/org-contrib/org-mime.html
   I want to figure out how to install this, because I could then write html emails trivially with gnus
   #+BEGIN_SRC emacs-lisp
-  (use-package org-mime)
+  (use-package org-mime :ensure t :defer t)
   #+END_SRC
-
-  #+RESULTS:
-  : org-mime
 
    imported code from http://orgmode.org/worg/org-contrib/org-mime.html
 
@@ -130,8 +108,6 @@ To use org-crypt it is suggested that you have the following in your `.emacs':
     ;;"#E6E1DC" "#232323"))))
   #+END_SRC
 
-  #+RESULTS:
-  | lambda | nil | (org-mime-change-element-style pre (format color: %s; background-color: %s; padding: 0.5em; #E6E1DC #232323)) |
 
   the following can be used to nicely offset block quotes in email bodies
 #+BEGIN_SRC emacs-lisp
@@ -142,9 +118,6 @@ To use org-crypt it is suggested that you have the following in your `.emacs':
   ;;"blockquote" "border-left: 2px solid gray; padding-left: 4px;")))
 #+END_SRC
 
-#+RESULTS:
-| lambda | nil | (org-mime-change-element-style blockquote border-left: 2px solid gray; padding-left: 4px;)                    |
-| lambda | nil | (org-mime-change-element-style pre (format color: %s; background-color: %s; padding: 0.5em; #E6E1DC #232323)) |
 
 end imported code
 
@@ -168,16 +141,25 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
     (use-package ob-http :ensure t)
     (setq geiser-default-implementation 'guile)
 
+    ;; TODO FIXME this defun needs to be deleted
+    ;; the org-mode has removed org-babel-get-header
+    ;; ob-sh needs to update to use the new version.
+    (defun org-babel-get-header (params key &optional others)
+      (delq nil
+            (mapcar
+             (lambda (p) (when (funcall (if others #'not #'identity) (eq (car p) key)) p))
+             params)))
+
     (after-load 'org
-    (org-babel-do-load-languages
-         'org-babel-load-languages
-         '(
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '(
          (awk . t)
          (calc . t)
          (C . t)
          (emacs-lisp . t)
          (haskell . t)
-	 ;;(http . t)
+         ;;(http . t)
          (gnuplot . t)
          ;;(latex . t)
          (ledger . t)
@@ -194,12 +176,13 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
          ;;(sqlite . t)
          )))
 
-           (setq org-latex-create-formula-image-program 'imagemagick)
-      ;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
-      ;;(ditaa . t)
-      ;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
-      ;; display inline images in org-mode
-      ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+    (setq org-latex-create-formula-image-program 'imagemagick)
+
+    ;; DO NOT set up ditaa.  It breaks (helm-find-files) C-x C-f
+    ;;(ditaa . t)
+    ;;(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
+    ;; display inline images in org-mode
+    ;;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
   #+END_SRC
 
   #+RESULTS:
@@ -209,15 +192,39 @@ Org babel lets you run code snippets inside org-mode!  It's a great literate pro
 :END:
 
 New versions of org have removed org-babel get header.  Some plugins still use it.  So I'm defining it until they catch up.
-
+** org-id
+:PROPERTIES:
+:ID:       ca509e16-9845-472b-be83-fc3a89a11a91
+:END:
+Org-id is a way to create unique IDs to org-mode files.  Each heading can have a unique ID.  Org can then create a link to that heading.  The link will still work, even if you move entry IDs between files.
 #+BEGIN_SRC emacs-lisp
-(defun org-babel-get-header (params key &optional others)
-  (delq nil
-        (mapcar
-         (lambda (p) (when (funcall (if others #'not #'identity) (eq (car p) key)) p))
-         params)))
+  (require 'org-id)
+    (add-hook 'org-mode-hook '(lambda ()
+                                (setq org-id-link-to-org-use-id t)))
 #+END_SRC
-** org invoice
+
+** org gnu-plot
+:PROPERTIES:
+:ID:       660f5c8d-f80d-43ea-a8ac-110be0a4d45f
+:END:
+#+BEGIN_SRC emacs-lisp
+(use-package gnuplot :ensure t)
+#+END_SRC
+
+I can use org-mode to plot tables via gnu plot!
+
+Just type C-"g below.  Or ~org-plot/gnuplot~
+#+PLOT: title:"Citas" ind:1 deps:(3) type:2d with:histograms set:"yrange [0:]"
+| Sede      | Max cites | H-index |
+|-----------+-----------+---------|
+| Chile     |    257.72 |   21.39 |
+| Leeds     |    165.77 |   19.68 |
+| Sao Paolo |     71.00 |   11.50 |
+| Stockholm |    134.19 |   14.33 |
+| Morelia   |    257.56 |   17.67 |
+
+** COMMENT org plugins that I don't use
+*** COMMENT org invoice
 :PROPERTIES:
 :ID:       4dc5cf24-8878-498c-a332-41f87ee08fda
 :END:
@@ -250,7 +257,7 @@ New versions of org have removed org-babel get header.  Some plugins still use i
     ,#+END:
   #+END_SRC
 
-** COMMENT org-notify lets you know when you have upcoming appointments
+*** COMMENT org-notify lets you know when you have upcoming appointments
   I would like to get this set up so that it shows pop-ups using a lua script.  That way I can set it up to use awesome's
   pop up library. At the moment it only notifies you when you have approaching deadlines and only certain ones.  It's a little odd.
  #+BEGIN_SRC emacs-lisp
@@ -271,7 +278,7 @@ New versions of org have removed org-babel get header.  Some plugins still use i
   #+RESULTS:
   | default | ((:time 1h :actions -notify/window :period 2m :duration 60)) | appt | ((:time -1s :period 20s :duration 10 :actions (-message -ding)) (:time 15m :period 2m :duration 100 :actions -notify) (:time 2h :period 5m :actions -message) (:time 3d :actions -email)) |
 
-** org-inlinetask
+*** COMMENT org-inlinetask
 :PROPERTIES:
 :ID:       ea415ac9-07b1-4eae-a8eb-3cd84d7f216c
 :END:
@@ -312,7 +319,7 @@ New versions of org have removed org-babel get header.  Some plugins still use i
            - [ ] call your momma
              Let her know she's a good Mom
    #+END_SRC
-** org-habit
+*** COMMENT org-habit
 :PROPERTIES:
 :ID:       70cbc5a4-78cc-4fda-af2a-08f6a5ead72c
 :END:
@@ -324,7 +331,7 @@ New versions of org have removed org-babel get header.  Some plugins still use i
 
    #+RESULTS:
    : org-habit
-** org-protocal
+*** COMMENT org-protocal
 :PROPERTIES:
 :ID:       692f9752-71fb-46ed-87ad-8a7bd664e42e
 :END:
@@ -337,17 +344,7 @@ Org protocal allows you to capture things from firefox or other applications!  C
 
 #+RESULTS:
 : org-protocol
-** org-id
-:PROPERTIES:
-:ID:       ca509e16-9845-472b-be83-fc3a89a11a91
-:END:
-Org-id is a way to create unique IDs to org-mode files.  Each heading can have a unique ID.  Org can then create a link to that heading.  The link will still work, even if you move entry IDs between files.
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'org-mode-hook '(lambda ()
-                              (require 'org-id)
-                              (setq org-id-link-to-org-use-id t)))
-#+END_SRC
-** COMMENT org-php
+*** COMMENT org-php
 :PROPERTIES:
 :ID:       ba5eaab7-14db-4c4a-9f23-81bc1d2895c7
 :END:
@@ -357,26 +354,6 @@ I need to have a php REPL available if I am going to get an ob-php.
 (use-package psysh :ensure t)
 #+END_SRC
 
-** org gnu-plot
-:PROPERTIES:
-:ID:       660f5c8d-f80d-43ea-a8ac-110be0a4d45f
-:END:
-#+BEGIN_SRC emacs-lisp
-(use-package gnuplot :ensure t)
-#+END_SRC
-
-I can use org-mode to plot tables via gnu plot!
-
-Just type C-"g below.  Or ~org-plot/gnuplot~
-#+PLOT: title:"Citas" ind:1 deps:(3) type:2d with:histograms set:"yrange [0:]"
-| Sede      | Max cites | H-index |
-|-----------+-----------+---------|
-| Chile     |    257.72 |   21.39 |
-| Leeds     |    165.77 |   19.68 |
-| Sao Paolo |     71.00 |   11.50 |
-| Stockholm |    134.19 |   14.33 |
-| Morelia   |    257.56 |   17.67 |
-
 * My Org-mode-hook
 :PROPERTIES:
 :ID:       ec8fbf48-40c6-4e7c-bb20-bfac6b46fb08
@@ -385,44 +362,88 @@ Org-mode does not play well with yasnippet.  So this function that I got here [[
 with making yasnippet play well with org-mode.  It seems to 1st make TAB try to do any org expanding, then it'll
 try to expand a yasnippet.
 
+
+This should besntaeh at least it ought to be eh? very very very cool This should be very very very cool This should be very very very cool This should be very very very cooYes I suppose that it is very very cool! l This should be very very very cool
+
 #+BEGIN_SRC emacs-lisp
 (defun yas/org-very-safe-expand ()
     (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 #+END_SRC
 
-#+RESULTS:
-: yas/org-very-safe-expand
+
+
+  Make the lines in the buffer wrap around the edges of the screen.
+  YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
+  to press C-c q  or fill-paragraph ever again!
+#+BEGIN_SRC emacs-lisp
+  (defun my/auto-call-fill-paragraph-for-org-mode ()
+    "Call two modes to automatically call fill-paragraph for you."
+    (visual-line-mode)
+    (org-indent-mode))
+
+(add-hook 'org-mode-hook 'my/auto-call-fill-paragraph-for-org-mode)
+#+END_SRC
+
+Turn on org bullets mode for Emacs.  It turns all the *** into utf-8 bullets.
+
+Unfortunately, org-bullets was removed from org-contrib.  I'm not sure why.
+
+#+BEGIN_SRC emacs-lisp :tangle no
+(add-hook 'org-mode-hook 'org-bullets-mode)
+#+END_SRC
+
+Make org-mode a little prettier.  Turn strings like "<=" into "≤".
 
 #+BEGIN_SRC emacs-lisp
+  (defun my/turn-strings-into-utf8-chars ()
+    "Turn strings like '<=' into '≤'."
+    (push '(">=" . ?≥) prettify-symbols-alist)
+    (push '("<=" . ?≤) prettify-symbols-alist)
+    (push '("\\geq" . ?≥) prettify-symbols-alist)
+    (push '("\\leq" . ?≤) prettify-symbols-alist)
+    (push '("\\neg" . ?¬) prettify-symbols-alist)
+    (push '("\\rightarrow" . ?→) prettify-symbols-alist)
+    (push '("\\leftarrow" . ?←) prettify-symbols-alist)
+    (push '("\\infty" . ?∞) prettify-symbols-alist)
+    (push '("-->" . ?→) prettify-symbols-alist)
+    (push '("<--" . ?←) prettify-symbols-alist)
+    (push '("\\lambda" . ?λ) prettify-symbols-alist)
+    (push '("\\exists" . ?∃) prettify-symbols-alist)
+    (push '("\\nexists" . ?∄) prettify-symbols-alist)
+    (push '("\\forall" . ?∀) prettify-symbols-alist)
+    (push '("\\or" . ?∨) prettify-symbols-alist)
+    (push '("\\and" . ?∧) prettify-symbols-alist)
+    (push '(":)" . ?☺) prettify-symbols-alist)
+    (push '("):" . ?☹) prettify-symbols-alist)
+    (push '(":D" . ?☺) prettify-symbols-alist)
+    (push '("\\checkmark" . ?✓) prettify-symbols-alist)
+    (push '("\\check" . ?✓) prettify-symbols-alist)
+    (push '("1/4" . ?¼) prettify-symbols-alist)
+    (push '("1/2" . ?½) prettify-symbols-alist)
+    (push '("3/4" . ?¾) prettify-symbols-alist)
+    (push '("1/7" . ?⅐) prettify-symbols-alist)
+    ;; ⅕ ⅖ ⅗ ⅘ ⅙ ⅚ ⅛ ⅜ ⅝ ⅞
+    (push '("ae" . ?æ) prettify-symbols-alist)
+    (push '("^_^" . ?☻) prettify-symbols-alist))
+
+  (add-hook 'org-mode-hook 'my/turn-strings-into-utf8-chars)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle no
   ;; I want to get write-good-mode set up again, because it's awesome.
   (use-package writegood-mode :ensure t :defer t)
 
   (add-hook 'org-mode-hook '(lambda ()
-
-                                  ;; https://bitbucket.org/ukaszg/org-eldoc org eldoc looks cool
-                                  ;; but I can't get it to work
-                                  ;; (require 'org-eldoc)
-                                  ;;(org-eldoc-load)
                                   ;; (make-variable-buffer-local 'yas/trigger-key)
                                   ;;(setq yas/trigger-key [tab])
                                   ;;(add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
                                   ;; (define-key yas/keymap [tab] 'yas/next-field)
-                                  ;; make the lines in the buffer wrap around the edges of the screen.
-                                  ;; YES!!!!! These next two modes auto-indents org-buffers as you type!  NO NEED FOR
-                                  ;; to press C-c q  or fill-paragraph ever again!
-                                  (visual-line-mode)
-                                  (org-indent-mode)
-                                  (require 'writegood-mode)
                                   ;; apparently this does the same thing as the above combined modes
                                   ;; this seems to work better than visual line mode.  Why have I not heard of this before?
                                   ;;(toggle-word-wrap)
-                                  (org-bullets-mode 1)
                                   ;;make ">=" look like >=, etc.
-                                 (push '("^_^" . ?☻) prettify-symbols-alist)
-))
+)
 #+END_SRC
-#+RESULTS:
-| (lambda nil (require (quote org-eldoc)) (toggle-word-wrap) (org-bullets-mode 1) (push (quote (>= . 8805)) prettify-symbols-alist) (push (quote (<= . 8804)) prettify-symbols-alist) (push (quote (\geq . 8805)) prettify-symbols-alist) (push (quote (\leq . 8804)) prettify-symbols-alist) (push (quote (\neg . 172)) prettify-symbols-alist) (push (quote (\rightarrow . 8594)) prettify-symbols-alist) (push (quote (\leftarrow . 8592)) prettify-symbols-alist) (push (quote (\infty . 8734)) prettify-symbols-alist) (push (quote (--> . 8594)) prettify-symbols-alist) (push (quote (<-- . 8592)) prettify-symbols-alist) (push (quote (\exists . 8707)) prettify-symbols-alist) (push (quote (\nexists . 8708)) prettify-symbols-alist) (push (quote (\forall . 8704)) prettify-symbols-alist) (push (quote (\or . 8744)) prettify-symbols-alist) (push (quote (\and . 8743)) prettify-symbols-alist) (push (quote (:) . 9786)) prettify-symbols-alist) (push (quote (): . 9785)) prettify-symbols-alist) (push (quote (:D . 9786)) prettify-symbols-alist) (push (quote (\checkmark . 10003)) prettify-symbols-alist) (push (quote (\check . 10003)) prettify-symbols-alist) (push (quote (1/4 . 188)) prettify-symbols-alist) (push (quote (1/2 . 189)) prettify-symbols-alist) (push (quote (3/4 . 190)) prettify-symbols-alist) (push (quote (1/7 . 8528)) prettify-symbols-alist) (push (quote (ae . 230)) prettify-symbols-alist) (push (quote (^_^ . 9787)) prettify-symbols-alist)) | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-show-block-all append local] 5] | #[nil \300\301\302\303\304$\207 [org-add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | org-eldoc-load |
 
 * My org-mode preferences
 ** A big setq
@@ -430,7 +451,7 @@ try to expand a yasnippet.
 :ID:       4725eb30-c909-4c64-b3cc-2be91448f927
 :END:
 
-Hide the leading stars in my org files.
+Make calendar highlight upcoming items
 #+BEGIN_SRC emacs-lisp
 (setq org-hide-leading-stars t)
 #+END_SRC
@@ -448,58 +469,122 @@ Make RET follow a link
   (setq org-return-follows-link t)
 #+END_SRC
 
+Make org show inline images by default.  aka a link to a file will show the image, so instead of seeing
+[[./path/to/file.png]]
+
+You would see the image.
+
+This can be overridden by #+STARTUP: noinlineimages
+#+BEGIN_SRC emacs-lisp
+  (setq org-startup-with-inline-images t)
+#+END_SRC
+
+
+Don't let me accidentally delete text without realizing it in org.  ie: point is buried in a subtree, but you only
+see the heading and you accidentally kill a line without knowing it. This might not be supported for evil-mode
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-catch-invisible-edits 'show-and-error)
+#+END_SRC
+
+Whenever I change state from TODO to DONE org will log that timestamp. Let's put that in a drawer.
+#+BEGIN_SRC emacs-lisp
+  (setq  org-log-into-drawer t)
+#+END_SRC
+
+Make org-mode record the date when you finish a task.
+#+BEGIN_SRC emacs-lisp
+  (setq org-log-done 'time)
+#+END_SRC
+
+When you press S-down, org changes the timestamp under point
+#+BEGIN_SRC emacs-lisp
+  (setq org-edit-timestamp-down-means-later t)
+#+END_SRC
+
+Are there more backends that I can use?
+#+BEGIN_SRC emacs-lisp
+  (setq org-export-backends '(ascii beamer html texinfo latex))
+#+END_SRC
+
+
+ Most of these modules let you store links to various stuff in org.
+ #+BEGIN_SRC emacs-lisp
+   (setq  org-bullets-bullet-list '("◉" "◎" "♠" "○" "►" "◇"))
+ #+END_SRC
+
+
+ Where to put the :action: or :work: tag after a heading.  80 colums over
+ #+BEGIN_SRC emacs-lisp
+   (setq  org-tags-column 80)
+ #+END_SRC
+
+
+ Activate org speed commands.  When cursor is on heading, pressing a single key can activate certain commands in Emacs mode.  This can be useful on a mobile device.  I'm on a computer, so I don't need this.
+ #+BEGIN_SRC emacs-lisp
+  ;; (setq org-use-speed-commands t)
+ #+END_SRC
+
+
+     Don't ask me if I want to run an babel code block.  I know what I'm doing.
+     #+BEGIN_SRC emacs-lisp
+       (setq org-confirm-babel-evaluate nil)
+     #+END_SRC
+
   #+BEGIN_SRC emacs-lisp
     (setq
      ;; only show times on items in the agenda, if we have an item at a specified time
      ;; if we set it to true, then we see all the times every 2 hours.  Takes up too much space.
-     org-agenda-use-time-grid nil
-     ;;org-ellipsis "⬎"
-     ;; org-ellipsis "⤵"
-     ;; don't let me accidentally delete text without realizing it in org.  ie: point is buried in a subtree, but you only
-     ;; see the heading and you accidentally kill a line without knowing it.
-     ;; this might not be supported for evil-mode
-     org-catch-invisible-edits 'show-and-error
-     ;; whenever I change state from TODO to DONE org will log that timestamp. Let's put that in a drawer
-     org-log-into-drawer t
-     ;; make org-mode record the date when you finish a task
-     org-log-done 'time
+     ;; org-agenda-use-time-grid nil
      ;;org-log-done 'nil
-     ;; when you press S-down, org changes the timestamp under point
-     org-edit-timestamp-down-means-later t
-     ;; make the agenda start on today not wednesday
-     org-agenda-start-on-weekday nil
-     ;; don't make the agenda only show saturday and Sunday if today is saturday. Make it show 7 days
-     org-agenda-span 7
-     ;; using the diary slows down the agenda view
-     ;; but it also shows you upcoming calendar events
-     org-agenda-include-diary t
-     ;; this tells the agenda to take up the whole window and hide all other buffers
-     org-agenda-window-setup 'current-window
      ;; this tells org-mode to only quit selecting tags for things when you tell it that you are done with it
      org-fast-tag-selection-single-key nil
      org-html-validation-link nil
      org-export-kill-product-buffer-when-displayed t
-     ;; are there more backends that I can use?
-     org-export-backends '(ascii beamer html texinfo latex)
-     ;;most of these modules let you store links to various stuff in org
-     org-bullets-bullet-list
-     '("◉" "◎" "♠" "○" "►" "◇")
      org-modules '(org-bbdb org-gnus org-info org-invoice man org-toc org-habit org-mime org-crypt org-bullets org-id)
      ;; load in the org-modules
      ;;org-load-modules-maybe t
-     ;; where to put the :action: or :work: tag after a heading.  80 colums over
-     org-tags-column 80
-     ;; don't ask me if I want to run an babel code block.  I know what I'm doing
-     org-confirm-babel-evaluate nil
-     ;; activate org speed commands
-     org-use-speed-commands t)
+    )
 
     ;;a visual hint to let you know what line you are in in org-mode agenda
     (add-hook 'org-agenda-finalize-hook '(lambda () (hl-line-mode)))
   #+END_SRC
 
-  #+RESULTS:
-  | lambda | nil | (hl-line-mode) |
+*** My agenda setqs
+:PROPERTIES:
+:ID:       b0f8613f-9568-4569-868d-71fd735bd941
+:END:
+Make the agenda start on today not Wednesday.
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-start-on-weekday nil)
+#+END_SRC
+
+Don't make the agenda only show saturday and Sunday if today is saturday. Make it show 7 days.
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-span 'week)
+#+END_SRC
+
+Using the diary slows down the agenda view, but it also shows you upcoming calendar events.
+
+Right now using the diary is hiding all of my agena stuff, so I'm disabling the diary view.
+#+BEGIN_SRC emacs-lisp
+;;  (setq org-agenda-include-diary t)
+#+END_SRC
+
+ This tells the agenda to take up the whole window and hide all other buffers.
+ #+BEGIN_SRC emacs-lisp
+   (setq  org-agenda-window-setup 'current-window)
+ #+END_SRC
+
+** what files org-mode opens
+:PROPERTIES:
+:ID:       f217c699-23c2-4a58-bb59-73b639c8447a
+:END:
+#+BEGIN_SRC emacs-lisp
+;; define what files org opens
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|txt\\)$" . org-mode))
+;;(setq org-default-notes-file (concat org-directory "/notes.org"))
+#+END_SRC
 
 ** my org capure templates
 :PROPERTIES:
@@ -678,7 +763,7 @@ Make RET follow a link
   #+RESULTS:
   | B | Things I want to buy | entry | (file+headline ~/programming/org/projects/managing-my-monies.org things I want to buy) | * %? |
 
-** Agenda Configuration
+** COMMENT Agenda Configuration
 *** Agenda icons via Category
 :PROPERTIES:
 :ID:       1f343138-b49f-447e-8f34-2a1d05bc3af2
@@ -723,61 +808,64 @@ But I haven't been able to figure out how to do it.
 
   #+BEGIN_SRC emacs-lisp
 
-(defun my-org-list-files (dirs ext)
-  "Function to create list of org files in multiple subdirectories.
-This can be called to generate a list of files for
-org-agenda-files or org-refile-targets.
+    (defun my-org-list-files (dirs ext)
+      "Function to create list of org files in multiple subdirectories.
+    This can be called to generate a list of files for
+    org-agenda-files or org-refile-targets.
 
-DIRS is a list of directories.
+    DIRS is a list of directories.
 
-EXT is a list of the extensions of files to be included."
-  (let ((dirs (if (listp dirs)
-                  dirs
-                (list dirs)))
-        (ext (if (listp ext)
-                 ext
-               (list ext)))
-        files)
-    (mapc
-     (lambda (x)
-       (mapc
-        (lambda (y)
-          (setq files
-                (append files
-                        (file-expand-wildcards
-                         (concat (file-name-as-directory x) "*" y)))))
-        ext))
-     dirs)
-    (mapc
-     (lambda (x)
-       (when (or (string-match "/.#" x)
-                 (string-match "#$" x))
-         (setq files (delete x files))))
-     files)
-    files))
+    EXT is a list of the extensions of files to be included."
+      (let ((dirs (if (listp dirs)
+                      dirs
+                    (list dirs)))
+            (ext (if (listp ext)
+                     ext
+                   (list ext)))
+            files)
+        (mapc
+         (lambda (x)
+           (mapc
+            (lambda (y)
+              (setq files
+                    (append files
+                            (file-expand-wildcards
+                             (concat (file-name-as-directory x) "*" y)))))
+            ext))
+         dirs)
+        (mapc
+         (lambda (x)
+           (when (or (string-match "/.#" x)
+                     (string-match "#$" x))
+             (setq files (delete x files))))
+         files)
+        files))
 
 
-(defvar my-org-agenda-directories '("~/programming/org/")
-  "List of directories containing org files.")
-(defvar my-org-agenda-extensions '(".org")
-  "List of extensions of agenda files")
+    (defvar my-org-agenda-directories '("~/programming/org/")
+      "List of directories containing org files.")
+    (defvar my-org-agenda-extensions '(".org")
+      "List of extensions of agenda files")
 
-(setq my-org-agenda-directories '("~/programming/org/" "~/programming/org/"
-                                  "~/programming/org/projects"))
-(setq my-org-agenda-extensions '(".org"))
+    (setq my-org-agenda-directories '(
+                                      "~/gtd/"
+                                      "~/programming/org/"
+                                      "~/programming/org/"
+                                      "~/programming/org/projects"))
+    (setq my-org-agenda-extensions '(".org"))
 
-(defun my-org-set-agenda-files ()
-  (interactive)
-  (setq org-agenda-files (my-org-list-files
-                          my-org-agenda-directories
-                          my-org-agenda-extensions)
-        ;;org-refile-targets (my-org-list-files
-          ;;                  my-org-agenda-directories
+    (defun my-org-set-agenda-files ()
+      (interactive)
+      (setq org-agenda-files (my-org-list-files
+                              my-org-agenda-directories
+                              my-org-agenda-extensions)
+            ;;org-refile-targets (my-org-list-files
+            ;;                  my-org-agenda-directories
             ;;                my-org-agenda-extensions
-                          ;;  )
-        ))
+            ;;  )
+            ))
 
-(my-org-set-agenda-files)
+    (my-org-set-agenda-files)
 
   #+END_SRC
 
@@ -868,7 +956,7 @@ EXT is a list of the extensions of files to be included."
               )
             )
     #+END_SRC
-
+***** COMMENT grading myself file.
     I have a file that keeps tracks of the things that I want to do often.  This opens that.
     #+BEGIN_SRC emacs-lisp
       (defun my/org-grading-myself-agenda ()
@@ -1026,6 +1114,30 @@ There is apparently a way to specify in your org agenda files where you have a s
   (setq org-stuck-projects '("PROJECT" ("TODO NEXT") ("action") "\\<IGNORE\\>" ))
   #+END_SRC
 
+* COMMENT trying to get mmm-mode to work
+:PROPERTIES:
+:ID:       e6804191-77c5-4daa-963c-092b4cb482b6
+:END:
+#+BEGIN_SRC emacs-lisp
+  (use-package mmm-mode :ensure t)
+
+  (after-load 'org
+    (require 'mmm-mode)
+    (setq mmm-global-mode 'maybe)
+    (mmm-add-mode-ext-class 'org-mode "\\.org\\'" 'org-elisp)
+
+    ;; mmm-add-group is more useful for org-mode...probably
+    (mmm-add-classes
+     '(
+       (org-elisp
+        :submode 'emacs-lisp-mode
+        :face mmm-declaration-submode-face
+        :front "#+BEGIN_SRC emacs-lisp"
+        :back  "#+END_SRC"
+        )
+       )
+     ))
+#+END_SRC
 * COMMENT misc
 :PROPERTIES:
 :ID:       1a006baf-51cd-454a-950e-3af9ff1915c5
@@ -1037,7 +1149,7 @@ There is apparently a way to specify in your org agenda files where you have a s
   this is not working?
   we want to remember the org keyboard navigation commands eh?
   https://github.com/abo-abo/hydra/wiki/Emacs
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle no
 
 (defhydra hydra-outline (:color pink :hint nil)
   "

@@ -3,7 +3,6 @@
 
 (use-package zenburn-theme :ensure t)
 
-;;(find-file-noselect "/home/joshua/programming/org/gtd.org")
-(org-agenda nil "a")
+(add-hook 'after-init-hook 'org-agenda-list)
 
 (provide 'init-misc)

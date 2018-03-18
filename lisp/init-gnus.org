@@ -1,4 +1,38 @@
-* Background information on Gnus
+* Gnus Quick Start
+
+   Gnus is designed to be a newsreader, and /not/ an email client. It is a bit different from your typical email client, but if you give Gnus a try and stick with it, it will really be worth it.
+
+ This quick start guide will help you set up gnus to manage one gmail account.
+
+** Telling Gnus who you are
+
+#+BEGIN_SRC emacs-lisp :tangle no
+(setq
+ user-mail-address	"joe@gmail.com"
+ user-full-name	"Joe Rogan")
+#+END_SRC
+
+** Define your gmail connection
+
+   Most email clients use IMAP.  IMAP is an email protocol that stores all of your email on the server and not on your local machine.  This can save you some disk space.  You just need to tell Gnus where your imap server is.
+
+   #+BEGIN_SRC emacs-lisp :tangle no
+     (setq gnus-select-method
+        '(nnimap "gmail"
+   	      (nnimap-address "imap.gmail.com")))
+   #+END_SRC
+
+** Starting Gnus for the first time
+
+   =M-x Gnus=
+
+   After Gnus loads you should see a mostly empty screen. This is your group buffer.  It displays all of your groups, which a normal email client would call folders. Gnus doesn't show you for email folders, because you need to tell Gnus which folders to use by default.  Press the =^=.
+
+You are now in the server buffer.  The server buffer shows you all of your email accounts and how you interact with each server.  If you use gnus with 5 different email accounts, then you will see 5 different servers.  Press RET on your email server.  If you are using gmail, your server will have gmail in the name.
+
+Now you should see your email folders or /groups/.  To subscribe to a /group/ press "u".  You should probably subscribe to your Inbox, Sent, Trash, and Draft folders.  When you are done subscribing to /groups/ (folders), press =q=.
+
+** Some more information
 
 read these pages:
 https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/gnus-guide-en.org
@@ -14,68 +48,56 @@ You also need to type j (jump) to a particular folder
 also sometimes your inboxes won't sure up (if they are contain no unread mail mail) so
 to see all inbex
 
-You can find the following guide here: http://www.emacswiki.org/emacs/GnusGmail#toc1
-Quickstart
-Put the following in ~/.profile (I put it in .bash_profile) :
-
-export EMAIL="<EMAIL_ADDRESS>"
-export NAME="<FULL NAME>"
-export SMTPSERVER="smtp.gmail.com"
-For example, if your name is John Smith and your email address is johnsmith@gmail.com:
-
-export EMAIL="johnsmith@gmail.com"
-export NAME="John Smith"
-export SMTPSERVER="smtp.gmail.com"
-Now put the following in your ~/.gnus file:
-
-(setq gnus-select-method
-      '(nnimap "gmail"
-	       (nnimap-address "imap.gmail.com")  ; it could also be imap.googlemail.com if that's your server.
-	       (nnimap-server-port "imaps")
-	       (nnimap-stream ssl)))
-
 (setq smtpmail-smtp-service 587
       gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
 Put the following in your ~/.authinfo file, replacing <USER> with your email address and replacing <PASSWORD> with your password—or your application-specific password:
 
-machine imap.gmail.com login <USER> password <PASSWORD> port imaps
-machine smtp.gmail.com login <USER> password <PASSWORD> port 587
-If you don’t wish to store your password there, just omit the “password <PASSWORD>” altogether and Gnus will prompt you when it needs your password.
-
-When sending your first email from gnus, you might get a STARTTLS error. If you’re using homebrew in Mac OS X, you can install
-the necessary package with brew install gnutls.
+When sending your first email from gnus, you might get a STARTTLS error. If you’re using homebrew in Mac OS X, you can install the necessary package with brew install gnutls.
 
 You can find more information in the following sections.
 
-Run ‘M-x gnus’ and enjoy.
-
 * Setting up Gnus
+  :PROPERTIES:
+  :ID:       6e745af2-398f-49a2-a695-59e0c979bd9e
+  :END:
 
-  Let's tell gnus who we are.
-  init-gnus-secret looks like:
+   This files just sets up some variables that I use later on, that I want to be secret.
+   #+BEGIN_SRC emacs-lisp
+    (require 'gnus)
+    ;; (setq path  "~/.emacs.d/lisp/init-gnus-secret.org")
 
-(setq
-   user-mail-address	"<your email address>"
-   user-full-name	"<Your Full Name>")
-
-   I hope you don't mind that I'm not telling you my email address.  I'd rather that not be public info.
-
-  #+BEGIN_SRC emacs-lisp
-    (org-babel-load-file "~/.emacs.d/lisp/init-gnus-secret.org")
+    (let ((path "~/.emacs.d/lisp/init-gnus-secret.org"))
+      (when
+          (f-exists? path)
+        (org-babel-load-file path)))
   #+END_SRC
 
-** My gnus signature
+** Posting Styles
+Changing my signature based on what email account I'm using.
 
-at the moment gnus org-mime-htmlize does not like this to be in my signature.  It won't let me send the mail.
+Posting an article is the same thing as sending an email, since gnus is a usenet reader, gnus uses usenet terminology.
 
-<a href=\"https://www.gnu.org/software/emacs/\"><img src=\"http://jbranso.me/images/Emacs-logo.svg\" style=\"width:100px\" ></a><br>
-   #+BEGIN_SRC emacs-lisp
-     (setq
-      message-signature
-      "<hr>\nJoshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\nhttps://www.gnu.org/software/emacs/")
+I can specify posting styles depending on the account.  So for example I can specify that when I reply to an article (email), I should use a specific From field.  That's what this next bit of code does.
+
+   #+BEGIN_SRC emacs-lisp :tangle no
+     (setq gnus-posting-styles
+           '(
+             ;; My default hotmail posting style
+             (.*
+              (signature "some Cool Signature")
+              (address "someHotmailAccount@hotmail.com"))
+             ;; when I post to purdue stuff
+             (".*Some-string-that-matche-your-server.*"
+              (signature "Some Cool Signature\nThis is on a new line")
+              (address "someEmailAccount@gmail.com"))
+             ))
+
    #+END_SRC
 
 ** Making Gnus prettier
+   :PROPERTIES:
+   :ID:       cda56b7e-e071-4dd1-9619-fe7a317d70c0
+   :END:
    My default summary line format
    #+BEGIN_SRC emacs-lisp
      (setq  gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n")
@@ -113,6 +135,9 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
    #+END_SRC
 
 ** Make gnus startup faster
+   :PROPERTIES:
+   :ID:       65e0d067-88fe-4eb0-bfce-5d21c72411f7
+   :END:
    These two variables make gnus not check for any new newsgroups and stops gnus from trying to filter out
    outdated newsgroups.  After you've opened up gnus a couple of times, you don't need gnus to do these things.
    But you can always subscribe to new groups by pressing "U" in the group buffer.
@@ -122,37 +147,66 @@ at the moment gnus org-mime-htmlize does not like this to be in my signature.  I
            gnus-check-bogus-newsgroups nil)
    #+END_SRC
 *** Don't change gnu-read-active-file
- setting the next line to nil will slow down gnus apparently [[info:gnus#The%20Active%20File][info:gnus#The Active File]]
+ Setting the next line to nil will slow down gnus apparently [[info:gnus#The%20Active%20File][info:gnus#The Active File]]
  So don't do this in your gnus set up.
- (setq gnus-read-active-file nil)
+
+
+(setq gnus-read-active-file nil)
 
 *** Fixing the Summary Buffer
+    :PROPERTIES:
+    :ID:       6c98f225-5cbc-424b-a32f-69e899d41327
+    :END:
+
     There's no need to recenter the summary buffer all the time.  It only slows gnus down.
+
     #+BEGIN_SRC emacs-lisp
       (setq gnus-auto-center-summary nil)
     #+END_SRC
 
     Let's enter the summary buffer faster eh?
+
     #+BEGIN_SRC emacs-lisp
       (setq gnus-nov-is-evil nil
-            gnus-show-threads nil
+            gnus-show-threads t
             gnus-use-cross-reference nil)
     #+END_SRC
-** Encrypting Email
 
-   Here follows a short rant:
+** checking for new news
+   :PROPERTIES:
+   :ID:       15477e66-390a-4de9-955c-6290ce8937e5
+   :END:
+I got this code from John Wigley's .emacs
 
-   Most email that you send, gets sent to a MUA, or mail user agent, which then sends it to another MUA, which gets read by the
-   recipent of your email.  HOWEVER, when one MUA sends an email to another MUA, that message is usually send in *plain text*.  So
-   when you send an email ANYONE can read it. /ANYONE/.  To fix this, you have two options, you can encrypt your email yourself,
-   or have some big server (that you don't own) do it for you.  I'm all for encrypting it myself.  If you are going to do this,
-   I'd reccommend you read up on using gpg or Gnu Privacy Guard.  It is the best free/libre encrypting software.
+I'm not sure if this function will tell you if you have new news.
+I'm also pretty sure that it won't flash an awesome popup window to tell you you have new news.
+#+BEGIN_SRC emacs-lisp
+  (defun gnus-demon-scan-news ()
+    (interactive)
+    (when gnus-plugged
+      (let ((win (current-window-configuration))
+            (gnus-read-active-file nil)
+            (gnus-check-new-newsgroups nil)
+            (gnus-verbose 2)
+            (gnus-verbose-backends 5))
+        (unwind-protect
+            (save-window-excursion
+              (when (gnus-alive-p)
+                (with-current-buffer gnus-group-buffer
+                  (gnus-group-get-new-news gnus-activate-level))))
+          (set-window-configuration win)))))
 
+  ;;
+  ;;
+  ;; (with-eval-after-load 'gnus
+  ;;   (gnus-demon-add-handler 'gnus-demon-scan-news-2 5 2))
+#+END_SRC
 
- # default encryption and signing of stuff
- # https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
-*** sign and encrypt messages
-    [[info:gnus#Signing%20and%20encrypting][info:gnus#Signing and encrypting]]
+** Managing Spam
+   :PROPERTIES:
+   :ID:       c4f65821-d059-4f6d-ac7a-407e227e1bed
+   :END:
+Don't use gnus' spamming filters.  You want your mail server (aka fastmail.com), to deal with spam, NOT your email client.
 
 Until I get newer gpg keys, I'll go ahead and not encrypt stuff
 
@@ -170,6 +224,9 @@ Until I get newer gpg keys, I'll go ahead and not encrypt stuff
     #+end_src
 
 *** On reply encrypt my email
+:PROPERTIES:
+:ID:       d070613f-2fd6-4273-8430-855f3f182d7e
+:END:
     Let's reply and encrypt/sign messages if you know the user by default and if that message is encrypted
     https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
     #+BEGIN_SRC emacs-lisp
@@ -178,96 +235,41 @@ Until I get newer gpg keys, I'll go ahead and not encrypt stuff
        gnus-message-replyencrypt nil)
     #+END_SRC
 
-** Managing Spam
-   Gnus comes with some nice spamming features, but it's not great.
-   #+BEGIN_SRC emacs-lisp
+*** managing spam
+Gnus comes with some cool spamming features, but it's not good.  Why use it, when the email server can do this?
+
+  #+BEGIN_SRC emacs-lisp :tangle no
      (setq spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
            spam-use-blacklist t)
      (spam-initialize)
    #+END_SRC
 
 ** Searching in Gnus
-   Set up search in GNUS
+   :PROPERTIES:
+   :ID:       63ae4bc7-3e9b-4add-a364-db36ec2975e5
+   :END:
+   set up search in GNUS
    http://www.emacswiki.org/emacs/GnusGmail#toc21
+
    #+BEGIN_SRC emacs-lisp
      (use-package nnir)
    #+END_SRC
 
 ** setting up email lists
+
 I guess gnus can set up to respond to mailing lists better.
 [[info:message#Mailing%20Lists][info:message#Mailing Lists]]
-** Setting up your email Account
+** Kill mail buffer after you send an email
+   :PROPERTIES:
+   :ID:       d7cbe98a-4be8-4ffb-87d8-ce8d62302ae2
+   :END:
 
-Tell gnus to use my purdue email, and to enable searching my inbox typing GG in the buffer group, lets me search the current group
-for a string you have to hit "t" when you first open gnus to get purdue working again uncomment this whole thing
+   Message mode is rather silly in that it does not kill the send message buffer after you send an email.  It's silly to still see
+   the sent buffer after you've sent it, so this fixes that.  After you send a message, the sent buffer disappears.
 
-#+BEGIN_SRC emacs-lisp
-   (setq gnus-select-method
-      '(nnimap "imap.gmail.com"
-	      ;; (nnimap-address "imap.gmail.com")  ; it could also be imap.googlemail.com if that's your server.
-	       (nnimap-server-port "993")
-	       (nnimap-stream ssl)
-           (nnir-search-engine imap)
-           ))
-#+END_SRC
-
-   The variable smtpmail-stream-type controls what form of connection the SMTP library uses. The default value is nil, which
-   means to use a plain connection, but try to switch to a STARTTLS encrypted connection if the server supports it. Other
-   possible values are: starttls to insist on STARTTLS; ssl to use TLS/SSL; and plain for encryption.
-
-   (setq smtpmail-smtp-server "smtp.gmail.com"
-      ;; smtpmail-default-smtp-server "smtp.gmail.com"
-      send-mail-function (quote smtpmail-send-it)
-      smtpmail-stream-type 'ssl
-      smtpmail-smtp-service 465
-      )
-
-** Sending email
    #+BEGIN_SRC emacs-lisp
-   ;; (require 'init-gnus-secret-smtp)
-   ;; I am trying to use use-package so that emacs won't start on an error if someone tries to clone
-   ;; my config
-   ;; (use-package init-gnus-secret-smtp)
+     (setq message-kill-buffer-on-exit t)
    #+END_SRC
-
-  init-gnus-secret-smtp looks like
-  #+BEGIN_SRC emacs-lisp
-  (require 'smtpmail)
-  (setq message-send-mail-function 'smtpmail-send-it
-      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-      smtpmail-auth-credentials '(("smtp.gmail.com" 587 "jbranso91@gmail.com" nil))
-      smtpmail-default-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-service 587)
-
-  (setq user-mail-address "jbranso91@gmail.com")
-  (setq send-mail-function 'smtpmail-send-it)
-  #+END_SRC
-
-   Apparently this will spell check my messages before I send them, which is quite nice.
-
-   I used to have this set to mail-send-hook, but that apparently is just not the right thing to do,
-   because I get this error if that is what I have set:
-
-   Warning (mail): The default mail mode is now Message mode.
-   You have the following Mail mode variable customized:
-
-   mail-send-hook
-
-   To use Mail mode, set `mail-user-agent' to sendmail-user-agent.
-   To disable this warning, set `compose-mail-user-agent-warnings' to nil.
-   Warning (mail): The default mail mode is now Message mode.
-   You have the following Mail mode variable customized:
-
-   mail-send-hook
-
-   To use Mail mode, set `mail-user-agent' to sendmail-user-agent.
-   To disable this warning, set `compose-mail-user-agent-warnings' to nil.
-
-
-   I've used this is the past, but with html-mail, it doesn't work very well.
-
-   (add-hook 'message-send-hook  'ispell-message)
 
 ** Asynchronous Email
 
@@ -279,26 +281,171 @@ for a string you have to hit "t" when you first open gnus to get purdue working 
    gnus-asynchronous t
    ;; fetch 15 messages by default
    gnus-use-article-prefetch 15)
-** COMMENT Notification on new Mail
-   Have gnus alert you when a new mail arrives.
+** scanning news with gnus daemon
+   :PROPERTIES:
+   :ID:       50a08919-f279-419e-abe6-9c179130a872
+   :END:
+   [[info:gnus#Daemons][info:gnus#Daemons]]
+
+   Gnus Demon lets you do various tasks at certain points in time.  For example, suppose you want Gnus to check for new email.  You can do that fairly easily with a ready made handler called gnus-demon-scanmail.  The following will check for news email after Emacs has been idle for two minutes, but it may only show updates in Emacs.  To get an awesome popup, I'll have to do more fiddling.  Filezilla is able to show me updates when it's done uploading files.  At least it has in the past.  BUT in order to show updates, I need to have dbus.  GuixSD may not have dbus.
+
    #+BEGIN_SRC emacs-lisp
-     (use-package gnus-desktop-notify
-       :ensure t)
+     (gnus-demon-add-handler 'gnus-demon-add-scanmail nil 2)
+   #+END_SRC
+
+These links below will help me to figure this out.
+
+http://www.thregr.org/~wavexx/software/gnus-desktop-notify.el/
+
+https://github.com/jwiegley/alert
+
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Desktop-Notifications.html
+
+** COMMENT Encrypting Email
+
+   Here follows a short rant:
+
+   Most email that you send, gets sent to a MUA, or mail user agent, which then sends it to another MUA, which gets read by the
+   recipent of your email.  HOWEVER, when one MUA sends an email to another MUA, that message is usually send in *plain text*.  So
+   when you send an email ANYONE can read it. /ANYONE/.  To fix this, you have two options, you can encrypt your email yourself,
+   or have some big server (that you don't own) do it for you.  I'm all for encrypting it myself.  If you are going to do this,
+   I'd reccommend you read up on using gpg or Gnu Privacy Guard.  It is the best free/libre encrypting software.
+
+
+ # default encryption and signing of stuff
+ # https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
+*** sign and encrypt messages
+    [[info:gnus#Signing%20and%20encrypting][info:gnus#Signing and encrypting]]
+
+    Let's go ahead and sign and encrypt messages if I recognize the senders by default
+    #+BEGIN_SRC emacs-lisp
+      (setq mm-verify-option 'known
+       mm-decrypt-option 'known)
+    #+END_SRC
+
+*** On reply encrypt my email
+    Let's reply and encrypt/sign messages if you know the user by default and if that message is encrypted
+    https://www.gnu.org/software/emacs/manual/html_node/gnus/Security.html#Security
+    #+BEGIN_SRC emacs-lisp
+      (setq gnus-message-replysign t
+       gnus-message-replyencrypt t)
+    #+END_SRC
+** Notification on new Mail
+:PROPERTIES:
+:ID:       c259ef9e-b4f2-4dd5-ba98-b36e645fab2f
+:END:
+   Have gnus alert you when a new mail arrives.
+   #+BEGIN_SRC emacs-lisp :tangle no
+     (use-package gnus-desktop-notify :ensure t)
+     (require 'gnus-desktop-notify)
    #+END_SRC
 
    This is supposed to let me know when I get a new email, but it's not working.
    http://www.thregr.org/~wavexx/software/gnus-desktop-notify.el/index.html
+
    #+BEGIN_SRC emacs-lisp
      (gnus-desktop-notify-mode)
      (gnus-demon-add-scanmail)
-     ;;(gnus-demon-init)
-     ;;(gnus-demon-add-handler 'gnus-group-get-new-news 20 t)
    #+END_SRC
 
    ;;alledigeely this next line is not necessary
    ;;(gnus-demon-init)
 
+** splitting up my inboxes
+Don't use gnus to split your incoming email.  It's much easier to let the server to do the mail splitting.
+
+
+I used to have this say nnmail-split methods, but I'm not using the nnmail backend!  I'm using nnimap.  Maybe this will actually let gnus properly split my mail into proper topics.
+
+   #+BEGIN_SRC emacs-lisp :tangle no
+     ;;(setq nnimap-split-method-default)
+     (setq nnmail-split-methods
+           '(
+           ("Accrisoft Support" "^From:.*support@accrisoft.com.*$")
+             ("Basecamp" "^From:.*notifications@basecamp.com.*$")
+             ("arch" "^To:.*arch-general@archlinux.org.*$")
+             ("emacs devel" "^To:.*emacs-devel@gnu.org.*$")
+             ("emacs devel" "^CC:.*emacs-devel@gnu.org.*$")
+             ("bug-hurd" "^To:.*bug-hurd@gnu.org.*$")
+             ("emacs bugs" "^CC:.*@debbugs.gnu.org.*$")
+             ("bug-hurd" "^Cc:.*bug-hurd@gnu.org.*$")))
+
+   #+END_SRC
+
+   This just creates topics but doesn't seem to support splitting of groups
+
+     (eval-after-load 'gnus-topic
+       '(progn
+          (setq gnus-message-archive-group '((format-time-string "sent.%Y")))
+          (setq gnus-topic-topology '(("Gnus" visible)
+                                      (("misc" visible))
+                                      (("hotmail" visible nil nil))
+                                      (("gmail" visible nil nil))))
+
+          (setq gnus-topic-alist '(("Accrisoft Support")
+                                   ("Basecamp")
+                                   ("Arch")
+                                   ("bug-hurd")
+                                   ("hotmail" ; the key of topic
+                                    "nnimap+hotmail:Inbox"
+                                    "nnimap+hotmail:Drafts"
+                                    "nnimap+hotmail:Sent")
+                                   ("gmail" ; the key of topic
+                                    "INBOX"
+                                    "[Gmail]/Sent Mail"
+                                    "Drafts")
+                                   ("misc"  ; the key of topic
+                                    "nnfolder+archive:sent.2015-12"
+                                    "nnfolder+archive:sent.2016"
+                                    "nndraft:drafts")
+                                   ("Gnus")))))
+** COMMENT gnus exit hook
+#+BEGIN_SRC emacs-lisp :tangle no
+  (add-hook 'kill-emacs-hook #'(lambda ()
+                                 (interactive)
+                                 (when (get-buffer "*Group*")
+                                   (gnus-group-exit))))
+#+END_SRC
+** Making gnus check if I want to add an attachment
+
+https://www.topbug.net/blog/2016/12/09/attachment-reminder-in-emacs-message-mode/
+
+(defun my-message-current-line-cited-p ()
+  "Indicate whether the line at point is a cited line."
+  (save-match-data
+    (string-match (concat "^" message-cite-prefix-regexp)
+                  (buffer-substring (line-beginning-position) (line-end-position)))))
+
+(defun my-message-says-attachment-p ()
+  "Return t if the message suggests there can be an attachment."
+  (save-excursion
+    (goto-char (point-min))
+    (save-match-data
+      (let (search-result)
+        (while
+            (and (setq search-result (re-search-forward "\\(attach\\|pdf\\|file\\)" nil t))
+                 (my-message-current-line-cited-p)))
+        search-result))))
+
+(defun my-message-has-attachment-p ()
+  "Return t if the message has an attachment."
+  (save-excursion
+    (goto-char (point-min))
+    (save-match-data
+      (re-search-forward "<#part" nil t))))
+
+(defun my-message-pre-send-check-attachment ()
+  (when (and (my-message-says-attachment-p)
+             (not (my-message-has-attachment-p)))
+    (unless
+        (y-or-n-p "The message suggests that you may want to attach something, but no attachment is found. Send anyway?")
+      (error "It seems that an attachment is needed, but none was found. Aborting sending."))))
+(add-hook 'message-send-hook 'my-message-pre-send-check-attachment)
+
 ** Setting up Gnus to work with bbdb
+   :PROPERTIES:
+   :ID:       a6305580-2518-4fb1-ba39-b685694516f3
+   :END:
 
    get bbdb set up (insidious big brother database) it manages your mail contacts
    http://bbdb.sourceforge.net/bbdb.html#SEC13
@@ -314,16 +461,13 @@ for a string you have to hit "t" when you first open gnus to get purdue working 
    recipients.
 
    #+BEGIN_SRC emacs-lisp
-     (use-package bbdb
-       :ensure t)
+     (use-package bbdb :ensure t)
    #+END_SRC
 
-    These are are needed to initial bbdb for gnus and message mode
-    #+BEGIN_SRC emacs-lisp
-      (bbdb-initialize 'gnus 'message )
-    #+END_SRC
+    These are are needed to initial bbdb for gnus and message mode.
 
     http://www.mostlymaths.net/2010/12/emacs-30-day-challenge-glimpse-of-bbdb.html
+
    Use bbdb when you read a message and when you send a message.  Though I should probably only store someone's email address
    when I send an email.
    #+BEGIN_SRC emacs-lisp
@@ -332,6 +476,7 @@ for a string you have to hit "t" when you first open gnus to get purdue working 
    #+END_SRC
 
    Use bbdb in message mode.  This lets you begin to type out someone's name and then tab to complete their email address.
+
    #+BEGIN_SRC emacs-lisp
      (bbdb-insinuate-message)
    #+END_SRC
@@ -342,6 +487,7 @@ for a string you have to hit "t" when you first open gnus to get purdue working 
    #+END_SRC
 
    ;; [[info:gnus#FAQ%205-7][info:gnus#FAQ 5-7]]  how to use bbdb with gnus
+
    #+BEGIN_SRC emacs-lisp
    (setq bbdb/gnus-summary-prefer-real-names t
       bbdb-file "~/.emacs.d/bbdb"
@@ -379,101 +525,67 @@ for a string you have to hit "t" when you first open gnus to get purdue working 
    (bbdb-mua-auto-update-init 'message)
    #+END_SRC
 
-** ranking groups
+** Summary Buffer
 
-   When you exit the summary buffer, increase the score of that group.  This makes that group a little
-   bit more important.
+[[info:gnus#Summary%20Sorting][info:gnus#Summary Sorting]]
+
+Sorting the summary buffer by most recent date:
+
+I'm not sure how to do this, but I would like this set up for my Purdue email account.
+
+** ranking groups
+   :PROPERTIES:
+   :ID:       5e527dc8-9d1a-427c-a529-fd88fe080194
+   :END:
+
+   Make Gnus sort the group buffer based on how often I read each group.  When you exit the summary buffer, increase the score of that group.  This makes that group a little bit more important.
 
    #+BEGIN_SRC emacs-lisp
    (add-hook 'gnus-summary-exit-hook 'gnus-summary-bubble-group)
    #+END_SRC
 
 ** displaying your topics when you enter gnus
+:PROPERTIES:
+   :ID:       8264d472-e08d-4b10-95bc-0fee75c37a76
+   :END:
 
-   #+BEGIN_SRC emacs-lisp
-       (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
-   #+END_SRC
+Gnus can put various email in certain topic headings.  For instance if you have a lot of email
+from different email servers, you can organize them according to topic "Fastmail" and topic "Roundcube".
 
-** COMMENT splitting up my inboxes
-
-   This just creates topics but doesn't seem to support splitting of groups
-
-     (eval-after-load 'gnus-topic
-       '(progn
-          (setq gnus-message-archive-group '((format-time-string "sent.%Y")))
-          (setq gnus-topic-topology '(("Gnus" visible)
-                                      (("misc" visible))
-                                      (("hotmail" visible nil nil))
-                                      (("gmail" visible nil nil))))
-
-          (setq gnus-topic-alist '(("Accrisoft Support")
-                                   ("Basecamp")
-                                   ("Arch")
-                                   ("bug-hurd")
-                                   ("hotmail" ; the key of topic
-                                    "nnimap+hotmail:Inbox"
-                                    "nnimap+hotmail:Drafts"
-                                    "nnimap+hotmail:Sent")
-                                   ("gmail" ; the key of topic
-                                    "INBOX"
-                                    "[Gmail]/Sent Mail"
-                                    "Drafts")
-                                   ("misc"  ; the key of topic
-                                    "nnfolder+archive:sent.2015-12"
-                                    "nnfolder+archive:sent.2016"
-                                    "nndraft:drafts")
-                                   ("Gnus")))))
-
-I used to have this say nnmail-split methods, but I'm not using the nnmail backend!  I'm using nnimap.  Maybe this will actually let gnus properly split my mail into proper topics.
-
-   #+BEGIN_SRC emacs-lisp
-     ;;(setq nnimap-split-method-default)
-     (setq nnmail-split-methods
-           '(
-           ("Accrisoft Support" "^From:.*support@accrisoft.com.*$")
-             ("Basecamp" "^From:.*notifications@basecamp.com.*$")
-             ("arch" "^To:.*arch-general@archlinux.org.*$")
-             ("emacs devel" "^To:.*emacs-devel@gnu.org.*$")
-             ("emacs devel" "^CC:.*emacs-devel@gnu.org.*$")
-             ("bug-hurd" "^To:.*bug-hurd@gnu.org.*$")
-             ("emacs bugs" "^CC:.*@debbugs.gnu.org.*$")
-             ("bug-hurd" "^Cc:.*bug-hurd@gnu.org.*$")))
-
-   #+END_SRC
-
-           (setf nnmail-resplit-incoming t)
-
-           (setf nnmail-crosspost nil)
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+#+END_SRC
 
 ** Posting Styles aka change your "From" based on what you reply to
+   :PROPERTIES:
+   :ID:       7d6e5688-8ee6-43da-94ba-a5e55ac78f2f
+   :END:
 [[info:gnus#Posting%20Styles][info:gnus#Posting Styles]]
 
 This is quite complicated...
 
 BUT basically, if I have a bunch of email accounts, It would be nice that when I reply or post new articles (email), than Gnus will change the From automatically.  This method will definitely work for posting articles, but will to work when replying to articles?
 
-#+BEGIN_SRC emacs-lisp
-  (setq gnus-posting-styles
-        ;; default posting style
-        '((".*"
-           (signature "Sent from Emacs and Gnus"))
-           ;; My purdue inbox
-          ("Inbox"
-           (signature "Joshua Branson\nPurdue Honors College\nWeb Developer\nSent From Emacs and Gnus")
-           (address "bransoj@hotmail.com"))
-          (".*hotmail.*"
-           (signature "Joshua Branson\nSent From Emacs and Gnus")
-           (address "bransoj@hotmail.com"))))
-#+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-(add-hook 'kill-emacs-hook #'(lambda ()
-                                 (interactive)
-                                 (when (eq nil (get-buffer "*Group*"))
-                                   (gnus-group-exit))))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp :tangle no
+   (setq gnus-posting-styles
+           '(
+             ;; My default hotmail posting style
+             (".*"
+              (signature "Joshua\nSent From Emacs")
+              (address "joeRoegan@hotmail.com"))
+             ;; when I post to purdue stuff
+             (".*gmail.*"
+              (signature "Joshua Branson\nPurdue Univeristy\nHonors College\nSent From Emacs")
+              (address "someGmailAccount@gmail.com"))
+             ))
+
+   #+END_SRC
 
 ** read html mail
+   :PROPERTIES:
+   :ID:       4150a9e8-5bcf-474c-ade4-cec758e7f427
+   :END:
 
    You have 2 main options here.  You can use the elisp shr for this or you can use gnus-w3m if you have w3m installed.
    Shr is written in elisp.  w3m is written in C or C++.  So I'm guessing that w3m is faster.  So I'm going to use gnus-w3m.
@@ -491,18 +603,49 @@ BUT basically, if I have a bunch of email accounts, It would be nice that when I
    (setq mm-text-html-renderer 'shr)
    #+END_SRC
 
-** Delete mail immediately after it has been marked expired
+** Expiring Mail
+
+Mail/email marked as expire-able means that gnus will delete the email after a period of time.  I like gnus to delete the email after 30 days, but it might be better if the email server did this too...idk.
+
+When you press "E" on a mail item in the summary buffer, this marks it as expire-able.
+
+*** Delete mail marked expire-able after 30 days.
+   :PROPERTIES:
+   :ID:       60caba9f-04ef-470c-9da9-40108bfd53b7
+   :END:
+
+All email that I mark with an E will be deleted in 30 days.
 
    #+BEGIN_SRC emacs-lisp
-   (setq nnmail-expiry-wait 'immediate)
+   (setq nnmail-expiry-wait 30)
    #+END_SRC
+
+*** Auto expire v. total expire
+
+It's pretty tedious to have to press E on every article that I read.  The Gnus manual recommends to use auto-expire.
+
+Auto-expire is probably faster and gives you greater flexibility.
+
+Total-expire does not work well with adaptive scoring.
+
+I'm going to try to use auto-expire and make gnus press E for me everytime I select an article.
+
+Though I'm not sure how to turn on auto-expiry. I think you specify it via group parameters.
+
+https://www.gnu.org/software/emacs/manual/html_node/gnus/Expiring-Mail.html
+
 ** deleting boring headers from email
+   :PROPERTIES:
+   :ID:       48255cfb-8300-4800-8c14-16c5a3525ac4
+   :END:
    [[info:gnus#Hiding%20Headers][info:gnus#Hiding Headers]]
-   #+BEGIN_SRC emacs-lisp
-     (setq gnus-treat-hide-boring-headers 'head)
-
-   #+END_SRC
+ #+BEGIN_SRC emacs-lisp
+   (setq gnus-treat-hide-boring-headers 'head)
+ #+END_SRC
 ** automatically configuring how my mail looks
+   :PROPERTIES:
+   :ID:       c4c986ea-5d81-49c0-9a1c-0d4049337525
+   :END:
 
    The following variables can have the following values:
    - nil   (don't do this treatment)
@@ -518,22 +661,75 @@ BUT basically, if I have a bunch of email accounts, It would be nice that when I
      (setq gnus-treat-display-smileys t)
      (setq gnus-treat-emphasize 'head)
      #+END_SRC
+** make firefox use gnus when you click on an email online
+
+Create a file called Emacs mail.
+
+#+BEGIN_SRC sh :exports code :tangle no
+touch emacsmail
+#+END_SRC
+
+#+BEGIN_SRC sh :results output :exports both :dir ~/programming/bash/
+cat emacsmail
+#+END_SRC
+
+#+RESULTS:
+: #!/bin/bash
+: emacsclient -c --eval "(browse-url-mail \"$@\")"
+
+Then in Firefox's preferences you can specify what program to call when you click on an html email.
+
+** make Gnus open a new frame and call itself Gnus
+:PROPERTIES:
+:ID:       aeaedb21-4ec7-4618-bb66-a16a6e11a683
+:END:
+
+There some information about this here:   https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html#Creating-Frames
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Frame-Titles.html#Frame-Titles
+
+Essentially, I'll need to call make-frame, specify that the new frame should have the WM_NAME Gnus.  This means my window manager will think that it is a different program and is not Emacs.
+
+I'll probably give it a different logo.  And I might change the default theme.  Then I'll add an awesome rule that makes it start in the second tag on startup.  Very cool.
+
+Currently I can't get gnus to use fastmail, so I'll pass on this.
+
+#+BEGIN_SRC emacs-lisp
+  (defun make-gnus-frame ()
+    "Make a gnus frame, and make the title Gnus and show the gnus bitmap image."
+    (interactive)
+    (when window-system
+      (with-selected-frame
+          (make-frame '((name . "Gnus") (title . "Gnus") (icon-type . "/home/joshua/pictures/emacs/gnus.bmp")))
+        (gnus))))
+
+ ;; (add-hook 'after-init-hook 'make-gnus-frame)
+
+  ;;(select-frame-by-name "Gnus")
+#+END_SRC
+
+A bitmap image is stored in .bmp.  The .xmp image is for X.
+
 ** using gnus automatic scoring stuff
+   :PROPERTIES:
+   :ID:       3992d090-c903-4fb3-a078-a3d2dc2203b3
+   :END:
 
    Make gnus rank which articles are important to you.
    #+BEGIN_SRC emacs-lisp
      (setq gnus-use-adaptive-scoring t)
    #+END_SRC
-** close gnus when you exit emacs.
-That way gnus exits properly, and you don't have to read the active file when you open gnus again.
 
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'kill-emacs-hook #'(lambda ()
-                                 (interactive)
-                                 (when (get-buffer "*Group*")
-                                   (gnus-group-exit))))
-#+END_SRC
 ** Provide init-gnus
+   :PROPERTIES:
+   :ID:       2d4021b8-caa2-43fd-9652-e9df2340f70e
+   :END:
    #+BEGIN_SRC emacs-lisp
      (provide 'init-gnus)
    #+END_SRC
+
+* password
+machine imap.fastmail.com                           login jbranso              password kszj9xc3m4yb6ht8
+
+3dtzm3tsmz3xtprz
+
+3dtzm3tsmz3xtprz

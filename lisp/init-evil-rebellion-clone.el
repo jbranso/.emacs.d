@@ -1,4 +1,5 @@
 ;;; Code:
+
 (evil-set-initial-state 'snake-mode 'emacs)
 (evil-set-initial-state 'comint-mode 'normal)
 (evil-set-initial-state 'eshell-mode 'emacs)
@@ -7,6 +8,7 @@
 (evil-set-initial-state 'git-rebase-mode 'emacs)
 (evil-set-initial-state 'git-timemachine-mode 'emacs)
 (evil-set-initial-state 'term-mode 'emacs)
+(evil-set-initial-state 'bubbles-mode 'emacs)
 ;; why is this not working?
 (evil-set-initial-state 'info-mode 'emacs)
 (evil-set-initial-state 'help-mode 'emacs)
@@ -33,7 +35,7 @@
 ;; (setq evil-motion-state-modes nil)
 
 (evil-set-initial-state 'dired-mode 'emacs)
-(with-eval-after-load 'dired 
+(with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "n") #'dired-next-line)
   (define-key dired-mode-map (kbd "p") #'dired-previous-line)
   (define-key dired-mode-map (kbd "s") #'forward-char)

@@ -1,26 +1,88 @@
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
 
-(add-hook 'evil-mode-hook '( lambda ()
-                             (define-key evil-emacs-state-map (kbd "C-w h") 'windmove-down)
-                             (define-key evil-emacs-state-map (kbd "C-w t") 'windmove-up)
-                             (define-key evil-emacs-state-map (kbd "C-w n") 'windmove-left)
-                             (define-key evil-emacs-state-map (kbd "C-w s") 'windmove-right)
-                             (define-key evil-normal-state-map (kbd "C-w h") 'windmove-down)
-                             (define-key evil-normal-state-map (kbd "C-w t") 'windmove-up)
-                             (define-key evil-normal-state-map (kbd "C-w n") 'windmove-left)
-                             (define-key evil-normal-state-map (kbd "C-w s") 'windmove-right)))
+(defun my/toggle-window-split ()
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (<= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (<= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter
+              (if (= (car this-win-edges)
+                     (car (window-edges (next-window))))
+                  'split-window-horizontally
+                'split-window-vertically)))
+        (delete-other-windows)
+        (let ((first-win (selected-window)))
+          (funcall splitter)
+          (if this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (if this-win-2nd (other-window 1))))))
 
-;; (add-hook 'debugger-mode-hook '( lambda ()
-;;                                  (define-key debugger-mode-map (kbd "C-w h") 'windmove-down)
-;;                                  (define-key debugger-mode-map (kbd "C-w t") 'windmove-up)
-;;                                  (define-key debugger-mode-map (kbd "C-w n") 'windmove-left)
-;;                                  (define-key debugger-mode-map (kbd "C-w s") 'windmove-right)))
-;; (add-hook 'help-mode-map ( lambda ()
-;;                            (define-key help-mode-map (kbd "C-w h") 'windmove-down)
-;;                            (define-key help-mode-map (kbd "C-w t") 'windmove-up)
-;;                            (define-key help-mode-map (kbd "C-w n") 'windmove-left)
-;;                            (define-key help-mode-map (kbd "C-w s") 'windmove-right)))
+(with-eval-after-load 'evil
+  (define-key evil-emacs-state-map (kbd "C-w h") 'windmove-down)
+  (define-key evil-emacs-state-map (kbd "C-w t") 'windmove-up)
+  (define-key evil-emacs-state-map (kbd "C-w n") 'windmove-left)
+  (define-key evil-emacs-state-map (kbd "C-w s") 'windmove-right)
+  (define-key evil-emacs-state-map (kbd "C-w C-t") 'my/toggle-window-split)
+
+  (define-key evil-window-map (kbd "C-t") 'my/toggle-window-split)
+  (define-key evil-emacs-state-map (kbd "C-w C-t") 'my/toggle-window-split)
+
+  (evil-define-key 'emacs evil-normal-state-map (kbd "C-w h") 'windmove-down)
+  (evil-define-key 'emacs evil-normal-state-map (kbd "C-w t") 'windmove-up)
+  (evil-define-key 'emacs evil-normal-state-map (kbd "C-w n") 'windmove-left)
+  (evil-define-key 'emacs evil-normal-state-map (kbd "C-w s") 'windmove-ri)
+  (evil-define-key 'emacs evil-normal-state-map (kbd "C-w C-t") 'my/toggle-window-split)
+
+  ;;I don't think this would ever really be useful
+  (evil-define-key 'normal help-mode-map (kbd "C-w h") 'windmove-down)
+  (evil-define-key 'normal help-mode-map (kbd "C-w t") 'windmove-up)
+  (evil-define-key 'normal help-mode-map (kbd "C-w n") 'windmove-left)
+  (evil-define-key 'normal help-mode-map (kbd "C-w s") 'windmove-right)
+  (evil-define-key 'normal help-mode-map (kbd "C-w C-t") 'my/toggle-window-split)
+
+  (evil-define-key 'emacs  help-mode-map (kbd "C-w h") 'windmove-down)
+  (evil-define-key 'emacs  help-mode-map (kbd "C-w t") 'windmove-up)
+  (evil-define-key 'emacs  help-mode-map (kbd "C-w n") 'windmove-left)
+  (evil-define-key 'emacs  help-mode-map (kbd "C-w s") 'windmove-right)
+  (evil-define-key 'emacs  help-mode-map (kbd "C-w C-t") 'my/toggle-window-split)
+
+  (evil-define-key 'normal debugger-mode-map (kbd "C-w h") 'windmove-down)
+  (evil-define-key 'normal debugger-mode-map (kbd "C-w t") 'windmove-up)
+  (evil-define-key 'normal debugger-mode-map (kbd "C-w n") 'windmove-left)
+  (evil-define-key 'normal debugger-mode-map (kbd "C-w s") 'windmove-right)
+  (evil-define-key 'normal debugger-mode-map (kbd "C-w C-t") 'my/toggle-window-split)
+
+  (evil-define-key 'emacs  debugger-mode-map (kbd "C-w h") 'windmove-down)
+  (evil-define-key 'emacs  debugger-mode-map (kbd "C-w t") 'windmove-up)
+  (evil-define-key 'emacs  debugger-mode-map (kbd "C-w n") 'windmove-left)
+  (evil-define-key 'emacs  debugger-mode-map (kbd "C-w s") 'windmove-right)
+  (evil-define-key 'emacs  debugger-mode-map (kbd "C-w C-t") 'my/toggle-window-split)
+
+  (evil-define-key 'emacs  erc-mode-map (kbd "C-w h") 'windmove-down)
+  (evil-define-key 'emacs  erc-mode-map (kbd "C-w t") 'windmove-up)
+  (evil-define-key 'emacs  erc-mode-map (kbd "C-w n") 'windmove-left)
+  (evil-define-key 'emacs  erc-mode-map (kbd "C-w s") 'windmove-right)
+  (evil-define-key 'emacs  erc-mode-map (kbd "C-w C-t") 'my/toggle-window-split)
+
+  (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w h") 'windmove-down)
+  (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w t") 'windmove-up)
+  (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w n") 'windmove-left)
+  (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w s") 'windmove-right)
+  (evil-define-key 'emacs  gnus-article-mode-map (kbd "C-w C-t") 'my/toggle-window-split))
+
+(define-key Info-mode-map (kbd "C-w h") 'windmove-down)
+(define-key Info-mode-map (kbd "C-w t") 'windmove-up)
+(define-key Info-mode-map (kbd "C-w n") 'windmove-left)
+(define-key Info-mode-map (kbd "C-w s") 'windmove-right)
 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
@@ -29,27 +91,27 @@
 
 (setq-default save-place t)
 (setq save-place-file (expand-file-name ".places" user-emacs-directory))
-(add-hook 'after-init-hook 'save-place-mode)
+(save-place-mode)
 
 (when (display-graphic-p)
-  (global-hl-line-mode 1))
+  (add-hook 'after-init-hook 'global-hl-line-mode))
 
 ;;cr red
-;;cg green
-;;x like this
-(defface font-lock-comment-strike
-  '((t (:strike-through t)))
-  "For strike-through comments")
+  ;;cg green
+  ;;x like this
+  (defface font-lock-comment-strike
+    '((t (:strike-through t)))
+    "For strike-through comments")
 
-(defface font-lock-comment-important
-  '((t (:foreground "#00ff00")))
-  "For important")
+  (defface font-lock-comment-important
+    '((t (:foreground "#00ff00")))
+    "For important")
 
-(defface font-lock-comment-todo
-  '((t (:foreground "#ff0000")))
-  "For todo comments")
+  (defface font-lock-comment-todo
+    '((t (:foreground "#ff0000")))
+    "For todo comments")
 
-(defun add-custom-keyw()
+(defun add-custom-keyw ()
   "adds a few special keywords"
   (font-lock-add-keywords
    nil
@@ -57,6 +119,6 @@
      ("\\s<+cr[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-todo prepend)
      ("\\s<+cg[[:space:]]*\\(.*?\\)[[:space:]]*\\s>" 1 'font-lock-comment-important prepend))))
 
-  (add-hook 'prog-mode-hook #'add-custom-keyw)
+    (add-hook 'prog-mode-hook #'add-custom-keyw)
 
 (provide 'init-gui-frames)

@@ -7,6 +7,7 @@
                 js2-mode-show-strict-warnings nil)
   ;; ... but enable it if flycheck can't handle javascript
   (autoload 'flycheck-get-checker-for-buffer "flycheck")
+
   (defun sanityinc/disable-js2-checks-if-flycheck-active ()
     (unless (flycheck-get-checker-for-buffer)
       (set (make-local-variable 'js2-mode-show-parse-errors) t)
@@ -15,29 +16,42 @@
 
   (add-hook 'js2-mode-hook (lambda () (setq mode-name "JS2")))
 
+
+
+  ;; (defvar preferred-javascript-indent-level 2)
+
   (setq-default
-   js2-basic-offset preferred-javascript-indent-level
+   ;; js2-basic-offset preferred-javascript-indent-level
    js2-bounce-indent-p nil)
   ;; make >= look like ≥
   (push '(">=" . ?≥) prettify-symbols-alist)
   (push '("<=" . ?≤) prettify-symbols-alist)
-  (js2-imenu-extras-setup))
+  (js2-imenu-extras-setup)
 
-(defcustom preferred-javascript-mode
-  (first (remove-if-not #'fboundp '(js2-mode js-mode)))
-  "Javascript mode to use for .js files."
-  :type 'symbol
-  :group 'programming
-  :options '(js2-mode js-mode))
-(defvar preferred-javascript-indent-level 2)
+  :mode
+  ("\\.js?\\'" . js2-mode))
 
-(eval-when-compile (require 'cl))
-(setq auto-mode-alist (cons `("\\.js\\(\\.erb\\)?\\'" . ,preferred-javascript-mode)
-                            (loop for entry in auto-mode-alist
-                                  unless (eq preferred-javascript-mode (cdr entry))
-                                  collect entry)))
+(defun my-js-minify-function ()
+  "Minifying my js files."
+  (interactive)
+  (async-shell-command (concat (format "closure --js  %s --js_output_file "
+                                       (buffer-file-name))
+                               (s-replace ".js" ".min.js" buffer-file-name)) "*js minifying*"))
 
-(use-package rainbow-delimiters :ensure t)
+(add-hook 'js2-mode-hook '(lambda ()
+                            ;; I have abbrev turned on for all prog and text modes
+                            ;; (abbrev-mode 1)
+                            ;; (skewer-mode)
+                            (ggtags-mode 1)
+                            ;;(push '("function" . ?𝆑) prettify-symbols-alist)
+                            (push '(">=" . ?≥) prettify-symbols-alist)
+                            (push '("<=" . ?≤) prettify-symbols-alist)
+                            (diminish 'ggtags-mode)
+                            (add-hook 'after-save-hook 'my-js-minify-function nil t)))
+
+(add-to-list 'display-buffer-alist (cons "\\\*js minifying\\\*" (cons #'display-buffer-no-window nil)))
+
+(use-package rainbow-delimiters :ensure t :defer t)
 (dolist (hook '(js2-mode-hook js-mode-hook json-mode-hook))
   (add-hook hook 'rainbow-delimiters-mode))
 

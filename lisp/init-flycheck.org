@@ -3,9 +3,7 @@
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  (use-package flycheck :defer t :ensure t)
-
-  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (use-package flycheck :ensure t :init (global-flycheck-mode))
 #+END_SRC
 
 * Install Official recommended flycheck extensions
@@ -24,7 +22,7 @@
 :ID:       11552573-6356-4c9a-84a7-f2fb5666584d
 :END:
 #+BEGIN_SRC emacs-lisp
-  (use-package flycheck-color-mode-line :ensure t)
+  (use-package flycheck-color-mode-line :ensure t :defer t)
   (eval-after-load "flycheck"
     '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
 #+END_SRC
@@ -34,7 +32,7 @@
 :ID:       f7f1c485-0e79-48cd-ae86-652b39889abc
 :END:
 #+BEGIN_SRC emacs-lisp
-  (use-package flycheck-status-emoji :ensure t)
+  (use-package flycheck-status-emoji :ensure t :defer t)
 
   (eval-after-load "flycheck"
     '(add-hook 'flycheck-mode-hook 'flycheck-status-emoji-mode))

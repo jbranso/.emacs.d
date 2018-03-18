@@ -1,8 +1,10 @@
-(org-babel-load-file "~/.emacs.d/lisp/init-gnus-secret.org")
+(require 'gnus)
+;; (setq path  "~/.emacs.d/lisp/init-gnus-secret.org")
 
-(setq
- message-signature
- "<hr>\nJoshua Branson\nWayPoint\nWeb Developer\njbranso.me\nSent From Emacs\nhttps://www.gnu.org/software/emacs/")
+(let ((path "~/.emacs.d/lisp/init-gnus-secret.org"))
+  (when
+      (f-exists? path)
+    (org-babel-load-file path)))
 
 (setq  gnus-summary-line-format "%d %U%R%z%I%(%[%4L: %-23,23f%]%) %s \n")
 
@@ -35,8 +37,28 @@
 (setq gnus-auto-center-summary nil)
 
 (setq gnus-nov-is-evil nil
-      gnus-show-threads nil
+      gnus-show-threads t
       gnus-use-cross-reference nil)
+
+(defun gnus-demon-scan-news ()
+  (interactive)
+  (when gnus-plugged
+    (let ((win (current-window-configuration))
+          (gnus-read-active-file nil)
+          (gnus-check-new-newsgroups nil)
+          (gnus-verbose 2)
+          (gnus-verbose-backends 5))
+      (unwind-protect
+          (save-window-excursion
+            (when (gnus-alive-p)
+              (with-current-buffer gnus-group-buffer
+                (gnus-group-get-new-news gnus-activate-level))))
+        (set-window-configuration win)))))
+
+;;
+;;
+;; (with-eval-after-load 'gnus
+;;   (gnus-demon-add-handler 'gnus-demon-scan-news-2 5 2))
 
 (setq
  mm-verify-option 'known
@@ -50,40 +72,16 @@
  gnus-message-replysign nil
  gnus-message-replyencrypt nil)
 
-(setq spam-blacklist "/home/joshua/.emacs.d/lisp/blacklist"
-      spam-use-blacklist t)
-(spam-initialize)
-
 (use-package nnir)
 
-(setq gnus-select-method
-   '(nnimap "imap.gmail.com"
-	   ;; (nnimap-address "imap.gmail.com")  ; it could also be imap.googlemail.com if that's your server.
-	    (nnimap-server-port "993")
-	    (nnimap-stream ssl)
-        (nnir-search-engine imap)
-        ))
+(setq message-kill-buffer-on-exit t)
 
-;; (require 'init-gnus-secret-smtp)
-;; I am trying to use use-package so that emacs won't start on an error if someone tries to clone
-;; my config
-;; (use-package init-gnus-secret-smtp)
+(gnus-demon-add-handler 'gnus-demon-add-scanmail nil 2)
 
-(require 'smtpmail)
-(setq message-send-mail-function 'smtpmail-send-it
-    smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-    smtpmail-auth-credentials '(("smtp.gmail.com" 587 "jbranso91@gmail.com" nil))
-    smtpmail-default-smtp-server "smtp.gmail.com"
-    smtpmail-smtp-server "smtp.gmail.com"
-    smtpmail-smtp-service 587)
+(gnus-desktop-notify-mode)
+(gnus-demon-add-scanmail)
 
-(setq user-mail-address "jbranso91@gmail.com")
-(setq send-mail-function 'smtpmail-send-it)
-
-(use-package bbdb
-  :ensure t)
-
-(bbdb-initialize 'gnus 'message )
+(use-package bbdb :ensure t)
 
 (require 'bbdb)
 (bbdb-initialize 'gnus 'message)
@@ -115,28 +113,11 @@
 
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
-(setq gnus-posting-styles
-      ;; default posting style
-      '((".*"
-         (signature "Sent from Emacs and Gnus"))
-         ;; My purdue inbox
-        ("Inbox"
-         (signature "Joshua Branson\nPurdue Honors College\nWeb Developer\nSent From Emacs and Gnus")
-         (address "bransoj@hotmail.com"))
-        (".*hotmail.*"
-         (signature "Joshua Branson\nSent From Emacs and Gnus")
-         (address "bransoj@hotmail.com"))))
-
-(add-hook 'kill-emacs-hook #'(lambda ()
-                                 (interactive)
-                                 (when (eq nil (get-buffer "*Group*"))
-                                   (gnus-group-exit))))
-
 ;;(use-package w3m :ensure t)
 ;;(setq mm-text-html-renderer 'w3m)
 (setq mm-text-html-renderer 'shr)
 
-(setq nnmail-expiry-wait 'immediate)
+(setq nnmail-expiry-wait 30)
 
 (setq gnus-treat-hide-boring-headers 'head)
 
@@ -146,11 +127,18 @@
 (setq gnus-treat-display-smileys t)
 (setq gnus-treat-emphasize 'head)
 
-(setq gnus-use-adaptive-scoring t)
+(defun make-gnus-frame ()
+   "Make a gnus frame, and make the title Gnus and show the gnus bitmap image."
+   (interactive)
+   (when window-system
+     (with-selected-frame
+         (make-frame '((name . "Gnus") (title . "Gnus") (icon-type . "/home/joshua/pictures/emacs/gnus.bmp")))
+       (gnus))))
 
-(add-hook 'kill-emacs-hook #'(lambda ()
-                               (interactive)
-                               (when (get-buffer "*Group*")
-                                 (gnus-group-exit))))
+;; (add-hook 'after-init-hook 'make-gnus-frame)
+
+ ;;(select-frame-by-name "Gnus")
+
+(setq gnus-use-adaptive-scoring t)
 
 (provide 'init-gnus)

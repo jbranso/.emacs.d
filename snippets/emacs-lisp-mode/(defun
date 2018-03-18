@@ -1,5 +1,7 @@
-# -*- mode: snippet -*-
-# name: :results verbatim
-# key: :results verbatim
+# key: (defun
+# name: (defun
 # --
-:results verbatim
+(defun $1 ()
+       "${2:Some comment}"
+       (interactive)
+       $0

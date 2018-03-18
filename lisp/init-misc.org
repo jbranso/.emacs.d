@@ -6,8 +6,10 @@
 :PROPERTIES:
 :ID:       487bfa28-7281-49ff-aead-86d2957149de
 :END:
+
 Misc config - yet to be placed in separate files
 make all questions ask you y for yes and n for no
+
 #+BEGIN_SRC emacs-lisp
 (fset 'yes-or-no-p 'y-or-n-p)
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
@@ -18,13 +20,8 @@ oooo zenburn makes emacs look beautiful!
 (use-package zenburn-theme :ensure t)
 #+END_SRC
 
-(org-agenda-list)
-I found this next line from
-http://emacslife.com/baby-steps-org.html#sec-9
-
 #+BEGIN_SRC emacs-lisp
-(find-file-noselect "/home/joshua/programming/org/gtd.org")
-(org-agenda nil "a")
+  (add-hook 'after-init-hook 'org-agenda-list)
 #+END_SRC
 
 ** provide this file
